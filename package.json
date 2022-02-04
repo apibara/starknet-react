@@ -13,7 +13,7 @@
     "lint": "eslint packages --ext .js,.ts,.tsx",
     "types:check": "tsc --skipLibCheck --noEmit",
     "test": "jest",
-    "publish": "yarn build && yarn changeset publish",
+    "release": "yarn build && yarn changeset publish",
     "prepare": "husky install"
   },
   "dependencies": {
