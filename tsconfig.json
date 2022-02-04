@@ -1,0 +1,11 @@
+{
+  "include": ["packages"],
+  "compilerOptions": {
+    "allowJs": false,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "lib": ["dom", "esnext"],
+    "target": "es2018",
+    "moduleResolution": "node"
+  }
+}
