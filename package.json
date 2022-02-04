@@ -28,6 +28,7 @@
     "@parcel/transformer-typescript-types": "^2.2.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/react-hooks": "^7.0.2",
+    "@types/bn.js": "^5.1.0",
     "@types/jest": "^27.4.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
