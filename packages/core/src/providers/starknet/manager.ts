@@ -7,6 +7,7 @@ import { StarknetState } from './model'
 interface StarknetManagerState {
   account?: string
   library: ProviderInterface
+  error?: string
 }
 
 interface SetAccount {
@@ -19,7 +20,12 @@ interface SetProvider {
   provider: ProviderInterface
 }
 
-type Action = SetAccount | SetProvider
+interface SetError {
+  type: 'set_error'
+  error: string
+}
+
+type Action = SetAccount | SetProvider | SetError
 
 function reducer(state: StarknetManagerState, action: Action): StarknetManagerState {
   switch (action.type) {
@@ -28,6 +34,9 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
     }
     case 'set_provider': {
       return { ...state, library: action.provider }
+    }
+    case 'set_error': {
+      return { ...state, error: action.error }
     }
     default: {
       return state
@@ -41,7 +50,7 @@ export function useStarknetManager(): StarknetState {
     library: defaultProvider,
   })
 
-  const { account, library } = state
+  const { account, library, error } = state
 
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -63,9 +72,9 @@ export function useStarknetManager(): StarknetState {
       }
     } catch (err) {
       console.error(err)
-      // TODO: display error message to user
+      dispatch({ type: 'set_error', error: 'could not activate StarkNet' })
     }
   }, [])
 
-  return { account, hasStarknet, connectBrowserWallet, library }
+  return { account, hasStarknet, connectBrowserWallet, library, error }
 }

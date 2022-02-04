@@ -5,6 +5,7 @@ export interface StarknetState {
   hasStarknet: boolean
   connectBrowserWallet: () => void
   library: ProviderInterface
+  error?: string
 }
 
 export const STARKNET_INITIAL_STATE: StarknetState = {
