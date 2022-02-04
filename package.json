@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "workspaces": [
+    "website",
     "packages/*"
   ],
   "scripts": {
     "build": "yarn workspaces run build",
-    "lint": "eslint packages --ext .ts,.tsx",
+    "docs:start": "yarn workspace website run start",
+    "lint": "eslint packages --ext .js,.ts,.tsx",
     "types:check": "tsc --skipLibCheck --noEmit",
     "test": "jest",
     "prepare": "husky install"
@@ -42,7 +44,7 @@
     "typescript": "^4.5.5"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "prettier": {
     "printWidth": 100,
