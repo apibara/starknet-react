@@ -11,7 +11,8 @@ describe('useStarknetBlock', () => {
     )
     const { result, waitForNextUpdate } = renderHook(() => useStarknetBlock(), { wrapper })
     expect(result.current).toBeUndefined()
-    await waitForNextUpdate()
+    // wait up to one minute for a block
+    await waitForNextUpdate({ timeout: 60000 })
     expect(result.current.timestamp).toBeGreaterThan(0)
     expect(result.current.block_hash).not.toBeUndefined()
   })
