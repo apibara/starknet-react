@@ -9,13 +9,16 @@
   "scripts": {
     "lint": "eslint packages --ext .ts,.tsx",
     "types:check": "tsc --skipLibCheck --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
@@ -63,12 +66,6 @@
     "node_modules",
     "dist"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && lint-staged",
-      "pre-push": "yarn types:check && yarn bump:check"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --quiet --fix --cache"
   },
