@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "lib": ["dom", "esnext"],
     "target": "es2018",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   }
 }

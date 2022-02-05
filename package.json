@@ -46,6 +46,7 @@
     "parcel": "^2.2.1",
     "prettier": "^2.5.1",
     "pretty-quick": "^3.1.3",
+    "text-encoding": "^0.7.0",
     "ts-jest": "^27.1.3",
     "typescript": "^4.5.5"
   },
@@ -91,7 +92,10 @@
     ],
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
-    }
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/packages/core/test/jest.setup.js"
+    ]
   },
   "browserslist": "> 0.25%, not dead"
 }
