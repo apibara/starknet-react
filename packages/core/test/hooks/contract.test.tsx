@@ -10,14 +10,16 @@ describe('useContract', () => {
   const wrapper = ({ children }) => <StarknetProvider>{children}</StarknetProvider>
 
   it('returns the connected Contract', async () => {
-    const { result } = renderHook(() => useContract(CounterAbi as Abi[], address), { wrapper })
+    const { result } = renderHook(() => useContract({ abi: CounterAbi as Abi[], address }), {
+      wrapper,
+    })
     expect(result.current).not.toBeUndefined()
-    expect(result.current.connectedTo).toEqual(address)
+    expect(result.current.contract.connectedTo).toEqual(address)
   })
 
   it('updates the Contract if address changes', async () => {
     const { result, rerender } = renderHook(
-      ({ address }) => useContract(CounterAbi as Abi[], address),
+      ({ address }) => useContract({ abi: CounterAbi as Abi[], address }),
       {
         wrapper,
         initialProps: {
@@ -27,12 +29,12 @@ describe('useContract', () => {
       }
     )
 
-    expect(result.current).toBeUndefined()
+    expect(result.current.contract).toBeUndefined()
 
     act(() => {
       rerender({ address, children: undefined })
     })
 
-    expect(result.current).not.toBeUndefined()
+    expect(result.current.contract).toBeDefined()
   })
 })

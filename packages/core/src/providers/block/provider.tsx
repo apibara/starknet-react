@@ -17,12 +17,21 @@ export function StarknetBlockProvider({
   const { library } = useStarknet()
 
   const [block, setBlock] = useState<GetBlockResponse | undefined>(undefined)
+  const [loading, setLoading] = useState<boolean | undefined>(undefined)
+  const [error, setError] = useState<string | undefined>(undefined)
 
   const fetchBlock = useCallback(() => {
     if (library) {
-      library.getBlock().then(setBlock)
+      setLoading(true)
+      library
+        .getBlock()
+        .then(setBlock)
+        .catch(() => {
+          setError('failed fetching block')
+        })
+        .finally(() => setLoading(false))
     }
-  }, [library])
+  }, [library, setLoading, setError, setBlock])
 
   useEffect(() => {
     fetchBlock()
@@ -32,5 +41,9 @@ export function StarknetBlockProvider({
     return () => clearInterval(intervalId)
   }, [fetchBlock, interval])
 
-  return <StarknetBlockContext.Provider value={block}>{children}</StarknetBlockContext.Provider>
+  return (
+    <StarknetBlockContext.Provider value={{ data: block, loading, error }}>
+      {children}
+    </StarknetBlockContext.Provider>
+  )
 }

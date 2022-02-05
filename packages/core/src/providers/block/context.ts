@@ -1,8 +1,14 @@
 import { createContext, useContext } from 'react'
 import { GetBlockResponse } from 'starknet'
 
-export const StarknetBlockContext = createContext<GetBlockResponse | undefined>(undefined)
+export interface StarknetBlock {
+  data?: GetBlockResponse
+  loading?: boolean
+  error?: string
+}
 
-export function useStarknetBlock(): GetBlockResponse | undefined {
+export const StarknetBlockContext = createContext<StarknetBlock>(undefined)
+
+export function useStarknetBlock(): StarknetBlock {
   return useContext(StarknetBlockContext)
 }
