@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.2.0
+
+### Minor Changes
+
+- 0eee611: Add useContract and useStarknetCall hooks
+
 ## 0.1.0
 
 ### Minor Changes
