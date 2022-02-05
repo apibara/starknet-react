@@ -1,5 +1,12 @@
 # @starknet-react/core
 
+## 0.3.0
+
+### Minor Changes
+
+- 0f30559: Change hooks interface
+- eeb9269: Add useStarknetInvoke hook
+
 ## 0.2.0
 
 ### Minor Changes
