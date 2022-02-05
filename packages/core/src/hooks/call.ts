@@ -50,6 +50,12 @@ function starknetCallReducer(state: State, action: Action): State {
   return state
 }
 
+interface UseStarknetCallArgs {
+  contract?: Contract
+  method?: string
+  args?: Args
+}
+
 export interface UseStarknetCall {
   data?: Args
   loading: boolean
@@ -57,17 +63,13 @@ export interface UseStarknetCall {
   refresh: () => void
 }
 
-export function useStarknetCall(
-  contract: Contract | undefined,
-  method: string | undefined,
-  args: Args | undefined
-): UseStarknetCall {
+export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs): UseStarknetCall {
   const [state, dispatch] = useReducer(starknetCallReducer, {
     loading: true,
     lastUpdatedAt: '',
   })
 
-  const block = useStarknetBlock()
+  const { data: block } = useStarknetBlock()
 
   const callContract = useCallback(async () => {
     if (contract && method && args) {

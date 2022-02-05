@@ -16,7 +16,7 @@ describe('useStarknetInvoke', () => {
     )
 
     const { result, waitForValueToChange } = renderHook(
-      () => useStarknetInvoke(contract, 'incrementCounter'),
+      () => useStarknetInvoke({ contract, method: 'incrementCounter' }),
       { wrapper }
     )
 
@@ -28,7 +28,7 @@ describe('useStarknetInvoke', () => {
       result.current.invoke({ amount: '0x1' })
     })
 
-    await waitForValueToChange(() => result.current.data)
+    await waitForValueToChange(() => result.current.data, { timeout: 10000 })
 
     expect(result.current.data.code).toEqual('TRANSACTION_RECEIVED')
     expect(result.current.error).toBeUndefined()

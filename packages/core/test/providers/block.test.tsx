@@ -9,11 +9,15 @@ describe('useStarknetBlock', () => {
         <StarknetBlockProvider>{children}</StarknetBlockProvider>
       </StarknetProvider>
     )
-    const { result, waitForNextUpdate } = renderHook(() => useStarknetBlock(), { wrapper })
-    expect(result.current).toBeUndefined()
-    // wait up to one minute for a block
-    await waitForNextUpdate({ timeout: 60000 })
-    expect(result.current.timestamp).toBeGreaterThan(0)
-    expect(result.current.block_hash).not.toBeUndefined()
+    const { result, waitForValueToChange } = renderHook(() => useStarknetBlock(), { wrapper })
+
+    expect(result.current.data).toBeUndefined()
+    expect(result.current.loading).toBeTruthy()
+
+    await waitForValueToChange(() => result.current.data, { timeout: 10000 })
+
+    expect(result.current.data.timestamp).toBeGreaterThan(0)
+    expect(result.current.data.block_hash).not.toBeUndefined()
+    expect(result.current.loading).toBeFalsy()
   })
 })

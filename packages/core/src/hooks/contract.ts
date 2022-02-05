@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react'
 import { Abi, Contract } from 'starknet'
 import { useStarknet } from '../providers/starknet'
 
-export function useContract(
-  abi: Abi[] | undefined,
-  address: string | undefined
-): Contract | undefined {
+interface UseContractArgs {
+  abi?: Abi[]
+  address?: string
+}
+
+interface UseContract {
+  contract?: Contract
+}
+
+export function useContract({ abi, address }: UseContractArgs): UseContract {
   const [contract, setContract] = useState<Contract | undefined>(undefined)
   const { library } = useStarknet()
 
@@ -15,5 +21,5 @@ export function useContract(
     }
   }, [abi, address, library])
 
-  return contract
+  return { contract }
 }

@@ -57,6 +57,11 @@ function starknetInvokeReducer(state: State, action: Action): State {
   return state
 }
 
+interface UseStarknetInvokeArgs {
+  contract?: Contract
+  method?: string
+}
+
 export interface UseStarknetInvoke {
   data?: Args
   loading: boolean
@@ -65,10 +70,7 @@ export interface UseStarknetInvoke {
   invoke: (args: Args) => Promise<AddTransactionResponse | undefined>
 }
 
-export function useStarknetInvoke(
-  contract: Contract | undefined,
-  method: string | undefined
-): UseStarknetInvoke {
+export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): UseStarknetInvoke {
   const [state, dispatch] = useReducer(starknetInvokeReducer, {
     loading: false,
   })
