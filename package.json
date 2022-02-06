@@ -4,15 +4,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "workspaces": [
-    "website",
-    "packages/*"
+    "packages/*",
+    "website"
   ],
   "scripts": {
     "build": "yarn workspaces run build",
     "docs:start": "yarn workspace website run start",
     "lint": "eslint packages --ext .js,.ts,.tsx",
     "types:check": "tsc --skipLibCheck --noEmit",
-    "test": "jest",
+    "test": "jest --silent",
     "release": "yarn build && yarn changeset publish",
     "prepare": "husky install"
   },
@@ -73,7 +73,14 @@
       }
     },
     "rules": {
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "(^_)|(^tw$)",
+          "argsIgnorePattern": "^_"
+        }
+      ]
     }
   },
   "eslintIgnore": [

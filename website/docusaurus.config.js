@@ -48,6 +48,12 @@ const config = {
             label: 'Documentation',
           },
           {
+            type: 'doc',
+            docId: 'demo',
+            position: 'left',
+            label: 'Demo',
+          },
+          {
             href: 'https://github.com/auclantis/starknet-react',
             label: '@auclantis/starknet-react',
             position: 'right',

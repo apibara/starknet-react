@@ -18,14 +18,12 @@ yarn add @starknet-react/core
 2. Wrap your app with the providers
 
 ```typescript
-import { StarknetProvider, StarknetBlockProvider } from '@starknet-react/core'
+import { StarknetProvider } from '@starknet-react/core'
 
 function App() {
   return (
     <StarknetProvider>
-      <StarknetBlockProvider>
-        <YourApp />
-      </StarknetBlockProvider>
+      <YourApp />
     </StarknetProvider>
   )
 }

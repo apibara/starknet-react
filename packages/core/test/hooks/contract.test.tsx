@@ -13,6 +13,7 @@ describe('useContract', () => {
     const { result } = renderHook(() => useContract({ abi: CounterAbi as Abi[], address }), {
       wrapper,
     })
+
     expect(result.current).not.toBeUndefined()
     expect(result.current.contract.connectedTo).toEqual(address)
   })

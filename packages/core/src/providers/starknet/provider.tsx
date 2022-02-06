@@ -7,7 +7,7 @@ export interface StarknetProviderProps {
   children: React.ReactNode
 }
 
-export function StarknetProvider({ children }: StarknetProviderProps): JSX.Element {
+export function StarknetLibraryProvider({ children }: StarknetProviderProps): JSX.Element {
   const state = useStarknetManager()
   return <StarknetContext.Provider value={state}>{children}</StarknetContext.Provider>
 }
