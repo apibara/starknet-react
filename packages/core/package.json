@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@argent/get-starknet": "^2.1.1",
+    "immutable": "^4.0.0",
     "starknet": "^2.5.1"
   }
 }
