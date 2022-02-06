@@ -1,8 +1,9 @@
 import { useCallback, useReducer } from 'react'
 import { AddTransactionResponse, Args, Contract } from 'starknet'
+import { useStarknetTransactionManager } from '..'
 
 interface State {
-  data?: AddTransactionResponse
+  data?: string
   loading: boolean
   error?: string
 }
@@ -36,7 +37,7 @@ function starknetInvokeReducer(state: State, action: Action): State {
   } else if (action.type === 'set_invoke_response') {
     return {
       ...state,
-      data: action.data,
+      data: action.data.transaction_hash,
       error: undefined,
       loading: false,
     }
@@ -63,14 +64,15 @@ interface UseStarknetInvokeArgs {
 }
 
 export interface UseStarknetInvoke {
-  data?: Args
+  data?: string
   loading: boolean
   error?: string
   reset: () => void
-  invoke: (args: Args) => Promise<AddTransactionResponse | undefined>
+  invoke: ({ args: Args }) => Promise<AddTransactionResponse | undefined>
 }
 
 export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): UseStarknetInvoke {
+  const { addTransaction } = useStarknetTransactionManager()
   const [state, dispatch] = useReducer(starknetInvokeReducer, {
     loading: false,
   })
@@ -80,11 +82,13 @@ export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): 
   }, [dispatch])
 
   const invoke = useCallback(
-    async (args: Args) => {
+    async ({ args }: { args: Args }) => {
       if (contract && method && args) {
         try {
           const response = await contract.invoke(method, args)
           dispatch({ type: 'set_invoke_response', data: response })
+          // start tracking the transaction
+          addTransaction({ status: response.code, transactionHash: response.transaction_hash })
         } catch (err) {
           if (err.message) {
             dispatch({ type: 'set_invoke_error', error: err.message })
@@ -95,7 +99,7 @@ export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): 
       }
       return undefined
     },
-    [contract, method]
+    [contract, method, addTransaction]
   )
 
   return { data: state.data, loading: state.loading, error: state.error, reset, invoke }

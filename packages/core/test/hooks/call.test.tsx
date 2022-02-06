@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, renderHook } from '@testing-library/react-hooks'
 import { Contract } from 'starknet'
-import { useStarknetCall, StarknetProvider, StarknetBlockProvider } from '../../src'
+import { useStarknetCall, StarknetProvider } from '../../src'
 
 import { CounterAbi, COUNTER_ADDRESS } from '../shared/counter'
 
@@ -9,11 +9,7 @@ describe('useStarknetCall', () => {
   const contract = new Contract(CounterAbi, COUNTER_ADDRESS)
 
   it('performs a call to the specified contract and method', async () => {
-    const wrapper = ({ children }) => (
-      <StarknetProvider>
-        <StarknetBlockProvider>{children}</StarknetBlockProvider>
-      </StarknetProvider>
-    )
+    const wrapper = ({ children }) => <StarknetProvider>{children}</StarknetProvider>
 
     const { result, waitForValueToChange } = renderHook(
       () => useStarknetCall({ contract, method: 'counter', args: {} }),

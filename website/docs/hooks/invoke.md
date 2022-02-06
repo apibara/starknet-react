@@ -24,11 +24,11 @@ const { data, loading, error, reset, invoke } = useStarknetInvoke({ contract, me
 ## Return Values
 
 ```typescript
-  data?: Args
+  data?: string
   loading: boolean
   error?: string
   reset: () => void
-  invoke: (args: Args) => Promise<AddTransactionResponse | undefined>
+  invoke: ({ args: Args }) => Promise<AddTransactionResponse | undefined>
 ```
 
-Where `Args` and `AddTransactionResponse` are from starknet.js.
+Where `data` is the transaction hash and `AddTransactionResponse` is from starknet.js.
