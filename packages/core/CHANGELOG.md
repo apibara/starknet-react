@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.0
+
+### Minor Changes
+
+- [#15](https://github.com/auclantis/starknet-react/pull/15) [`18172ea`](https://github.com/auclantis/starknet-react/commit/18172ea070aef7d311a84dcef289a60fb48cdd6a) Thanks [@fracek](https://github.com/fracek)! - Add transaction manager
+
 ## 0.3.0
 
 ### Minor Changes
