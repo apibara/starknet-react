@@ -8,13 +8,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const config = {
   title: 'StarkNet React',
   tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://auclantis.github.io',
+  baseUrl: '/starknet-react/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'auclantis',
   projectName: 'starknet-react',
+  trailingSlash: false,
 
   presets: [
     [
