@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.1
+
+### Patch Changes
+
+- [#19](https://github.com/auclantis/starknet-react/pull/19) [`44ad99d`](https://github.com/auclantis/starknet-react/commit/44ad99dbeb6dd1f07721bd3773480ad7918f9918) Thanks [@fracek](https://github.com/fracek)! - Publish documentation
+
 ## 0.4.0
 
 ### Minor Changes
