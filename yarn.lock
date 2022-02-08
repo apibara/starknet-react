@@ -138,7 +138,7 @@
     "@jridgewell/trace-mapping" "^0.2.2"
     sourcemap-codec "1.4.8"
 
-"@argent/get-starknet@^2.1.1":
+"@argent/get-starknet@^2.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@argent/get-starknet/-/get-starknet-2.1.1.tgz#cc44b02ad11d427d0c6300c3c8e6d8eb9f2366cc"
   integrity sha512-CqW/bXrvcTnLlhCpxc51uhRjVb7UUbUgkckhvIWBG3Ma9wKFWaJyJyZizRjh+I47NL5VL3PpJwzJC1tEKeaZBQ==
@@ -11892,7 +11892,7 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-starknet@^2.5.1:
+starknet@^2.5, starknet@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/starknet/-/starknet-2.5.1.tgz#894074db7882dc171da0db56661a86f71251dec7"
   integrity sha512-OIAhbWStk62ErlWbXesHh3xqtMfrgyu0SLj+uxtIS89xR9gEruJP2WEiEwApWQY58fmjY7At6/zzNuc5Pn8ROA==
