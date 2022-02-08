@@ -16,6 +16,12 @@ slug: /
 yarn add @starknet-react/core
 ```
 
+You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
+
+```
+yarn add @starknet-react/core
+```
+
 2. Wrap your app with `StarknetProvider`
 
 ```typescript
