@@ -100,5 +100,10 @@ export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs)
     }
   }, [block?.block_hash, state.lastUpdatedAt, refresh])
 
+  // always refresh on contract, method, or args change
+  useEffect(() => {
+    refresh()
+  }, [contract, method, args])
+
   return { data: state.data, loading: state.loading, error: state.error, refresh }
 }
