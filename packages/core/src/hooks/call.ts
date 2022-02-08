@@ -75,7 +75,7 @@ export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs)
     if (contract && method && args) {
       return await contract.call(method, args)
     }
-  }, [contract, method, args])
+  }, [contract, method, JSON.stringify(args)])
 
   const refresh = useCallback(() => {
     callContract()
@@ -103,7 +103,7 @@ export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs)
   // always refresh on contract, method, or args change
   useEffect(() => {
     refresh()
-  }, [contract, method, args])
+  }, [contract?.connectedTo, method, JSON.stringify(args)])
 
   return { data: state.data, loading: state.loading, error: state.error, refresh }
 }
