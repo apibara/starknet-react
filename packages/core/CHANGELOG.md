@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.2
+
+### Patch Changes
+
+- [#23](https://github.com/auclantis/starknet-react/pull/23) [`f076dbf`](https://github.com/auclantis/starknet-react/commit/f076dbf043ac4faae89e3d965346a8e9d824de94) Thanks [@fracek](https://github.com/fracek)! - Fix contract call refresh on arguments change
+
 ## 0.4.1
 
 ### Patch Changes
