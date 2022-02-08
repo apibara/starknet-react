@@ -9,6 +9,6 @@ describe('useStarknet', () => {
 
     const { account, hasStarknet } = result.current
     expect(account).toBeUndefined()
-    expect(hasStarknet).toBeFalsy()
+    expect(hasStarknet).toBeTruthy()
   })
 })
