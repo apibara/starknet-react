@@ -17,11 +17,17 @@
 
 ## Documentation
 
-TODO
+Documentation, including a small demo, [is available online](https://auclantis.github.io/starknet-react/).
 
 ## Getting Started
 
 1. Add `@starknet-react/core` to your dependencies.
+
+```
+yarn add @starknet-react/core
+```
+
+You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
 
 ```
 yarn add @starknet-react/core

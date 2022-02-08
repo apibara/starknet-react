@@ -22,5 +22,12 @@
   },
   "dependencies": {
     "immutable": "^4.0.0"
-  }
+  },
+  "repository": "auclantis/starknet-react",
+  "homepage": "https://auclantis.github.io/starknet-react/",
+  "keywords": [
+    "starknet",
+    "ethereum",
+    "l2"
+  ]
 }
