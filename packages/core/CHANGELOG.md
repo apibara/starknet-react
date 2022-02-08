@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.3
+
+### Patch Changes
+
+- [#25](https://github.com/auclantis/starknet-react/pull/25) [`c5ff2d6`](https://github.com/auclantis/starknet-react/commit/c5ff2d60bd57a43fc1462b21d4900d5db2de0a32) Thanks [@fracek](https://github.com/fracek)! - Fix contract call hook making too many requests
+
 ## 0.4.2
 
 ### Patch Changes
