@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.4
+
+### Patch Changes
+
+- [#27](https://github.com/auclantis/starknet-react/pull/27) [`380d4fc`](https://github.com/auclantis/starknet-react/commit/380d4fc7f047a0045e5c1fbe7aaaf84c9e423bbb) Thanks [@fracek](https://github.com/fracek)! - Improve reliability of starknet detection
+
 ## 0.4.3
 
 ### Patch Changes
