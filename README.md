@@ -23,14 +23,14 @@ Documentation, including a small demo, [is available online](https://auclantis.g
 
 1. Add `@starknet-react/core` to your dependencies.
 
-```
+```shell
 yarn add @starknet-react/core
 ```
 
 You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
 
-```
-yarn add @starknet-react/core
+```shell
+yarn add @argent/get-starknet starknet
 ```
 
 2. Wrap your app with `StarknetProvider`
