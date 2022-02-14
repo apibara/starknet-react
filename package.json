@@ -5,15 +5,18 @@
   "license": "MIT",
   "workspaces": [
     "packages/*",
-    "website"
+    "website",
+    "examples/*"
   ],
   "scripts": {
     "build": "yarn workspaces run build",
     "docs:start": "yarn workspace website run start",
-    "lint": "eslint packages --ext .js,.ts,.tsx",
+    "example:next": "yarn workspace starknet-react-next run dev",
+    "lint": "eslint packages examples --ext .js,.ts,.tsx",
     "types:check": "tsc --skipLibCheck --noEmit",
     "test": "jest --silent",
     "release": "yarn build && yarn changeset publish",
+    "postinstall": "yarn run prepare",
     "prepare": "husky install"
   },
   "dependencies": {
