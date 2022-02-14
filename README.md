@@ -59,6 +59,20 @@ function YourComponent() {
 }
 ```
 
+### Getting Started with Next.js
+
+If you plan to use StarkNet React with Next.js, you can use the provided
+template:
+
+```shell
+npx create-next-app@latest --example https://github.com/auclantis/starknet-react/tree/main/examples/starknet-react-next
+```
+
+After the installation is complete:
+
+- Run `yarn run dev` to start the development server.
+- Visit `http://localhost:3000` to view your StarkNet-powered application.
+
 ## License
 
 This library is licensed under the MIT license.
