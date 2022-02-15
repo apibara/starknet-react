@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.5
+
+### Patch Changes
+
+- [#38](https://github.com/auclantis/starknet-react/pull/38) [`a4a0c91`](https://github.com/auclantis/starknet-react/commit/a4a0c9108e455d1b030df712ece5618c65c85b9d) Thanks [@fracek](https://github.com/fracek)! - Fix StarkNet plugin detection
+
 ## 0.4.4
 
 ### Patch Changes
