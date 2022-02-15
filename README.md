@@ -73,6 +73,12 @@ After the installation is complete:
 - Run `yarn run dev` to start the development server.
 - Visit `http://localhost:3000` to view your StarkNet-powered application.
 
+## Projects using StarkNet React
+
+- [Bitmap Box](https://www.bitmapbox.xyz/) - on-chain 2D block-building game.
+
+_Using StarkNet React? Add your project to this list by opening a Pull Request._
+
 ## License
 
 This library is licensed under the MIT license.
