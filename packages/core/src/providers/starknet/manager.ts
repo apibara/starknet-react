@@ -55,8 +55,8 @@ export function useStarknetManager(): StarknetState {
   useEffect(() => {
     if (typeof window !== undefined) {
       // calling getStarknet here makes the detection more reliable
-      getStarknet()
-      if (window.starknet) {
+      const starknet = getStarknet()
+      if (starknet.version !== 'uninstalled') {
         setHasStarknet(true)
       }
     }
