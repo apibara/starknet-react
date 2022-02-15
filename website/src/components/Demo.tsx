@@ -47,6 +47,16 @@ function useCounterContract() {
   return useContract({ abi: CounterAbi as Abi[], address: COUNTER_ADDRESS })
 }
 
+function DemoDetectPlugin() {
+  const { hasStarknet } = useStarknet()
+  return (
+    <Section>
+      <SectionTitle>Detect StarkNet Wallet</SectionTitle>
+      <div>{hasStarknet ? <p>Plugin is installed</p> : <p>Plugin is not installed</p>}</div>
+    </Section>
+  )
+}
+
 function DemoAccount() {
   const { account, connectBrowserWallet, hasStarknet } = useStarknet()
   return (
@@ -180,6 +190,7 @@ function DemoTransactionManager() {
 function DemoInner() {
   return (
     <SectionRoot>
+      <DemoDetectPlugin />
       <DemoAccount />
       <DemoBlock />
       <DemoContractCall />
