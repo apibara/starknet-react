@@ -85,6 +85,7 @@ export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): 
     async ({ args }: { args: Args }) => {
       if (contract && method && args) {
         try {
+          dispatch({ type: 'start_invoke' })
           const response = await contract.invoke(method, args)
           dispatch({ type: 'set_invoke_response', data: response })
           // start tracking the transaction
