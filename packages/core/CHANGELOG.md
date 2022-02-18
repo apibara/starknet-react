@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.4.6
+
+### Patch Changes
+
+- [#40](https://github.com/auclantis/starknet-react/pull/40) [`47bdc79`](https://github.com/auclantis/starknet-react/commit/47bdc79606dd133bdc7d4895594368bbb62aff6f) Thanks [@micksabox](https://github.com/micksabox)! - Fix invoke loading state
+
 ## 0.4.5
 
 ### Patch Changes
