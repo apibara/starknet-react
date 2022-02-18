@@ -24,6 +24,8 @@ describe('useStarknetInvoke', () => {
       result.current.invoke({ args: { amount: '0x1' } })
     })
 
+    expect(result.current.loading).toBeTruthy()
+
     await waitForValueToChange(() => result.current.data, { timeout: 10000 })
 
     expect(result.current.data).toBeDefined()
