@@ -76,6 +76,7 @@ After the installation is complete:
 ## Projects using StarkNet React
 
 - [Bitmap Box](https://www.bitmapbox.xyz/) - on-chain 2D block-building game.
+- [Eykar](https://eykar.org/) - on-chain game of conquest and strategy.
 
 _Using StarkNet React? Add your project to this list by opening a Pull Request._
 
