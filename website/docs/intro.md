@@ -10,16 +10,15 @@ slug: /
 
 ## Getting Started
 
-1. Add `@starknet-react/core` to your dependencies.
+1. Add `@starknet-react/core`, `@argent/get-starknet` and `starknet` to your dependencies.
 
 ```
-yarn add @starknet-react/core
+yarn add @starknet-react/core @argent/get-starknet starknet
 ```
 
-You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
-
+Or with npm:
 ```
-yarn add @starknet-react/core
+npm install @starknet-react/core @argent/get-starknet starknet
 ```
 
 2. Wrap your app with `StarknetProvider`
@@ -36,8 +35,22 @@ function App() {
 }
 ```
 
-3. Access the hooks from your components.
+3. Connect the wallet (needs Argent X StartkNet Wallet extension installed)
+```typescript
+import { useStarknet } from '@starknet-react/core';
 
+function YourComponent() {
+  const { connectBrowserWallet } = useStarknet()
+
+  return (
+   <button onClick={connectBrowserWallet}>
+      Connect Wallet
+   </button>
+  )
+}
+```
+
+4. Retrieve the account address
 ```typescript
 import { useStarknet } from '@starknet-react/core'
 
