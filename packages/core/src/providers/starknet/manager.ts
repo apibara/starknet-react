@@ -1,8 +1,8 @@
-import { getStarknet } from '@argent/get-starknet'
-import { useCallback, useEffect, useReducer, useState } from 'react'
+import { useCallback, useReducer } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
 
 import { StarknetState } from './model'
+import { Connector } from '../../connectors'
 
 interface StarknetManagerState {
   account?: string
@@ -45,32 +45,20 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
 }
 
 export function useStarknetManager(): StarknetState {
-  const [hasStarknet, setHasStarknet] = useState(false)
   const [state, dispatch] = useReducer(reducer, {
     library: defaultProvider,
   })
 
   const { account, library, error } = state
 
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      // calling getStarknet here makes the detection more reliable
-      const starknet = getStarknet()
-      if (starknet.version !== 'uninstalled') {
-        setHasStarknet(true)
-      }
-    }
-  }, [])
-
-  const connectBrowserWallet = useCallback(async () => {
+  const connect = useCallback(async (connector: Connector) => {
     try {
       if (typeof window === undefined) return
       if (window.starknet === undefined) return
       const [account] = await window.starknet.enable()
       dispatch({ type: 'set_account', account })
-      const starknet = getStarknet()
-      if (starknet.signer) {
-        dispatch({ type: 'set_provider', provider: starknet.signer })
+      if (connector.ready) {
+        connector.connect().then((signer) => dispatch({ type: 'set_provider', provider: signer }))
       }
     } catch (err) {
       console.error(err)
@@ -78,5 +66,5 @@ export function useStarknetManager(): StarknetState {
     }
   }, [])
 
-  return { account, hasStarknet, connectBrowserWallet, library, error }
+  return { account, connect, library, error }
 }
