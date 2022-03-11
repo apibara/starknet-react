@@ -3,7 +3,7 @@ import { Abi, Contract } from 'starknet'
 import { useStarknet } from '../providers/starknet'
 
 interface UseContractArgs {
-  abi?: Abi[]
+  abi?: Abi
   address?: string
 }
 

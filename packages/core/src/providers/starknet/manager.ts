@@ -69,8 +69,8 @@ export function useStarknetManager(): StarknetState {
       const [account] = await window.starknet.enable()
       dispatch({ type: 'set_account', account })
       const starknet = getStarknet()
-      if (starknet.signer) {
-        dispatch({ type: 'set_provider', provider: starknet.signer })
+      if (starknet.account) {
+        dispatch({ type: 'set_provider', provider: starknet.account })
       }
     } catch (err) {
       console.error(err)

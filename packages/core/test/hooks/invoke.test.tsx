@@ -21,7 +21,7 @@ describe('useStarknetInvoke', () => {
     expect(result.current.loading).toBeFalsy()
 
     act(() => {
-      result.current.invoke({ args: { amount: '0x1' } })
+      result.current.invoke({ args: ['0x1'] })
     })
 
     expect(result.current.loading).toBeTruthy()

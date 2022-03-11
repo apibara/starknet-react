@@ -13,7 +13,7 @@ export function IncrementCounter() {
 
   return (
     <div>
-      <button onClick={() => invoke({ args: { amount: '0x1' } })}>Increment Counter by 1</button>
+      <button onClick={() => invoke({ args: ['0x1'] })}>Increment Counter by 1</button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from 'react'
-import { AddTransactionResponse, Args, Contract } from 'starknet'
+import { AddTransactionResponse, ContractInterface } from 'starknet'
 import { useStarknetTransactionManager } from '..'
 
 interface State {
@@ -59,19 +59,22 @@ function starknetInvokeReducer(state: State, action: Action): State {
 }
 
 interface UseStarknetInvokeArgs {
-  contract?: Contract
+  contract?: ContractInterface
   method?: string
 }
 
-export interface UseStarknetInvoke {
+export interface UseStarknetInvoke<T extends unknown[]> {
   data?: string
   loading: boolean
   error?: string
   reset: () => void
-  invoke: ({ args: Args }) => Promise<AddTransactionResponse | undefined>
+  invoke: ({ args }: { args: T }) => Promise<AddTransactionResponse | undefined>
 }
 
-export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): UseStarknetInvoke {
+export function useStarknetInvoke<T extends unknown[]>({
+  contract,
+  method,
+}: UseStarknetInvokeArgs): UseStarknetInvoke<T> {
   const { addTransaction } = useStarknetTransactionManager()
   const [state, dispatch] = useReducer(starknetInvokeReducer, {
     loading: false,
@@ -82,7 +85,7 @@ export function useStarknetInvoke({ contract, method }: UseStarknetInvokeArgs): 
   }, [dispatch])
 
   const invoke = useCallback(
-    async ({ args }: { args: Args }) => {
+    async ({ args }: { args: T }) => {
       if (contract && method && args) {
         try {
           dispatch({ type: 'start_invoke' })

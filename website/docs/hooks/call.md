@@ -18,7 +18,7 @@ const { data, loading, error, refresh } = useStarknetCall({ contract, method, ar
 {
   contract?: Contract
   method?: string
-  args?: Args
+  args?: T
 }
 ```
 
@@ -26,7 +26,7 @@ const { data, loading, error, refresh } = useStarknetCall({ contract, method, ar
 
 ```typescript
 {
-  data?: Args
+  data?: Array<any>
   loading: boolean
   error?: string
   refresh: () => void

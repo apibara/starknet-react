@@ -12,7 +12,7 @@ describe('useStarknetCall', () => {
     const wrapper = ({ children }) => <StarknetProvider>{children}</StarknetProvider>
 
     const { result, waitForValueToChange } = renderHook(
-      () => useStarknetCall({ contract, method: 'counter', args: {} }),
+      () => useStarknetCall({ contract, method: 'counter', args: [] }),
       { wrapper }
     )
 
@@ -28,7 +28,7 @@ describe('useStarknetCall', () => {
 
     await waitForValueToChange(() => result.current.data, { timeout: 10000 })
 
-    expect(result.current.data.count).toBeDefined()
+    expect(result.current.data[0]).toBeDefined()
     expect(result.current.error).toBeUndefined()
     expect(result.current.loading).toBeFalsy()
   })
