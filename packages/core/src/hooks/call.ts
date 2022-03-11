@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useReducer } from 'react'
-import { Args, Contract } from 'starknet'
+import { ContractInterface } from 'starknet'
 import { useStarknetBlock } from '../providers/block'
 
 interface State {
-  data?: Args
+  data?: Array<any>
   loading: boolean
   error?: string
   lastUpdatedAt: string
@@ -11,7 +11,7 @@ interface State {
 
 interface SetCallResponse {
   type: 'set_call_response'
-  data: Args
+  data: Array<any>
 }
 
 interface SetCallError {
@@ -50,20 +50,24 @@ function starknetCallReducer(state: State, action: Action): State {
   return state
 }
 
-interface UseStarknetCallArgs {
-  contract?: Contract
+interface UseStarknetCallArgs<T extends unknown[]> {
+  contract?: ContractInterface
   method?: string
-  args?: Args
+  args?: T
 }
 
 export interface UseStarknetCall {
-  data?: Args
+  data?: Array<any>
   loading: boolean
   error?: string
   refresh: () => void
 }
 
-export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs): UseStarknetCall {
+export function useStarknetCall<T extends unknown[]>({
+  contract,
+  method,
+  args,
+}: UseStarknetCallArgs<T>): UseStarknetCall {
   const [state, dispatch] = useReducer(starknetCallReducer, {
     loading: true,
     lastUpdatedAt: '',
@@ -103,7 +107,7 @@ export function useStarknetCall({ contract, method, args }: UseStarknetCallArgs)
   // always refresh on contract, method, or args change
   useEffect(() => {
     refresh()
-  }, [contract?.connectedTo, method, JSON.stringify(args)])
+  }, [contract?.address, method, JSON.stringify(args)])
 
   return { data: state.data, loading: state.loading, error: state.error, refresh }
 }

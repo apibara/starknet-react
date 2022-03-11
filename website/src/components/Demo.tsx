@@ -44,17 +44,7 @@ const Button = styled('button', {
 })
 
 function useCounterContract() {
-  return useContract({ abi: CounterAbi as Abi[], address: COUNTER_ADDRESS })
-}
-
-function DemoDetectPlugin() {
-  const { hasStarknet } = useStarknet()
-  return (
-    <Section>
-      <SectionTitle>Detect StarkNet Wallet</SectionTitle>
-      <div>{hasStarknet ? <p>Plugin is installed</p> : <p>Plugin is not installed</p>}</div>
-    </Section>
-  )
+  return useContract({ abi: CounterAbi as Abi, address: COUNTER_ADDRESS })
 }
 
 function DemoAccount() {
@@ -105,7 +95,7 @@ function DemoContractCall() {
   const { data: counter, error } = useStarknetCall({
     contract,
     method: 'counter',
-    args: {},
+    args: [],
   })
 
   return (
@@ -113,7 +103,7 @@ function DemoContractCall() {
       <SectionTitle>Contract Call</SectionTitle>
       {counter ? (
         <div>
-          <p>Counter Value: {toBN(counter.count as string).toString()}</p>
+          <p>Counter Value: {toBN(counter[0]).toString()}</p>
         </div>
       ) : error ? (
         <p>'Error loading counter'</p>
@@ -126,7 +116,8 @@ function DemoContractCall() {
 
 function DemoContractInvoke() {
   const { contract } = useCounterContract()
-  const { data, loading, error, reset, invoke } = useStarknetInvoke({
+  // Use type parameter to enforce type and number of arguments
+  const { data, loading, error, reset, invoke } = useStarknetInvoke<[string]>({
     contract,
     method: 'incrementCounter',
   })
@@ -146,7 +137,7 @@ function DemoContractInvoke() {
         <p>Error: {error || 'No error'}</p>
       </div>
       <ActionRoot>
-        <Button onClick={() => invoke({ args: { amount: '0x1' } })}>Invoke Method</Button>
+        <Button onClick={() => invoke({ args: ['0x1'] })}>Invoke Method</Button>
         <Button onClick={() => reset()}>Reset State</Button>
       </ActionRoot>
     </Section>
@@ -190,7 +181,6 @@ function DemoTransactionManager() {
 function DemoInner() {
   return (
     <SectionRoot>
-      <DemoDetectPlugin />
       <DemoAccount />
       <DemoBlock />
       <DemoContractCall />

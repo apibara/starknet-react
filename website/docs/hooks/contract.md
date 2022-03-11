@@ -16,7 +16,7 @@ const { contract } = useContract({ abi, address })
 
 ```typescript
 {
-  abi?: Abi[]
+  abi?: Abi
   address?: string
 }
 ```
@@ -27,7 +27,7 @@ Where `Abi` is from starknet.js.
 
 ```typescript
 {
-  contract?: Contract
+  contract?: ContractInterface
 }
 ```
 

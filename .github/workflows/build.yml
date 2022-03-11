@@ -25,6 +25,11 @@ jobs:
       - name: Install dependencies
         if: steps.yarn-cache-dir-path.outputs.cache-hit != 'true'
         run: yarn install
+      - name: Link packages
+        run: |
+          yarn workspace @starknet-react/core link
+          yarn workspace website link @starknet-react/core
+          yarn workspace starknet-react-next link @starknet-react/core
       - name: Run build
         run: yarn build
       - name: Run tests
