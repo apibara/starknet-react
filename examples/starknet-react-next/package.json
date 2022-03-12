@@ -1,7 +1,7 @@
 {
   "name": "starknet-react-next",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@argent/get-starknet": "^3.0",
-    "@starknet-react/core": "^0.4.4",
+    "@starknet-react/core": "^0.5.0",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",

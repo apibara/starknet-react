@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.5.0
+
+### Minor Changes
+
+- [#49](https://github.com/auclantis/starknet-react/pull/49) [`a09a87b`](https://github.com/auclantis/starknet-react/commit/a09a87b87e1afddb23a766a5990903c599b5e603) Thanks [@fracek](https://github.com/fracek)! - Upgrade starknet.js to version 3.x
+
 ## 0.4.6
 
 ### Patch Changes

@@ -18,7 +18,7 @@
     "@docusaurus/core": "2.0.0-beta.15",
     "@docusaurus/preset-classic": "2.0.0-beta.15",
     "@mdx-js/react": "^1.6.21",
-    "@starknet-react/core": "^0.4.6",
+    "@starknet-react/core": "^0.5.0",
     "@stitches/react": "^1.2.6",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.2.1",
