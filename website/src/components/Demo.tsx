@@ -11,6 +11,7 @@ import {
   useStarknetTransactionManager,
   Transaction,
   useStarknet,
+  InjectedConnector,
 } from '@starknet-react/core'
 
 import CounterAbi from '../abi/counter.json'
@@ -48,16 +49,16 @@ function useCounterContract() {
 }
 
 function DemoAccount() {
-  const { account, connectBrowserWallet, hasStarknet } = useStarknet()
+  const { account, connect } = useStarknet()
   return (
     <Section>
       <SectionTitle>Account</SectionTitle>
       <div>
         <p>Connected Account: {account}</p>
       </div>
-      {hasStarknet ? (
+      {InjectedConnector.ready ? (
         <ActionRoot>
-          <Button onClick={connectBrowserWallet}>Connect Argent-X</Button>
+          <Button onClick={() => connect(new InjectedConnector())}>Connect Argent-X</Button>
         </ActionRoot>
       ) : (
         <div>

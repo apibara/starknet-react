@@ -1,8 +1,8 @@
-import { getStarknet } from '@argent/get-starknet'
-import { useCallback, useEffect, useReducer, useState } from 'react'
+import { useCallback, useReducer } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
 
 import { StarknetState } from './model'
+import { Connector } from '../../connectors'
 
 interface StarknetManagerState {
   account?: string
@@ -45,38 +45,24 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
 }
 
 export function useStarknetManager(): StarknetState {
-  const [hasStarknet, setHasStarknet] = useState(false)
   const [state, dispatch] = useReducer(reducer, {
     library: defaultProvider,
   })
 
   const { account, library, error } = state
 
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      // calling getStarknet here makes the detection more reliable
-      const starknet = getStarknet()
-      if (starknet.version !== 'uninstalled') {
-        setHasStarknet(true)
+  const connect = useCallback((connector: Connector) => {
+    connector.connect().then(
+      (account) => {
+        dispatch({ type: 'set_account', account: account.address })
+        dispatch({ type: 'set_provider', provider: account })
+      },
+      (err) => {
+        console.error(err)
+        dispatch({ type: 'set_error', error: 'could not activate StarkNet' })
       }
-    }
+    )
   }, [])
 
-  const connectBrowserWallet = useCallback(async () => {
-    try {
-      if (typeof window === undefined) return
-      if (window.starknet === undefined) return
-      const [account] = await window.starknet.enable()
-      dispatch({ type: 'set_account', account })
-      const starknet = getStarknet()
-      if (starknet.account) {
-        dispatch({ type: 'set_provider', provider: starknet.account })
-      }
-    } catch (err) {
-      console.error(err)
-      dispatch({ type: 'set_error', error: 'could not activate StarkNet' })
-    }
-  }, [])
-
-  return { account, hasStarknet, connectBrowserWallet, library, error }
+  return { account, connect, library, error }
 }

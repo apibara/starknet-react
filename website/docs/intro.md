@@ -17,6 +17,7 @@ yarn add @starknet-react/core @argent/get-starknet starknet
 ```
 
 Or with npm:
+
 ```
 npm install @starknet-react/core @argent/get-starknet starknet
 ```
@@ -36,21 +37,23 @@ function App() {
 ```
 
 3. Connect the wallet (needs Argent X StartkNet Wallet extension installed)
+
 ```typescript
-import { useStarknet } from '@starknet-react/core';
+import { useStarknet, InjectedConnector } from '@starknet-react/core'
 
 function YourComponent() {
-  const { connectBrowserWallet } = useStarknet()
+  const { connect } = useStarknet()
 
-  return (
-   <button onClick={connectBrowserWallet}>
-      Connect Wallet
-   </button>
-  )
+  if (!InjectedConnector.ready) {
+    ;<span>Injected connector not found</span>
+  }
+
+  return <button onClick={connect(new InjectedConnector())}>Connect Wallet</button>
 }
 ```
 
 4. Retrieve the account address
+
 ```typescript
 import { useStarknet } from '@starknet-react/core'
 

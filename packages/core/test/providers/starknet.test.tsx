@@ -7,8 +7,7 @@ describe('useStarknet', () => {
     const wrapper = ({ children }) => <StarknetProvider>{children}</StarknetProvider>
     const { result } = renderHook(() => useStarknet(), { wrapper })
 
-    const { account, hasStarknet } = result.current
+    const { account } = result.current
     expect(account).toBeUndefined()
-    expect(hasStarknet).toBeFalsy()
   })
 })

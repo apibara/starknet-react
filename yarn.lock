@@ -138,11 +138,6 @@
     "@jridgewell/trace-mapping" "^0.2.2"
     sourcemap-codec "1.4.8"
 
-"@argent/get-starknet@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@argent/get-starknet/-/get-starknet-2.1.1.tgz#cc44b02ad11d427d0c6300c3c8e6d8eb9f2366cc"
-  integrity sha512-CqW/bXrvcTnLlhCpxc51uhRjVb7UUbUgkckhvIWBG3Ma9wKFWaJyJyZizRjh+I47NL5VL3PpJwzJC1tEKeaZBQ==
-
 "@argent/get-starknet@^3.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@argent/get-starknet/-/get-starknet-3.0.0.tgz#a1c581b8b3777e7dfb4d8da1a1cbab84dfbf28b1"
