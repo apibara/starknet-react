@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.6.0
+
+### Minor Changes
+
+- [#51](https://github.com/auclantis/starknet-react/pull/51) [`8171dae`](https://github.com/auclantis/starknet-react/commit/8171daecb58fc642627b96772a5c99e6b240d067) Thanks [@tarrencev](https://github.com/tarrencev)! - Modularize connectors
+
 ## 0.5.0
 
 ### Minor Changes
