@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.6.1
+
+### Patch Changes
+
+- [#55](https://github.com/auclantis/starknet-react/pull/55) [`87e41cd`](https://github.com/auclantis/starknet-react/commit/87e41cd5b997052376f5dac6de00498391501a54) Thanks [@fracek](https://github.com/fracek)! - Fix @starknet-react/core peer dependencies
+
 ## 0.6.0
 
 ### Minor Changes
