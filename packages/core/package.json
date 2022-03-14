@@ -16,9 +16,9 @@
     "version": "yarn version"
   },
   "peerDependencies": {
-    "@argent/get-starknet": "^2.1",
+    "@argent/get-starknet": "^3.0",
     "react": "^16.8 || ^17.0",
-    "starknet": "^2.5"
+    "starknet": "^3.5"
   },
   "dependencies": {
     "immutable": "^4.0.0"
