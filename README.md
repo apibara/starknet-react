@@ -77,6 +77,7 @@ After the installation is complete:
 
 - [Bitmap Box](https://www.bitmapbox.xyz/) - on-chain 2D block-building game.
 - [Eykar](https://eykar.org/) - on-chain game of conquest and strategy.
+- [Starknet Name Service](https://github.com/Matchbox-DAO/sns_app) - Starknet-native name registry service.
 
 _Using StarkNet React? Add your project to this list by opening a Pull Request._
 
