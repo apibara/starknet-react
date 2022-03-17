@@ -44,7 +44,7 @@ import { useStarknet, InjectedConnector } from '@starknet-react/core'
 function YourComponent() {
   const { connect } = useStarknet()
 
-  if (!InjectedConnector.ready) {
+  if (!InjectedConnector.ready()) {
     ;<span>Injected connector not found</span>
   }
 
