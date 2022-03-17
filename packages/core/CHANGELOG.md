@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.6.2
+
+### Patch Changes
+
+- [#61](https://github.com/auclantis/starknet-react/pull/61) [`f6bc3e1`](https://github.com/auclantis/starknet-react/commit/f6bc3e104eef2b3ed2a6887204249ef93e1bb725) Thanks [@fracek](https://github.com/fracek)! - Add option to change default provider
+
+* [#61](https://github.com/auclantis/starknet-react/pull/61) [`deb5959`](https://github.com/auclantis/starknet-react/commit/deb5959ac1b1a1814bcd157462993e683dcab0f3) Thanks [@fracek](https://github.com/fracek)! - Fix ConnectorNotFound exception when user has Argent X installed
+
 ## 0.6.1
 
 ### Patch Changes
