@@ -36,7 +36,7 @@ function App() {
 }
 ```
 
-3. Connect the wallet (needs Argent X StartkNet Wallet extension installed)
+3. Connect the wallet (needs Argent X StarkNet Wallet extension installed)
 
 ```typescript
 import { useStarknet, InjectedConnector } from '@starknet-react/core'
@@ -61,6 +61,27 @@ function YourComponent() {
   const { account } = useStarknet()
 
   return <div>gm {account}</div>
+}
+```
+
+## Customizing the default provider
+
+StarkNet React uses the provider provided by Argent X so that users can select
+the current network from a familiar interface. When Argent X is not connected,
+StarkNet React uses a _default provider_. By default, the default provider is
+the same as the default provider provided by starknet.js. Developers can customize
+the default provider as follows:
+
+```typescript
+import { StarknetProvider } from '@starknet-react/core'
+import { Provider } from 'starknet'
+
+function App() {
+  return (
+    <StarknetProvider defaultProvider={new Provider({ baseUrl: 'http://localhost:500' })}>
+      <YourApp />
+    </StarknetProvider>
+  )
 }
 ```
 
