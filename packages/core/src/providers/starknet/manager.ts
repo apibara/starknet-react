@@ -44,9 +44,15 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
   }
 }
 
-export function useStarknetManager(): StarknetState {
+interface UseStarknetManagerProps {
+  defaultProvider?: ProviderInterface
+}
+
+export function useStarknetManager({
+  defaultProvider: userDefaultProvider,
+}: UseStarknetManagerProps): StarknetState {
   const [state, dispatch] = useReducer(reducer, {
-    library: defaultProvider,
+    library: userDefaultProvider ? userDefaultProvider : defaultProvider,
   })
 
   const { account, library, error } = state
