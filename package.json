@@ -9,7 +9,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "yarn workspaces run build",
+    "build": "PARCEL_WORKER_BACKEND=process yarn workspaces run build",
     "docs:start": "yarn workspace website run start",
     "example:next": "yarn workspace starknet-react-next run dev",
     "lint": "eslint packages examples --ext .js,.ts,.tsx",
