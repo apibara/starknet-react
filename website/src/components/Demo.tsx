@@ -56,7 +56,7 @@ function DemoAccount() {
       <div>
         <p>Connected Account: {account}</p>
       </div>
-      {InjectedConnector.ready ? (
+      {InjectedConnector.ready() ? (
         <ActionRoot>
           <Button onClick={() => connect(new InjectedConnector())}>Connect Argent-X</Button>
         </ActionRoot>
