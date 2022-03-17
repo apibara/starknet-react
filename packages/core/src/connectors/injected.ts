@@ -14,41 +14,44 @@ type InjectedConnectorOptions = {
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   readonly id = 'injected'
   readonly name = 'argent'
-  static readonly ready = typeof window != 'undefined' && !!window.starknet
-
-  private starknet = getStarknet()
 
   constructor(options?: InjectedConnectorOptions) {
     super({ options })
   }
 
+  static ready(): boolean {
+    return globalThis['starknet'] !== undefined
+  }
+
   async connect() {
-    if (!InjectedConnector.ready) {
+    const starknet = getStarknet()
+    if (!InjectedConnector.ready()) {
       throw new ConnectorNotFoundError()
     }
 
     try {
-      await this.starknet.enable(this.options)
+      await starknet.enable(this.options)
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()
     }
 
-    if (!this.starknet.isConnected) {
+    if (!starknet.isConnected) {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()
     }
 
-    return this.starknet.account
+    return starknet.account
   }
 
   account() {
-    if (!InjectedConnector.ready) {
+    if (!InjectedConnector.ready()) {
       throw new ConnectorNotFoundError()
     }
 
-    return this.starknet.account
-      ? Promise.resolve(this.starknet.account)
+    const starknet = getStarknet()
+    return starknet.account
+      ? Promise.resolve(starknet.account)
       : Promise.reject(new ConnectorNotConnectedError())
   }
 }
