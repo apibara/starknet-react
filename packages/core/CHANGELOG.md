@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.6.3
+
+### Patch Changes
+
+- [#66](https://github.com/auclantis/starknet-react/pull/66) [`b5bf30f`](https://github.com/auclantis/starknet-react/commit/b5bf30f92ef5c6ea62aebe6e322457de9055c4ef) Thanks [@tarrencev](https://github.com/tarrencev)! - export types
+
 ## 0.6.2
 
 ### Patch Changes
