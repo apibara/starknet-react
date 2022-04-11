@@ -13,10 +13,7 @@ export abstract class Connector<Options = any> {
   }
 
   /** Whether connector is usable */
-  static ready(): boolean {
-    return false
-  }
-
+  abstract ready(): Promise<boolean>
   abstract connect(): Promise<AccountInterface>
   abstract account(): Promise<AccountInterface>
 }

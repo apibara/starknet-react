@@ -19,15 +19,19 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     super({ options })
   }
 
-  static ready(): boolean {
-    return globalThis['starknet'] !== undefined
+  async ready(): Promise<boolean> {
+    if (globalThis['starknet'] === undefined) {
+      throw new ConnectorNotFoundError()
+    }
+
+    const starknet = getStarknet()
+    return starknet.isPreauthorized()
   }
 
   async connect() {
     const starknet = getStarknet()
-    if (!InjectedConnector.ready()) {
-      throw new ConnectorNotFoundError()
-    }
+
+    await this.ready()
 
     try {
       await starknet.enable(this.options)
@@ -44,10 +48,8 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return starknet.account
   }
 
-  account() {
-    if (!InjectedConnector.ready()) {
-      throw new ConnectorNotFoundError()
-    }
+  async account() {
+    await this.ready()
 
     const starknet = getStarknet()
     return starknet.account
