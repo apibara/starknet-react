@@ -12,6 +12,7 @@ import {
   Transaction,
   useStarknet,
   InjectedConnector,
+  ConnectorNotFoundError,
 } from '@starknet-react/core'
 
 import CounterAbi from '../abi/counter.json'
@@ -49,18 +50,26 @@ function useCounterContract() {
 }
 
 function DemoAccount() {
-  const { account, connect } = useStarknet()
+  const { account, connect, connectors, error } = useStarknet()
+
   return (
     <Section>
       <SectionTitle>Account</SectionTitle>
       <div>
         <p>Connected Account: {account}</p>
       </div>
-      {InjectedConnector.ready() ? (
-        <ActionRoot>
-          <Button onClick={() => connect(new InjectedConnector())}>Connect Argent-X</Button>
-        </ActionRoot>
-      ) : (
+      {!account &&
+        !error &&
+        connectors.map((connector) =>
+          connector.available() ? (
+            <ActionRoot>
+              <button key={connector.id} onClick={() => connect(connector)}>
+                Connect {connector.name}
+              </button>
+            </ActionRoot>
+          ) : null
+        )}
+      {error instanceof ConnectorNotFoundError && (
         <div>
           <p>
             <a href="https://github.com/argentlabs/argent-x">Download Argent-X</a>
@@ -192,8 +201,10 @@ function DemoInner() {
 }
 
 export function Demo(): JSX.Element {
+  const connectors = [new InjectedConnector()]
+
   return (
-    <StarknetProvider>
+    <StarknetProvider autoConnect connectors={connectors}>
       <DemoInner />
     </StarknetProvider>
   )

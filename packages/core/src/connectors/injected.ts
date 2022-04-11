@@ -13,14 +13,18 @@ type InjectedConnectorOptions = {
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   readonly id = 'injected'
-  readonly name = 'argent'
+  readonly name = 'ArgentX'
 
   constructor(options?: InjectedConnectorOptions) {
     super({ options })
   }
 
+  available() {
+    return globalThis['starknet'] !== undefined
+  }
+
   async ready(): Promise<boolean> {
-    if (globalThis['starknet'] === undefined) {
+    if (!this.available()) {
       throw new ConnectorNotFoundError()
     }
 
@@ -29,9 +33,11 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async connect() {
-    const starknet = getStarknet()
+    if (!this.available()) {
+      throw new ConnectorNotFoundError()
+    }
 
-    await this.ready()
+    const starknet = getStarknet()
 
     try {
       await starknet.enable(this.options)
@@ -49,7 +55,9 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async account() {
-    await this.ready()
+    if (!this.available()) {
+      throw new ConnectorNotFoundError()
+    }
 
     const starknet = getStarknet()
     return starknet.account
