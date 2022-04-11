@@ -29,7 +29,7 @@ import { StarknetProvider } from '@starknet-react/core'
 
 function App() {
   return (
-    <StarknetProvider>
+    <StarknetProvider connectors={[new InjectedConnector()]}>
       <YourApp />
     </StarknetProvider>
   )
@@ -42,13 +42,19 @@ function App() {
 import { useStarknet, InjectedConnector } from '@starknet-react/core'
 
 function YourComponent() {
-  const { connect } = useStarknet()
-
-  if (!InjectedConnector.ready()) {
-    ;<span>Injected connector not found</span>
-  }
-
-  return <button onClick={connect(new InjectedConnector())}>Connect Wallet</button>
+  const { connect, connectors } = useStarknet()
+  const injected = useMemo(() => new InjectedConnector(), [])
+  return (
+    <div>
+      {connectors.map((connector) =>
+        connector.available() ? (
+          <button key={connector.id} onClick={() => connect(connector)}>
+            Connect {connector.name}
+          </button>
+        ) : null
+      )}
+    </div>
+  )
 }
 ```
 

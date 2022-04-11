@@ -1,13 +1,15 @@
-import { useCallback, useReducer } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
 
 import { StarknetState } from './model'
 import { Connector } from '../../connectors'
+import { ConnectorNotFoundError } from '../../errors'
 
 interface StarknetManagerState {
   account?: string
+  connectors: Connector[]
   library: ProviderInterface
-  error?: string
+  error?: Error
 }
 
 interface SetAccount {
@@ -22,7 +24,7 @@ interface SetProvider {
 
 interface SetError {
   type: 'set_error'
-  error: string
+  error: Error
 }
 
 type Action = SetAccount | SetProvider | SetError
@@ -46,13 +48,18 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
 
 interface UseStarknetManagerProps {
   defaultProvider?: ProviderInterface
+  connectors?: Connector[]
+  autoConnect?: boolean
 }
 
 export function useStarknetManager({
   defaultProvider: userDefaultProvider,
+  connectors,
+  autoConnect,
 }: UseStarknetManagerProps): StarknetState {
   const [state, dispatch] = useReducer(reducer, {
     library: userDefaultProvider ? userDefaultProvider : defaultProvider,
+    connectors,
   })
 
   const { account, library, error } = state
@@ -65,10 +72,37 @@ export function useStarknetManager({
       },
       (err) => {
         console.error(err)
-        dispatch({ type: 'set_error', error: 'could not activate StarkNet' })
+        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
       }
     )
   }, [])
 
-  return { account, connect, library, error }
+  useEffect(() => {
+    async function tryAutoConnect(connectors: Connector[]) {
+      // Autoconnect priority is defined by the order of the connectors.
+      for (let i = 0; i < connectors.length; i++) {
+        try {
+          if (!(await connectors[i].ready())) {
+            // Not already authorized, try next.
+            continue
+          }
+
+          const account = await connectors[i].connect()
+          dispatch({ type: 'set_account', account: account.address })
+          dispatch({ type: 'set_provider', provider: account })
+
+          // Success, stop trying.
+          return
+        } catch {
+          // no-op, we continue trying the next connectors.
+        }
+      }
+    }
+
+    if (autoConnect && !account) {
+      tryAutoConnect(connectors)
+    }
+  }, [account, autoConnect, connectors])
+
+  return { account, connect, connectors, library, error }
 }

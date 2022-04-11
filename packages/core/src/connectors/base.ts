@@ -12,7 +12,10 @@ export abstract class Connector<Options = any> {
     this.options = options
   }
 
-  /** Whether connector is usable */
+  /** Whether connector is available for use */
+  abstract available(): boolean
+
+  /** Whether connector is already authorized */
   abstract ready(): Promise<boolean>
   abstract connect(): Promise<AccountInterface>
   abstract account(): Promise<AccountInterface>
