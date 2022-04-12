@@ -1,5 +1,12 @@
 # starknet-react-next
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`ec3999a`](https://github.com/auclantis/starknet-react/commit/ec3999a2f50a788485d1453aa955a5a15c582298)]:
+  - @starknet-react/core@0.7.0
+
 ## 0.0.2
 
 ### Patch Changes
