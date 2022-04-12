@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.7.0
+
+### Minor Changes
+
+- [#71](https://github.com/auclantis/starknet-react/pull/71) [`ec3999a`](https://github.com/auclantis/starknet-react/commit/ec3999a2f50a788485d1453aa955a5a15c582298) Thanks [@tarrencev](https://github.com/tarrencev)! - Support for autoconnect
+
 ## 0.6.3
 
 ### Patch Changes
