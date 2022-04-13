@@ -20,7 +20,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   available() {
-    return globalThis['starknet'] !== undefined
+    return getStarknet() !== undefined
   }
 
   async ready(): Promise<boolean> {
