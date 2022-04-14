@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.7.1
+
+### Patch Changes
+
+- [#73](https://github.com/auclantis/starknet-react/pull/73) [`05096a9`](https://github.com/auclantis/starknet-react/commit/05096a9ac50262f526045bc1207dd4eaa797b877) Thanks [@fracek](https://github.com/fracek)! - Fix auto connect in production builds
+
 ## 0.7.0
 
 ### Minor Changes
