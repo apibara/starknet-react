@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from 'react'
-import { AddTransactionResponse, ContractInterface } from 'starknet'
+import { AddTransactionResponse, ContractInterface, Overrides } from 'starknet'
 import { useStarknetTransactionManager } from '..'
 
 interface State {
@@ -85,11 +85,11 @@ export function useStarknetInvoke<T extends unknown[]>({
   }, [dispatch])
 
   const invoke = useCallback(
-    async ({ args }: { args: T }) => {
+    async ({ args, opts }: { args: T, opts?: Overrides }) => {
       if (contract && method && args) {
         try {
           dispatch({ type: 'start_invoke' })
-          const response = await contract.invoke(method, args)
+          const response = await contract.invoke(method, args, opts)
           dispatch({ type: 'set_invoke_response', data: response })
           // start tracking the transaction
           addTransaction({ status: response.code, transactionHash: response.transaction_hash })
