@@ -28,7 +28,7 @@ const { data, loading, error, reset, invoke } = useStarknetInvoke({ contract, me
   loading: boolean
   error?: string
   reset: () => void
-  invoke: ({ args }: { args: T }) => Promise<AddTransactionResponse | undefined>
+  invoke: ({ args, overrides, metadata }: InvokeArgs<T>) => Promise<AddTransactionResponse | undefined>
 ```
 
 Where `data` is the transaction hash and `AddTransactionResponse` is from starknet.js.
