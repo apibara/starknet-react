@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { styled } from '@stitches/react'
 import { Abi } from 'starknet'
 import { toBN } from 'starknet/utils/number'
@@ -201,7 +201,7 @@ function DemoInner() {
 }
 
 export function Demo(): JSX.Element {
-  const connectors = [new InjectedConnector()]
+  const connectors = useMemo(() => [new InjectedConnector()], [])
 
   return (
     <StarknetProvider autoConnect connectors={connectors}>
