@@ -27,10 +27,10 @@ Documentation, including a small demo, [is available online](https://auclantis.g
 yarn add @starknet-react/core
 ```
 
-You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
+You also need to add `get-starknet-wallet` and `starknet` to your dependencies.
 
 ```shell
-yarn add @argent/get-starknet starknet
+yarn add get-starknet-wallet starknet
 ```
 
 2. Wrap your app with `StarknetProvider`

@@ -10,16 +10,16 @@ slug: /
 
 ## Getting Started
 
-1. Add `@starknet-react/core`, `@argent/get-starknet` and `starknet` to your dependencies.
+1. Add `@starknet-react/core`, `get-starknet-wallet` and `starknet` to your dependencies.
 
 ```
-yarn add @starknet-react/core @argent/get-starknet starknet
+yarn add @starknet-react/core get-starknet-wallet starknet
 ```
 
 Or with npm:
 
 ```
-npm install @starknet-react/core @argent/get-starknet starknet
+npm install @starknet-react/core get-starknet-wallet starknet
 ```
 
 2. Wrap your app with `StarknetProvider`
@@ -36,7 +36,7 @@ function App() {
 }
 ```
 
-3. Connect the wallet (needs Argent X StarkNet Wallet extension installed)
+3. Connect the wallet (needs `get-starknet-wallet`-compatible StarkNet Wallet extension installed)
 
 ```typescript
 import { useStarknet, InjectedConnector } from '@starknet-react/core'
@@ -72,8 +72,8 @@ function YourComponent() {
 
 ## Customizing the default provider
 
-StarkNet React uses the provider provided by Argent X so that users can select
-the current network from a familiar interface. When Argent X is not connected,
+StarkNet React uses the provider provided by `get-starknet-wallet`'s chosen wallet so that users can select
+the current network from a familiar interface. When StarkNet wallet is not connected,
 StarkNet React uses a _default provider_. By default, the default provider is
 the same as the default provider provided by starknet.js. Developers can customize
 the default provider as follows:

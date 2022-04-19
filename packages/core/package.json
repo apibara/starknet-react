@@ -16,11 +16,11 @@
     "version": "yarn version"
   },
   "peerDependencies": {
-    "@argent/get-starknet": "^3.0",
     "react": "^16.8 || ^17.0",
     "starknet": "^3.5"
   },
   "dependencies": {
+    "get-starknet-wallet": "^0.0.5",
     "immutable": "^4.0.0"
   },
   "repository": "auclantis/starknet-react",
