@@ -2,9 +2,9 @@ import { AccountInterface } from 'starknet'
 
 export abstract class Connector<Options = any> {
   /** Unique connector id */
-  abstract readonly id: string
+  abstract id: string
   /** Connector name */
-  abstract readonly name: string
+  abstract name: string
   /** Options to use with connector */
   readonly options: Options
 

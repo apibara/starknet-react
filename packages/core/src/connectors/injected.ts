@@ -1,4 +1,4 @@
-import { getStarknet } from '@argent/get-starknet'
+import { getStarknet } from 'get-starknet-wallet'
 
 import { Connector } from './index'
 import {
@@ -12,8 +12,8 @@ type InjectedConnectorOptions = {
 }
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
-  readonly id = 'injected'
-  readonly name = 'ArgentX'
+  id = 'injected'
+  name = 'StarkNet wallet'
 
   constructor(options?: InjectedConnectorOptions) {
     super({ options })
@@ -49,6 +49,13 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     if (!starknet.isConnected) {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()
+    }
+
+    if (starknet.name) {
+      this.name = starknet.name
+    }
+    if (starknet.id) {
+      this.id = starknet.id
     }
 
     return starknet.account
