@@ -12,7 +12,6 @@ import {
   Transaction,
   useStarknet,
   InjectedConnector,
-  ConnectorNotFoundError,
 } from '@starknet-react/core'
 
 import CounterAbi from '../abi/counter.json'
@@ -69,11 +68,9 @@ function DemoAccount() {
             </ActionRoot>
           ) : null
         )}
-      {error instanceof ConnectorNotFoundError && (
+      {error && (
         <div>
-          <p>
-            <a href="https://github.com/argentlabs/argent-x">Download Argent-X</a>
-          </p>
+          <p>{error}</p>
         </div>
       )}
     </Section>
