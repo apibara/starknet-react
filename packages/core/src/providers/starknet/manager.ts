@@ -102,7 +102,10 @@ export function useStarknetManager({
     if (autoConnect && !account) {
       tryAutoConnect(connectors)
     }
-  }, [account, autoConnect, connectors])
+    // Dependencies intentionally omitted since we only want
+    // this executed once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return { account, connect, connectors, library, error }
 }
