@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.7.2
+
+### Patch Changes
+
+- [#78](https://github.com/apibara/starknet-react/pull/78) [`a1a7a50`](https://github.com/apibara/starknet-react/commit/a1a7a509688d3a4e8f7eaf96892fb2fbb3f4ae89) Thanks [@tarrencev](https://github.com/tarrencev)! - ensure autoconnect executes once
+
 ## 0.7.1
 
 ### Patch Changes
