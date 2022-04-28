@@ -18,5 +18,6 @@ export abstract class Connector<Options = any> {
   /** Whether connector is already authorized */
   abstract ready(): Promise<boolean>
   abstract connect(): Promise<AccountInterface>
+  abstract disconnect(): Promise<void>
   abstract account(): Promise<AccountInterface>
 }

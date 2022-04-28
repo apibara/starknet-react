@@ -77,6 +77,19 @@ export function useStarknetManager({
     )
   }, [])
 
+  const disconnect = useCallback((connector: Connector) => {
+    connector.disconnect().then(
+      () => {
+        dispatch({ type: 'set_account', account: undefined })
+        dispatch({ type: 'set_provider', provider: undefined })
+      },
+      (err) => {
+        console.error(err)
+        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
+      }
+    )
+  }, [])
+
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
       // Autoconnect priority is defined by the order of the connectors.
@@ -107,5 +120,5 @@ export function useStarknetManager({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { account, connect, connectors, library, error }
+  return { account, connect, disconnect, connectors, library, error }
 }
