@@ -17,3 +17,8 @@ export class UserRejectedRequestError extends Error {
   name = 'UserRejectedRequestError'
   message = 'User rejected request'
 }
+
+export class UserNotConnectedError extends Error {
+  name = 'UserNotConnectedError'
+  message = 'User not connected'
+}

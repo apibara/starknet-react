@@ -4,6 +4,7 @@ import { Connector } from './index'
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
+  UserNotConnectedError,
   UserRejectedRequestError,
 } from '../errors'
 
@@ -52,6 +53,20 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     }
 
     return starknet.account
+  }
+
+  async disconnect(): Promise<void> {
+    if (!this.available()) {
+      throw new ConnectorNotFoundError()
+    }
+
+    const starknet = getStarknet()
+
+    if (!starknet.isConnected) {
+      throw new UserNotConnectedError()
+    }
+
+    starknet.off('accountsChanged', () => {})
   }
 
   async account() {
