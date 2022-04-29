@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.8.0
+
+### Minor Changes
+
+- [#84](https://github.com/apibara/starknet-react/pull/84) [`d9a322d`](https://github.com/apibara/starknet-react/commit/d9a322d360e1213a5b02917c6a2cda56a59cbbe7) Thanks [@rootulp](https://github.com/rootulp)! - Add support for disconnect
+
 ## 0.7.2
 
 ### Patch Changes
