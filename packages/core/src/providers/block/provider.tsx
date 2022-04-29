@@ -22,10 +22,27 @@ export function StarknetBlockProvider({
 
   const fetchBlock = useCallback(() => {
     if (library) {
-      setLoading(true)
       library
         .getBlock()
-        .then(setBlock)
+        .then((newBlock) => {
+          setBlock((oldBlock) => {
+            // The new block is a different object from the old one
+            // so simply updating the value of block would cause the state
+            // to change and trigger a re-render.
+            // This is especially bad because the block is used to trigger
+            // state updates downstream.
+            // Compare the new and old block hashes and update only if
+            // they changed. Notice we use hashes and not block numbers
+            // because we want to update the block in case of rollbacks.
+            if (oldBlock?.block_hash === newBlock.block_hash) {
+              return oldBlock
+            }
+
+            // Reset error and return new block.
+            setError(undefined)
+            return newBlock
+          })
+        })
         .catch(() => {
           setError('failed fetching block')
         })
@@ -34,10 +51,16 @@ export function StarknetBlockProvider({
   }, [library, setLoading, setError, setBlock])
 
   useEffect(() => {
+    // Set to loading on first load
+    setLoading(true)
+
+    // Fetch block immediately
     fetchBlock()
+
     const intervalId = setInterval(() => {
       fetchBlock()
     }, interval ?? 5000)
+
     return () => clearInterval(intervalId)
   }, [fetchBlock, interval])
 
