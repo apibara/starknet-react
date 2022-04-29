@@ -8,12 +8,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const config = {
   title: 'StarkNet React',
   tagline: 'Dinosaurs are cool',
-  url: 'https://auclantis.github.io',
+  url: 'https://apibara.github.io',
   baseUrl: '/starknet-react/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'auclantis',
+  organizationName: 'apibara',
   projectName: 'starknet-react',
   trailingSlash: false,
 
@@ -26,7 +26,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl: 'https://github.com/auclantis/starknet-react/tree/main/website/',
+          editUrl: 'https://github.com/apibara/starknet-react/tree/main/website/',
         },
         blog: false,
         theme: {
@@ -55,15 +55,15 @@ const config = {
             label: 'Demo',
           },
           {
-            href: 'https://github.com/auclantis/starknet-react',
-            label: '@auclantis/starknet-react',
+            href: 'https://github.com/apibara/starknet-react',
+            label: '@apibara/starknet-react',
             position: 'right',
           },
         ],
       },
       footer: {
         style: 'light',
-        copyright: `Copyright © ${new Date().getFullYear()} Auclantis and the StarkNet React contributors.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Apibara and the StarkNet React contributors.`,
       },
       prism: {
         theme: lightCodeTheme,

@@ -9,7 +9,7 @@ Hook to access the current instance of the underlying StarkNet library.
 ```typescript
 import { useStarknet } from '@starknet-react/core'
 
-const { account, connect, library, error } = useStarknet()
+const { account, connect, disconnect, library, error } = useStarknet()
 ```
 
 ## Return Values
@@ -18,6 +18,7 @@ const { account, connect, library, error } = useStarknet()
 {
   account?: string
   connect: (Connector) => Promise<void>
+  disconnect: (Connector) => Promise<void>
   library: ProviderInterface
   error?: string
 }
