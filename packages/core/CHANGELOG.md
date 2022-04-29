@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.8.1
+
+### Patch Changes
+
+- [#88](https://github.com/apibara/starknet-react/pull/88) [`e08bcec`](https://github.com/apibara/starknet-react/commit/e08bcec309c1ce33ca99a3d3b2a7ec65f8cb8120) Thanks [@fracek](https://github.com/fracek)! - Reduce number of rerenders caused by state updates
+
 ## 0.8.0
 
 ### Minor Changes
