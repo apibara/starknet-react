@@ -25,7 +25,7 @@ npm install @starknet-react/core @argent/get-starknet starknet
 2. Wrap your app with `StarknetProvider`
 
 ```typescript
-import { StarknetProvider } from '@starknet-react/core'
+import { StarknetProvider, InjectedConnector } from '@starknet-react/core'
 
 function App() {
   return (
