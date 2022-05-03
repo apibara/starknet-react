@@ -53,13 +53,14 @@ export function transactionManagerReducer(
       return state
     }
 
-    const [transactionIndex, _oldTransaction] = entry
+    const [transactionIndex, oldTransaction] = entry
 
     const newTransaction: Transaction = {
       status: action.transactionResponse.status,
       transaction: action.transactionResponse.transaction,
       transactionHash: action.transactionResponse.transaction['transaction_hash'],
       lastUpdatedAt: action.lastUpdatedAt,
+      metadata: oldTransaction.metadata,
     }
 
     return {

@@ -4,6 +4,7 @@ export interface TransactionSubmitted {
   status: TransactionStatus
   transactionHash: string
   address?: string
+  metadata?: any
 }
 
 export interface TransactionReceived {
@@ -11,6 +12,7 @@ export interface TransactionReceived {
   transaction: StarknetTransaction
   transactionHash: string
   lastUpdatedAt: number
+  metadata?: any
 }
 
 export type Transaction = TransactionSubmitted | TransactionReceived
