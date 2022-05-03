@@ -4,11 +4,11 @@
   <a href="https://www.npmjs.com/package/@starknet-react/core">
     <img alt="@starknet-react/core" src="https://img.shields.io/npm/v/@starknet-react/core">
   </a>
-  <a href="https://github.com/auclantis/starknet-react/actions/workflows/release.yml">
-    <img alt="Release Status" src="https://img.shields.io/github/workflow/status/auclantis/starknet-react/Release">
+  <a href="https://github.com/apibara/starknet-react/actions/workflows/release.yml">
+    <img alt="Release Status" src="https://img.shields.io/github/workflow/status/apibara/starknet-react/Release">
   </a>
-  <a href="https://www.github.com/auclantis/starknet-react">
-    <img alt="MIT LICENSE" src="https://img.shields.io/github/license/auclantis/starknet-react">
+  <a href="https://www.github.com/apibara/starknet-react">
+    <img alt="MIT LICENSE" src="https://img.shields.io/github/license/apibara/starknet-react">
   </a>
 </p>
 
@@ -17,7 +17,7 @@
 
 ## Documentation
 
-Documentation, including a small demo, [is available online](https://auclantis.github.io/starknet-react/).
+Documentation, including a small demo, [is available online](https://apibara.github.io/starknet-react/).
 
 ## Getting Started
 
@@ -65,7 +65,7 @@ If you plan to use StarkNet React with Next.js, you can use the provided
 template:
 
 ```shell
-npx create-next-app@latest --example https://github.com/auclantis/starknet-react/tree/main/examples/starknet-react-next
+npx create-next-app@latest --example https://github.com/apibara/starknet-react/tree/main/examples/starknet-react-next
 ```
 
 After the installation is complete:

@@ -94,7 +94,7 @@ function App() {
 ## Support and Feedback
 
 If you need help or you want to provide feedback, [create an issue or start a discussion
-on GitHub](https://github.com/auclantis/starknet-react).
+on GitHub](https://github.com/apibara/starknet-react).
 
 ## License
 
