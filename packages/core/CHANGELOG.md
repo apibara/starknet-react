@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.9.0
+
+### Minor Changes
+
+- [#99](https://github.com/apibara/starknet-react/pull/99) [`41af1fb`](https://github.com/apibara/starknet-react/commit/41af1fb8ee9373789fe398c8b671d0ee0ec3c3a7) Thanks [@fracek](https://github.com/fracek)! - Add metadata to transaction
+
 ## 0.8.1
 
 ### Patch Changes
