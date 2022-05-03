@@ -1,5 +1,12 @@
 # starknet-react-next
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`41af1fb`](https://github.com/apibara/starknet-react/commit/41af1fb8ee9373789fe398c8b671d0ee0ec3c3a7)]:
+  - @starknet-react/core@0.9.0
+
 ## 0.1.0
 
 ### Minor Changes
