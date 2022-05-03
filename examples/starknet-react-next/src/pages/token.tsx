@@ -65,8 +65,9 @@ function MintToken() {
   const onMint = useCallback(() => {
     reset()
     if (account && !amountError) {
+      const message = `${amount.toString()} tokens to ${account}`
       const amountBn = bnToUint256(amount)
-      invoke({ args: [account, amountBn] })
+      invoke({ args: [account, amountBn], metadata: { method: 'mint', message } })
     }
   }, [account, amount])
 

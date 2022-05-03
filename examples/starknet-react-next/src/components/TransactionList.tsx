@@ -4,7 +4,9 @@ import React from 'react'
 function TransactionItem({ transaction }: { transaction: Transaction }) {
   return (
     <span>
-      {transaction.transactionHash} - {transaction.status}
+      <a href={`https://goerli.voyager.online/tx/${transaction.transactionHash}`}>
+        {transaction.metadata.method}: {transaction.metadata.message} - {transaction.status}
+      </a>
     </span>
   )
 }

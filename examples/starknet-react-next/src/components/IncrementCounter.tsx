@@ -13,7 +13,16 @@ export function IncrementCounter() {
 
   return (
     <div>
-      <button onClick={() => invoke({ args: ['0x1'] })}>Increment Counter by 1</button>
+      <button
+        onClick={() =>
+          invoke({
+            args: ['0x1'],
+            metadata: { method: 'incrementCounter', message: 'increment counter by 1' },
+          })
+        }
+      >
+        Increment Counter by 1
+      </button>
     </div>
   )
 }

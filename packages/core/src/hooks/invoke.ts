@@ -63,12 +63,17 @@ interface UseStarknetInvokeArgs {
   method?: string
 }
 
+export interface InvokeArgs<T extends unknown[]> {
+  args: T
+  metadata?: any
+}
+
 export interface UseStarknetInvoke<T extends unknown[]> {
   data?: string
   loading: boolean
   error?: string
   reset: () => void
-  invoke: ({ args }: { args: T }) => Promise<AddTransactionResponse | undefined>
+  invoke: ({ args, metadata }: InvokeArgs<T>) => Promise<AddTransactionResponse | undefined>
 }
 
 export function useStarknetInvoke<T extends unknown[]>({
@@ -85,14 +90,18 @@ export function useStarknetInvoke<T extends unknown[]>({
   }, [dispatch])
 
   const invoke = useCallback(
-    async ({ args }: { args: T }) => {
+    async ({ args, metadata }: InvokeArgs<T>) => {
       if (contract && method && args) {
         try {
           dispatch({ type: 'start_invoke' })
           const response = await contract.invoke(method, args)
           dispatch({ type: 'set_invoke_response', data: response })
           // start tracking the transaction
-          addTransaction({ status: response.code, transactionHash: response.transaction_hash })
+          addTransaction({
+            status: response.code,
+            transactionHash: response.transaction_hash,
+            metadata,
+          })
         } catch (err) {
           if (err.message) {
             dispatch({ type: 'set_invoke_error', error: err.message })
