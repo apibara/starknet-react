@@ -79,6 +79,7 @@ export function useStarknetCall<T extends unknown[]>({
     if (contract && method && args) {
       return await contract.call(method, args)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract, method, JSON.stringify(args)])
 
   const refresh = useCallback(() => {
@@ -107,6 +108,7 @@ export function useStarknetCall<T extends unknown[]>({
   // always refresh on contract, method, or args change
   useEffect(() => {
     refresh()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract?.address, method, JSON.stringify(args)])
 
   return { data: state.data, loading: state.loading, error: state.error, refresh }

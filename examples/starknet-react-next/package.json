@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@argent/get-starknet": "^3.0",
+    "get-starknet": "^1.4",
     "@starknet-react/core": "^0.9.0",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "starknet": "^3.5"
+    "starknet": "^3.10"
   },
   "devDependencies": {
     "@types/node": "17.0.17",

@@ -3,7 +3,7 @@ import NextHead from 'next/head'
 import { InjectedConnector, StarknetProvider } from '@starknet-react/core'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const connectors = [new InjectedConnector()]
+  const connectors = [new InjectedConnector({ showModal: true })]
 
   return (
     <StarknetProvider autoConnect connectors={connectors}>

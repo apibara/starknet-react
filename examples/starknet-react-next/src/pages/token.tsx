@@ -69,7 +69,7 @@ function MintToken() {
       const amountBn = bnToUint256(amount)
       invoke({ args: [account, amountBn], metadata: { method: 'mint', message } })
     }
-  }, [account, amount])
+  }, [account, amount, amountError, invoke, reset])
 
   const mintButtonDisabled = useMemo(() => {
     if (loading) return true
