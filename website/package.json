@@ -21,10 +21,11 @@
     "@starknet-react/core": "link:../packages/core",
     "@stitches/react": "^1.2.6",
     "clsx": "^1.1.1",
+    "get-starknet": "^1.4",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "starknet": "^2.5.1"
+    "starknet": "^3.10"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.15",

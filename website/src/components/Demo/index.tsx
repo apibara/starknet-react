@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { styled } from '@stitches/react'
 import { Abi } from 'starknet'
 import { toBN } from 'starknet/utils/number'
@@ -15,7 +15,7 @@ import {
   ConnectorNotFoundError,
 } from '@starknet-react/core'
 
-import CounterAbi from '../abi/counter.json'
+import CounterAbi from '../../abi/counter.json'
 
 export const COUNTER_ADDRESS = '0x036486801b8f42e950824cba55b2df8cccb0af2497992f807a7e1d9abd2c6ba1'
 
@@ -62,7 +62,7 @@ function DemoAccount() {
         !error &&
         connectors.map((connector) =>
           connector.available() ? (
-            <ActionRoot>
+            <ActionRoot key={connector.id}>
               <button key={connector.id} onClick={() => connect(connector)}>
                 Connect {connector.name}
               </button>
@@ -83,13 +83,24 @@ function DemoAccount() {
 function DemoBlock() {
   const { data: block, error } = useStarknetBlock()
 
+  const timestamp = useMemo(() => {
+    if (!block?.timestamp) {
+      return ''
+    }
+
+    // block.timestamp is supposed to be a number, but it's
+    // a bigint. Convert back to number.
+    const timestamp = Number(block.timestamp)
+    return new Date(timestamp * 1000).toLocaleString()
+  }, [block?.timestamp])
+
   return (
     <Section>
       <SectionTitle>Block Data</SectionTitle>
       {block ? (
         <div>
           <p>Block Hash: {block.block_hash}</p>
-          <p>Block Timestamp: {new Date(block.timestamp * 1000).toLocaleString()}</p>
+          <p>Block Timestamp: {timestamp}</p>
         </div>
       ) : error ? (
         <p>'Error loading block data'</p>
@@ -201,7 +212,7 @@ function DemoInner() {
 }
 
 export function Demo(): JSX.Element {
-  const connectors = [new InjectedConnector()]
+  const connectors = [new InjectedConnector({ showModal: true })]
 
   return (
     <StarknetProvider autoConnect connectors={connectors}>
