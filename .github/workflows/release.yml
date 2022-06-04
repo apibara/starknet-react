@@ -11,19 +11,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set Node version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.1.7
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
-          publish: yarn run release
+          publish: pnpm run release
           commit: 'chore: version bump'
           title: 'chore: version bump'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Build documentation
-        run: yarn build
+        run: pnpm build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

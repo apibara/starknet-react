@@ -18,3 +18,5 @@ dist
 .cache-loader
 .eslintcache
 .next
+.turbo
+.pnpm-debug.log

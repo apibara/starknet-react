@@ -65,6 +65,7 @@ interface UseStarknetInvokeArgs {
 
 export interface InvokeArgs<T extends unknown[]> {
   args: T
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any
 }
 
@@ -103,11 +104,8 @@ export function useStarknetInvoke<T extends unknown[]>({
             metadata,
           })
         } catch (err) {
-          if (err.message) {
-            dispatch({ type: 'set_invoke_error', error: err.message })
-          } else {
-            dispatch({ type: 'set_invoke_error', error: 'invoke failed' })
-          }
+          const message = err instanceof Error ? err.message : String(err)
+          dispatch({ type: 'set_invoke_error', error: message })
         }
       }
       return undefined

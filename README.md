@@ -24,13 +24,13 @@ Documentation, including a small demo, [is available online](https://apibara.git
 1. Add `@starknet-react/core` to your dependencies.
 
 ```shell
-yarn add @starknet-react/core
+pnpm add @starknet-react/core
 ```
 
-You also need to add `@argent/get-starknet` and `starknet` to your dependencies.
+You also need to add `get-starknet` and `starknet` to your dependencies.
 
 ```shell
-yarn add @argent/get-starknet starknet
+pnpm add get-starknet starknet
 ```
 
 2. Wrap your app with `StarknetProvider`
@@ -70,7 +70,7 @@ npx create-next-app@latest --example https://github.com/apibara/starknet-react/t
 
 After the installation is complete:
 
-- Run `yarn run dev` to start the development server.
+- Run `pnpm run dev` to start the development server.
 - Visit `http://localhost:3000` to view your StarkNet-powered application.
 
 ## Projects using StarkNet React

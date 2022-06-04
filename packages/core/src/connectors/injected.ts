@@ -16,7 +16,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   readonly id = 'injected'
   readonly name = 'ArgentX'
 
-  constructor(options?: InjectedConnectorOptions) {
+  constructor(options: InjectedConnectorOptions = {}) {
     super({ options })
   }
 
@@ -66,7 +66,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
       throw new UserNotConnectedError()
     }
 
-    starknet.off('accountsChanged', () => {})
+    starknet.off('accountsChanged', () => undefined)
   }
 
   async account() {

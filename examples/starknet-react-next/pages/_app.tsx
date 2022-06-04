@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const connectors = [new InjectedConnector({ showModal: true })]
 
   return (
-    <StarknetProvider autoConnect connectors={connectors}>
+    <StarknetProvider connectors={connectors}>
       <NextHead>
         <title>StarkNet ❤️ React</title>
       </NextHead>

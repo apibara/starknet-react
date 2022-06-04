@@ -14,12 +14,12 @@ interface StarknetManagerState {
 
 interface SetAccount {
   type: 'set_account'
-  account: string
+  account?: string
 }
 
 interface SetProvider {
   type: 'set_provider'
-  provider: ProviderInterface
+  provider?: ProviderInterface
 }
 
 interface SetError {
@@ -35,7 +35,7 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
       return { ...state, account: action.account }
     }
     case 'set_provider': {
-      return { ...state, library: action.provider }
+      return { ...state, library: action.provider ?? defaultProvider }
     }
     case 'set_error': {
       return { ...state, error: action.error }
@@ -54,9 +54,10 @@ interface UseStarknetManagerProps {
 
 export function useStarknetManager({
   defaultProvider: userDefaultProvider,
-  connectors,
+  connectors: userConnectors,
   autoConnect,
 }: UseStarknetManagerProps): StarknetState {
+  const connectors = userConnectors ?? []
   const [state, dispatch] = useReducer(reducer, {
     library: userDefaultProvider ? userDefaultProvider : defaultProvider,
     connectors,
