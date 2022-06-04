@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@starknet-react/core": "workspace:^",
+    "@starknet-react/core": "^0.10.0",
     "get-starknet": "^1.4.1",
     "next": "12.1.6",
     "react": "18.1.0",
