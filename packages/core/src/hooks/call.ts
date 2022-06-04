@@ -52,10 +52,15 @@ function starknetCallReducer(state: State, action: Action): State {
   return state
 }
 
+interface UseStarknetCallOptions {
+  watch?: boolean
+}
+
 interface UseStarknetCallArgs<T extends unknown[]> {
   contract?: ContractInterface
   method?: string
   args?: T
+  options?: UseStarknetCallOptions
 }
 
 export interface UseStarknetCall {
@@ -70,6 +75,7 @@ export function useStarknetCall<T extends unknown[]>({
   contract,
   method,
   args,
+  options,
 }: UseStarknetCallArgs<T>): UseStarknetCall {
   const [state, dispatch] = useReducer(starknetCallReducer, {
     loading: true,
@@ -77,6 +83,9 @@ export function useStarknetCall<T extends unknown[]>({
   })
 
   const { data: block } = useStarknetBlock()
+
+  // default to true
+  const watch = options?.watch !== undefined ? options.watch : true
 
   const callContract = useCallback(async () => {
     if (contract && method && args) {
@@ -102,11 +111,15 @@ export function useStarknetCall<T extends unknown[]>({
   }, [callContract])
 
   useEffect(() => {
-    if (block?.block_hash && block?.block_hash !== state.lastUpdatedAt) {
+    if (block?.block_hash) {
+      if (block?.block_hash == state.lastUpdatedAt) return
+      // if not watching never refresh, but fetch at least once
+      if (!watch && state.lastUpdatedAt !== '') return
+
       refresh()
       dispatch({ type: 'set_last_updated_at', blockHash: block.block_hash })
     }
-  }, [block?.block_hash, state.lastUpdatedAt, refresh])
+  }, [block?.block_hash, state.lastUpdatedAt, refresh, watch])
 
   // always refresh on contract, method, or args change
   useEffect(() => {

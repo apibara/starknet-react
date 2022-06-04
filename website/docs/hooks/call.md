@@ -19,8 +19,14 @@ const { data, loading, error, refresh } = useStarknetCall({ contract, method, ar
   contract?: Contract
   method?: string
   args?: T
+  options?: {
+    watch?: boolean
+  }
 }
 ```
+
+If `options.watch` (default: `true`) is set to `false`, the hook will fetch the
+contract value only once.
 
 ## Return Values
 
