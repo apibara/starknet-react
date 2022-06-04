@@ -1,6 +1,6 @@
 import { useStarknetCall } from '@starknet-react/core'
 import type { NextPage } from 'next'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { toBN } from 'starknet/dist/utils/number'
 import { ConnectWallet } from '~/components/ConnectWallet'
 import { IncrementCounter } from '~/components/IncrementCounter'
@@ -8,12 +8,14 @@ import { TransactionList } from '~/components/TransactionList'
 import { useCounterContract } from '~/hooks/counter'
 
 const Home: NextPage = () => {
+  const [watch, setWatch] = useState(true)
   const { contract: counter } = useCounterContract()
 
   const { data: counterResult } = useStarknetCall({
     contract: counter,
     method: 'counter',
     args: [],
+    options: { watch },
   })
 
   const counterValue = useMemo(() => {
@@ -30,6 +32,12 @@ const Home: NextPage = () => {
       <h2>Counter Contract</h2>
       <p>Address: {counter?.address}</p>
       <p>Value: {counterValue}</p>
+      <p>
+        <span>
+          Refresh value at every block{' '}
+          <input type="checkbox" checked={watch} onChange={(evt) => setWatch(evt.target.checked)} />
+        </span>
+      </p>
       <IncrementCounter />
       <h2>Recent Transactions</h2>
       <TransactionList />
