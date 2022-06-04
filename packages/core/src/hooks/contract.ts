@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { Abi, Contract } from 'starknet'
 import { useStarknet } from '../providers/starknet'
 
@@ -12,12 +12,11 @@ interface UseContract {
 }
 
 export function useContract({ abi, address }: UseContractArgs): UseContract {
-  const [contract, setContract] = useState<Contract | undefined>(undefined)
   const { library } = useStarknet()
 
-  useEffect(() => {
+  const contract = useMemo(() => {
     if (abi && address && library) {
-      setContract(new Contract(abi, address, library))
+      return new Contract(abi, address, library)
     }
   }, [abi, address, library])
 
