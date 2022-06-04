@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.10.1
+
+### Patch Changes
+
+- [#116](https://github.com/apibara/starknet-react/pull/116) [`bf8e21c`](https://github.com/apibara/starknet-react/commit/bf8e21cfdbd912e621fdcf165963bd384432bbaf) Thanks [@fracek](https://github.com/fracek)! - Add invoke overrides
+
 ## 0.10.0
 
 ### Minor Changes
