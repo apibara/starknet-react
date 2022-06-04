@@ -3,6 +3,7 @@ import { ContractInterface } from 'starknet'
 import { useStarknetBlock } from '../providers/block'
 
 interface State {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Array<any>
   loading: boolean
   error?: string
@@ -11,6 +12,7 @@ interface State {
 
 interface SetCallResponse {
   type: 'set_call_response'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Array<any>
 }
 
@@ -57,6 +59,7 @@ interface UseStarknetCallArgs<T extends unknown[]> {
 }
 
 export interface UseStarknetCall {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Array<any>
   loading: boolean
   error?: string

@@ -15,22 +15,24 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.15",
-    "@docusaurus/preset-classic": "2.0.0-beta.15",
-    "@mdx-js/react": "^1.6.21",
-    "@starknet-react/core": "link:../packages/core",
-    "@stitches/react": "^1.2.6",
+    "@docusaurus/core": "2.0.0-beta.21",
+    "@docusaurus/preset-classic": "2.0.0-beta.21",
+    "@mdx-js/react": "^1.6.22",
+    "@starknet-react/core": "workspace:^",
+    "@stitches/react": "^1.2.8",
     "clsx": "^1.1.1",
-    "get-starknet": "^1.4",
-    "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "starknet": "^3.10"
+    "get-starknet": "^1.4.1",
+    "prism-react-renderer": "^1.3.3",
+    "react": "^18.0",
+    "react-dom": "^18.0",
+    "starknet": "^3.10.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.15",
-    "@tsconfig/docusaurus": "^1.0.4",
-    "typescript": "^4.5.2"
+    "@docusaurus/module-type-aliases": "2.0.0-beta.21",
+    "@tsconfig/docusaurus": "^1.0.5",
+    "@types/react": "^18.0.11",
+    "@types/react-dom": "18.0.5",
+    "typescript": "^4.6.4"
   },
   "browserslist": {
     "production": [

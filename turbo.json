@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/main",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "starknet-react-next#build": {
+      "dependsOn": ["@starknet-react/core#build"]
+    },
+    "website#build": {
+      "dependsOn": ["@starknet-react/core#build"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "outputs": []
+    }
+  }
+}

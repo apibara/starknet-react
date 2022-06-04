@@ -7,7 +7,7 @@ export interface StarknetBlock {
   error?: string
 }
 
-export const StarknetBlockContext = createContext<StarknetBlock>(undefined)
+export const StarknetBlockContext = createContext<StarknetBlock>({})
 
 export function useStarknetBlock(): StarknetBlock {
   return useContext(StarknetBlockContext)

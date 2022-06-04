@@ -4,6 +4,7 @@ export interface TransactionSubmitted {
   status: TransactionStatus
   transactionHash: string
   address?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any
 }
 
@@ -12,6 +13,7 @@ export interface TransactionReceived {
   transaction: StarknetTransaction
   transactionHash: string
   lastUpdatedAt: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any
 }
 

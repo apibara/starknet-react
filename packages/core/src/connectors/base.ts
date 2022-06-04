@@ -1,5 +1,6 @@
 import { AccountInterface } from 'starknet'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class Connector<Options = any> {
   /** Unique connector id */
   abstract readonly id: string

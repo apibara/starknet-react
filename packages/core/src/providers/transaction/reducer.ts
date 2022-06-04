@@ -46,7 +46,7 @@ export function transactionManagerReducer(
     }
 
     const entry = state.transactions.findEntry(
-      (tx) => tx.transactionHash === action.transactionResponse.transaction['transaction_hash']
+      (tx) => tx.transactionHash === action.transactionResponse.transaction_hash
     )
 
     if (!entry) {
@@ -58,7 +58,7 @@ export function transactionManagerReducer(
     const newTransaction: Transaction = {
       status: action.transactionResponse.status,
       transaction: action.transactionResponse.transaction,
-      transactionHash: action.transactionResponse.transaction['transaction_hash'],
+      transactionHash: action.transactionResponse.transaction_hash,
       lastUpdatedAt: action.lastUpdatedAt,
       metadata: oldTransaction.metadata,
     }
