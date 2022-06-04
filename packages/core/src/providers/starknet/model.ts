@@ -4,7 +4,7 @@ import { Connector } from '../../connectors'
 export interface StarknetState {
   account?: string
   connect: (connector: Connector) => void
-  disconnect: (connector: Connector) => void
+  disconnect: () => void
   library: ProviderInterface
   connectors: Connector[]
   error?: Error
