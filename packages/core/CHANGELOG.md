@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.10.2
+
+### Patch Changes
+
+- [#120](https://github.com/apibara/starknet-react/pull/120) [`883cba7`](https://github.com/apibara/starknet-react/commit/883cba7b7188201ab27baccf75f3569a3eec4cc3) Thanks [@fracek](https://github.com/fracek)! - Add option to not refresh contract data
+
+* [#118](https://github.com/apibara/starknet-react/pull/118) [`3ee8a11`](https://github.com/apibara/starknet-react/commit/3ee8a11ea0927c080a3f8353b504abe7c86c145d) Thanks [@fracek](https://github.com/fracek)! - Improve connector disconnect
+
 ## 0.10.1
 
 ### Patch Changes
