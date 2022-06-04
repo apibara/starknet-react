@@ -15,16 +15,16 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.15",
-    "@docusaurus/preset-classic": "2.0.0-beta.15",
+    "@docusaurus/core": "2.0.0-beta.21",
+    "@docusaurus/preset-classic": "2.0.0-beta.21",
     "@mdx-js/react": "^1.6.21",
     "@starknet-react/core": "link:../packages/core",
     "@stitches/react": "^1.2.6",
     "clsx": "^1.1.1",
     "get-starknet": "^1.4",
     "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^18.0",
+    "react-dom": "^18.0",
     "starknet": "^3.10"
   },
   "devDependencies": {

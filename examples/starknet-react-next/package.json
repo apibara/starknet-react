@@ -11,14 +11,14 @@
   "dependencies": {
     "get-starknet": "^1.4",
     "@starknet-react/core": "^0.9.0",
-    "next": "12.0.10",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "next": "12.1.6",
+    "react": "18.0",
+    "react-dom": "18.0",
     "starknet": "^3.10"
   },
   "devDependencies": {
     "@types/node": "17.0.17",
-    "@types/react": "17.0.39",
+    "@types/react": "18.0",
     "eslint": "8.9.0",
     "eslint-config-next": "12.0.10",
     "typescript": "4.5.5"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook, waitFor } from '@testing-library/react'
 import { Contract } from 'starknet'
 import { useStarknetCall, StarknetProvider } from '../../src'
 
@@ -11,7 +11,7 @@ describe('useStarknetCall', () => {
   it('performs a call to the specified contract and method', async () => {
     const wrapper = ({ children }) => <StarknetProvider>{children}</StarknetProvider>
 
-    const { result, waitForValueToChange } = renderHook(
+    const { result } = renderHook(
       () => useStarknetCall({ contract, method: 'counter', args: [] }),
       { wrapper }
     )
@@ -26,10 +26,13 @@ describe('useStarknetCall', () => {
       refresh()
     })
 
-    await waitForValueToChange(() => result.current.data, { timeout: 10000 })
-
-    expect(result.current.data[0]).toBeDefined()
-    expect(result.current.error).toBeUndefined()
-    expect(result.current.loading).toBeFalsy()
+    await waitFor(
+      () => {
+        expect(result.current.data[0]).toBeDefined()
+        expect(result.current.error).toBeUndefined()
+        expect(result.current.loading).toBeFalsy()
+      },
+      { timeout: 10000, interval: 1 }
+    )
   })
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react'
 import { StarknetProvider, useContract } from '../../src'
 
 import { CounterAbi, COUNTER_ADDRESS } from '../shared/counter'

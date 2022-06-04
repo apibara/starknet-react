@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "get-starknet": "^1.4",
-    "react": "^16.8 || ^17.0",
+    "react": "^17.0 || ^18.0",
     "starknet": "^3.10"
   },
   "dependencies": {
