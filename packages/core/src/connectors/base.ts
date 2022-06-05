@@ -2,10 +2,6 @@ import { AccountInterface } from 'starknet'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class Connector<Options = any> {
-  /** Unique connector id */
-  abstract readonly id: string
-  /** Connector name */
-  abstract readonly name: string
   /** Options to use with connector */
   readonly options: Options
 
@@ -21,4 +17,8 @@ export abstract class Connector<Options = any> {
   abstract connect(): Promise<AccountInterface>
   abstract disconnect(): Promise<void>
   abstract account(): Promise<AccountInterface>
+  /** Unique connector id */
+  abstract id(): string
+  /** Connector name */
+  abstract name(): string
 }

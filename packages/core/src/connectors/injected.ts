@@ -13,9 +13,6 @@ type InjectedConnectorOptions = {
 }
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
-  readonly id = 'injected'
-  readonly name = 'ArgentX'
-
   constructor(options: InjectedConnectorOptions = {}) {
     super({ options })
   }
@@ -78,6 +75,18 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return starknet.account
       ? Promise.resolve(starknet.account)
       : Promise.reject(new ConnectorNotConnectedError())
+  }
+
+  id(): string {
+    return getStarknet().id ?? 'injected'
+  }
+
+  name(): string {
+    if (!this.available()) {
+      throw new ConnectorNotFoundError()
+    }
+
+    return getStarknet().name
   }
 }
 

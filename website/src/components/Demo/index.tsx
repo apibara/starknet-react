@@ -62,9 +62,9 @@ function DemoAccount() {
         !error &&
         connectors.map((connector) =>
           connector.available() ? (
-            <ActionRoot key={connector.id}>
-              <button key={connector.id} onClick={() => connect(connector)}>
-                Connect {connector.name}
+            <ActionRoot key={connector.id()}>
+              <button key={connector.id()} onClick={() => connect(connector)}>
+                Connect {connector.name()}
               </button>
             </ActionRoot>
           ) : null
@@ -72,7 +72,7 @@ function DemoAccount() {
       {error instanceof ConnectorNotFoundError && (
         <div>
           <p>
-            <a href="https://github.com/argentlabs/argent-x">Download Argent-X</a>
+            <button onClick={() => connect(connectors[0])}>Download StarkNet wallet</button>
           </p>
         </div>
       )}
