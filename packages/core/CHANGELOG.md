@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.11.0
+
+### Minor Changes
+
+- [`8a9d75f`](https://github.com/apibara/starknet-react/commit/8a9d75f8d774e4439ce57c64e2154b47f4f1f144) Thanks [@fracek](https://github.com/fracek)! - Update connector interface to multi wallet
+
 ## 0.10.2
 
 ### Patch Changes
