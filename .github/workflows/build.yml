@@ -19,6 +19,6 @@ jobs:
         with:
           version: 7.1.7
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Run build
         run: pnpm build
