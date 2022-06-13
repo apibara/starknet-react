@@ -1,2 +1,2 @@
 export { Connector } from './base'
-export { InjectedConnector } from './injected'
+export { InjectedConnector, getInstalledInjectedConnectors } from './injected'

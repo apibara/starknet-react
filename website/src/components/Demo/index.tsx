@@ -11,8 +11,8 @@ import {
   useStarknetTransactionManager,
   Transaction,
   useStarknet,
-  InjectedConnector,
-  ConnectorNotFoundError,
+  useConnectors,
+  getInstalledInjectedConnectors,
 } from '@starknet-react/core'
 
 import CounterAbi from '../../abi/counter.json'
@@ -24,7 +24,9 @@ const SectionRoot = styled('div', {
   flexDirection: 'column',
 })
 
-const Section = styled('div', {})
+const Section = styled('div', {
+  paddingBottom: '2rem',
+})
 
 const SectionTitle = styled('h3', {})
 const ActionRoot = styled('div', {
@@ -50,30 +52,28 @@ function useCounterContract() {
 }
 
 function DemoAccount() {
-  const { account, connect, connectors, error } = useStarknet()
+  const { account } = useStarknet()
+  const { connect, disconnect, connectors } = useConnectors()
 
   return (
     <Section>
       <SectionTitle>Account</SectionTitle>
-      <div>
-        <p>Connected Account: {account}</p>
-      </div>
-      {!account &&
-        !error &&
-        connectors.map((connector) =>
-          connector.available() ? (
-            <ActionRoot key={connector.id()}>
-              <button key={connector.id()} onClick={() => connect(connector)}>
-                Connect {connector.name()}
-              </button>
-            </ActionRoot>
-          ) : null
-        )}
-      {error instanceof ConnectorNotFoundError && (
+      {account ? (
         <div>
-          <p>
-            <button onClick={() => connect(connectors[0])}>Download StarkNet wallet</button>
-          </p>
+          <p>Connected Account: {account}</p>
+          <Button onClick={disconnect}>Disconnect</Button>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', gap: '2rem' }}>
+          {connectors.map((connector) =>
+            connector.available() ? (
+              <ActionRoot key={connector.id()}>
+                <Button key={connector.id()} onClick={() => connect(connector)}>
+                  Connect {connector.name()}
+                </Button>
+              </ActionRoot>
+            ) : null
+          )}
         </div>
       )}
     </Section>
@@ -212,7 +212,7 @@ function DemoInner() {
 }
 
 export function Demo(): JSX.Element {
-  const connectors = [new InjectedConnector({ showModal: true })]
+  const connectors = getInstalledInjectedConnectors()
 
   return (
     <StarknetProvider autoConnect connectors={connectors}>
