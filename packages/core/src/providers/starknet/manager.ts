@@ -108,15 +108,16 @@ export function useStarknetManager({
       // Autoconnect priority is defined by the order of the connectors.
       for (let i = 0; i < connectors.length; i++) {
         try {
-          console.log(connectors[i])
-          if (!(await connectors[i].ready())) {
+          const connector = connectors[i]
+          if (!(await connector.ready())) {
             // Not already authorized, try next.
             continue
           }
 
-          const account = await connectors[i].connect()
+          const account = await connector.connect()
           dispatch({ type: 'set_account', account: account.address })
           dispatch({ type: 'set_provider', provider: account })
+          dispatch({ type: 'set_connector', connector })
 
           // Success, stop trying.
           return

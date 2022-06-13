@@ -1,12 +1,12 @@
 import type { AppProps } from 'next/app'
 import NextHead from 'next/head'
-import { InjectedConnector, StarknetProvider } from '@starknet-react/core'
+import { getInstalledInjectedConnectors, StarknetProvider } from '@starknet-react/core'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const connectors = [new InjectedConnector({ showModal: true })]
+  const connectors = getInstalledInjectedConnectors()
 
   return (
-    <StarknetProvider connectors={connectors}>
+    <StarknetProvider connectors={connectors} autoConnect>
       <NextHead>
         <title>StarkNet ❤️ React</title>
       </NextHead>

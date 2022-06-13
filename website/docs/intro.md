@@ -25,11 +25,13 @@ npm install @starknet-react/core get-starknet starknet
 2. Wrap your app with `StarknetProvider`
 
 ```typescript
-import { StarknetProvider, InjectedConnector } from '@starknet-react/core'
+import { StarknetProvider, getInstalledInjectedConnectors } from '@starknet-react/core'
 
 function App() {
+  const connectors = getInstalledInjectedConnectors()
+
   return (
-    <StarknetProvider connectors={[new InjectedConnector()]}>
+    <StarknetProvider connectors={connectors}>
       <YourApp />
     </StarknetProvider>
   )
@@ -39,11 +41,10 @@ function App() {
 3. Connect the wallet (needs StarkNet Wallet extension installed)
 
 ```typescript
-import { useStarknet, InjectedConnector } from '@starknet-react/core'
+import { useConnectors } from '@starknet-react/core'
 
 function YourComponent() {
-  const { connect, connectors } = useStarknet()
-  const injected = useMemo(() => new InjectedConnector(), [])
+  const { connect, connectors } = useConnectors()
   return (
     <div>
       {connectors.map((connector) =>
