@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.11.1
+
+### Patch Changes
+
+- [`3ecdc75`](https://github.com/apibara/starknet-react/commit/3ecdc75a67603eaef6530e7dd567362d653b5d39) Thanks [@fracek](https://github.com/fracek)! - Fix transaction state tracking
+
 ## 0.11.0
 
 ### Minor Changes
