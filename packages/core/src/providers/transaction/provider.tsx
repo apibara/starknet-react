@@ -44,7 +44,12 @@ export function StarknetTransactionManagerProvider({
       try {
         const transactionResponse = await library.getTransaction(transactionHash)
         const lastUpdatedAt = Date.now()
-        dispatch({ type: 'update_transaction', transactionResponse, lastUpdatedAt })
+        dispatch({
+          type: 'update_transaction',
+          transactionResponse,
+          lastUpdatedAt,
+          transactionHash,
+        })
       } catch (err) {
         // TODO(fra): somehow should track the error
         console.error(err)
