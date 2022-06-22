@@ -1,6 +1,6 @@
 import { getStarknet } from 'get-starknet'
 
-import { Connector } from './index'
+import { Connector } from './base'
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
