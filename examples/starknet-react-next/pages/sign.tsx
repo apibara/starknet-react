@@ -44,24 +44,20 @@ const Sign: NextPage = () => {
   }
 
   const { account } = useStarknet()
-  const { data, error, isIdle, isError, isSuccess, signTypedData, reset } =
-    useSignTypedData(typedData)
+  const { data, error, signTypedData, reset } = useSignTypedData(typedData)
 
   return (
     <div>
       <ConnectWallet />
       <div>
-        <p>isIdle: {String(isIdle)}</p>
-        <p>isError: {String(isError)}</p>
-        <p>{isError && `error: ${error}`}</p>
-        <p>isSuccess: {String(isSuccess)}</p>
+        <p>{error && `error: ${error}`}</p>
         <p>{data && `data: ${data}`}</p>
       </div>
       {account && (
         <>
           <input type="text" value={message} onChange={(evt) => setMessage(evt.target.value)} />
-          <input type="button" value="Sign Message" disabled={!isIdle} onClick={signTypedData} />
-          <input type="button" value="Reset" disabled={!isIdle} onClick={reset} />
+          <input type="button" value="Sign Message" onClick={signTypedData} />
+          <input type="button" value="Reset" onClick={reset} />
         </>
       )}
     </div>
