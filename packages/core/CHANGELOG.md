@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.12.0
+
+### Minor Changes
+
+- [#132](https://github.com/apibara/starknet-react/pull/132) [`f9d38cb`](https://github.com/apibara/starknet-react/commit/f9d38cb3ec59aacb04ad67f3fa64e4a2eb176a36) Thanks [@sam0110](https://github.com/sam0110)! - Added the signTypedData hook
+
 ## 0.11.1
 
 ### Patch Changes
