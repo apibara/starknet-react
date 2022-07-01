@@ -1,13 +1,12 @@
 import { TypedData } from 'starknet/utils/typedData'
 import type { AccountInterface, Signature } from 'starknet'
 import { useCallback, useReducer } from 'react'
-import { useStarknet } from '..'
+import { useStarknet } from '../providers/starknet'
 
 interface State {
   data?: string[]
   error?: string
-  isLoading: boolean
-  isSuccess: boolean
+  loading: boolean
 }
 
 interface StartSigning {
@@ -39,29 +38,26 @@ function starknetSignReducer(state: State, action: Action): State {
   if (action.type === 'start_signing') {
     return {
       ...state,
-      isLoading: true,
+      loading: true,
     }
   } else if (action.type === 'set_signature') {
     return {
       ...state,
       data: action.data,
-      isLoading: false,
-      isSuccess: true,
+      loading: false,
     }
   } else if (action.type === 'set_error') {
     return {
       ...state,
       error: action.error,
-      isLoading: false,
-      isSuccess: false,
+      loading: false,
     }
   } else if (action.type === 'reset') {
     return {
       ...state,
       data: undefined,
       error: undefined,
-      isLoading: false,
-      isSuccess: false,
+      loading: false,
     }
   }
   return state
@@ -70,18 +66,14 @@ function starknetSignReducer(state: State, action: Action): State {
 export interface UseSignTypedData {
   data?: string[]
   error?: string
-  isError: boolean
-  isIdle: boolean
-  isLoading: boolean
-  isSuccess: boolean
+  loading: boolean
   signTypedData: () => Promise<Signature | undefined>
   reset: () => void
 }
 
 export function useSignTypedData(typedData: TypedData): UseSignTypedData {
   const [state, dispatch] = useReducer(starknetSignReducer, {
-    isLoading: false,
-    isSuccess: false,
+    loading: false,
   })
 
   const { account: accountAddress, connectors } = useStarknet()
@@ -90,7 +82,7 @@ export function useSignTypedData(typedData: TypedData): UseSignTypedData {
     dispatch({ type: 'reset' })
   }, [dispatch])
 
-  const { data, error, isLoading, isSuccess } = state
+  const { data, error, loading } = state
 
   const signTypedData = useCallback(async () => {
     dispatch({ type: 'reset' })
@@ -120,10 +112,7 @@ export function useSignTypedData(typedData: TypedData): UseSignTypedData {
   return {
     data,
     error,
-    isError: !!error,
-    isIdle: !isLoading,
-    isLoading,
-    isSuccess,
+    loading,
     signTypedData,
     reset,
   }
