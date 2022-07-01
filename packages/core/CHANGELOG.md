@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.12.0
+
+### Minor Changes
+
+- [#137](https://github.com/apibara/starknet-react/pull/137) [`9642726`](https://github.com/apibara/starknet-react/commit/96427267594aed6462820fb3bcd1d1011a2d4bb8) Thanks [@fracek](https://github.com/fracek)! - Change injected connector to work with multiple injected wallets
+
+* [#132](https://github.com/apibara/starknet-react/pull/132) [`f9d38cb`](https://github.com/apibara/starknet-react/commit/f9d38cb3ec59aacb04ad67f3fa64e4a2eb176a36) Thanks [@sam0110](https://github.com/sam0110)! - Added the signTypedData hook
+
 ## 0.11.1
 
 ### Patch Changes
