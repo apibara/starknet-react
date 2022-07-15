@@ -32,7 +32,7 @@ export function DepositToken() {
       calldata: [toBN(bankAddress).toString(), amount, '0'],
     },
     {
-      contractAddress: '0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda',
+      contractAddress: bankAddress,
       entrypoint: 'deposit',
       calldata: [toBN(tokenAddress).toString(), amount, '0'],
     },
