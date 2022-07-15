@@ -27,19 +27,6 @@ export function DepositToken() {
     [setAmount]
   )
 
-  // const calls = [
-  //   {
-  //     contractAddress: tokenAddress,
-  //     entrypoint: "approve",
-  //     calldata: [toBN(bankAddress).toString(), bnToUint256(amount)]
-  //   },
-  //   {
-  //     contractAddress: "0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda",
-  //     entrypoint: "deposit",
-  //     calldata: [toBN(tokenAddress).toString(), bnToUint256(amount)],
-  //   }
-  // ]
-
   const calls = [
     {
       contractAddress: tokenAddress,
