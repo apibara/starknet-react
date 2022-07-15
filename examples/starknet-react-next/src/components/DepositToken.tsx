@@ -1,16 +1,14 @@
 import { useStarknet, useStarknetExecute } from '@starknet-react/core'
 import { useState, useCallback, useMemo } from 'react'
 import { toBN } from 'starknet/dist/utils/number'
-import { bnToUint256} from 'starknet/dist/utils/uint256'
-import { stark } from 'starknet'
 
 export function DepositToken() {
   const { account } = useStarknet()
   const [amount, setAmount] = useState('')
   const [amountError, setAmountError] = useState<string | undefined>()
 
-  const tokenAddress = "0x07394cbe418daa16e42b87ba67372d4ab4a5df0b05c6e554d158458ce245bc10"
-  const bankAddress = "0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda"
+  const tokenAddress = '0x07394cbe418daa16e42b87ba67372d4ab4a5df0b05c6e554d158458ce245bc10'
+  const bankAddress = '0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda'
 
   const updateAmount = useCallback(
     (newAmount: string) => {
@@ -30,22 +28,22 @@ export function DepositToken() {
   const calls = [
     {
       contractAddress: tokenAddress,
-      entrypoint: "approve",
-      calldata: [toBN(bankAddress).toString(), amount, "0"]
+      entrypoint: 'approve',
+      calldata: [toBN(bankAddress).toString(), amount, '0'],
     },
     {
-      contractAddress: "0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda",
-      entrypoint: "deposit",
-      calldata: [toBN(tokenAddress).toString(), amount, "0"],
-    }
+      contractAddress: '0x0185a8709eedfd3da1a0d4a0739e649ddbe9433a4ca32f63de8824e52f078cda',
+      entrypoint: 'deposit',
+      calldata: [toBN(tokenAddress).toString(), amount, '0'],
+    },
   ]
 
-  const { data, loading, error, reset, execute } = useStarknetExecute({
+  const { loading, error, reset, execute } = useStarknetExecute({
     calls,
     metadata: {
       method: 'Approve and deposit',
-      message: 'Approve and deposit tokens'
-    }
+      message: 'Approve and deposit tokens',
+    },
   })
 
   const onDeposit = useCallback(() => {
@@ -62,8 +60,7 @@ export function DepositToken() {
 
   console.log(amount)
 
-
-  return(
+  return (
     <div>
       <h2>Deposit Tokens</h2>
       <p>
