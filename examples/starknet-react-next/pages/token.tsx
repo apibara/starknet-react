@@ -7,7 +7,7 @@ import { ConnectWallet } from '~/components/ConnectWallet'
 import { TransactionList } from '~/components/TransactionList'
 import { useTokenContract } from '~/hooks/token'
 
-function UserBalance() {
+export function UserBalance() {
   const { account } = useStarknet()
   const { contract } = useTokenContract()
 
