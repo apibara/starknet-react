@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react'
 import type { AccountInterface } from 'starknet'
-import { AddTransactionResponse, Overrides } from 'starknet'
+import { AddTransactionResponse } from 'starknet'
 import { useStarknet, useStarknetTransactionManager } from '..'
 
 interface State {
@@ -67,13 +67,6 @@ interface Call {
 
 interface UseStarknetExecuteArgs {
   calls?: Call | Call[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metadata?: any
-}
-
-export interface ExecuteArgs<T extends unknown[]> {
-  args: T
-  overrides?: Overrides
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any
 }
