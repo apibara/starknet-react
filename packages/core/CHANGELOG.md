@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.13.0
+
+### Minor Changes
+
+- [#145](https://github.com/apibara/starknet-react/pull/145) [`9fb19b2`](https://github.com/apibara/starknet-react/commit/9fb19b277723e508ed7304d69e98c9606a2c6b25) Thanks [@fracek](https://github.com/fracek)! - Added execute hook to enable multicalls
+
 ## 0.12.0
 
 ### Minor Changes
