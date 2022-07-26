@@ -76,10 +76,10 @@ export interface UseStarknetExecute {
   loading: boolean
   error?: string
   reset: () => void
-  execute: () => Promise<AddTransactionResponse | undefined>
+  execute: ({ calls, metadata }: UseStarknetExecuteArgs) => Promise<AddTransactionResponse | undefined>
 }
 
-export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) {
+export function useStarknetExecute() {
   const { addTransaction } = useStarknetTransactionManager()
   const [state, dispatch] = useReducer(starknetExecuteReducer, {
     loading: false,
@@ -91,7 +91,7 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
     dispatch({ type: 'reset' })
   }, [dispatch])
 
-  const execute = useCallback(async () => {
+  const execute = useCallback(async ({ calls, metadata }: UseStarknetExecuteArgs) => {
     if (calls) {
       try {
         let accountInterface: AccountInterface | null = null
