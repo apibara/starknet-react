@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.13.2
+
+### Patch Changes
+
+- [#151](https://github.com/apibara/starknet-react/pull/151) [`dbc561d`](https://github.com/apibara/starknet-react/commit/dbc561decbd6e31cbe80c6922718bf4de1099797) Thanks [@fracek](https://github.com/fracek)! - Refresh execute call data
+
 ## 0.13.1
 
 ### Patch Changes
