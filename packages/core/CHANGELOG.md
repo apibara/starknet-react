@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.13.1
+
+### Patch Changes
+
+- [#147](https://github.com/apibara/starknet-react/pull/147) [`227b48a`](https://github.com/apibara/starknet-react/commit/227b48a1f821cef24a9b06be6d8305df9bc02010) Thanks [@fracek](https://github.com/fracek)! - Fix execute hook export
+
 ## 0.13.0
 
 ### Minor Changes
