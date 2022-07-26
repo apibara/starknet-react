@@ -9,7 +9,7 @@ Hook to create a function that executes an account with a list of calls and trac
 ```typescript
 import { useStarknetExecute } from '@starknet-react/core'
 
-const { data, loading, error, reset, execute } = useStarknetExecute({ calls, metadata })
+const { data, loading, error, reset, execute } = useStarknetExecute()
 ```
 
 ## Parameters
@@ -38,7 +38,7 @@ Where `Call`
   loading: boolean
   error?: string
   reset: () => void
-  execute: () => Promise<AddTransactionResponse | undefined>
+  execute: ({ calls, metadata }:UseStarknetExecuteArgs) => Promise<AddTransactionResponse | undefined>
 ```
 
 Where `data` is the transaction hash and `AddTransactionResponse` is from starknet.js.
