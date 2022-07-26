@@ -120,7 +120,7 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
       }
     }
     return undefined
-  }, [accountAddress, connectors, addTransaction])
+  }, [accountAddress, connectors, addTransaction, calls, metadata])
 
   return { data: state.data, loading: state.loading, error: state.error, reset, execute }
 }
