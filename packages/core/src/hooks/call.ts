@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer } from 'react'
-import { ContractInterface, BlockNumber } from 'starknet'
+import { ContractInterface } from 'starknet'
+import { BlockIdentifier } from 'starknet/dist/provider/utils'
 import { useStarknetBlock } from '../providers/block'
 
 interface State {
@@ -54,7 +55,7 @@ function starknetCallReducer(state: State, action: Action): State {
 
 interface UseStarknetCallOptions {
   watch?: boolean
-  blockNumber?: BlockNumber
+  blockIdentifier?: BlockIdentifier
 }
 
 interface UseStarknetCallArgs<T extends unknown[]> {
@@ -87,11 +88,11 @@ export function useStarknetCall<T extends unknown[]>({
 
   // default to true
   const watch = options?.watch !== undefined ? options.watch : true
-  const blockNumber = options?.blockNumber || 'pending'
+  const blockIdentifier = options?.blockIdentifier || 'pending'
 
   const callContract = useCallback(async () => {
     if (contract && method && args) {
-      return await contract.call(method, args, { blockIdentifier: blockNumber })
+      return await contract.call(method, args, { blockIdentifier })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract, method, JSON.stringify(args)])
