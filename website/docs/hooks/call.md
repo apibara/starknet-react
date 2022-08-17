@@ -20,13 +20,15 @@ const { data, loading, error, refresh } = useStarknetCall({ contract, method, ar
   method?: string
   args?: T
   options?: {
-    watch?: boolean
+    watch?: boolean,
+    blockIdentifier?: BlockIdentifier
   }
 }
 ```
 
 If `options.watch` (default: `true`) is set to `false`, the hook will fetch the
 contract value only once.
+If `options.blockIdentifier` (default: `pending`) is set, it is passed to the feeder gateway in the `call_contract` method.
 
 ## Return Values
 
