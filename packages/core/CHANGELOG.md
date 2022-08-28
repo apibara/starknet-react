@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.13.3
+
+### Patch Changes
+
+- [#154](https://github.com/apibara/starknet-react/pull/154) [`0ca8dc9`](https://github.com/apibara/starknet-react/commit/0ca8dc9e7230013d3d987e16bafba12193b46a4d) Thanks [@nmalzieu](https://github.com/nmalzieu)! - Add the ability to pass blockNumber to contract call method
+
+* [#157](https://github.com/apibara/starknet-react/pull/157) [`faad89b`](https://github.com/apibara/starknet-react/commit/faad89b375cd55e9a94213e88e223f4f565dc4b0) Thanks [@fracek](https://github.com/fracek)! - Fix multicall execute when connectors missing
+
 ## 0.13.2
 
 ### Patch Changes
