@@ -1,7 +1,7 @@
 import { useCallback, useReducer } from 'react'
 import type { AccountInterface } from 'starknet'
 import { AddTransactionResponse } from 'starknet'
-import { useStarknet, useStarknetTransactionManager } from '..'
+import { useConnectors, useStarknet, useStarknetTransactionManager } from '..'
 
 interface State {
   data?: string
@@ -85,7 +85,8 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
     loading: false,
   })
 
-  const { account: accountAddress, connectors } = useStarknet()
+  const { account: accountAddress } = useStarknet()
+  const { available: availableConnectors } = useConnectors()
 
   const reset = useCallback(() => {
     dispatch({ type: 'reset' })
@@ -95,7 +96,7 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
     if (calls) {
       try {
         let accountInterface: AccountInterface | null = null
-        for (const connector of connectors) {
+        for (const connector of availableConnectors) {
           const account = await connector.account()
           if (account.address === accountAddress) {
             accountInterface = account
@@ -120,7 +121,7 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
       }
     }
     return undefined
-  }, [accountAddress, connectors, addTransaction, calls, metadata])
+  }, [accountAddress, availableConnectors, addTransaction, calls, metadata])
 
   return { data: state.data, loading: state.loading, error: state.error, reset, execute }
 }
