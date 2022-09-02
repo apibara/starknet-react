@@ -1,7 +1,7 @@
 import { TypedData } from 'starknet/utils/typedData'
 import type { AccountInterface, Signature } from 'starknet'
 import { useCallback, useReducer } from 'react'
-import { useStarknet } from '../providers/starknet'
+import { useConnectors, useStarknet } from '../providers/starknet'
 
 interface State {
   data?: string[]
@@ -76,7 +76,8 @@ export function useSignTypedData(typedData: TypedData): UseSignTypedData {
     loading: false,
   })
 
-  const { account: accountAddress, connectors } = useStarknet()
+  const { account: accountAddress } = useStarknet()
+  const { available: availableConnectors } = useConnectors()
 
   const reset = useCallback(() => {
     dispatch({ type: 'reset' })
@@ -89,9 +90,9 @@ export function useSignTypedData(typedData: TypedData): UseSignTypedData {
     dispatch({ type: 'start_signing' })
     try {
       let accountInterface: AccountInterface | null = null
-      for (const connector of connectors) {
+      for (const connector of availableConnectors) {
         const account = await connector.account()
-        if (account.address === accountAddress) {
+        if (account && account.address === accountAddress) {
           accountInterface = account
           break
         }
@@ -107,7 +108,7 @@ export function useSignTypedData(typedData: TypedData): UseSignTypedData {
       dispatch({ type: 'set_error', error: errorMessage })
       console.error(err)
     }
-  }, [accountAddress, connectors, typedData])
+  }, [accountAddress, availableConnectors, typedData])
 
   return {
     data,

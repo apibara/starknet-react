@@ -65,14 +65,17 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     }
   }
 
-  async account(): Promise<AccountInterface> {
+  async account(): Promise<AccountInterface | null> {
     this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
     }
 
-    // FIXME This type is wrong. account can be null if user didn't connect wallet
+    if (!this._wallet.account) {
+      return null
+    }
+
     return this._wallet.account
   }
 
