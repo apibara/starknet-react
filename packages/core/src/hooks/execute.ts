@@ -98,7 +98,8 @@ export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) 
         let accountInterface: AccountInterface | null = null
         for (const connector of availableConnectors) {
           const account = await connector.account()
-          if (account.address === accountAddress) {
+
+          if (account && account.address === accountAddress) {
             accountInterface = account
             break
           }
