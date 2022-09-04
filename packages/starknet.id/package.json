@@ -1,0 +1,15 @@
+{
+  "name": "starknet.id",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@starknet-react/core": "^0.13.4",
+    "bn.js": "^5.2.1"
+  }
+}
