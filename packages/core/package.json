@@ -13,7 +13,7 @@
     "build": "tsc",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint --fix src --ext .ts,.tsx",
-    "test": "jest --config jest.config.ts --silent"
+    "test": "jest --config jest.config.ts --silent src/hooks/deploy.test.tsx"
   },
   "peerDependencies": {
     "react": "^17.0 || ^18.0",

@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '../../test/react'
 import { compiledErc20 } from '../../test/devnet'
-import { useContract } from './contract'
+import { useContract, useContractFactory } from './contract'
 import { Abi } from 'starknet'
 
 const address = '0x017239d35be9e3a622b01677fff06c05ea7d926b94f864e59188d1a7eca00b1f'
@@ -70,6 +70,17 @@ describe('useContract', () => {
       await waitFor(() => {
         expect(result.current.contract).toBeUndefined()
       })
+    })
+  })
+})
+
+describe('useContractFactory', () => {
+  it('returns the contract factory', async () => {
+    const { result } = renderHook(() =>
+      useContractFactory({ abi: compiledErc20.abi, compiledContract: compiledErc20 })
+    )
+    await waitFor(() => {
+      expect(result.current.contractFactory).toBeDefined()
     })
   })
 })
