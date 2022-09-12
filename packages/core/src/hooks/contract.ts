@@ -1,16 +1,29 @@
 import { useMemo } from 'react'
-import { Abi, Contract } from 'starknet'
+import {
+  Abi,
+  AccountInterface,
+  CompiledContract,
+  Contract,
+  ContractFactory,
+  ProviderInterface,
+} from 'starknet'
 import { useStarknet } from '~/providers'
 
-interface UseContractProps {
+/** Arguments for `useContract`. */
+export interface UseContractProps {
+  /** The contract abi. */
   abi?: Abi
+  /** The contract address. */
   address?: string
 }
 
-interface UseContractResult {
+/** Value returned from `useContract`. */
+export interface UseContractResult {
+  /** The contract. */
   contract?: Contract
 }
 
+/** Hook to bind a `Contract` instance. */
 export function useContract({ abi, address }: UseContractProps): UseContractResult {
   const { library } = useStarknet()
 
@@ -21,4 +34,35 @@ export function useContract({ abi, address }: UseContractProps): UseContractResu
   }, [abi, address, library])
 
   return { contract }
+}
+
+/** Arguments for `useContractFactory`. */
+export interface UseContractFactoryProps {
+  /** The compiled contract. */
+  compiledContract?: CompiledContract
+  /** The contract abi. */
+  abi?: Abi
+  /** The account or provider used for deploying. */
+  providerOrAccount?: ProviderInterface | AccountInterface
+}
+
+/** Value returned from `useContractFactory`. */
+export interface UseContractFactoryResult {
+  /** The contract factory. */
+  contractFactory?: ContractFactory
+}
+
+/** Hook to create a `ContractFactory`. */
+export function useContractFactory({
+  compiledContract,
+  abi,
+  providerOrAccount,
+}: UseContractFactoryProps): UseContractFactoryResult {
+  const contractFactory = useMemo(() => {
+    if (compiledContract) {
+      return new ContractFactory(compiledContract, providerOrAccount, abi)
+    }
+  }, [compiledContract, providerOrAccount, abi])
+
+  return { contractFactory }
 }
