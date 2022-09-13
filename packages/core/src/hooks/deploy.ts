@@ -13,7 +13,7 @@ interface StartDeploy {
 
 interface SetDeployResponse {
   type: 'set_deploy_response'
-  data: Contract
+  data: string
 }
 
 interface SetDeployError {
@@ -60,7 +60,7 @@ export function useStarknetDeploy({ contractFactory }: UseStarknetDeployArgs): U
         try {
           dispatch({ type: 'start_deploy' })
           const contract = await contractFactory.deploy(constructorCalldata, addressSalt)
-          dispatch({ type: 'set_deploy_response', data: contract })
+          dispatch({ type: 'set_deploy_response', data: String(contract.deployTransactionHash) })
           return contract
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err)
@@ -84,7 +84,7 @@ function starknetDeployReducer(state: State, action: Action): State {
   } else if (action.type === 'set_deploy_response') {
     return {
       ...state,
-      data: action.data.deployTransactionHash,
+      data: action.data,
       error: undefined,
       loading: false,
     }
