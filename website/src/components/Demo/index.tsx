@@ -206,12 +206,9 @@ function DemoContractDeploy() {
       <ActionRoot>
         <Button
           onClick={() => {
-            const contract = deploy({
+            deploy({
               constructorCalldata: rawDataCall,
               addressSalt: undefined,
-            })
-            contract.then(async (contract) => {
-              console.log(contract?.deployTransactionHash)
             })
           }}
         >
