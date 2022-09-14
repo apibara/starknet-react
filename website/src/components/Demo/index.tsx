@@ -1,6 +1,12 @@
 import React, { useMemo } from 'react'
 import { styled } from '@stitches/react'
-import { Abi } from 'starknet'
+import {
+  Abi,
+  ContractFactory,
+  CompiledContract,
+  AccountInterface,
+  ProviderInterface,
+} from 'starknet'
 import { toBN } from 'starknet/utils/number'
 import {
   StarknetProvider,
@@ -13,9 +19,11 @@ import {
   useStarknet,
   useConnectors,
   getInstalledInjectedConnectors,
+  useStarknetDeploy,
 } from '@starknet-react/core'
 
 import CounterAbi from '../../abi/counter.json'
+import ContractCompiled from '../../compiled/compiled_contract.json'
 
 export const COUNTER_ADDRESS = '0x036486801b8f42e950824cba55b2df8cccb0af2497992f807a7e1d9abd2c6ba1'
 
@@ -49,6 +57,13 @@ const Button = styled('button', {
 
 function useCounterContract() {
   return useContract({ abi: CounterAbi as Abi, address: COUNTER_ADDRESS })
+}
+function getCounterContractFactory(account: AccountInterface | ProviderInterface) {
+  return new ContractFactory(
+    ContractCompiled as CompiledContract,
+    account,
+    ContractCompiled.Abi as Abi
+  )
 }
 
 function DemoAccount() {
@@ -165,6 +180,49 @@ function DemoContractInvoke() {
   )
 }
 
+function DemoContractDeploy() {
+  const { account, library } = useStarknet()
+
+  const contractFactory = getCounterContractFactory(library)
+  const { data, loading, error, reset, deploy } = useStarknetDeploy({
+    contractFactory: contractFactory,
+  })
+  const rawDataCall = [toBN(account)]
+
+  return (
+    <Section>
+      <SectionTitle>Deploy a Contract</SectionTitle>
+      <div>
+        {data && (
+          <div>
+            <p>Transaction Hash: {data}</p>
+          </div>
+        )}
+      </div>
+      <div>
+        <p>Submitting: {loading ? 'Submitting' : 'Not Submitting'}</p>
+        <p>Error: {error || 'No error'}</p>
+      </div>
+      <ActionRoot>
+        <Button
+          onClick={() => {
+            const contract = deploy({
+              constructorCalldata: rawDataCall,
+              addressSalt: undefined,
+            })
+            contract.then(async (contract) => {
+              console.log(contract?.deployTransactionHash)
+            })
+          }}
+        >
+          Deploy Method
+        </Button>
+        <Button onClick={() => reset()}>Reset State</Button>
+      </ActionRoot>
+    </Section>
+  )
+}
+
 function TransactionItem({
   transaction,
   onClick,
@@ -207,6 +265,7 @@ function DemoInner() {
       <DemoContractCall />
       <DemoContractInvoke />
       <DemoTransactionManager />
+      <DemoContractDeploy />
     </SectionRoot>
   )
 }
