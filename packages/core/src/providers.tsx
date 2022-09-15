@@ -1,9 +1,31 @@
-import { useCallback, useEffect, useReducer } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
+import { Connector } from './connectors'
+import { ConnectorNotFoundError } from './errors'
 
-import { StarknetState } from './model'
-import { Connector } from '../../connectors'
-import { ConnectorNotFoundError } from '../../errors'
+export interface StarknetState {
+  account?: string
+  connect: (connector: Connector) => void
+  disconnect: () => void
+  library: ProviderInterface
+  connectors: Connector[]
+  error?: Error
+}
+
+export const STARKNET_INITIAL_STATE: StarknetState = {
+  account: undefined,
+  connect: () => undefined,
+  disconnect: () => undefined,
+  library: defaultProvider,
+  connectors: [],
+}
+
+export const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
+
+export function useStarknet(): StarknetState {
+  return useContext(StarknetContext)
+}
 
 interface StarknetManagerState {
   account?: string
@@ -136,4 +158,27 @@ export function useStarknetManager({
   }, [])
 
   return { account, connect, disconnect, connectors, library, error }
+}
+
+interface StarknetProviderProps {
+  children?: React.ReactNode
+  defaultProvider?: ProviderInterface
+  connectors?: Connector[]
+  autoConnect?: boolean
+  queryClient?: QueryClient
+}
+
+export function StarknetProvider({
+  children,
+  defaultProvider,
+  connectors,
+  autoConnect,
+  queryClient,
+}: StarknetProviderProps): JSX.Element {
+  const state = useStarknetManager({ defaultProvider, connectors, autoConnect })
+  return (
+    <QueryClientProvider client={queryClient ?? new QueryClient()}>
+      <StarknetContext.Provider value={state}>{children}</StarknetContext.Provider>
+    </QueryClientProvider>
+  )
 }

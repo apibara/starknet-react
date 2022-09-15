@@ -1,6 +1,5 @@
-import { AccountInterface } from 'starknet'
+import { AccountInterface, ProviderInterface } from 'starknet'
 import { Connector } from './base'
-import { IStarknetWindowObject } from 'get-starknet'
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
@@ -10,6 +9,27 @@ import {
 
 export interface InjectedConnectorOptions {
   id: string
+}
+
+export type EventType = 'accountsChanged' | 'networkChanged'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type EventHandler = (data: any) => void
+
+export interface IStarknetWindowObject {
+  enable: (options?: { showModal?: boolean }) => Promise<string[]>
+  isPreauthorized: () => Promise<boolean>
+  on: (event: EventType, handleEvent: EventHandler) => void
+  off: (event: EventType, handleEvent: EventHandler) => void
+
+  id: string
+  name: string
+  version: string
+  icon: string
+  provider: ProviderInterface
+  isConnected: boolean
+  account: AccountInterface
+  selectedAddress?: string
 }
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {

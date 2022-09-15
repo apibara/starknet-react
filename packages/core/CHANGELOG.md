@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.13.4
+
+### Patch Changes
+
+- [#159](https://github.com/apibara/starknet-react/pull/159) [`fdc2ce2`](https://github.com/apibara/starknet-react/commit/fdc2ce21139bc139728c48518230c2916c09d560) Thanks [@fracek](https://github.com/fracek)! - Change connector api to reflect that account may be null
+
 ## 0.13.3
 
 ### Patch Changes
