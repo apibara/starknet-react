@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
 
 import { StarknetState } from './model'
@@ -73,6 +73,16 @@ export function useStarknetManager({
   })
 
   const { account, library, error } = state
+
+  const handleAccountChanged = () => {
+    state.connector.connect().then((account) => {
+      dispatch({ type: 'set_account', account: account.address })
+    })
+  }
+
+  if (state.connector) {
+    state.connector._wallet.on('accountsChanged', handleAccountChanged)
+  }
 
   const connect = useCallback((connector: Connector) => {
     connector.connect().then(
