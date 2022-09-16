@@ -10,16 +10,14 @@ describe('StarknetProvider', () => {
   })
 
   it('connects to the specified connector', async () => {
-    const { result, rerender } = renderHook(() => useStarknet(), { connectors })
+    const { result } = renderHook(() => useStarknet(), { connectors })
 
     expect(result.current.account).toBeUndefined()
 
+    result.current.connect(result.current.connectors[1])
+
     await waitFor(() => {
-      result.current.connect(result.current.connectors[1])
+      expect(result.current.account).toEqual(deventAccounts[1].address)
     })
-
-    rerender()
-
-    expect(result.current.account).toEqual(deventAccounts[1].address)
   })
 })
