@@ -13,19 +13,40 @@ export interface StarkNetBlockResult {
  * @deprecated Use `useBlock`.
  */
 export function useStarknetBlock(): StarkNetBlockResult {
-  return useBlock({})
+  const { data, isLoading, isError } = useBlock()
+
+  return {
+    data,
+    loading: isLoading,
+    error: isError ? 'error loading block number' : undefined,
+  }
+}
+
+interface FetchBlockArgs {
+  blockIdentifier: BlockIdentifier
 }
 
 function fetchBlock({
   library,
-  blockIdentifier,
+  args,
 }: {
   library: ProviderInterface
-  blockIdentifier: BlockIdentifier
+  args: FetchBlockArgs
 }): () => Promise<GetBlockResponse | undefined> {
   return async () => {
-    return await library.getBlock(blockIdentifier)
+    return await library.getBlock(args.blockIdentifier)
   }
+}
+
+type UseBlockProps = Partial<FetchBlockArgs> & {
+  watch?: boolean
+  refreshInterval?: number
+}
+
+interface UseBlockResult {
+  data?: GetBlockResponse
+  isLoading: boolean
+  isError: boolean
 }
 
 /**
@@ -33,20 +54,16 @@ function fetchBlock({
  */
 export function useBlock({
   watch,
-  refetchInterval: refreshInterval,
+  refreshInterval,
   blockIdentifier = 'latest',
-}: {
-  watch?: boolean
-  refetchInterval?: number
-  blockIdentifier?: BlockIdentifier
-} = {}) {
+}: UseBlockProps = {}): UseBlockResult {
   const { library } = useStarknet()
 
   const refetchInterval = watch ? refreshInterval ?? 5000 : false
 
   const { data, isLoading, isError } = useQuery<GetBlockResponse | undefined, string>(
     ['block', blockIdentifier],
-    fetchBlock({ library, blockIdentifier }),
+    fetchBlock({ library, args: { blockIdentifier } }),
     {
       refetchInterval,
       useErrorBoundary: true,
