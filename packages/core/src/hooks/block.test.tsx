@@ -12,16 +12,28 @@ describe('useBlock', () => {
   it('returns the latest block by default', async () => {
     const { result } = renderHook(() => useBlock({ watch: false }), { connectors })
 
-    await waitFor(() => {
-      expect(result.current.data).toBeDefined()
-    })
+    await waitFor(
+      () => {
+        expect(result.current.data).toBeDefined()
+      },
+      {
+        timeout: 30000,
+        interval: 1000,
+      }
+    )
   })
 
   it.skip('returns an error', async () => {
     const { result } = renderHook(() => useBlock(), { connectors })
 
-    await waitFor(() => {
-      expect(result.current.isError).toBeTruthy()
-    })
+    await waitFor(
+      () => {
+        expect(result.current.isError).toBeTruthy()
+      },
+      {
+        timeout: 30000,
+        interval: 1000,
+      }
+    )
   })
 })
