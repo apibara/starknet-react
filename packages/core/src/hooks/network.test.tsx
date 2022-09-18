@@ -2,7 +2,7 @@ import { renderHook } from '../../test/react'
 import { UseNetwork } from './network'
 import { StarknetChainId } from 'starknet/constants'
 
-describe.only('useNetwork', () => {
+describe('useNetwork', () => {
   it('returns the default chain', () => {
     const { result } = renderHook(() => UseNetwork())
     expect(result.current.chain).toBeDefined()
