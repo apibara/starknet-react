@@ -51,3 +51,4 @@ function compileContract(name: string): CompiledContract {
 }
 
 export const compiledErc20 = compileContract('erc20')
+export const compiledDapp = compileContract('dapp')
