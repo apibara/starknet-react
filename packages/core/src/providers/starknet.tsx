@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
-import { Connector } from './connectors'
-import { ConnectorNotFoundError } from './errors'
+import { Connector } from '~/connectors'
+import { ConnectorNotFoundError } from '~/errors'
 
 export interface StarknetState {
   account?: string
