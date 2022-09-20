@@ -1,24 +1,8 @@
-import { Mock } from 'moq.ts'
 import { renderHook, waitFor, act } from '../../test/react'
-import { compiledDapp, devnetProvider, deventAccounts } from '../../test/devnet'
+import { compiledDapp, devnetProvider, connectors } from '../../test/devnet'
 import { Call, useStarknetExecute } from './execute'
-import { Connector } from '~/connectors'
 import { useStarknet } from '~/providers'
 import { useAccount } from './account'
-
-const mocks = deventAccounts.map((account, index) => {
-  const mock = new Mock<Connector>()
-  mock
-    .setup((conn) => conn.connect())
-    .returnsAsync(account)
-    .setup((conn) => conn.available())
-    .returns(index > 1)
-    .setup((conn) => conn.account())
-    .returnsAsync(account)
-  return mock
-})
-
-const connectors = mocks.map((mock) => mock.object())
 
 describe('useStarknetExecute', () => {
   let address: string

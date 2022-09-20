@@ -28,7 +28,7 @@ export interface UseStarknetExecute {
   /** True if the execute call is being executed. */
   loading: boolean
   /** Error while running execute. */
-  error?: string
+  error?: unknown
   /** Reset the hook state. */
   reset: () => void
   /** Execute the calls. */
