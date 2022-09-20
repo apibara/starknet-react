@@ -1,6 +1,6 @@
-import { useStarknet } from './providers'
-import { renderHook, waitFor } from '../test/react'
-import { connectors, deventAccounts } from '../test/devnet'
+import { useStarknet } from '~/providers'
+import { renderHook, waitFor } from '../../test/react'
+import { connectors, deventAccounts } from '../../test/devnet'
 
 describe('StarknetProvider', () => {
   it('accepts a list of connectors', async () => {
