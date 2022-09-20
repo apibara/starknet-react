@@ -40,9 +40,15 @@ export function mockedConnector(setup: (mock: Mock<Connector>) => void): Connect
   return mock.object()
 }
 
-export const connectors = deventAccounts.map((account) =>
+export const connectors = deventAccounts.map((account, index) =>
   mockedConnector((mock) => {
-    mock.setup((conn) => conn.connect()).returns(Promise.resolve(account))
+    mock
+      .setup((conn) => conn.connect())
+      .returnsAsync(account)
+      .setup((conn) => conn.available())
+      .returns(index > 1)
+      .setup((conn) => conn.account())
+      .returnsAsync(account)
   })
 )
 
