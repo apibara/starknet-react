@@ -160,7 +160,7 @@ export function useStarknetManager({
   return { account, connect, disconnect, connectors, library, error }
 }
 
-interface StarknetProviderProps {
+export interface StarknetProviderProps {
   children?: React.ReactNode
   defaultProvider?: ProviderInterface
   connectors?: Connector[]

@@ -9,7 +9,7 @@ import {
 import React, { ReactElement } from 'react'
 import { ProviderInterface } from 'starknet'
 import { Connector } from '~/connectors'
-import { StarknetProvider } from '../src'
+import { StarknetConfig } from '../src'
 import { devnetProvider } from './devnet'
 
 interface StarkNetRenderOptions {
@@ -21,12 +21,12 @@ const wrapper =
   (options?: StarkNetRenderOptions) =>
   ({ children }: { children: React.ReactNode }) =>
     (
-      <StarknetProvider
+      <StarknetConfig
         defaultProvider={options?.defaultProvider ?? devnetProvider}
         connectors={options?.connectors ?? []}
       >
         {children}
-      </StarknetProvider>
+      </StarknetConfig>
     )
 
 const customRender = (
