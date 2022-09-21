@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQueries, useQuery } from '@tanstack/react-query'
 import { GetTransactionResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '~/providers'
 
@@ -26,6 +26,29 @@ export function useTransaction({ hash }: UseTransactionProps): UseTransactionRes
     fetchTransaction({ library, hash })
   )
   return { data, loading: isLoading, error: error ?? undefined }
+}
+
+/** Arguments for the `useTransactions` hook. */
+export interface UseTransactionsProps {
+  /** The transactions hashes. */
+  hashes: string[]
+}
+
+/** Hook to fetch a list of transactions in parallel. */
+export function useTransactions({ hashes }: UseTransactionsProps): UseTransactionResult[] {
+  const { library } = useStarknet()
+  const result = useQueries({
+    queries: hashes.map((hash) => ({
+      queryKey: queryKey({ library, hash }),
+      queryFn: fetchTransaction({ library, hash }),
+    })),
+  })
+
+  return result.map(({ data, isLoading, error }) => ({
+    data,
+    loading: isLoading,
+    error: error ?? undefined,
+  }))
 }
 
 function queryKey({ library, hash }: { library: ProviderInterface; hash?: string }) {
