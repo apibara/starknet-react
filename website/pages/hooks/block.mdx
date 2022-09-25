@@ -1,0 +1,23 @@
+---
+title: useBlock and useStarknetBlock
+---
+
+# useBlock
+
+Hook for fetching a block.
+
+## Usage
+
+```tsx
+import { useBlock } from `@starknet-react/core`
+
+function Component() {
+  const { data, isLoading, isError } = useBlock({
+    blockIdentifier: 'latest'
+  })
+
+  if (isLoading) return <span>Loading...</span>
+  if (isError) return <span>Error...</span>
+  return <span>Hash: {data?.block_hash}</span>
+}
+```

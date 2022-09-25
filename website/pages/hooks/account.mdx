@@ -1,0 +1,20 @@
+---
+title: useAccount
+---
+
+# useAccount
+
+Hook for accessing the account and its connection status.
+
+## Usage
+
+```ts
+import { useAccount } from '@starknet-react/core'
+
+function Component() {
+  const { account, address, status } = useAccount()
+
+  if (status === 'disconnected') return <span>Disconnected</span>
+  return <span>Account: {address}</span>
+}
+```

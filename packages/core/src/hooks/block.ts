@@ -3,9 +3,13 @@ import { GetBlockResponse, ProviderInterface } from 'starknet'
 import { BlockIdentifier } from 'starknet/provider/utils'
 import { useStarknet } from '~/providers'
 
+/** Value returned from `useStarknetBlock`. */
 export interface StarkNetBlockResult {
+  /** Block data. */
   data?: GetBlockResponse
+  /** True if loading block. */
   loading?: boolean
+  /** Error loading block. */
   error?: string
 }
 
@@ -23,6 +27,7 @@ export function useStarknetBlock(): StarkNetBlockResult {
 }
 
 interface FetchBlockArgs {
+  /** Identifier for the block to fetch. */
   blockIdentifier: BlockIdentifier
 }
 
@@ -38,19 +43,41 @@ function fetchBlock({
   }
 }
 
+/** Arguments for `useBlock`. */
 type UseBlockProps = Partial<FetchBlockArgs> & {
+  /** If true, refresh data periodically. */
   watch?: boolean
+  /** How often to refresh the data. */
   refreshInterval?: number
 }
 
+/** Value returned from `useBlock`. */
 interface UseBlockResult {
+  /** Block data. */
   data?: GetBlockResponse
+  /** True if loading block data. */
   isLoading: boolean
+  /** True if error while loading data. */
   isError: boolean
 }
 
 /**
  * Hook for fetching a block.
+ *
+ * @example
+ * ```tsx
+ * import { useBlock } from `@starknet-react/core`
+ *
+ * function Component() {
+ *   const { data, isLoading, isError } = useBlock({
+ *     blockIdentifier: 'latest'
+ *   })
+ *
+ *   if (isLoading) return <span>Loading...</span>
+ *   if (isError) return <span>Error...</span>
+ *   return <span>Hash: {data?.block_hash}</span>
+ * }
+ * ```
  */
 export function useBlock({
   watch,
