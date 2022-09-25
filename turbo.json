@@ -11,6 +11,9 @@
     "website#build": {
       "dependsOn": ["@starknet-react/core#build"]
     },
+    "website#dev": {
+      "dependsOn": ["@starknet-react/core#build"]
+    },
     "test": {
       "dependsOn": ["@starknet-react/core#build"],
       "outputs": []

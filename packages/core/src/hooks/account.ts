@@ -23,6 +23,18 @@ export interface UseAccountResult {
 
 /**
  * Hook for accessing the account and its connection status.
+ *
+ * @example
+ * ```ts
+ * import { useAccount } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { account, address, status } = useAccount()
+ *
+ *   if (status === 'disconnected') return <span>Disconnected</span>
+ *   return <span>Account: {address}</span>
+ * }
+ * ```
  */
 export function useAccount(): UseAccountResult {
   const { account: connectedAccount } = useStarknet()
