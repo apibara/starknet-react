@@ -25,18 +25,23 @@ export interface UseDeployResult {
   deploy: () => Promise<Contract | undefined>
 }
 
-/** Hook to deploy a StarkNet contract.
+/**
+ * Hook to deploy a StarkNet contract.
  *
  * @example
  * This example shows how to deploy a contract from the currently connected account.
  * ```ts
- * const { account } = useAccount()
- * const { contractFactory } = useContractFactory({ compiledContract, providerOrAccount: account })
- * const { deploy } = useDeploy({ contractFactory })
+ * import { useAccount, useContractFactory, useDeploy } from '@starknet-react/core'
  *
- * return (
- *   <button onClick={deploy}>Deploy contract</button>
- * )
+ * function Component() {
+ *   const { account } = useAccount()
+ *   const { contractFactory } = useContractFactory({ compiledContract, providerOrAccount: account })
+ *   const { deploy } = useDeploy({ contractFactory })
+ *
+ *   return (
+ *     <button onClick={deploy}>Deploy contract</button>
+ *   )
+ * }
  * ```
  */
 export function useDeploy({

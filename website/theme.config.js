@@ -10,9 +10,11 @@ export default {
   footer: true,
   footerText: `MIT ${new Date().getFullYear()} © GNC Labs Limited.`,
   footerEditLink: `Edit this page on GitHub`,
+  floatTOC: true,
   logo: (
     <>
-      <span>StarkNet React</span>
+      <span className="hidden font-extrabold md:inline mr-2">StarkNet React</span>
+      <span className="text-gray-600 font-normal hidden md:inline">React hooks for StarkNet</span>
     </>
   ),
   head: (
