@@ -5,15 +5,7 @@
     "build": {
       "dependsOn": ["^build"]
     },
-    "starknet-react-next#build": {
-      "dependsOn": ["@starknet-react/core#build"]
-    },
-    "website#build": {
-      "dependsOn": ["@starknet-react/core#build"]
-    },
-    "website#dev": {
-      "dependsOn": ["@starknet-react/core#build"]
-    },
+    "@starknet-react/core#typedoc": {},
     "test": {
       "dependsOn": ["@starknet-react/core#build"],
       "outputs": []

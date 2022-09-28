@@ -4,16 +4,38 @@ import { defaultProvider, ProviderInterface } from 'starknet'
 import { Connector } from '~/connectors'
 import { ConnectorNotFoundError } from '~/errors'
 
+/** State of the StarkNet context. */
 export interface StarknetState {
+  /**
+   * Connected account address.
+   *
+   * @deprecated Use `useAccount`.
+   */
   account?: string
+  /**
+   * Connect the given connector.
+   *
+   * @deprecated Use `useConnectors`.
+   */
   connect: (connector: Connector) => void
+  /**
+   * Disconnect the currently connected connector.
+   *
+   * @deprecated Use `useConnectors`.
+   */
   disconnect: () => void
-  library: ProviderInterface
+  /** List of registered connectors.
+   *
+   * @deprecated Use `useConnectors`.
+   */
   connectors: Connector[]
+  /** Current provider. */
+  library: ProviderInterface
+  /** Error. */
   error?: Error
 }
 
-export const STARKNET_INITIAL_STATE: StarknetState = {
+const STARKNET_INITIAL_STATE: StarknetState = {
   account: undefined,
   connect: () => undefined,
   disconnect: () => undefined,
@@ -21,8 +43,9 @@ export const STARKNET_INITIAL_STATE: StarknetState = {
   connectors: [],
 }
 
-export const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
+const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
 
+/** Returns the current StarkNet context state. */
 export function useStarknet(): StarknetState {
   return useContext(StarknetContext)
 }
@@ -83,7 +106,7 @@ interface UseStarknetManagerProps {
   autoConnect?: boolean
 }
 
-export function useStarknetManager({
+function useStarknetManager({
   defaultProvider: userDefaultProvider,
   connectors: userConnectors,
   autoConnect,
@@ -160,14 +183,21 @@ export function useStarknetManager({
   return { account, connect, disconnect, connectors, library, error }
 }
 
+/** Arguments for `StarknetProvider`. */
 export interface StarknetProviderProps {
+  /** Application. */
   children?: React.ReactNode
+  /** Default provider, used when the user is not connected. */
   defaultProvider?: ProviderInterface
+  /** List of connectors to use. */
   connectors?: Connector[]
+  /** Connect the first available connector on page load. */
   autoConnect?: boolean
+  /** Low-level react-query client to use. */
   queryClient?: QueryClient
 }
 
+/** Root StarkNet context provider. */
 export function StarknetProvider({
   children,
   defaultProvider,

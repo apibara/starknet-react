@@ -1,2 +1,9 @@
 export { Connector } from './base'
-export { InjectedConnector, getInstalledInjectedConnectors } from './injected'
+export {
+  InjectedConnector,
+  getInstalledInjectedConnectors,
+  InjectedConnectorOptions,
+  IStarknetWindowObject,
+  EventHandler,
+  EventType,
+} from './injected'
