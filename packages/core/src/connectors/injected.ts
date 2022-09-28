@@ -7,15 +7,20 @@ import {
   UserRejectedRequestError,
 } from '../errors'
 
+/** Injected connector options. */
 export interface InjectedConnectorOptions {
+  /** The wallet id. */
   id: string
 }
 
+/** Wallet event type. */
 export type EventType = 'accountsChanged' | 'networkChanged'
 
+/** Wallet event handler. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EventHandler = (data: any) => void
 
+/** Interface implemented by all injected starknet wallets. */
 export interface IStarknetWindowObject {
   enable: (options?: { showModal?: boolean }) => Promise<string[]>
   isPreauthorized: () => Promise<boolean>

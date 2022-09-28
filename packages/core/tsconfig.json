@@ -4,5 +4,9 @@
     "outDir": "./dist",
     "rootDir": "src"
   },
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "json": "../../core.json"
+  }
 }

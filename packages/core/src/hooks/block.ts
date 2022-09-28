@@ -26,7 +26,7 @@ export function useStarknetBlock(): StarkNetBlockResult {
   }
 }
 
-interface FetchBlockArgs {
+export interface FetchBlockArgs {
   /** Identifier for the block to fetch. */
   blockIdentifier: BlockIdentifier
 }
@@ -44,7 +44,7 @@ function fetchBlock({
 }
 
 /** Arguments for `useBlock`. */
-type UseBlockProps = Partial<FetchBlockArgs> & {
+export type UseBlockProps = Partial<FetchBlockArgs> & {
   /** If true, refresh data periodically. */
   watch?: boolean
   /** How often to refresh the data. */
@@ -52,7 +52,7 @@ type UseBlockProps = Partial<FetchBlockArgs> & {
 }
 
 /** Value returned from `useBlock`. */
-interface UseBlockResult {
+export interface UseBlockResult {
   /** Block data. */
   data?: GetBlockResponse
   /** True if loading block data. */

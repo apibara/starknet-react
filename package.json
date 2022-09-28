@@ -11,7 +11,7 @@
     "test": "turbo run test --parallel",
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
-    "docs:dev": "turbo run dev --filter website",
+    "typedoc": "turbo run typedoc --filter @starknet-react/*",
     "release": "pnpm build && pnpm changeset publish",
     "postinstall": "pnpm run prepare",
     "prepare": "husky install"

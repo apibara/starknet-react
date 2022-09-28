@@ -15,6 +15,7 @@ export type Chain = {
   testnet?: boolean
 }
 
+/** Returns a chain information from its id. */
 export function chainById(chainId: StarknetChainId): Chain | undefined {
   return KNOWN_CHAINS[chainId]
 }
