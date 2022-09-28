@@ -9,6 +9,14 @@ const config: Config = {
   moduleNameMapper: {
     '~/(.*)': '<rootDir>/src/$1',
   },
+  transform: {
+    '^.+\\.tsx$': [
+      'ts-jest',
+      {
+        tsConfig: '<rootDir>/tsconfig.test.json',
+      },
+    ],
+  },
 }
 
 export default config
