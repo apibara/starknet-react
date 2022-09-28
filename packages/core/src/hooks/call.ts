@@ -72,6 +72,8 @@ export interface UseStarknetCallResult {
 
 /** Hook to perform a read-only contract call.
  *
+ * @remarks
+ *
  * The hook only performs a call if the target `contract`,
  * `method`, and `args` are not undefined.
  *
