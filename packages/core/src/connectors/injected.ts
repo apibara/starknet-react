@@ -124,6 +124,19 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 }
 
+/**
+ * Returns all injected connectors installed by the user.
+ *
+ * @remarks
+ *
+ * Because of how wallets are injected in the window context, this
+ * function is not guaranteed to return the actual installed wallets.
+ *
+ * @deprecated
+ *
+ * Don't use this function for new applications, manually specify the supported
+ * wallets instead.
+ */
 export function getInstalledInjectedConnectors(): InjectedConnector[] {
   const installed = Object.keys(getInstalledWallets())
   const shuffled = shuffle(installed)

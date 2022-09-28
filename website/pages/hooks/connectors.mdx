@@ -1,0 +1,30 @@
+---
+title: useConnectors
+---
+
+# useConnectors
+
+Hook to work with connectors.
+
+## Usage
+
+This example shows all registered connectors and connects
+to the specified one.
+
+```tsx
+import { useConnectors } from '@starknet-react/core'
+
+function Component() {
+  const { connect, connectors } = useConnectors()
+
+  return (
+    <ul>
+      {connectors.map((connector) => (
+        <li id={connector.id()}>
+          <button onClick={() => connect(connector)}>Connect {connector.id()}</button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```

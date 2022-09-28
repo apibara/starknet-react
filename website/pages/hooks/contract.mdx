@@ -1,0 +1,48 @@
+---
+title: useContract & useContractFactory
+---
+
+# useContract
+
+Hook to bind a `Contract` instance.
+
+## Usage
+
+```tsx
+import { useContract } from '@starknet-react/core'
+import compiledErc20 from './erc20.json'
+
+function Component() {
+  const { contract } = useContract({
+    address: '0x123...890',
+    abi: compiledErc20.abi,
+  })
+
+  return <span>{contract.address}</span>
+}
+```
+
+# useContractFactory
+
+Hook to create a `ContractFactory`.
+
+## Usage
+
+This example shows how to create a contract factory
+that will deploy the contract from the connected wallet.
+
+```tsx
+import { useContractFactory, useAccount } from '@starknet-react/core'
+import compiledErc20 from './erc20.json'
+
+function Component() {
+  const { account } = useAccount()
+  const { contractFactory } = useContractFactory({
+    compiledContract: compiledErc20,
+    abi: compiledErc20.abi
+    providerOrAccount: account
+  })
+
+  return <button onClick={() => contractFactory.deploy([])}>Deploy</button>
+}
+```

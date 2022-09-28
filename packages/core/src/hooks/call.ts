@@ -37,26 +37,67 @@ function queryKey({ library, args }: { library: ProviderInterface; args: ReadCon
   ] as const
 }
 
-interface UseStarknetCallOptions {
+/** Call options. */
+export interface UseStarknetCallOptions {
+  /** Refresh data at every block. */
   watch?: boolean
+  /** Block identifier used when performing call. */
   blockIdentifier?: BlockIdentifier
 }
 
-interface UseStarknetCallProps<T extends unknown[]> {
+/** Arguments for `useStarknetCall`. */
+export interface UseStarknetCallProps<T extends unknown[]> {
+  /** The target contract. */
   contract?: ContractInterface
+  /** The contract's method. */
   method?: string
+  /** Call arguments. */
   args?: T
+  /** Call options. */
   options?: UseStarknetCallOptions
 }
 
+/** Value returned from `useStarknetCall`. */
 export interface UseStarknetCallResult {
+  /** Value returned from call. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Array<any>
+  /** True when performing call. */
   loading: boolean
+  /** Error when performing call. */
   error?: string
+  /** Manually trigger refresh of data. */
   refresh: () => void
 }
 
+/** Hook to perform a read-only contract call.
+ *
+ * The hook only performs a call if the target `contract`,
+ * `method`, and `args` are not undefined.
+ *
+ * @example
+ * This example shows how to fetch the user ERC-20 balance.
+ * ```tsx
+ * import { useAccount, useContract, useStarknetCall } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { contract } = useContract({ address: erc20, abi: erc20Abi })
+ *   const { address } = useAccount()
+ *   const { data, loading, error, refresh } = useStarknetCall({
+ *     contract,
+ *     method: 'balanceOf',
+ *     args: [address],
+ *     options: {
+ *       watch: false
+ *     }
+ *   })
+ *
+ *   if (loading) return <span>Loading...</span>
+ *   if (error) return <span>Error: {error}</span>
+ *   return <span>Balance: {data[0]}</span>
+ * }
+ * ```
+ */
 export function useStarknetCall<T extends unknown[]>({
   contract,
   method,
