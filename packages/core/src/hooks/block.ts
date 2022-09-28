@@ -14,6 +14,8 @@ export interface StarkNetBlockResult {
 }
 
 /**
+ * Hook for fetching a block.
+ *
  * @deprecated Use `useBlock`.
  */
 export function useStarknetBlock(): StarkNetBlockResult {

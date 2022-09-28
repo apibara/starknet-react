@@ -34,6 +34,8 @@ export const TransactionManagerContext = createContext<TransactionManagerState<o
 
 /** Hook to manage transaction across different components.
  *
+ * @remarks
+ *
  * Use the `useTransactions` hook to fetch the state of the transactions.
  *
  * @example

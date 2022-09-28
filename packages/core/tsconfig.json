@@ -7,6 +7,6 @@
   "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"],
   "typedocOptions": {
     "entryPoints": ["src/index.ts"],
-    "json": "../../core.json"
+    "json": "../../website/generated/core.json"
   }
 }
