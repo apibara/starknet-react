@@ -20,7 +20,7 @@ function Summary({ hook }: { hook: Function }) {
 
 function Remarks({ hook }: { hook: Function }) {
   const remarks = useMemo(() => {
-    const tags = hook.signatures[0]?.comment.blockTags
+    const tags = hook.signatures[0]?.comment?.blockTags
     if (!tags) return undefined
     return tags.find((t) => t.tag === '@remarks')
   }, [hook])
@@ -34,7 +34,7 @@ function Remarks({ hook }: { hook: Function }) {
 
 function Example({ hook }: { hook: Function }) {
   const examples = useMemo(() => {
-    const tags = hook.signatures[0]?.comment.blockTags
+    const tags = hook.signatures[0]?.comment?.blockTags
     if (!tags) return []
     return tags.filter((t) => t.tag === '@example')
   }, [hook])
