@@ -13,11 +13,17 @@ describe('useTransaction', () => {
     it('returns the transaction data', async () => {
       const { result } = renderHook(() => useTransaction({ hash }))
 
-      await waitFor(() => {
-        expect(result.current.error).toBeUndefined()
-        expect(result.current.loading).toBeFalsy()
-        expect(result.current.data?.transaction_hash).toEqual(hash)
-      })
+      await waitFor(
+        () => {
+          expect(result.current.error).toBeUndefined()
+          expect(result.current.loading).toBeFalsy()
+          expect(result.current.data?.transaction_hash).toEqual(hash)
+        },
+        {
+          timeout: 10000,
+          interval: 1000,
+        }
+      )
     })
 
     it('refreshes data on hash change', async () => {

@@ -45,7 +45,9 @@ const STARKNET_INITIAL_STATE: StarknetState = {
 
 const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
 
-/** Returns the current StarkNet context state. */
+/**
+ * Returns the current StarkNet context state.
+ */
 export function useStarknet(): StarknetState {
   return useContext(StarknetContext)
 }

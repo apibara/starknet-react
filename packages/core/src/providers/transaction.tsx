@@ -32,16 +32,47 @@ export const TransactionManagerContext = createContext<TransactionManagerState<o
   removeTransaction: ({ hash: _hash }) => undefined,
 })
 
-/** Hook to manage transaction across different components.
+/**
+ * Hook to manage transaction across different components.
  *
  * @remarks
  *
- * Use the `useTransactions` hook to fetch the state of the transactions.
+ * This hook only manages the hashes of the transactions, use the
+ * `useTransactions` hook to fetch the state of the transactions.
  *
  * @example
+ * This example shows how to fetch the state of the transactions.
  * ```tsx
- * const { hashes } = useTransactionManager()
- * const transactions = useTransactions({ hashes })
+ * import { useTransactionManager, useTransactions } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { hashes } = useTransactionManager()
+ *   const transactions = useTransactions({ hashes })
+ *
+ *   return (
+ *     <ul>
+ *       {transactions.map(({ data }, i) => (
+ *         <li key={i}>{data?.transaction_hash}</li>
+ *       ))}
+ *     </ul>
+ *   )
+ * }
+ * ```
+ *
+ * @example
+ * This example shows how to add a transaction with its metadata.
+ * ```tsx
+ * import { useTransactionManager } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { addTransaction } = useTransactionManager()
+ *
+ *   return (
+ *     <button onClick={() => addTransaction({ hash: '0x123', metadata: { test: true } })}>
+ *       Add transaction
+ *     </button>
+ *   )
+ * }
  * ```
  */
 export function useTransactionManager<M extends object>(): TransactionManagerState<M> {

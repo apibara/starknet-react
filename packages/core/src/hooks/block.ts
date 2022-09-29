@@ -44,6 +44,8 @@ export interface FetchBlockArgs {
 export type UseBlockProps = Partial<FetchBlockArgs> & {
   /** How often to refresh the data. */
   refetchInterval?: number | false
+  /** Callback fired every time a new block is fetched. */
+  onSuccess?: (block: GetBlockResponse) => void
 }
 
 /** Value returned from `useBlock`. */
@@ -54,6 +56,8 @@ export interface UseBlockResult {
   isLoading: boolean
   /** True if error while loading data. */
   isError: boolean
+  /** Error fetching block. */
+  error?: unknown
 }
 
 /**
@@ -100,19 +104,23 @@ export interface UseBlockResult {
  */
 export function useBlock({
   refetchInterval,
+  onSuccess,
   blockIdentifier = 'latest',
 }: UseBlockProps = {}): UseBlockResult {
   const { library } = useStarknet()
 
-  const { data, isLoading, isError } = useQuery<GetBlockResponse | undefined, string>(
+  const { data, isLoading, isError, error } = useQuery<GetBlockResponse | undefined, string>(
     ['block', blockIdentifier],
     fetchBlock({ library, args: { blockIdentifier } }),
     {
       refetchInterval,
       useErrorBoundary: true,
+      onSuccess: (block) => {
+        if (block && onSuccess) onSuccess(block)
+      },
     }
   )
-  return { data, isLoading, isError }
+  return { data, isLoading, isError, error }
 }
 
 function fetchBlock({

@@ -53,7 +53,34 @@ export interface UseTransactionsProps {
   hashes: string[]
 }
 
-/** Hook to fetch a list of transactions in parallel. */
+/**
+ * Hook to fetch a list of transactions in parallel.
+ *
+ * @remarks
+ *
+ * This hook fetches a dynamic list of transactions without
+ * violating the rules of hooks.
+ *
+ * @example
+ * This example shows how to fetch a list of transactions.
+ * ```tsx
+ * import { useTransactions } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const results = useTransactions({
+ *     hashes: ['0x123...890', '0xab...ef']
+ *   })
+ *
+ *   return (
+ *     <ul>
+ *       {results.map(({ data }, i) => (
+ *         <li key={i}>{data?.transaction_hash}</li>
+ *       ))}
+ *     </ul>
+ *   )
+ * }
+ * ```
+ */
 export function useTransactions({ hashes }: UseTransactionsProps): UseTransactionResult[] {
   const { library } = useStarknet()
   const result = useQueries({

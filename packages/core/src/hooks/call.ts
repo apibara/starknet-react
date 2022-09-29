@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { ContractInterface, ProviderInterface } from 'starknet'
 import { BlockIdentifier } from 'starknet/dist/provider/utils'
 
 import { useStarknet } from '~/providers'
+import { useInvalidateOnBlock } from './invalidate'
 
 /** Call options. */
 export interface UseStarknetCallOptions {
@@ -78,11 +80,18 @@ export function useStarknetCall<T extends unknown[]>({
 
   const blockIdentifier = options?.blockIdentifier || 'pending'
 
+  const queryKey_ = useMemo(
+    () => queryKey({ library, args: { contract, method, args, blockIdentifier } }),
+    [library, contract, method, args, blockIdentifier]
+  )
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, isLoading, isError } = useQuery<any | undefined>(
-    queryKey({ library, args: { contract, method, args, blockIdentifier } }),
+    queryKey_,
     readContract({ args: { contract, method, args, blockIdentifier } })
   )
+
+  useInvalidateOnBlock({ enabled: options?.watch, queryKey: queryKey_ })
 
   return {
     data,
