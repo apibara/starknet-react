@@ -1,22 +1,46 @@
 import { useMemo } from 'react'
 import { Box, chakra, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { Function, TextLike, PropsType, ValueType } from '../lib/typedoc'
+import { PrismLight } from 'react-syntax-highlighter'
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
+import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript'
+import nightOwl from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl'
+import ReactMarkdown from 'react-markdown'
 
+PrismLight.registerLanguage('tsx', tsx)
+PrismLight.registerLanguage('typescript', typescript)
+
+const MarkdownComponents: object = {
+  // @ts-ignore
+  code({ node, className, children, ...props }) {
+    const match = /language-(\w+)/.exec(className || '')
+    const hasMeta = node?.data?.meta
+    return match ? (
+      <PrismLight
+        language={match[1]}
+        PreTag="div"
+        style={nightOwl}
+        className="codeStyle"
+        showLineNumbers={false}
+        wrapLines={hasMeta ? true : false}
+        useInlineStyles={true}
+        {...props}
+      >
+        {children}
+      </PrismLight>
+    ) : (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    )
+  },
+}
 function Content({ content }: { content: TextLike[] }) {
-  return (
-    <>
-      {content.map((c, i) => {
-        if (c.kind === 'text') {
-          return <chakra.span key={i}>{c.text}</chakra.span>
-        }
-        return (
-          <chakra.span fontFamily="mono" key={i}>
-            {c.text}
-          </chakra.span>
-        )
-      })}
-    </>
-  )
+  const textContent = useMemo(() => {
+    return content.map((c) => c.text).join('')
+  }, [content])
+
+  return <ReactMarkdown components={MarkdownComponents}>{textContent}</ReactMarkdown>
 }
 
 function Summary({ hook }: { hook: Function }) {
