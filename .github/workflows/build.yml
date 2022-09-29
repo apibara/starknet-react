@@ -10,6 +10,11 @@ on:
 
 jobs:
   test:
+    services:
+      devnet:
+        image: shardlabs/starknet-devnet:0.3.2-seed0
+        ports:
+          - 5050:5050
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
