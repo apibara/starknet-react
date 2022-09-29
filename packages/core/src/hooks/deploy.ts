@@ -28,6 +28,14 @@ export interface UseDeployResult {
 /**
  * Hook to deploy a StarkNet contract.
  *
+ * @remarks
+ *
+ * You should check that `contractFactory` is defined before calling `deploy`,
+ * or the call will fail.
+ *
+ * The transaction is submitted from the provider passed to the contract factory,
+ * so ensure to use the currently connected account.
+ *
  * @example
  * This example shows how to deploy a contract from the currently connected account.
  * ```ts

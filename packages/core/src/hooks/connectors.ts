@@ -19,6 +19,16 @@ export interface UseConnectorsResult {
 /**
  * Hook to work with connectors.
  *
+ * @remarks
+ *
+ * This hook is the recommended way to interact with the connectors.
+ *
+ * Notice that the `available` connectors are computed as soon as the hook is
+ * rendered, which could happen _before_ the browser wallets had the opportunity
+ * to inject themselves in the page.
+ *
+ * The best practice is to periodically `refresh` the available connectors.
+ *
  * @example
  * This example shows all registered connectors and connects
  * to the specified one.
@@ -39,6 +49,25 @@ export interface UseConnectorsResult {
  *       ))}
  *     </ul>
  *   )
+ * }
+ * ```
+ *
+ * @example
+ * This example shows how to refresh the available connectors
+ * every 5 seconds.
+ * ```tsx
+ * import { useEffect } from 'react'
+ * import { useConnectors } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { available, refresh } = useConnectors()
+ *
+ *   useEffect(() => {
+ *     const interval = setInterval(refresh, 5000)
+ *     return () => clearInterval(interval)
+ *   }, [refresh])
+ *
+ *   return <span>My component</span>
  * }
  * ```
  */

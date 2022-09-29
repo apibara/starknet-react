@@ -35,7 +35,14 @@ export interface UseStarknetExecute {
   execute: () => Promise<InvokeFunctionResponse | undefined>
 }
 
-/** Hook to perform a StarkNet multicall. */
+/**
+ * Hook to perform a StarkNet multicall.
+ *
+ * @remarks
+ *
+ * Multicalls are used to submit multiple transactions in a single
+ * call to improve the user experience.
+ */
 export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) {
   const { account } = useAccount()
   const { data, isLoading, error, reset, mutateAsync } = useMutation(

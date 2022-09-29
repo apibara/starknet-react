@@ -10,7 +10,7 @@ describe('useBlock', () => {
   })
 
   it('returns the latest block by default', async () => {
-    const { result } = renderHook(() => useBlock({ watch: false }), { connectors })
+    const { result } = renderHook(() => useBlock({ refetchInterval: false }), { connectors })
 
     await waitFor(
       () => {

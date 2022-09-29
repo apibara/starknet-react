@@ -26,7 +26,12 @@ export interface UseContractResult {
 /**
  * Hook to bind a `Contract` instance.
  *
+ * @remarks
+ *
+ * The returned contract is a starknet.js `Contract` object.
+ *
  * @example
+ * This example creates a new contract from its address and abi.
  * ```tsx
  * import { useContract } from '@starknet-react/core'
  * import compiledErc20 from './erc20.json'
@@ -71,6 +76,10 @@ export interface UseContractFactoryResult {
 
 /**
  * Hook to create a `ContractFactory`.
+ *
+ * @remarks
+ *
+ * The returned contract factory is a starknet.js `ContractFactory` object.
  *
  * @example
  * This example shows how to create a contract factory
