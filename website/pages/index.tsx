@@ -1,10 +1,33 @@
+import { Box, Button, Heading, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
+import NextLink from 'next/link'
 import { Layout } from '../components/Layout'
 
 export default function IndexPage() {
   return (
     <Layout>
-      <div>Hello</div>
+      <VStack pt="20">
+        <Box textAlign="center">
+          <Heading as="h1" fontSize="7xl">
+            StarkNet React
+          </Heading>
+          <Heading as="h2" fontSize="4xl" color="cat.peach" mt="4">
+            A collection of React hooks for StarkNet.
+          </Heading>
+        </Box>
+        <HStack pt="8" gap="20">
+          <NextLink href="/get-started" passHref>
+            <Button size="lg" as="a" variant="outline" colorScheme="whiteAlpha">
+              Get Started
+            </Button>
+          </NextLink>
+          <NextLink href="/hooks" passHref>
+            <Button size="lg" as="a" variant="outline" colorScheme="whiteAlpha">
+              View Hooks
+            </Button>
+          </NextLink>
+        </HStack>
+      </VStack>
     </Layout>
   )
 }

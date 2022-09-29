@@ -21,16 +21,18 @@ export function Header() {
   return (
     <HStack py="4" px="8" bg="cat.crust" w="full" justifyContent="space-between">
       <HStack alignItems="center">
-        <Text as="h2" fontWeight="bold" fontSize="xl">
-          StarkNet React
-        </Text>
-        <Text visibility={{ base: 'hidden', md: 'visible' }} color="cat.subtext">
-          React hooks for StarkNet
-        </Text>
+        <NextLink href="/" passHref>
+          <a>
+            <Text as="h2" fontWeight="bold" fontSize="xl">
+              StarkNet React
+            </Text>
+          </a>
+        </NextLink>
       </HStack>
       <HStack>
         <List display="flex" flexDir="row" gap="4">
-          <NavigationItem href="/" title="Getting Started" />
+          <NavigationItem href="/" title="Home" />
+          <NavigationItem href="/get-started" title="Get Started" />
           <NavigationItem href="/hooks" title="Hooks" />
         </List>
       </HStack>
