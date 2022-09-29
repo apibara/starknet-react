@@ -39,8 +39,8 @@ export function isHookDeprecated(hook: Function) {
   return tags.find((t) => t.tag === '@deprecated') !== undefined
 }
 
-export function getAllHooks() {
+export function getAllHooks(): Function[] {
   return core.children.filter(
     (child) => child.kindString === 'Function' && child.name.startsWith('use')
-  )
+  ) as Function[]
 }

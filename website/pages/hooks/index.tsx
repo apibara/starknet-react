@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, VStack, Text } from '@chakra-ui/react'
+import { Box, Grid, Heading, VStack } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 import NextLink from 'next/link'
 import { Layout } from '../../components/Layout'
@@ -38,7 +38,7 @@ function HookBox({
         >
           {name}
         </Heading>
-        <Text p="4">{description}</Text>
+        <Box p="4">{description}</Box>
       </Box>
     </NextLink>
   )
