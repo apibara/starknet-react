@@ -4,39 +4,6 @@ import { BlockIdentifier } from 'starknet/dist/provider/utils'
 
 import { useStarknet } from '~/providers'
 
-interface ReadContractArgs {
-  contract?: ContractInterface
-  method?: string
-  args?: unknown[]
-  blockIdentifier: BlockIdentifier
-}
-
-function readContract({ args }: { args: ReadContractArgs }) {
-  return async () => {
-    if (!args.args || !args.contract || !args.method) return null
-    const call = args.contract && args.method && args.contract[args.method]
-    if (!call) return null
-
-    return await call(...args.args, {
-      blockIdentifier: args.blockIdentifier,
-    })
-  }
-}
-
-function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
-  const { contract, method, args: callArgs, blockIdentifier } = args
-  return [
-    {
-      entity: 'readContract',
-      chainId: library.chainId,
-      contract: contract?.address,
-      method,
-      args: callArgs,
-      blockIdentifier,
-    },
-  ] as const
-}
-
 /** Call options. */
 export interface UseStarknetCallOptions {
   /** Refresh data at every block. */
@@ -70,7 +37,8 @@ export interface UseStarknetCallResult {
   refresh: () => void
 }
 
-/** Hook to perform a read-only contract call.
+/**
+ * Hook to perform a read-only contract call.
  *
  * @remarks
  *
@@ -122,4 +90,37 @@ export function useStarknetCall<T extends unknown[]>({
     refresh: () => undefined,
     error: isError ? 'error performing call' : undefined,
   }
+}
+
+interface ReadContractArgs {
+  contract?: ContractInterface
+  method?: string
+  args?: unknown[]
+  blockIdentifier: BlockIdentifier
+}
+
+function readContract({ args }: { args: ReadContractArgs }) {
+  return async () => {
+    if (!args.args || !args.contract || !args.method) return null
+    const call = args.contract && args.method && args.contract[args.method]
+    if (!call) return null
+
+    return await call(...args.args, {
+      blockIdentifier: args.blockIdentifier,
+    })
+  }
+}
+
+function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
+  const { contract, method, args: callArgs, blockIdentifier } = args
+  return [
+    {
+      entity: 'readContract',
+      chainId: library.chainId,
+      contract: contract?.address,
+      method,
+      args: callArgs,
+      blockIdentifier,
+    },
+  ] as const
 }

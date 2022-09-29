@@ -34,9 +34,10 @@ export interface UseStarknetInvokeResult<T extends unknown[]> {
   invoke: ({ args, metadata }: InvokeArgs<T>) => Promise<InvokeFunctionResponse | undefined>
 }
 
-/** Hook to invoke a smart contract method.
+/**
+ * Hook to invoke a smart contract method.
  *
- * @deprecated Use `useStarknetExecute` instead.
+ * @deprecated Use {@link useStarknetExecute} instead.
  */
 export function useStarknetInvoke<T extends unknown[]>({
   contract,

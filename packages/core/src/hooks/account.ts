@@ -24,8 +24,15 @@ export interface UseAccountResult {
 /**
  * Hook for accessing the account and its connection status.
  *
+ * @remarks
+ *
+ * This hook is used to access the `AccountInterface` object provided by the
+ * currently connected wallet.
+ *
  * @example
- * ```ts
+ * This example shows how to display the wallet connection status and
+ * the currently connected wallet address.
+ * ```tsx
  * import { useAccount } from '@starknet-react/core'
  *
  * function Component() {

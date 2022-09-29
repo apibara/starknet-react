@@ -18,7 +18,26 @@ export interface UseTransactionResult {
   error?: unknown
 }
 
-/** Hook to fetch a single transaction. */
+/**
+ * Hook to fetch a single transaction.
+ *
+ * @remarks
+ *
+ * This hook keeps a cache of transactions by chain and transaction hash
+ * so that you can use the hook freely in your application without worrying
+ * about sending duplicate network requests.
+ *
+ * @example
+ * This hook shows how to fetch a transaction.
+ * ```tsx
+ * import { useTransaction } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { data } = useTransaction({ hash: '0x123...890' })
+ *
+ *   return <span>{data?.transaction_hash}</span>
+ * }
+ */
 export function useTransaction({ hash }: UseTransactionProps): UseTransactionResult {
   const { library } = useStarknet()
   const { data, isLoading, error } = useQuery(

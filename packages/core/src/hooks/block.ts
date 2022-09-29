@@ -16,10 +16,17 @@ export interface StarkNetBlockResult {
 /**
  * Hook for fetching a block.
  *
- * @deprecated Use `useBlock`.
+ * @remarks
+ *
+ * This hook fetches the `latest` block using the default provider.
+ * Block data is continuously refreshed in the background.
+ *
+ * @deprecated Use {@link useBlock}.
  */
 export function useStarknetBlock(): StarkNetBlockResult {
-  const { data, isLoading, isError } = useBlock()
+  const { data, isLoading, isError } = useBlock({
+    blockIdentifier: 'latest',
+  })
 
   return {
     data,
@@ -33,24 +40,10 @@ export interface FetchBlockArgs {
   blockIdentifier: BlockIdentifier
 }
 
-function fetchBlock({
-  library,
-  args,
-}: {
-  library: ProviderInterface
-  args: FetchBlockArgs
-}): () => Promise<GetBlockResponse | undefined> {
-  return async () => {
-    return await library.getBlock(args.blockIdentifier)
-  }
-}
-
 /** Arguments for `useBlock`. */
 export type UseBlockProps = Partial<FetchBlockArgs> & {
-  /** If true, refresh data periodically. */
-  watch?: boolean
   /** How often to refresh the data. */
-  refreshInterval?: number
+  refetchInterval?: number | false
 }
 
 /** Value returned from `useBlock`. */
@@ -66,13 +59,37 @@ export interface UseBlockResult {
 /**
  * Hook for fetching a block.
  *
+ * @remarks
+ *
+ * Specify which block to fetch with the `blockIdentifier` argument.
+ * Control if and how often data is refreshed with `refetchInterval`.
+ *
  * @example
+ * This example shows how to fetch the latest block only once.
  * ```tsx
  * import { useBlock } from `@starknet-react/core`
  *
  * function Component() {
  *   const { data, isLoading, isError } = useBlock({
+ *     refetchInterval: false,
  *     blockIdentifier: 'latest'
+ *   })
+ *
+ *   if (isLoading) return <span>Loading...</span>
+ *   if (isError) return <span>Error...</span>
+ *   return <span>Hash: {data?.block_hash}</span>
+ * }
+ * ```
+ *
+ * @example
+ * This example shows how to fetch the pending block every 3 seconds.
+ * ```tsx
+ * import { useBlock } from `@starknet-react/core`
+ *
+ * function Component() {
+ *   const { data, isLoading, isError } = useBlock({
+ *     refetchInterval: 3000,
+ *     blockIdentifier: 'pending'
  *   })
  *
  *   if (isLoading) return <span>Loading...</span>
@@ -82,13 +99,10 @@ export interface UseBlockResult {
  * ```
  */
 export function useBlock({
-  watch,
-  refreshInterval,
+  refetchInterval,
   blockIdentifier = 'latest',
 }: UseBlockProps = {}): UseBlockResult {
   const { library } = useStarknet()
-
-  const refetchInterval = watch ? refreshInterval ?? 5000 : false
 
   const { data, isLoading, isError } = useQuery<GetBlockResponse | undefined, string>(
     ['block', blockIdentifier],
@@ -99,4 +113,16 @@ export function useBlock({
     }
   )
   return { data, isLoading, isError }
+}
+
+function fetchBlock({
+  library,
+  args,
+}: {
+  library: ProviderInterface
+  args: FetchBlockArgs
+}): () => Promise<GetBlockResponse | undefined> {
+  return async () => {
+    return await library.getBlock(args.blockIdentifier)
+  }
 }

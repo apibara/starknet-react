@@ -8,7 +8,25 @@ export interface UseNetworkResult {
   chain?: Chain
 }
 
-/** Hook for accessing the current connected chain. */
+/**
+ * Hook for accessing the current connected chain.
+ *
+ * @remarks
+ *
+ * The network object contains information about the
+ * network, including block explorers.
+ *
+ * @example
+ * This example shows how to display the current network name.
+ * ```tsx
+ * import { useNetwork } from '@starknet-react/core'
+ *
+ * function Component() {
+ *   const { chain } = useNetwork()
+ *
+ *   return <span>{chain?.name}</span>
+ * }
+ */
 export function useNetwork(): UseNetworkResult {
   const { library } = useStarknet()
 
