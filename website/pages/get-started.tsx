@@ -5,10 +5,13 @@ import { Layout } from '../components/Layout'
 import { Markdown } from '../components/Markdown'
 import { Section, SectionHeading } from '../components/Section'
 
-const PROVIDER_CONFIG = `
-\`\`\`tsx
+const PROVIDER_IMPORT = `
+\`\`\`ts
 import { StarknetConfig } from '@starknet-react/core'
-
+\`\`\`
+`
+const PROVIDER_NEXT = `
+\`\`\`ts
 function MyApp({ Component, pageProps }) {
   return (
     <StarknetConfig>
@@ -55,9 +58,11 @@ export default function GetStartedPage() {
           </Tabs>
         </Section>
         <Section>
-          <SectionHeading>Add provider</SectionHeading>
-          <Text>Add the StarkNet root provider to your application.</Text>
-          <Markdown>{PROVIDER_CONFIG}</Markdown>
+          <SectionHeading>Usage with Next.js</SectionHeading>
+          <Text>Start by adding the following import statement to your `_app.tsx` file.</Text>
+          <Markdown>{PROVIDER_IMPORT}</Markdown>
+          <Text>Then edit the application component to include the StarkNet provider.</Text>
+          <Markdown>{PROVIDER_NEXT}</Markdown>
         </Section>
       </Box>
     </Layout>

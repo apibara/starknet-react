@@ -1,5 +1,6 @@
+import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import { useMemo } from 'react'
-import { Function, TextLike } from '../lib/typedoc'
+import { deprecationTag, Function, TextLike } from '../lib/typedoc'
 import { Markdown } from './Markdown'
 
 function Content({ content }: { content: TextLike[] }) {
@@ -48,8 +49,50 @@ function Example({ hook }: { hook: Function }) {
   )
 }
 
+function Deprecation({ hook }: { hook: Function }) {
+  // convert to string, before that replace @link with link to page
+  const deprecation = useMemo(() => {
+    const tag = deprecationTag(hook)
+    if (!tag) return undefined
+    return tag.content
+      .map((t) => {
+        if (t.kind === 'inline-tag') {
+          return `[${t.text}](/hooks/${t.text})`
+        }
+        return t.text
+      })
+      .join('')
+  }, [hook])
+
+  if (!deprecation) return <></>
+
+  return (
+    <Alert
+      mt={8}
+      maxW="30rem"
+      mx="auto"
+      status="warning"
+      variant="subtle"
+      flexDir="column"
+      background="cat.peach"
+      rounded="md"
+      boxShadow="xl"
+      color="cat.base"
+    >
+      <AlertIcon boxSize={10} />
+      <AlertTitle mt={4} mb={1} fontSize="lg">
+        Deprecation Notice
+      </AlertTitle>
+      <AlertDescription>
+        <Markdown>{deprecation}</Markdown>
+      </AlertDescription>
+    </Alert>
+  )
+}
+
 export const Hook = {
   Summary,
   Remarks,
   Example,
+  Deprecation,
 }

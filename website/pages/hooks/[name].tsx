@@ -20,6 +20,7 @@ export default function HookPage({ hook }: { hook: Function }) {
         <Heading mt="4" as="h2" color="cat.peach" fontSize="xl" textAlign="center">
           <Hook.Summary hook={hook} />
         </Heading>
+        <Hook.Deprecation hook={hook} />
         <Section>
           <Hook.Remarks hook={hook} />
         </Section>
