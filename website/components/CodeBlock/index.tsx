@@ -1,210 +1,48 @@
-import { useBoolean } from '@chakra-ui/react'
+import { useBoolean, Box } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import React, { useEffect } from 'react'
-import { PrismLight } from 'react-syntax-highlighter'
-
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
-import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript'
-
-PrismLight.registerLanguage('tsx', tsx)
-PrismLight.registerLanguage('typescript', typescript)
+import React, { useEffect, useMemo } from 'react'
+import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import { useCodeTheme } from './styles'
 
 const ReactLiveBlock = dynamic(() => import('./live'))
 
 export function CodeBlock({
   language,
-  wrapLines,
   children,
 }: {
-  language: string
+  language: Language
   wrapLines: boolean
   children: string | string[]
 }) {
   const [isMounted, { on }] = useBoolean()
   useEffect(on, [on])
+  const theme = useCodeTheme()
+  const code = useMemo(() => trimCode(children), [children])
 
   if (isMounted && language === 'tsx') {
-    return <ReactLiveBlock language={language} code={children} />
+    return <ReactLiveBlock language={language} code={code} theme={theme} />
   }
 
   return (
-    <PrismLight
-      language={language}
-      PreTag="div"
-      style={catppuccinMochaStyle}
-      className="codeStyle"
-      showLineNumbers={false}
-      wrapLines={wrapLines}
-      useInlineStyles={true}
-    >
-      {children}
-    </PrismLight>
+    <Box p="5" rounded="md" my="2" bg="cat.mantle">
+      <Highlight {...defaultProps} code={code} language={language} theme={theme}>
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre className={className} style={style}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+    </Box>
   )
 }
 
-const colors = {
-  base: '#cdd6f4',
-  block: '#181825',
-  comment: '#bac2de',
-  punctuation: '#bac2de',
-  property: '#f38ba8',
-  selector: '#a6e3a1',
-  operator: '#fab387',
-  variable: '#f9e2af',
-  function: '#f38ba8',
-  keyword: '#74c7ec',
-  selected: '#cdd6f4',
-  inline: '#cdd6f4',
-  inlineBackground: '#11111b',
-  highlight: '#181825',
-  highlightAccent: '#b4befe',
-}
-
-const catppuccinMochaStyle: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: colors.base,
-    background: 'none',
-    fontFamily: "\"Fira Code\", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    MozTabSize: '4',
-    OTabSize: '4',
-    tabSize: '4',
-    WebkitHyphens: 'none',
-    MozHyphens: 'none',
-    msHyphens: 'none',
-    hyphens: 'none',
-  },
-  'pre[class*="language-"]': {
-    background: colors.block,
-    fontFamily: "\"Fira Code\", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    MozTabSize: '4',
-    OTabSize: '4',
-    tabSize: '4',
-    WebkitHyphens: 'none',
-    MozHyphens: 'none',
-    msHyphens: 'none',
-    hyphens: 'none',
-    padding: '1em',
-    margin: '.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  ':not(pre) > code[class*="language-"]': {
-    background: colors.inlineBackground,
-    color: colors.inline,
-    padding: '.1em',
-    borderRadius: '.3em',
-    whiteSpace: 'normal',
-  },
-  '.namespace': {
-    opacity: 0.7,
-  },
-  comment: {
-    color: colors.comment,
-  },
-  prolog: {
-    color: colors.comment,
-  },
-  doctype: {
-    color: colors.comment,
-  },
-  cdata: {
-    color: colors.comment,
-  },
-  punctuation: {
-    color: colors.punctuation,
-  },
-  property: {
-    color: colors.property,
-  },
-  tag: {
-    color: colors.property,
-  },
-  constant: {
-    color: colors.property,
-  },
-  symbol: {
-    color: colors.property,
-  },
-  deleted: {
-    color: colors.property,
-  },
-  number: {
-    color: colors.property,
-  },
-  boolean: {
-    color: colors.property,
-  },
-  selector: {
-    color: colors.selector,
-  },
-  'attr-name': {
-    color: colors.selector,
-  },
-  string: {
-    color: colors.selector,
-  },
-  char: {
-    color: colors.selector,
-  },
-  builtin: {
-    color: colors.selector,
-  },
-  inserted: {
-    color: colors.selector,
-  },
-  operator: {
-    color: colors.operator,
-  },
-  entity: {
-    cursor: 'help',
-  },
-  url: {
-    color: colors.operator,
-  },
-  '.language-css .token.string': {
-    color: colors.operator,
-  },
-  '.style .token.string': {
-    color: colors.operator,
-  },
-  variable: {
-    color: colors.variable,
-  },
-  atrule: {
-    color: colors.keyword,
-  },
-  'attr-value': {
-    color: colors.keyword,
-  },
-  function: {
-    color: colors.function,
-  },
-  keyword: {
-    color: colors.keyword,
-  },
-  regex: {
-    color: colors.variable,
-  },
-  important: {
-    color: colors.variable,
-    fontWeight: 'bold',
-  },
-  bold: {
-    fontWeight: 'bold',
-  },
-  italic: {
-    fontStyle: 'italic',
-  },
+function trimCode(code: string | string[]): string {
+  const s = Array.isArray(code) ? code.join('\n') : code
+  return s.trim()
 }

@@ -2,6 +2,10 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 
 const theme = extendTheme({
+  fonts: {
+    body: `'DejaVu Sans', sans-serif`,
+    mono: `'Iosevka', monospace`,
+  },
   colors: {
     // catppuccin colors
     cat: {

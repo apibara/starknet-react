@@ -19,14 +19,16 @@ function HookBox({
   return (
     <NextLink href={href} passHref>
       <Box
+        rounded="md"
         as="a"
         border="1px solid"
         borderColor="cat.surface"
-        boxShadow="sm"
+        boxShadow="md"
         transition="ease-in-out 200ms"
-        _hover={{ borderColor: 'cat.peach', boxShadow: 'lg', transform: 'translate(-4px, -4px)' }}
+        _hover={{ borderColor: 'cat.peach', boxShadow: 'xl', transform: 'translate(-4px, -4px)' }}
       >
         <Heading
+          borderTopRadius="md"
           textDecor={isDeprecated ? 'line-through' : 'none'}
           color={isDeprecated ? 'cat.text' : 'cat.base'}
           as="h3"
