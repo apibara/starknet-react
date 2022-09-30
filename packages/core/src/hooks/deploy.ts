@@ -40,12 +40,27 @@ export interface UseDeployResult {
  * This example shows how to deploy a contract from the currently connected account.
  * ```tsx
  * function Component() {
- *   const { account } = useAccount()
+ *   const { account, address } = useAccount()
  *   const { contractFactory } = useContractFactory({
  *     compiledContract: compiledErc20,
  *     providerOrAccount: account
  *   })
- *   const { deploy, error } = useDeploy({ contractFactory })
+ *
+ *   // notice constructor args are felt encoded
+ *   const constructorCalldata = useMemo(() => [
+ *     encodeShortString('StarkNet React'), // name
+ *     encodeShortString('SNR'), // symbol
+ *     18, // decimals
+ *     10000, // initial_supply.low
+ *     0, // initial_supply.high
+ *     address, // recipient
+ *     address, // owner
+ *   ], [address])
+ *
+ *   const { deploy, error } = useDeploy({
+ *     contractFactory,
+ *     constructorCalldata
+ *   })
  *
  *   return (
  *     <>

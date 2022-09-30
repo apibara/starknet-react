@@ -25,7 +25,7 @@ export function useLiveEditorStyle(): React.CSSProperties {
 }
 
 export function useCodeTheme(): PrismTheme {
-  const [text, background] = useToken('colors', ['cat.text', 'cat.mantle'])
+  const [text, background, comment] = useToken('colors', ['cat.text', 'cat.mantle', 'cat.overlay'])
   return {
     plain: {
       color: text,
@@ -115,6 +115,7 @@ export function useCodeTheme(): PrismTheme {
       {
         types: ['comment'],
         style: {
+          color: comment,
           fontStyle: 'italic',
         },
       },
