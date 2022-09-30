@@ -7,7 +7,7 @@ import {
   ContractFactory,
   ProviderInterface,
 } from 'starknet'
-import { useStarknet } from '~/providers'
+import { useStarknet } from '../providers'
 
 /** Arguments for `useContract`. */
 export interface UseContractProps {
@@ -33,12 +33,9 @@ export interface UseContractResult {
  * @example
  * This example creates a new contract from its address and abi.
  * ```tsx
- * import { useContract } from '@starknet-react/core'
- * import compiledErc20 from './erc20.json'
- *
  * function Component() {
  *   const { contract } = useContract({
- *     address: '0x123...890',
+ *     address: ethAddress,
  *     abi: compiledErc20.abi
  *   })
  *
@@ -85,18 +82,21 @@ export interface UseContractFactoryResult {
  * This example shows how to create a contract factory
  * that will deploy the contract from the connected wallet.
  * ```tsx
- * import { useContractFactory, useAccount } from '@starknet-react/core'
- * import compiledErc20 from './erc20.json'
- *
  * function Component() {
  *   const { account } = useAccount()
  *   const { contractFactory } = useContractFactory({
  *     compiledContract: compiledErc20,
- *     abi: compiledErc20.abi
+ *     abi: compiledErc20.abi,
  *     providerOrAccount: account
  *   })
  *
- *   return <button onClick={() => contractFactory.deploy([])}>Deploy</button>
+ *   return (
+ *     <button
+ *       onClick={() => contractFactory.deploy([0])}
+ *     >
+ *       Deploy
+ *     </button>
+ *   )
  * }
  * ```
  */

@@ -2,10 +2,14 @@ import { Box, Button, Center, Heading, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
 import NextLink from 'next/link'
 import { Layout } from '../components/Layout'
+import Head from 'next/head'
 
 export default function IndexPage() {
   return (
     <Layout>
+      <Head>
+        <title>StarkNet React - a collection of React hooks for StarkNet</title>
+      </Head>
       <Center h="full">
         <VStack>
           <Box textAlign="center">

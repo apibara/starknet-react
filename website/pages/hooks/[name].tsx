@@ -5,10 +5,14 @@ import { Layout } from '../../components/Layout'
 import { Box, Heading } from '@chakra-ui/react'
 import { Hook } from '../../components/Hook'
 import { Section, SectionHeading } from '../../components/Section'
+import Head from 'next/head'
 
 export default function HookPage({ hook }: { hook: Function }) {
   return (
     <Layout>
+      <Head>
+        <title>{hook.name} - StarkNet React</title>
+      </Head>
       <Box maxW="70rem" mx="auto" pt="12" mb="20">
         <Heading fontSize="6xl" as="h1" textAlign="center">
           {hook.name}

@@ -1,6 +1,6 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { GetTransactionResponse, ProviderInterface } from 'starknet'
-import { useStarknet } from '~/providers'
+import { useStarknet } from '../providers'
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionProps {
@@ -30,12 +30,12 @@ export interface UseTransactionResult {
  * @example
  * This hook shows how to fetch a transaction.
  * ```tsx
- * import { useTransaction } from '@starknet-react/core'
- *
  * function Component() {
- *   const { data } = useTransaction({ hash: '0x123...890' })
+ *   const { data, loading, error } = useTransaction({ hash: txHash })
  *
- *   return <span>{data?.transaction_hash}</span>
+ *   if (loading) return <span>Loading...</span>
+ *   if (error) return <span>Error: {JSON.stringify(error)}</span>
+ *   return <span>{data.transaction_hash}</span>
  * }
  */
 export function useTransaction({ hash }: UseTransactionProps): UseTransactionResult {
@@ -64,17 +64,17 @@ export interface UseTransactionsProps {
  * @example
  * This example shows how to fetch a list of transactions.
  * ```tsx
- * import { useTransactions } from '@starknet-react/core'
- *
  * function Component() {
  *   const results = useTransactions({
- *     hashes: ['0x123...890', '0xab...ef']
+ *     hashes: [txHash, txHash2]
  *   })
  *
  *   return (
  *     <ul>
  *       {results.map(({ data }, i) => (
- *         <li key={i}>{data?.transaction_hash}</li>
+ *         <li key={i}>
+ *         {data ? data.transaction_hash : 'Loading...'}
+ *         </li>
  *       ))}
  *     </ul>
  *   )

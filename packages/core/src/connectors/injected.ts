@@ -105,11 +105,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   id(): string {
-    this.ensureWallet()
-    if (!this._wallet) {
-      throw new ConnectorNotConnectedError()
-    }
-    return this._wallet.id
+    return this.options.id
   }
 
   name(): string {

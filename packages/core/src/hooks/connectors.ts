@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Connector } from '~/connectors'
-import { useStarknet } from '~/providers'
+import { Connector } from '../connectors'
+import { useStarknet } from '../providers'
 
 /** Value returned from `useConnectors`. */
 export interface UseConnectorsResult {
@@ -33,15 +33,13 @@ export interface UseConnectorsResult {
  * This example shows all registered connectors and connects
  * to the specified one.
  * ```tsx
- * import { useConnectors } from '@starknet-react/core'
- *
  * function Component() {
  *   const { connect, connectors } = useConnectors()
  *
  *   return (
  *     <ul>
  *       {connectors.map((connector) => (
- *         <li id={connector.id()}>
+ *         <li key={connector.id()}>
  *           <button onClick={() => connect(connector)}>
  *             Connect {connector.id()}
  *           </button>
@@ -56,9 +54,6 @@ export interface UseConnectorsResult {
  * This example shows how to refresh the available connectors
  * every 5 seconds.
  * ```tsx
- * import { useEffect } from 'react'
- * import { useConnectors } from '@starknet-react/core'
- *
  * function Component() {
  *   const { available, refresh } = useConnectors()
  *
@@ -67,7 +62,15 @@ export interface UseConnectorsResult {
  *     return () => clearInterval(interval)
  *   }, [refresh])
  *
- *   return <span>My component</span>
+ *   return (
+ *     <ul>
+ *       {available.map((connector) => (
+ *         <li key={connector.id()}>
+ *          {connector.id()}
+ *         </li>
+ *       ))}
+ *     </ul>
+ *   )
  * }
  * ```
  */
