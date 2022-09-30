@@ -2,9 +2,10 @@ import React, { useMemo, useState } from 'react'
 import { Box, chakra } from '@chakra-ui/react'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 import { scope } from './scope'
-import { useLiveErrorStyle } from './styles'
+import { useLiveEditorStyle, useLiveErrorStyle } from './styles'
 import { WalletBar } from '../WalletBar'
 import { InjectedConnector, StarknetConfig } from '@starknet-react/core'
+import { PrismTheme } from 'prism-react-renderer'
 
 const LiveCodePreview = chakra(LivePreview, {
   baseStyle: {
@@ -29,15 +30,16 @@ function EditableNotice() {
 
 export default function ReactLiveBlock({
   code,
+  theme,
 }: {
   language: string
-  code: string | string[]
-  theme?: { [key: string]: React.CSSProperties }
+  code: string
+  theme?: PrismTheme
 }) {
-  const trimmedCode = trimCode(code)
-  const [editorCode, setEditorCode] = useState(trimmedCode)
+  const [editorCode, setEditorCode] = useState(code)
   const onChange = (newCode: string) => setEditorCode(newCode.trim())
   const liveErrorStyle = useLiveErrorStyle()
+  const liveEditorStyle = useLiveEditorStyle()
   const connectors = useMemo(
     () =>
       shuffle([
@@ -69,8 +71,8 @@ export default function ReactLiveBlock({
           />
         </Box>
         <Box pos="relative" zIndex="0">
-          <Box p="5" pt="7" rounded="md" my="8" bg="cat.crust">
-            <LiveEditor onChange={onChange} />
+          <Box p="5" pt="7" rounded="md" my="8" bg="cat.mantle">
+            <LiveEditor onChange={onChange} theme={theme} style={liveEditorStyle} />
           </Box>
           <EditableNotice />
         </Box>
@@ -78,11 +80,6 @@ export default function ReactLiveBlock({
       </LiveProvider>
     </StarknetConfig>
   )
-}
-
-function trimCode(code: string | string[]): string {
-  const s = Array.isArray(code) ? code.join('\n') : code
-  return s.trim()
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
