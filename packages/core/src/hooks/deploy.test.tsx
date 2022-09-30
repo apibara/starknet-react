@@ -59,12 +59,18 @@ describe('useDeploy', () => {
         await result.current.deploy()
       })
 
-      await waitFor(() => {
-        expect(result.current.data).toBeDefined()
-        expect(result.current.data).toBeInstanceOf(Contract)
-        expect(result.current.loading).toBeFalsy()
-        expect(result.current.error).toBeUndefined()
-      })
+      await waitFor(
+        () => {
+          expect(result.current.data).toBeDefined()
+          expect(result.current.data).toBeInstanceOf(Contract)
+          expect(result.current.loading).toBeFalsy()
+          expect(result.current.error).toBeUndefined()
+        },
+        {
+          timeout: 20000,
+          interval: 1000,
+        }
+      )
 
       act(() => {
         result.current.reset()
