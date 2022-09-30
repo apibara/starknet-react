@@ -13,10 +13,12 @@
     "@chakra-ui/styled-system": "^2.3.3",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@starknet-react/core": "workspace:^",
     "framer-motion": "^7.4.0",
     "next": "12.3.1",
     "react": "^18.0",
     "react-dom": "^18.0",
+    "react-live": "^2.4.1",
     "react-markdown": "^8.0.3",
     "react-syntax-highlighter": "^15.5.0",
     "typedoc": "^0.23.15"

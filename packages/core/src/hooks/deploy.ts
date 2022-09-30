@@ -38,16 +38,20 @@ export interface UseDeployResult {
  *
  * @example
  * This example shows how to deploy a contract from the currently connected account.
- * ```ts
- * import { useAccount, useContractFactory, useDeploy } from '@starknet-react/core'
- *
+ * ```tsx
  * function Component() {
  *   const { account } = useAccount()
- *   const { contractFactory } = useContractFactory({ compiledContract, providerOrAccount: account })
- *   const { deploy } = useDeploy({ contractFactory })
+ *   const { contractFactory } = useContractFactory({
+ *     compiledContract: compiledErc20,
+ *     providerOrAccount: account
+ *   })
+ *   const { deploy, error } = useDeploy({ contractFactory })
  *
  *   return (
- *     <button onClick={deploy}>Deploy contract</button>
+ *     <>
+ *       <button onClick={deploy}>Deploy contract</button>
+ *       {error && <p>Error: {JSON.stringify(error)}</p>}
+ *     </>
  *   )
  * }
  * ```

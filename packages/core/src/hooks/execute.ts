@@ -41,7 +41,49 @@ export interface UseStarknetExecute {
  * @remarks
  *
  * Multicalls are used to submit multiple transactions in a single
- * call to improve the user experience.
+ * call to improve user experience.
+ *
+ * @example
+ * This example shows how to dynamically add transactions to the multicall.
+ * ```tsx
+ * function Component() {
+ *   const { address } = useAccount()
+ *   const [count, setCount] = useState(0)
+ *
+ *   const calls = useMemo(() => {
+ *     const tx = {
+ *       contractAddress: ethAddress,
+ *       entrypoint: 'transfer',
+ *       calldata: [address, 1, 0]
+ *     }
+ *     return Array(count).fill(tx)
+ *   }, [address, count])
+ *
+ *   const { execute } = useStarknetExecute({ calls })
+ *
+ *   const inc = useCallback(
+ *     () => setCount(c => c + 1),
+ *     [setCount]
+ *   )
+ *   const dec = useCallback(
+ *     () => setCount(c => Math.max(c - 1)),
+ *     [setCount]
+ *   )
+ *
+ *   return (
+ *     <>
+ *       <p>Sending {count} transactions</p>
+ *       <p>
+ *         <button onClick={dec}>Decrement</button>
+ *         <button onClick={inc}>Increment</button>
+ *       </p>
+ *       <p>
+ *         <button onClick={execute}>Execute</button>
+ *       </p>
+ *     </>
+ *   )
+ * }
+ * ```
  */
 export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) {
   const { account } = useAccount()

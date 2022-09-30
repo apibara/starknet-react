@@ -53,6 +53,7 @@ export function useAccount(): UseAccountResult {
       })
     }
     for (const connector of connectors) {
+      if (!connector.available()) continue
       const connAccount = await connector.account()
       if (connAccount && connAccount?.address === connectedAccount) {
         return setState({

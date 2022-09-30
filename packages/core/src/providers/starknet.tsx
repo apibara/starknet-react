@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { defaultProvider, ProviderInterface } from 'starknet'
-import { Connector } from '~/connectors'
-import { ConnectorNotFoundError } from '~/errors'
+import { Connector } from '../connectors'
+import { ConnectorNotFoundError } from '../errors'
 
 /** State of the StarkNet context. */
 export interface StarknetState {
@@ -47,6 +47,26 @@ const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
 
 /**
  * Returns the current StarkNet context state.
+ *
+ * @remarks
+ *
+ * This hook should be used sparingly and will be deprecated.
+ *
+ * Use the following hooks:
+ *
+ *  - `account`: `useAccount`
+ *  - `connect`, `disconnect`, `connectors`: `useConnectors`
+ *
+ * @example
+ * This example shows how to access the StarkNet provider.
+ * ```tsx
+ * function Component() {
+ *   const { library } = useStarknet()
+ *
+ *   if (!library.provider) return <span>Account URL: {library.baseUrl}</span>
+ *   return <span>Provider URL: {library.provider.baseUrl}</span>
+ * }
+ * ```
  */
 export function useStarknet(): StarknetState {
   return useContext(StarknetContext)

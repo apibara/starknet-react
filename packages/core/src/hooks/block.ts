@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { GetBlockResponse, ProviderInterface } from 'starknet'
 import { BlockIdentifier } from 'starknet/provider/utils'
-import { useStarknet } from '~/providers'
+import { useStarknet } from '../providers'
 
 /** Value returned from `useStarknetBlock`. */
 export interface StarkNetBlockResult {
@@ -22,6 +22,18 @@ export interface StarkNetBlockResult {
  * Block data is continuously refreshed in the background.
  *
  * @deprecated Use {@link useBlock}.
+ *
+ * @example
+ * This example shows how to fetch the latest block.
+ * ```tsx
+ * function Component() {
+ *   const { data, loading, error } = useStarknetBlock()
+ *
+ *   if (loading) return <span>Loading...</span>
+ *   if (error) return <span>Error...</span>
+ *   return <span>Hash: {data.block_hash}</span>
+ * }
+ * ```
  */
 export function useStarknetBlock(): StarkNetBlockResult {
   const { data, isLoading, isError } = useBlock({
@@ -71,8 +83,6 @@ export interface UseBlockResult {
  * @example
  * This example shows how to fetch the latest block only once.
  * ```tsx
- * import { useBlock } from `@starknet-react/core`
- *
  * function Component() {
  *   const { data, isLoading, isError } = useBlock({
  *     refetchInterval: false,
@@ -81,15 +91,15 @@ export interface UseBlockResult {
  *
  *   if (isLoading) return <span>Loading...</span>
  *   if (isError) return <span>Error...</span>
- *   return <span>Hash: {data?.block_hash}</span>
+ *   return <span>Hash: {data.block_hash}</span>
  * }
  * ```
  *
  * @example
  * This example shows how to fetch the pending block every 3 seconds.
+ * Use your browser network monitor to verify that the hook is refetching the
+ * data.
  * ```tsx
- * import { useBlock } from `@starknet-react/core`
- *
  * function Component() {
  *   const { data, isLoading, isError } = useBlock({
  *     refetchInterval: 3000,
@@ -98,7 +108,7 @@ export interface UseBlockResult {
  *
  *   if (isLoading) return <span>Loading...</span>
  *   if (isError) return <span>Error...</span>
- *   return <span>Hash: {data?.block_hash}</span>
+ *   return <span>Hash: {data.block_hash}</span>
  * }
  * ```
  */

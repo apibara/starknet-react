@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useStarknet } from '..'
-import { chainById, Chain } from '~/network'
+import { chainById, Chain } from '../network'
 
 /** Value returned from `useNetwork`. */
 export interface UseNetworkResult {
@@ -19,12 +19,10 @@ export interface UseNetworkResult {
  * @example
  * This example shows how to display the current network name.
  * ```tsx
- * import { useNetwork } from '@starknet-react/core'
- *
  * function Component() {
  *   const { chain } = useNetwork()
  *
- *   return <span>{chain?.name}</span>
+ *   return <span>{chain.name}</span>
  * }
  */
 export function useNetwork(): UseNetworkResult {

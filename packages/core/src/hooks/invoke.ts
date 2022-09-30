@@ -37,7 +37,35 @@ export interface UseStarknetInvokeResult<T extends unknown[]> {
 /**
  * Hook to invoke a smart contract method.
  *
+ * @remarks
+ *
+ * This hook calls the `Contract.invoke` method under the hood.
+ * Arguments should be encoded according to the starknet.js version
+ * you're using.
+ *
  * @deprecated Use {@link useStarknetExecute} instead.
+ *
+ * @example
+ * This example shows how to transfer some ETH.
+ * ```tsx
+ * function Component() {
+ *   const { address } = useAccount()
+ *   const { contract } = useContract({
+ *     abi: compiledErc20.abi,
+ *     address: ethAddress,
+ *   })
+ *   const { invoke } = useStarknetInvoke({
+ *     contract,
+ *     method: 'transfer',
+ *   })
+ *
+ *   return (
+ *     <button onClick={() => invoke({ args: [address, [1, 0]] })}>
+ *       Invoke
+ *     </button>
+ *   )
+ * }
+ * ```
  */
 export function useStarknetInvoke<T extends unknown[]>({
   contract,

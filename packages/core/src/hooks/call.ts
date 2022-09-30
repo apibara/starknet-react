@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { ContractInterface, ProviderInterface } from 'starknet'
 import { BlockIdentifier } from 'starknet/dist/provider/utils'
 
-import { useStarknet } from '~/providers'
+import { useStarknet } from '../providers'
 import { useInvalidateOnBlock } from './invalidate'
 
 /** Call options. */
@@ -50,10 +50,11 @@ export interface UseStarknetCallResult {
  * @example
  * This example shows how to fetch the user ERC-20 balance.
  * ```tsx
- * import { useAccount, useContract, useStarknetCall } from '@starknet-react/core'
- *
  * function Component() {
- *   const { contract } = useContract({ address: erc20, abi: erc20Abi })
+ *   const { contract } = useContract({
+ *     address: ethAddress,
+ *     abi: compiledErc20.abi
+ *   })
  *   const { address } = useAccount()
  *   const { data, loading, error, refresh } = useStarknetCall({
  *     contract,
@@ -66,7 +67,13 @@ export interface UseStarknetCallResult {
  *
  *   if (loading) return <span>Loading...</span>
  *   if (error) return <span>Error: {error}</span>
- *   return <span>Balance: {data[0]}</span>
+ *
+ *   return (
+ *     <div>
+ *       <button onClick={refresh}>Refresh</button>
+ *       <p>Balance: {JSON.stringify(data)}</p>
+ *     </div>
+ *   )
  * }
  * ```
  */

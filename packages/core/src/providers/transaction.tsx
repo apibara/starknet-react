@@ -41,36 +41,26 @@ export const TransactionManagerContext = createContext<TransactionManagerState<o
  * `useTransactions` hook to fetch the state of the transactions.
  *
  * @example
- * This example shows how to fetch the state of the transactions.
- * ```tsx
- * import { useTransactionManager, useTransactions } from '@starknet-react/core'
+ * This example shows how to fetch the state of tracked transactions
+ * and how to add new transactions to the manager.
  *
+ * Notice that the transaction manager only accepts the same transaction once.
+ * ```tsx
  * function Component() {
- *   const { hashes } = useTransactionManager()
+ *   const { hashes, addTransaction } = useTransactionManager()
  *   const transactions = useTransactions({ hashes })
  *
  *   return (
- *     <ul>
- *       {transactions.map(({ data }, i) => (
- *         <li key={i}>{data?.transaction_hash}</li>
- *       ))}
- *     </ul>
- *   )
- * }
- * ```
- *
- * @example
- * This example shows how to add a transaction with its metadata.
- * ```tsx
- * import { useTransactionManager } from '@starknet-react/core'
- *
- * function Component() {
- *   const { addTransaction } = useTransactionManager()
- *
- *   return (
- *     <button onClick={() => addTransaction({ hash: '0x123', metadata: { test: true } })}>
- *       Add transaction
- *     </button>
+ *     <>
+ *       <button onClick={() => addTransaction({ hash: txHash, metadata: { test: true } })}>
+ *         Add transaction
+ *       </button>
+ *       <ul>
+ *         {transactions.map(({ data }, i) => (
+ *           <li key={i}>{data && data.transaction_hash}</li>
+ *         ))}
+ *       </ul>
+ *     </>
  *   )
  * }
  * ```

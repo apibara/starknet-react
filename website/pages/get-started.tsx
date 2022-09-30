@@ -1,4 +1,5 @@
 import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
+import Head from 'next/head'
 import React from 'react'
 import { Layout } from '../components/Layout'
 import { Markdown } from '../components/Markdown'
@@ -21,6 +22,9 @@ function MyApp({ Component, pageProps }) {
 export default function GetStartedPage() {
   return (
     <Layout>
+      <Head>
+        <title>Get Started - StarkNet React</title>
+      </Head>
       <Box maxW="70rem" mx="auto" pt="12" mb="20">
         <Heading fontSize="6xl" as="h1" textAlign="center">
           Get Started
