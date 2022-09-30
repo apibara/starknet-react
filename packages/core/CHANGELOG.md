@@ -1,5 +1,17 @@
 # @starknet-react/core
 
+## 0.14.0
+
+### Minor Changes
+
+- [#171](https://github.com/apibara/starknet-react/pull/171) [`edb036f`](https://github.com/apibara/starknet-react/commit/edb036f20be430018df59c62439a0b409811f833) Thanks [@fracek](https://github.com/fracek)! - Refactor to use react-query
+
+* [#171](https://github.com/apibara/starknet-react/pull/171) [`24d041d`](https://github.com/apibara/starknet-react/commit/24d041d5fea1fc2dc7a856f162585e42fc89e2c5) Thanks [@fracek](https://github.com/fracek)! - Add useNetwork hook.
+
+### Patch Changes
+
+- [#171](https://github.com/apibara/starknet-react/pull/171) [`9d81e3e`](https://github.com/apibara/starknet-react/commit/9d81e3e9e3a0f37d8d8ddda210b47ed9b2575244) Thanks [@fracek](https://github.com/fracek)! - Add useDeploy hook.
+
 ## 0.13.4
 
 ### Patch Changes
