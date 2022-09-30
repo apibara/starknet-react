@@ -13,6 +13,7 @@
     "lint:fix": "turbo run lint:fix --parallel",
     "typedoc": "turbo run typedoc --filter @starknet-react/*",
     "web:dev": "turbo run dev --filter website",
+    "web:export": "turbo run export --filter website",
     "release": "pnpm build && pnpm changeset publish",
     "postinstall": "pnpm run prepare",
     "prepare": "husky install"

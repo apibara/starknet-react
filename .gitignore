@@ -20,3 +20,4 @@ dist
 .turbo
 .pnpm-debug.log
 website/generated
+website/out

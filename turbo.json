@@ -16,6 +16,10 @@
       "dependsOn": ["@starknet-react/core#build", "@starknet-react/core#typedoc"],
       "outputs": []
     },
+    "website#export": {
+      "dependsOn": ["website#build"],
+      "outputs": []
+    },
     "test": {
       "dependsOn": ["@starknet-react/core#build"],
       "outputs": []
