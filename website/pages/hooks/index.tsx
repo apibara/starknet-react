@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 import { Layout } from '../../components/Layout'
 import { deprecationTag, getAllHooks } from '../../lib/typedoc'
 import { Hook } from '../../components/Hook'
+import Head from 'next/head'
 
 function HookBox({
   name,
@@ -53,6 +54,9 @@ export default function ApiPage() {
 
   return (
     <Layout>
+      <Head>
+        <title>Hooks Reference - StarkNet React</title>
+      </Head>
       <Box pt="12" display="flex" alignItems="center" justifyContent="center">
         <VStack>
           <Heading fontSize="6xl" as="h1">

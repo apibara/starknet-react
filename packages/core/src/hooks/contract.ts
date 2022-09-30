@@ -78,9 +78,10 @@ export interface UseContractFactoryResult {
  *
  * The returned contract factory is a starknet.js `ContractFactory` object.
  *
+ * This hook works well with `useDeploy`.
+ *
  * @example
- * This example shows how to create a contract factory
- * that will deploy the contract from the connected wallet.
+ * This example shows how to create a contract factory.
  * ```tsx
  * function Component() {
  *   const { account } = useAccount()
@@ -90,13 +91,7 @@ export interface UseContractFactoryResult {
  *     providerOrAccount: account
  *   })
  *
- *   return (
- *     <button
- *       onClick={() => contractFactory.deploy([0])}
- *     >
- *       Deploy
- *     </button>
- *   )
+ *   return <p>Nothing to see here...</p>
  * }
  * ```
  */
