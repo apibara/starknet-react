@@ -2,7 +2,7 @@ import { Box, Grid, Heading, VStack } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 import NextLink from 'next/link'
 import { Layout } from '../../components/Layout'
-import { getAllHooks, isHookDeprecated } from '../../lib/typedoc'
+import { deprecationTag, getAllHooks } from '../../lib/typedoc'
 import { Hook } from '../../components/Hook'
 
 function HookBox({
@@ -68,7 +68,7 @@ export default function ApiPage() {
             name={hook.name}
             description={<Hook.Summary hook={hook} />}
             href={`/hooks/${hook.name}`}
-            isDeprecated={isHookDeprecated(hook)}
+            isDeprecated={deprecationTag(hook) !== undefined}
           />
         ))}
       </Grid>

@@ -52,7 +52,21 @@ export default function ReactLiveBlock({
       <LiveProvider code={editorCode} scope={scope}>
         <Box mt="5" p="4" borderColor="cat.peach" borderWidth={1} rounded="md" overflow="auto">
           <WalletBar w="full" borderBottom="1px solid" borderColor="cat.overlay" mb="4" pb="4" />
-          <LiveCodePreview zIndex="1" />
+          <LiveCodePreview
+            zIndex="1"
+            __css={{
+              button: {
+                background: 'transparent',
+                rounded: 'sm',
+                borderColor: 'cat.text',
+                borderWidth: 1,
+                m: '3',
+                p: '2',
+              },
+              span: { color: 'cat.text' },
+              p: { color: 'cat.text', m: '3' },
+            }}
+          />
         </Box>
         <Box pos="relative" zIndex="0">
           <Box p="5" pt="7" rounded="md" my="8" bg="cat.crust">

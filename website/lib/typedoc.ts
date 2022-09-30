@@ -33,10 +33,10 @@ export interface Function {
 
 export type Hook = Function
 
-export function isHookDeprecated(hook: Function) {
+export function deprecationTag(hook: Function) {
   const tags = hook.signatures[0]?.comment?.blockTags
-  if (!tags) return false
-  return tags.find((t) => t.tag === '@deprecated') !== undefined
+  if (!tags) return undefined
+  return tags.find((t) => t.tag === '@deprecated')
 }
 
 export function getAllHooks(): Function[] {

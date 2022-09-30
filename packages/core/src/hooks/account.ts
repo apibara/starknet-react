@@ -36,8 +36,8 @@ export interface UseAccountResult {
  * function Component() {
  *   const { account, address, status } = useAccount()
  *
- *   if (status === 'disconnected') return <span>Disconnected</span>
- *   return <span>Account: {address}</span>
+ *   if (status === 'disconnected') return <p>Disconnected</p>
+ *   return <p>Account: {address}</p>
  * }
  * ```
  */
