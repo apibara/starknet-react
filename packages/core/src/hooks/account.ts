@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AccountInterface } from 'starknet'
-import { Connector } from '~/connectors'
+import { Connector } from '../connectors'
 import { useConnectors } from './connectors'
-import { useStarknet } from '~/providers'
+import { useStarknet } from '../providers'
 
 /** Account connection status. */
 export type AccountStatus = 'connected' | 'disconnected'
@@ -33,8 +33,6 @@ export interface UseAccountResult {
  * This example shows how to display the wallet connection status and
  * the currently connected wallet address.
  * ```tsx
- * import { useAccount } from '@starknet-react/core'
- *
  * function Component() {
  *   const { account, address, status } = useAccount()
  *
@@ -49,10 +47,15 @@ export function useAccount(): UseAccountResult {
   const [state, setState] = useState<UseAccountResult>({ status: 'disconnected' })
 
   const refreshState = useCallback(async () => {
+    if (!connectedAccount) {
+      return setState({
+        status: 'disconnected',
+      })
+    }
     for (const connector of connectors) {
       const connAccount = await connector.account()
       if (connAccount && connAccount?.address === connectedAccount) {
-        setState({
+        return setState({
           connector,
           account: connAccount,
           address: connectedAccount,
