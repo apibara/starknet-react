@@ -10,7 +10,7 @@ export function CodeBlock({
   language,
   children,
 }: {
-  language: Language
+  language: string
   wrapLines: boolean
   children: string | string[]
 }) {
@@ -25,7 +25,7 @@ export function CodeBlock({
 
   return (
     <Box p="5" rounded="md" my="2" bg="cat.mantle">
-      <Highlight {...defaultProps} code={code} language={language} theme={theme}>
+      <Highlight {...defaultProps} code={code} language={language as Language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
             {tokens.map((line, i) => (
