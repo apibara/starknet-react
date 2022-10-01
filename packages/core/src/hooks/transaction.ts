@@ -42,7 +42,10 @@ export function useTransaction({ hash }: UseTransactionProps): UseTransactionRes
   const { library } = useStarknet()
   const { data, isLoading, error } = useQuery(
     queryKey({ library, hash }),
-    fetchTransaction({ library, hash })
+    fetchTransaction({
+      library,
+      hash,
+    })
   )
   return { data, loading: isLoading, error: error ?? undefined }
 }
@@ -86,7 +89,10 @@ export function useTransactions({ hashes }: UseTransactionsProps): UseTransactio
   const result = useQueries({
     queries: hashes.map((hash) => ({
       queryKey: queryKey({ library, hash }),
-      queryFn: fetchTransaction({ library, hash }),
+      queryFn: fetchTransaction({
+        library,
+        hash,
+      }),
     })),
   })
 

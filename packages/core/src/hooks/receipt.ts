@@ -10,6 +10,36 @@ export interface UseTransactionReceiptProps {
   hash?: string
   /** Refresh data at every block. */
   watch?: boolean
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L1".
+   */
+  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L2".
+   */
+  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "PENDING".
+   */
+  onPending?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "REJECTED".
+   */
+  onRejected?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "RECEIVED".
+   */
+  onReceived?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "NOT_RECEIVED".
+   */
+  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
 }
 
 /** Value returned from `useTransactionReceipt`. */
@@ -85,6 +115,12 @@ export interface UseTransactionReceiptResult {
 export function useTransactionReceipt({
   hash,
   watch,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
 }: UseTransactionReceiptProps): UseTransactionReceiptResult {
   const { library } = useStarknet()
   const queryKey_ = useMemo(() => queryKey({ library, hash }), [library, hash])
@@ -94,6 +130,41 @@ export function useTransactionReceipt({
     {
       enabled: !!hash,
       refetchInterval: (data, _query) => (watch ? refetchInterval(data) : false),
+      onSuccess: (data) => {
+        const { status } = data
+        switch (status) {
+          case 'ACCEPTED_ON_L1':
+            if (onAcceptedOnL1) {
+              onAcceptedOnL1(data)
+            }
+            break
+          case 'ACCEPTED_ON_L2':
+            if (onAcceptedOnL2) {
+              onAcceptedOnL2(data)
+            }
+            break
+          case 'NOT_RECEIVED':
+            if (onNotReceived) {
+              onNotReceived(data)
+            }
+            break
+          case 'PENDING':
+            if (onPending) {
+              onPending(data)
+            }
+            break
+          case 'RECEIVED':
+            if (onReceived) {
+              onReceived(data)
+            }
+            break
+          case 'REJECTED':
+            if (onRejected) {
+              onRejected(data)
+            }
+            break
+        }
+      },
     }
   )
 
@@ -106,19 +177,37 @@ function queryKey({ library, hash }: { library: ProviderInterface; hash?: string
   return [{ entity: 'transactionReceipt', chainId: library.chainId, hash }] as const
 }
 
-function fetchTransactionReceipt({ library, hash }: { library: ProviderInterface; hash?: string }) {
+interface FetchTransactionReceiptProps {
+  /** The transaction hash. */
+  hash?: string
+  library: ProviderInterface
+}
+
+function fetchTransactionReceipt({ library, hash }: FetchTransactionReceiptProps) {
   return async () => {
     if (!hash) throw new Error('hash is required')
+
     return await library.getTransactionReceipt(hash)
   }
 }
 
 function refetchInterval(data: GetTransactionReceiptResponse | undefined) {
-  if (data?.status === 'NOT_RECEIVED') return 500
-  if (data?.status === 'RECEIVED') return 5000
-  if (data?.status === 'PENDING') return 5000
-  if (data?.status === 'ACCEPTED_ON_L2') return 60000
-  if (data?.status === 'REJECTED') return false
-  if (data?.status === 'ACCEPTED_ON_L1') return false
-  return false
+  if (!data) return false
+  const { status } = data
+  switch (status) {
+    case 'ACCEPTED_ON_L1':
+      return false
+    case 'ACCEPTED_ON_L2':
+      return 60000
+    case 'NOT_RECEIVED':
+      return 500
+    case 'PENDING':
+      return 5000
+    case 'RECEIVED':
+      return 5000
+    case 'REJECTED':
+      return false
+    default:
+      return false
+  }
 }
