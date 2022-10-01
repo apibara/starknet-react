@@ -83,13 +83,20 @@ export function useTransaction({
     fetchTransaction({
       library,
       hash,
-      onAcceptedOnL1,
-      onAcceptedOnL2,
-      onNotReceived,
-      onPending,
-      onReceived,
-      onRejected,
-    })
+    }),
+    {
+      onSuccess: async (data: GetTransactionResponse) =>
+        fetchTransactionReceipt({
+          library,
+          hash: data.transaction_hash,
+          onAcceptedOnL1,
+          onAcceptedOnL2,
+          onNotReceived,
+          onPending,
+          onReceived,
+          onRejected,
+        }),
+    }
   )
   return { data, loading: isLoading, error: error ?? undefined }
 }
@@ -174,13 +181,18 @@ export function useTransactions({
       queryFn: fetchTransaction({
         library,
         hash,
-        onAcceptedOnL1,
-        onAcceptedOnL2,
-        onNotReceived,
-        onPending,
-        onReceived,
-        onRejected,
       }),
+      onSuccess: async (data: GetTransactionResponse) =>
+        fetchTransactionReceipt({
+          library,
+          hash: data.transaction_hash,
+          onAcceptedOnL1,
+          onAcceptedOnL2,
+          onNotReceived,
+          onPending,
+          onReceived,
+          onRejected,
+        }),
     })),
   })
 
@@ -201,38 +213,15 @@ function queryKey({ library, hash }: { library: ProviderInterface; hash?: string
   ] as const
 }
 
-interface FetchTransactionProps extends UseTransactionProps {
-  library: ProviderInterface
-}
-
-function fetchTransaction({
-  library,
-  hash,
-  onAcceptedOnL1,
-  onAcceptedOnL2,
-  onNotReceived,
-  onPending,
-  onReceived,
-  onRejected,
-}: FetchTransactionProps) {
+function fetchTransaction({ library, hash }: { library: ProviderInterface; hash?: string }) {
   return async () => {
     if (!hash) throw new Error('hash is required')
-    await fetchTransactionReceipt({
-      library,
-      hash,
-      onAcceptedOnL1,
-      onAcceptedOnL2,
-      onNotReceived,
-      onPending,
-      onReceived,
-      onRejected,
-    })
     return await library.getTransaction(hash)
   }
 }
 
-interface FetchTransactionReceiptProps extends FetchTransactionProps {
-  hash: string
+interface FetchTransactionReceiptProps extends UseTransactionProps {
+  library: ProviderInterface
 }
 
 async function fetchTransactionReceipt({
@@ -245,6 +234,7 @@ async function fetchTransactionReceipt({
   onReceived,
   onRejected,
 }: FetchTransactionReceiptProps): Promise<void> {
+  if (!hash) throw new Error('hash is required')
   const transactionReceiptResponse = await library.getTransactionReceipt(hash)
   const { status } = transactionReceiptResponse
   switch (status) {
