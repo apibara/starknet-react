@@ -1,11 +1,41 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
-import { GetTransactionResponse, ProviderInterface } from 'starknet'
+import { GetTransactionResponse, ProviderInterface, GetTransactionReceiptResponse } from 'starknet'
 import { useStarknet } from '../providers'
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionProps {
   /** The transaction hash. */
   hash?: string
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L1".
+   */
+  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L2".
+   */
+  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "PENDING".
+   */
+  onPending?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "REJECTED".
+   */
+  onRejected?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "RECEIVED".
+   */
+  onReceived?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "NOT_RECEIVED".
+   */
+  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
 }
 
 /** Value returned from `useTransaction`. */
@@ -38,11 +68,28 @@ export interface UseTransactionResult {
  *   return <span>{data.transaction_hash}</span>
  * }
  */
-export function useTransaction({ hash }: UseTransactionProps): UseTransactionResult {
+export function useTransaction({
+  hash,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: UseTransactionProps): UseTransactionResult {
   const { library } = useStarknet()
   const { data, isLoading, error } = useQuery(
     queryKey({ library, hash }),
-    fetchTransaction({ library, hash })
+    fetchTransaction({
+      library,
+      hash,
+      onAcceptedOnL1,
+      onAcceptedOnL2,
+      onNotReceived,
+      onPending,
+      onReceived,
+      onRejected,
+    })
   )
   return { data, loading: isLoading, error: error ?? undefined }
 }
@@ -51,6 +98,36 @@ export function useTransaction({ hash }: UseTransactionProps): UseTransactionRes
 export interface UseTransactionsProps {
   /** The transactions hashes. */
   hashes: string[]
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L1".
+   */
+  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L2".
+   */
+  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "PENDING".
+   */
+  onPending?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "REJECTED".
+   */
+  onRejected?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "RECEIVED".
+   */
+  onReceived?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "NOT_RECEIVED".
+   */
+  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
 }
 
 /**
@@ -81,12 +158,29 @@ export interface UseTransactionsProps {
  * }
  * ```
  */
-export function useTransactions({ hashes }: UseTransactionsProps): UseTransactionResult[] {
+export function useTransactions({
+  hashes,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: UseTransactionsProps): UseTransactionResult[] {
   const { library } = useStarknet()
   const result = useQueries({
     queries: hashes.map((hash) => ({
       queryKey: queryKey({ library, hash }),
-      queryFn: fetchTransaction({ library, hash }),
+      queryFn: fetchTransaction({
+        library,
+        hash,
+        onAcceptedOnL1,
+        onAcceptedOnL2,
+        onNotReceived,
+        onPending,
+        onReceived,
+        onRejected,
+      }),
     })),
   })
 
@@ -107,9 +201,82 @@ function queryKey({ library, hash }: { library: ProviderInterface; hash?: string
   ] as const
 }
 
-function fetchTransaction({ library, hash }: { library: ProviderInterface; hash?: string }) {
+interface FetchTransactionProps extends UseTransactionProps {
+  library: ProviderInterface
+}
+
+function fetchTransaction({
+  library,
+  hash,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: FetchTransactionProps) {
   return async () => {
     if (!hash) throw new Error('hash is required')
+    await fetchTransactionReceipt({
+      library,
+      hash,
+      onAcceptedOnL1,
+      onAcceptedOnL2,
+      onNotReceived,
+      onPending,
+      onReceived,
+      onRejected,
+    })
     return await library.getTransaction(hash)
+  }
+}
+
+interface FetchTransactionReceiptProps extends FetchTransactionProps {
+  hash: string
+}
+
+async function fetchTransactionReceipt({
+  library,
+  hash,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: FetchTransactionReceiptProps): Promise<void> {
+  const transactionReceiptResponse = await library.getTransactionReceipt(hash)
+  const { status } = transactionReceiptResponse
+  switch (status) {
+    case 'ACCEPTED_ON_L1':
+      if (onAcceptedOnL1) {
+        onAcceptedOnL1(transactionReceiptResponse)
+      }
+      break
+    case 'ACCEPTED_ON_L2':
+      if (onAcceptedOnL2) {
+        onAcceptedOnL2(transactionReceiptResponse)
+      }
+      break
+    case 'NOT_RECEIVED':
+      if (onNotReceived) {
+        onNotReceived(transactionReceiptResponse)
+      }
+      break
+    case 'PENDING':
+      if (onPending) {
+        onPending(transactionReceiptResponse)
+      }
+      break
+    case 'RECEIVED':
+      if (onReceived) {
+        onReceived(transactionReceiptResponse)
+      }
+      break
+    case 'REJECTED':
+      if (onRejected) {
+        onRejected(transactionReceiptResponse)
+      }
+      break
   }
 }
