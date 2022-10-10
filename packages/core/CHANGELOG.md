@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.1
+
+### Patch Changes
+
+- [`60aeefb`](https://github.com/apibara/starknet-react/commit/60aeefb125e68fabeb196026b5e5aeaac11fdb5b) Thanks [@nmalzieu](https://github.com/nmalzieu)! - Use react-query refetch for refreshing calls
+
 ## 0.14.0
 
 ### Minor Changes
