@@ -37,6 +37,8 @@ export interface UseStarknetCallResult {
   error?: string
   /** Manually trigger refresh of data. */
   refresh: () => void
+  /** True when performing call. */
+  refreshing: boolean
 }
 
 /**
@@ -102,7 +104,8 @@ export function useStarknetCall<T extends unknown[]>({
 
   return {
     data,
-    loading: isLoading || isRefetching,
+    loading: isLoading,
+    refreshing: isRefetching,
     refresh: refetch,
     error: isError ? 'error performing call' : undefined,
   }
