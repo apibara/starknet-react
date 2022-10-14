@@ -8,4 +8,4 @@ Start the development server from the root of the project:
 pnpm run web:dev
 ```
 
-The open [http://localhost:3000](http://localhost:3000) with your browser to see the documentation.
+Then open [http://localhost:3000](http://localhost:3000) with your browser to see the documentation.
