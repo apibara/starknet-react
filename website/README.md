@@ -2,12 +2,10 @@
 
 ## Getting Started
 
-First, run the development server:
+Start the development server from the root of the project:
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm run web:dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The open [http://localhost:3000](http://localhost:3000) with your browser to see the documentation.
