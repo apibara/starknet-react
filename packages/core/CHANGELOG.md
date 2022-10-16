@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.2
+
+### Patch Changes
+
+- [#180](https://github.com/apibara/starknet-react/pull/180) [`a791114`](https://github.com/apibara/starknet-react/commit/a79111483b87511a583d8e0013c39aa1a84aa8dc) Thanks [@fracek](https://github.com/fracek)! - Add useTransactionReceipt hook
+
 ## 0.14.1
 
 ### Patch Changes
