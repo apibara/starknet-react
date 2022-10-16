@@ -1,4 +1,5 @@
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useBlock } from './block'
 
 /**
@@ -12,5 +13,17 @@ export function useInvalidateOnBlock({
   queryKey: QueryKey
 }) {
   const queryClient = useQueryClient()
-  useBlock({ onSuccess: enabled ? (_block) => queryClient.invalidateQueries(queryKey) : undefined })
+  const [previousHash, setPreviousHash] = useState<string | undefined>(undefined)
+
+  useBlock({
+    refetchInterval: 5000,
+    onSuccess: enabled
+      ? async (block) => {
+          if (block.block_hash !== previousHash) {
+            await queryClient.invalidateQueries(queryKey, { refetchType: 'all' })
+            setPreviousHash(block.block_hash)
+          }
+        }
+      : undefined,
+  })
 }
