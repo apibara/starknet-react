@@ -33,8 +33,8 @@ describe('useTransactionReceipt', () => {
 
       await waitFor(
         () => {
-          expect(result.current.error).toBeDefined()
-          expect(result.current.loading).toBeFalsy()
+          expect(result.current.error).toBeUndefined()
+          expect(result.current.loading).toBeTruthy()
           expect(result.current.data).toBeUndefined()
         },
         {
