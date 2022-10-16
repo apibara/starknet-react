@@ -1,11 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { GetTransactionReceiptResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
+import { useInvalidateOnBlock } from './invalidate'
 
 /** Arguments for the `useTransactionReceipt` hook. */
 export interface UseTransactionReceiptProps {
   /** The transaction hash. */
   hash?: string
+  /** Refresh data at every block. */
+  watch?: boolean
 }
 
 /** Value returned from `useTransactionReceipt`. */
@@ -16,6 +20,8 @@ export interface UseTransactionReceiptResult {
   loading: boolean
   /** Error while fetching the transaction receipt. */
   error?: unknown
+  /** Manually trigger refresh of data. */
+  refresh: () => void
 }
 
 /**
@@ -40,13 +46,18 @@ export interface UseTransactionReceiptResult {
  */
 export function useTransactionReceipt({
   hash,
+  watch,
 }: UseTransactionReceiptProps): UseTransactionReceiptResult {
   const { library } = useStarknet()
-  const { data, isLoading, error } = useQuery(
-    queryKey({ library, hash }),
+  const queryKey_ = useMemo(() => queryKey({ library, hash }), [library, hash])
+  const { data, isLoading, error, refetch } = useQuery(
+    queryKey_,
     fetchTransactionReceipt({ library, hash })
   )
-  return { data, loading: isLoading, error: error ?? undefined }
+
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
+
+  return { data, loading: isLoading, error: error ?? undefined, refresh: refetch }
 }
 
 function queryKey({ library, hash }: { library: ProviderInterface; hash?: string }) {
