@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.4
+
+### Patch Changes
+
+- [#184](https://github.com/apibara/starknet-react/pull/184) [`ef468f3`](https://github.com/apibara/starknet-react/commit/ef468f3e8458cb595ce6cfd7608dccef259158a4) Thanks [@fracek](https://github.com/fracek)! - Transaction receipt hook now refreshes data
+
 ## 0.14.3
 
 ### Patch Changes
