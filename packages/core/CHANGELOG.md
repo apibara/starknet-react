@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.3
+
+### Patch Changes
+
+- [#182](https://github.com/apibara/starknet-react/pull/182) [`f822de6`](https://github.com/apibara/starknet-react/commit/f822de66b4c889ff3148becabd68888c04d8d838) Thanks [@fracek](https://github.com/fracek)! - Refresh receipt data on every block
+
 ## 0.14.2
 
 ### Patch Changes
