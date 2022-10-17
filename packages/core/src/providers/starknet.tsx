@@ -141,19 +141,27 @@ function useStarknetManager({
 
   const { account, library, error } = state
 
-  const connect = useCallback((connector: Connector) => {
-    connector.connect().then(
-      (account) => {
-        dispatch({ type: 'set_account', account: account.address })
-        dispatch({ type: 'set_provider', provider: account })
-        dispatch({ type: 'set_connector', connector })
-      },
-      (err) => {
-        console.error(err)
-        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
-      }
-    )
-  }, [])
+  const connect = useCallback(
+    (connector: Connector) => {
+      connector.connect().then(
+        (account) => {
+          dispatch({ type: 'set_account', account: account.address })
+          dispatch({ type: 'set_provider', provider: account })
+          dispatch({ type: 'set_connector', connector })
+          if (autoConnect) {
+            // Write to local storage the connected wallet
+            localStorage.setItem('lastUsedConnector', connector.id.toString())
+            console.log(connector.id)
+          }
+        },
+        (err) => {
+          console.error(err)
+          dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
+        }
+      )
+    },
+    [autoConnect]
+  )
 
   const disconnect = useCallback(() => {
     if (!state.connector) return
@@ -162,35 +170,43 @@ function useStarknetManager({
         dispatch({ type: 'set_account', account: undefined })
         dispatch({ type: 'set_provider', provider: undefined })
         dispatch({ type: 'set_connector', connector: undefined })
+        if (autoConnect) {
+          localStorage.removeItem('lastUsedConnector')
+        }
       },
       (err) => {
         console.error(err)
         dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
       }
     )
-  }, [state.connector])
+  }, [autoConnect, state.connector])
 
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
-      // Autoconnect priority is defined by the order of the connectors.
-      for (let i = 0; i < connectors.length; i++) {
-        try {
-          const connector = connectors[i]
-          if (!(await connector.ready())) {
-            // Not already authorized, try next.
-            continue
-          }
+      const lastConnectedConnectorId = localStorage.getItem('lastUsedConnector')
+      if (lastConnectedConnectorId === null) {
+        return
+      }
 
-          const account = await connector.connect()
-          dispatch({ type: 'set_account', account: account.address })
-          dispatch({ type: 'set_provider', provider: account })
-          dispatch({ type: 'set_connector', connector })
+      const lastConnectedConnector = connectors.find(
+        (connector) => connector.id.toString() === lastConnectedConnectorId
+      )
+      if (lastConnectedConnector === undefined) {
+        return
+      }
 
-          // Success, stop trying.
+      try {
+        if (!(await lastConnectedConnector.ready())) {
+          // Not authorized anymore.
           return
-        } catch {
-          // no-op, we continue trying the next connectors.
         }
+
+        const account = await lastConnectedConnector.connect()
+        dispatch({ type: 'set_account', account: account.address })
+        dispatch({ type: 'set_provider', provider: account })
+        dispatch({ type: 'set_connector', connector: lastConnectedConnector })
+      } catch {
+        // no-op
       }
     }
 
