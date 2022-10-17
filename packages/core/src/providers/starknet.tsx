@@ -149,7 +149,7 @@ function useStarknetManager({
           dispatch({ type: 'set_provider', provider: account })
           dispatch({ type: 'set_connector', connector })
           if (autoConnect) {
-            localStorage.setItem('lastUsedConnector', connector.id.toString())
+            localStorage.setItem('lastUsedConnector', connector.id())
           }
         },
         (err) => {
@@ -187,7 +187,7 @@ function useStarknetManager({
       }
 
       const lastConnectedConnector = connectors.find(
-        (connector) => connector.id.toString() === lastConnectedConnectorId
+        (connector) => connector.id() === lastConnectedConnectorId
       )
       if (lastConnectedConnector === undefined) {
         return
