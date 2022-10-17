@@ -149,9 +149,7 @@ function useStarknetManager({
           dispatch({ type: 'set_provider', provider: account })
           dispatch({ type: 'set_connector', connector })
           if (autoConnect) {
-            // Write to local storage the connected wallet
             localStorage.setItem('lastUsedConnector', connector.id.toString())
-            console.log(connector.id)
           }
         },
         (err) => {
