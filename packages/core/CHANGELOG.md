@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.5
+
+### Patch Changes
+
+- [`23bbc6f`](https://github.com/apibara/starknet-react/commit/23bbc6fd5ad7bda335c8ff84ac952941c2431320) Thanks [@fracek](https://github.com/fracek)! - Auto connect now remembers last connected wallet
+
 ## 0.14.4
 
 ### Patch Changes
