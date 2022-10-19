@@ -16,7 +16,7 @@ Documentation [is available online](https://apibara.github.io/starknet-react/).
 
 ## Development
 
-Start by installing `pnpm`, then run:
+Start by installing `pnpm`, then run the following command from the root of the project:
 
 ```
 pnpm install

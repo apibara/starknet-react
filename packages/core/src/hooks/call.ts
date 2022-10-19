@@ -37,6 +37,8 @@ export interface UseStarknetCallResult {
   error?: string
   /** Manually trigger refresh of data. */
   refresh: () => void
+  /** True when performing call. */
+  refreshing: boolean
 }
 
 /**
@@ -93,7 +95,7 @@ export function useStarknetCall<T extends unknown[]>({
   )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, isLoading, isError } = useQuery<any | undefined>(
+  const { data, isLoading, isError, refetch, isRefetching } = useQuery<any | undefined>(
     queryKey_,
     readContract({ args: { contract, method, args, blockIdentifier } })
   )
@@ -103,7 +105,8 @@ export function useStarknetCall<T extends unknown[]>({
   return {
     data,
     loading: isLoading,
-    refresh: () => undefined,
+    refreshing: isRefetching,
+    refresh: refetch,
     error: isError ? 'error performing call' : undefined,
   }
 }

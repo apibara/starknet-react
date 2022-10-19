@@ -50,7 +50,7 @@ export default function ReactLiveBlock({
   )
 
   return (
-    <StarknetConfig connectors={connectors}>
+    <StarknetConfig connectors={connectors} autoConnect>
       <LiveProvider code={editorCode} scope={scope}>
         <Box mt="5" p="4" borderColor="cat.peach" borderWidth={1} rounded="md" overflow="auto">
           <WalletBar w="full" borderBottom="1px solid" borderColor="cat.overlay" mb="4" pb="4" />

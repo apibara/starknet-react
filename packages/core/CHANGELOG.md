@@ -1,5 +1,35 @@
 # @starknet-react/core
 
+## 0.14.5
+
+### Patch Changes
+
+- [`23bbc6f`](https://github.com/apibara/starknet-react/commit/23bbc6fd5ad7bda335c8ff84ac952941c2431320) Thanks [@fracek](https://github.com/fracek)! - Auto connect now remembers last connected wallet
+
+## 0.14.4
+
+### Patch Changes
+
+- [#184](https://github.com/apibara/starknet-react/pull/184) [`ef468f3`](https://github.com/apibara/starknet-react/commit/ef468f3e8458cb595ce6cfd7608dccef259158a4) Thanks [@fracek](https://github.com/fracek)! - Transaction receipt hook now refreshes data
+
+## 0.14.3
+
+### Patch Changes
+
+- [#182](https://github.com/apibara/starknet-react/pull/182) [`f822de6`](https://github.com/apibara/starknet-react/commit/f822de66b4c889ff3148becabd68888c04d8d838) Thanks [@fracek](https://github.com/fracek)! - Refresh receipt data on every block
+
+## 0.14.2
+
+### Patch Changes
+
+- [#180](https://github.com/apibara/starknet-react/pull/180) [`a791114`](https://github.com/apibara/starknet-react/commit/a79111483b87511a583d8e0013c39aa1a84aa8dc) Thanks [@fracek](https://github.com/fracek)! - Add useTransactionReceipt hook
+
+## 0.14.1
+
+### Patch Changes
+
+- [`60aeefb`](https://github.com/apibara/starknet-react/commit/60aeefb125e68fabeb196026b5e5aeaac11fdb5b) Thanks [@nmalzieu](https://github.com/nmalzieu)! - Use react-query refetch for refreshing calls
+
 ## 0.14.0
 
 ### Minor Changes

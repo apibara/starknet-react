@@ -7,14 +7,18 @@ import { Section, SectionHeading } from '../components/Section'
 
 const PROVIDER_IMPORT = `
 \`\`\`ts
-import { StarknetConfig } from '@starknet-react/core'
+import { StarknetConfig, InjectedConnector } from '@starknet-react/core'
 \`\`\`
 `
 const PROVIDER_NEXT = `
 \`\`\`ts
 function MyApp({ Component, pageProps }) {
+  const connectors = [
+    new InjectedConnector({ options: { id: 'braavos' }}),
+    new InjectedConnector({ options: { id: 'argentX' }}),
+  ]
   return (
-    <StarknetConfig>
+    <StarknetConfig connectors={connectors}>
       <Component {...pageProps} />
     </StarknetConfig>
   )
