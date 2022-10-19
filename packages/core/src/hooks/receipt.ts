@@ -10,6 +10,36 @@ export interface UseTransactionReceiptProps {
   hash?: string
   /** Refresh data at every block. */
   watch?: boolean
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L1".
+   */
+  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "ACCEPTED_ON_L2".
+   */
+  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "PENDING".
+   */
+  onPending?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "REJECTED".
+   */
+  onRejected?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "RECEIVED".
+   */
+  onReceived?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction given the status "NOT_RECEIVED".
+   */
+  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
 }
 
 /** Value returned from `useTransactionReceipt`. */
@@ -85,6 +115,12 @@ export interface UseTransactionReceiptResult {
 export function useTransactionReceipt({
   hash,
   watch,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
 }: UseTransactionReceiptProps): UseTransactionReceiptResult {
   const { library } = useStarknet()
   const queryKey_ = useMemo(() => queryKey({ library, hash }), [library, hash])
@@ -93,7 +129,18 @@ export function useTransactionReceipt({
     fetchTransactionReceipt({ library, hash }),
     {
       enabled: !!hash,
-      refetchInterval: (data, _query) => (watch ? refetchInterval(data) : false),
+      refetchInterval: (data, _query) =>
+        watch
+          ? refetchInterval({
+              data,
+              onAcceptedOnL1,
+              onAcceptedOnL2,
+              onNotReceived,
+              onPending,
+              onReceived,
+              onRejected,
+            })
+          : false,
     }
   )
 
@@ -106,19 +153,105 @@ function queryKey({ library, hash }: { library: ProviderInterface; hash?: string
   return [{ entity: 'transactionReceipt', chainId: library.chainId, hash }] as const
 }
 
-function fetchTransactionReceipt({ library, hash }: { library: ProviderInterface; hash?: string }) {
+interface FetchTransactionReceiptProps extends Omit<UseTransactionReceiptProps, 'watch'> {
+  library: ProviderInterface
+}
+
+function fetchTransactionReceipt({
+  library,
+  hash,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: FetchTransactionReceiptProps) {
   return async () => {
     if (!hash) throw new Error('hash is required')
-    return await library.getTransactionReceipt(hash)
+
+    const transactionReceiptResponse = await library.getTransactionReceipt(hash)
+    const { status } = transactionReceiptResponse
+    switch (status) {
+      case 'ACCEPTED_ON_L1':
+        if (onAcceptedOnL1) {
+          onAcceptedOnL1(transactionReceiptResponse)
+        }
+        break
+      case 'ACCEPTED_ON_L2':
+        if (onAcceptedOnL2) {
+          onAcceptedOnL2(transactionReceiptResponse)
+        }
+        break
+      case 'NOT_RECEIVED':
+        if (onNotReceived) {
+          onNotReceived(transactionReceiptResponse)
+        }
+        break
+      case 'PENDING':
+        if (onPending) {
+          onPending(transactionReceiptResponse)
+        }
+        break
+      case 'RECEIVED':
+        if (onReceived) {
+          onReceived(transactionReceiptResponse)
+        }
+        break
+      case 'REJECTED':
+        if (onRejected) {
+          onRejected(transactionReceiptResponse)
+        }
+        break
+    }
+    return transactionReceiptResponse
   }
 }
 
-function refetchInterval(data: GetTransactionReceiptResponse | undefined) {
-  if (data?.status === 'NOT_RECEIVED') return 500
-  if (data?.status === 'RECEIVED') return 5000
-  if (data?.status === 'PENDING') return 5000
-  if (data?.status === 'ACCEPTED_ON_L2') return 60000
-  if (data?.status === 'REJECTED') return false
-  if (data?.status === 'ACCEPTED_ON_L1') return false
-  return false
+interface RefetchIntervalProps extends Omit<UseTransactionReceiptProps, 'hash' | 'watch'> {
+  data: GetTransactionReceiptResponse | undefined
+}
+function refetchInterval({
+  data,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: RefetchIntervalProps) {
+  if (!data) return false
+  const { status } = data
+  switch (status) {
+    case 'ACCEPTED_ON_L1':
+      if (onAcceptedOnL1) {
+        onAcceptedOnL1(data)
+      }
+      return false
+    case 'ACCEPTED_ON_L2':
+      if (onAcceptedOnL2) {
+        onAcceptedOnL2(data)
+      }
+      return 60000
+    case 'NOT_RECEIVED':
+      if (onNotReceived) {
+        onNotReceived(data)
+      }
+      return 500
+    case 'PENDING':
+      if (onPending) {
+        onPending(data)
+      }
+      return 5000
+    case 'RECEIVED':
+      if (onReceived) {
+        onReceived(data)
+      }
+      return 5000
+    case 'REJECTED':
+      if (onRejected) {
+        onRejected(data)
+      }
+      return false
+  }
 }
