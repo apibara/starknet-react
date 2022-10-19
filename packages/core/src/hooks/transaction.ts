@@ -220,11 +220,128 @@ function fetchTransaction({ library, hash }: { library: ProviderInterface; hash?
   }
 }
 
+/** Value returned from `useTransactionReceipt`. */
+export interface UseTransactionReceiptResult {
+  /** The transaction receipt data. */
+  data?: GetTransactionReceiptResponse
+  /** True if fetching data. */
+  loading: boolean
+  /** Error while fetching the transaction receipt. */
+  error?: unknown
+}
+
+/**
+ * Hook to fetch a single transaction receipt.
+ *
+ * @remarks
+ *
+ * This hook keeps a cache of transactions by chain and transaction hash
+ * so that you can use the hook freely in your application without worrying
+ * about sending duplicate network requests.
+ *
+ * @example
+ * This hook shows how to fetch a transaction receipt.
+ * ```tsx
+ * function Component() {
+ *   const { data, loading, error } = useTransactionReceipt({ hash: txHash })
+ *
+ *   if (loading) return <span>Loading...</span>
+ *   if (error) return <span>Error: {JSON.stringify(error)}</span>
+ *   return <span>{data.transaction_hash}</span>
+ * }
+ */
+export function useTransactionReceipt({
+  hash,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: UseTransactionProps): UseTransactionReceiptResult {
+  const { library } = useStarknet()
+  const { data, isLoading, error } = useQuery(
+    queryKey({ library, hash }),
+    fetchTransactionReceipt({
+      library,
+      hash,
+      onAcceptedOnL1,
+      onAcceptedOnL2,
+      onNotReceived,
+      onPending,
+      onReceived,
+      onRejected,
+    })
+  )
+  return { data, loading: isLoading, error: error ?? undefined }
+}
+
+/**
+ * Hook to fetch a list of transactions receipts in parallel.
+ *
+ * @remarks
+ *
+ * This hook fetches a dynamic list of transactions receipts without
+ * violating the rules of hooks.
+ *
+ * @example
+ * This example shows how to fetch a list of transactions receipts.
+ * ```tsx
+ * function Component() {
+ *   const results = useTransactionsReceipts({
+ *     hashes: [txHash, txHash2]
+ *   })
+ *
+ *   return (
+ *     <ul>
+ *       {results.map(({ data }, i) => (
+ *         <li key={i}>
+ *         {data ? data.transaction_hash : 'Loading...'}
+ *         </li>
+ *       ))}
+ *     </ul>
+ *   )
+ * }
+ * ```
+ */
+export function useTransactionsReceipts({
+  hashes,
+  onAcceptedOnL1,
+  onAcceptedOnL2,
+  onNotReceived,
+  onPending,
+  onReceived,
+  onRejected,
+}: UseTransactionsProps): UseTransactionReceiptResult[] {
+  const { library } = useStarknet()
+  const result = useQueries({
+    queries: hashes.map((hash) => ({
+      queryKey: queryKey({ library, hash }),
+      queryFn: fetchTransactionReceipt({
+        library,
+        hash,
+        onAcceptedOnL1,
+        onAcceptedOnL2,
+        onNotReceived,
+        onPending,
+        onReceived,
+        onRejected,
+      }),
+    })),
+  })
+
+  return result.map(({ data, isLoading, error }) => ({
+    data,
+    loading: isLoading,
+    error: error ?? undefined,
+  }))
+}
+
 interface FetchTransactionReceiptProps extends UseTransactionProps {
   library: ProviderInterface
 }
 
-async function fetchTransactionReceipt({
+function fetchTransactionReceipt({
   library,
   hash,
   onAcceptedOnL1,
@@ -233,40 +350,43 @@ async function fetchTransactionReceipt({
   onPending,
   onReceived,
   onRejected,
-}: FetchTransactionReceiptProps): Promise<void> {
-  if (!hash) throw new Error('hash is required')
-  const transactionReceiptResponse = await library.getTransactionReceipt(hash)
-  const { status } = transactionReceiptResponse
-  switch (status) {
-    case 'ACCEPTED_ON_L1':
-      if (onAcceptedOnL1) {
-        onAcceptedOnL1(transactionReceiptResponse)
-      }
-      break
-    case 'ACCEPTED_ON_L2':
-      if (onAcceptedOnL2) {
-        onAcceptedOnL2(transactionReceiptResponse)
-      }
-      break
-    case 'NOT_RECEIVED':
-      if (onNotReceived) {
-        onNotReceived(transactionReceiptResponse)
-      }
-      break
-    case 'PENDING':
-      if (onPending) {
-        onPending(transactionReceiptResponse)
-      }
-      break
-    case 'RECEIVED':
-      if (onReceived) {
-        onReceived(transactionReceiptResponse)
-      }
-      break
-    case 'REJECTED':
-      if (onRejected) {
-        onRejected(transactionReceiptResponse)
-      }
-      break
+}: FetchTransactionReceiptProps): () => Promise<GetTransactionReceiptResponse> {
+  return async () => {
+    if (!hash) throw new Error('hash is required')
+    const transactionReceiptResponse = await library.getTransactionReceipt(hash)
+    const { status } = transactionReceiptResponse
+    switch (status) {
+      case 'ACCEPTED_ON_L1':
+        if (onAcceptedOnL1) {
+          onAcceptedOnL1(transactionReceiptResponse)
+        }
+        break
+      case 'ACCEPTED_ON_L2':
+        if (onAcceptedOnL2) {
+          onAcceptedOnL2(transactionReceiptResponse)
+        }
+        break
+      case 'NOT_RECEIVED':
+        if (onNotReceived) {
+          onNotReceived(transactionReceiptResponse)
+        }
+        break
+      case 'PENDING':
+        if (onPending) {
+          onPending(transactionReceiptResponse)
+        }
+        break
+      case 'RECEIVED':
+        if (onReceived) {
+          onReceived(transactionReceiptResponse)
+        }
+        break
+      case 'REJECTED':
+        if (onRejected) {
+          onRejected(transactionReceiptResponse)
+        }
+        break
+    }
+    return transactionReceiptResponse
   }
 }
