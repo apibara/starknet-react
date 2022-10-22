@@ -141,6 +141,41 @@ export function useTransactionReceipt({
               onRejected,
             })
           : false,
+      onSuccess: (data) => {
+        const { status } = data
+        switch (status) {
+          case 'ACCEPTED_ON_L1':
+            if (onAcceptedOnL1) {
+              onAcceptedOnL1(data)
+            }
+            return false
+          case 'ACCEPTED_ON_L2':
+            if (onAcceptedOnL2) {
+              onAcceptedOnL2(data)
+            }
+            return 60000
+          case 'NOT_RECEIVED':
+            if (onNotReceived) {
+              onNotReceived(data)
+            }
+            return 500
+          case 'PENDING':
+            if (onPending) {
+              onPending(data)
+            }
+            return 5000
+          case 'RECEIVED':
+            if (onReceived) {
+              onReceived(data)
+            }
+            return 5000
+          case 'REJECTED':
+            if (onRejected) {
+              onRejected(data)
+            }
+            return false
+        }
+      },
     }
   )
 
@@ -153,57 +188,17 @@ function queryKey({ library, hash }: { library: ProviderInterface; hash?: string
   return [{ entity: 'transactionReceipt', chainId: library.chainId, hash }] as const
 }
 
-interface FetchTransactionReceiptProps extends Omit<UseTransactionReceiptProps, 'watch'> {
+interface FetchTransactionReceiptProps {
+  /** The transaction hash. */
+  hash?: string
   library: ProviderInterface
 }
 
-function fetchTransactionReceipt({
-  library,
-  hash,
-  onAcceptedOnL1,
-  onAcceptedOnL2,
-  onNotReceived,
-  onPending,
-  onReceived,
-  onRejected,
-}: FetchTransactionReceiptProps) {
+function fetchTransactionReceipt({ library, hash }: FetchTransactionReceiptProps) {
   return async () => {
     if (!hash) throw new Error('hash is required')
 
     const transactionReceiptResponse = await library.getTransactionReceipt(hash)
-    const { status } = transactionReceiptResponse
-    switch (status) {
-      case 'ACCEPTED_ON_L1':
-        if (onAcceptedOnL1) {
-          onAcceptedOnL1(transactionReceiptResponse)
-        }
-        break
-      case 'ACCEPTED_ON_L2':
-        if (onAcceptedOnL2) {
-          onAcceptedOnL2(transactionReceiptResponse)
-        }
-        break
-      case 'NOT_RECEIVED':
-        if (onNotReceived) {
-          onNotReceived(transactionReceiptResponse)
-        }
-        break
-      case 'PENDING':
-        if (onPending) {
-          onPending(transactionReceiptResponse)
-        }
-        break
-      case 'RECEIVED':
-        if (onReceived) {
-          onReceived(transactionReceiptResponse)
-        }
-        break
-      case 'REJECTED':
-        if (onRejected) {
-          onRejected(transactionReceiptResponse)
-        }
-        break
-    }
     return transactionReceiptResponse
   }
 }
