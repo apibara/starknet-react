@@ -66,7 +66,7 @@ export interface UseStarknetExecute {
  *     [setCount]
  *   )
  *   const dec = useCallback(
- *     () => setCount(c => Math.max(c - 1)),
+ *     () => setCount(c => Math.max(c - 1, 0)),
  *     [setCount]
  *   )
  *
