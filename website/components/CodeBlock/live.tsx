@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Box, chakra } from '@chakra-ui/react'
+import { Box, Button, chakra, useClipboard } from '@chakra-ui/react'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 import { scope } from './scope'
 import { useLiveEditorStyle, useLiveErrorStyle } from './styles'
@@ -48,6 +48,7 @@ export default function ReactLiveBlock({
       ]),
     []
   )
+  const { hasCopied, onCopy } = useClipboard(code)
 
   return (
     <StarknetConfig connectors={connectors} autoConnect>
@@ -72,6 +73,19 @@ export default function ReactLiveBlock({
         </Box>
         <Box pos="relative" zIndex="0">
           <Box p="5" pt="7" rounded="md" my="8" bg="cat.mantle">
+            <Button
+              pos="absolute"
+              top="2"
+              right="2"
+              zIndex="10"
+              bg="cat.peach"
+              color="cat.base"
+              size="xs"
+              _hover={{ bg: 'cat.yellow' }}
+              onClick={onCopy}
+            >
+              {hasCopied ? 'Copied' : 'Copy'}
+            </Button>
             <LiveEditor onChange={onChange} theme={theme} style={liveEditorStyle} />
           </Box>
           <EditableNotice />
