@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.6
+
+### Patch Changes
+
+- [#191](https://github.com/apibara/starknet-react/pull/191) [`96e90d5`](https://github.com/apibara/starknet-react/commit/96e90d5bbcf1c7e3e65f94142a8019f80dc2eada) Thanks [@fracek](https://github.com/fracek)! - Include src folder in package
+
 ## 0.14.5
 
 ### Patch Changes
