@@ -129,18 +129,7 @@ export function useTransactionReceipt({
     fetchTransactionReceipt({ library, hash }),
     {
       enabled: !!hash,
-      refetchInterval: (data, _query) =>
-        watch
-          ? refetchInterval({
-              data,
-              onAcceptedOnL1,
-              onAcceptedOnL2,
-              onNotReceived,
-              onPending,
-              onReceived,
-              onRejected,
-            })
-          : false,
+      refetchInterval: (data, _query) => (watch ? refetchInterval(data) : false),
       onSuccess: (data) => {
         const { status } = data
         switch (status) {
@@ -203,50 +192,21 @@ function fetchTransactionReceipt({ library, hash }: FetchTransactionReceiptProps
   }
 }
 
-interface RefetchIntervalProps extends Omit<UseTransactionReceiptProps, 'hash' | 'watch'> {
-  data: GetTransactionReceiptResponse | undefined
-}
-function refetchInterval({
-  data,
-  onAcceptedOnL1,
-  onAcceptedOnL2,
-  onNotReceived,
-  onPending,
-  onReceived,
-  onRejected,
-}: RefetchIntervalProps) {
+function refetchInterval(data: GetTransactionReceiptResponse | undefined) {
   if (!data) return false
   const { status } = data
   switch (status) {
     case 'ACCEPTED_ON_L1':
-      if (onAcceptedOnL1) {
-        onAcceptedOnL1(data)
-      }
       return false
     case 'ACCEPTED_ON_L2':
-      if (onAcceptedOnL2) {
-        onAcceptedOnL2(data)
-      }
       return 60000
     case 'NOT_RECEIVED':
-      if (onNotReceived) {
-        onNotReceived(data)
-      }
       return 500
     case 'PENDING':
-      if (onPending) {
-        onPending(data)
-      }
       return 5000
     case 'RECEIVED':
-      if (onReceived) {
-        onReceived(data)
-      }
       return 5000
     case 'REJECTED':
-      if (onRejected) {
-        onRejected(data)
-      }
       return false
   }
 }
