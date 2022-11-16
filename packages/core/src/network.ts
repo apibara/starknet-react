@@ -38,4 +38,12 @@ const KNOWN_CHAINS: Record<StarknetChainId, Chain> = {
       url: 'https://goerli.voyager.online',
     },
   },
+  [StarknetChainId.TESTNET2]: {
+    id: StarknetChainId.TESTNET2,
+    name: 'StarkNet Görli 2',
+    blockExplorer: {
+        name: 'Voyager',
+        url: 'https://goerli-2.voyager.online',
+    },
+  }
 }
