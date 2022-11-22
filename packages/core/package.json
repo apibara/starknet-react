@@ -19,7 +19,7 @@
   },
   "peerDependencies": {
     "react": "^17.0 || ^18.0",
-    "starknet": "^4.0"
+    "starknet": "next"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.3.4",
