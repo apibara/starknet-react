@@ -1,6 +1,6 @@
 {
   "name": "@starknet-react/core",
-  "version": "0.14.6",
+  "version": "0.14.7",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/index.js",
