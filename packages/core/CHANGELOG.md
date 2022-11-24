@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.7
+
+### Patch Changes
+
+- [`59c81d0`](https://github.com/apibara/starknet-react/commit/59c81d09461d2fc13be8ad824e368ef95fc6ef99) Thanks [@fracek](https://github.com/fracek)! - Add goerli2 testnet support
+
 ## 0.14.6
 
 ### Patch Changes
