@@ -1,4 +1,4 @@
-import { TypedData } from 'starknet/utils/typedData'
+import { typedData } from 'starknet'
 import type { AccountInterface, Signature } from 'starknet'
 import { useCallback, useReducer } from 'react'
 import { useStarknet } from '../providers'
@@ -117,7 +117,7 @@ export interface UseSignTypedData {
  * }
  * ```
  */
-export function useSignTypedData(typedData: TypedData): UseSignTypedData {
+export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedData {
   const [state, dispatch] = useReducer(starknetSignReducer, {
     loading: false,
   })

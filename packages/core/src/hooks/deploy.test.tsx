@@ -12,7 +12,8 @@ describe('useDeploy', () => {
     const { account } = useAccount()
     const { contractFactory } = useContractFactory({
       compiledContract: compiledErc20,
-      providerOrAccount: account,
+      account: account,
+      classHash: '0x54328a1075b8820eb43caf0caa233923148c983742402dcfc38541dd843d01a',
       abi: compiledErc20.abi,
     })
     const { data, loading, error, reset, deploy } = useDeploy({ contractFactory })

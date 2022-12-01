@@ -1,4 +1,4 @@
-import { StarknetChainId } from 'starknet/constants'
+import { constants } from 'starknet'
 
 export type BlockExplorerName = 'voyager'
 export type BlockExplorer = { name: string; url: string }
@@ -16,13 +16,13 @@ export type Chain = {
 }
 
 /** Returns a chain information from its id. */
-export function chainById(chainId: StarknetChainId): Chain | undefined {
+export function chainById(chainId: constants.StarknetChainId): Chain | undefined {
   return KNOWN_CHAINS[chainId]
 }
 
-const KNOWN_CHAINS: Record<StarknetChainId, Chain> = {
-  [StarknetChainId.MAINNET]: {
-    id: StarknetChainId.MAINNET,
+const KNOWN_CHAINS: Record<constants.StarknetChainId, Chain> = {
+  [constants.StarknetChainId.MAINNET]: {
+    id: constants.StarknetChainId.MAINNET,
     name: 'StarkNet Mainnet',
     blockExplorer: {
       name: 'Voyager',
@@ -30,20 +30,20 @@ const KNOWN_CHAINS: Record<StarknetChainId, Chain> = {
     },
     testnet: false,
   },
-  [StarknetChainId.TESTNET]: {
-    id: StarknetChainId.TESTNET,
+  [constants.StarknetChainId.TESTNET]: {
+    id: constants.StarknetChainId.TESTNET,
     name: 'StarkNet Görli',
     blockExplorer: {
       name: 'Voyager',
       url: 'https://goerli.voyager.online',
     },
   },
-  [StarknetChainId.TESTNET2]: {
-    id: StarknetChainId.TESTNET2,
+  [constants.StarknetChainId.TESTNET2]: {
+    id: constants.StarknetChainId.TESTNET2,
     name: 'StarkNet Görli 2',
     blockExplorer: {
-        name: 'Voyager',
-        url: 'https://goerli-2.voyager.online',
+      name: 'Voyager',
+      url: 'https://goerli-2.voyager.online',
     },
-  }
+  },
 }

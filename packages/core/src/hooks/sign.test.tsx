@@ -3,7 +3,7 @@ import { renderHook, waitFor, act } from '../../test/react'
 import { deventAccounts } from '../../test/devnet'
 import { useSignTypedData } from './sign'
 import { Connector } from '~/connectors'
-import { TypedData } from 'starknet/dist/utils/typedData'
+import { typedData } from 'starknet'
 import { useStarknet } from '~/providers'
 
 const exampleData = {
@@ -100,7 +100,7 @@ describe('useSignTypedData', () => {
   })
 
   describe('with a connected connector', () => {
-    function useTestHook({ data }: { data: TypedData }) {
+    function useTestHook({ data }: { data: typedData.TypedData }) {
       const { connectors, connect, account } = useStarknet()
       const { error, data: result, reset, signTypedData } = useSignTypedData(data)
       return {
