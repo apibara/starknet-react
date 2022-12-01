@@ -1,12 +1,5 @@
 import { useMemo } from 'react'
-import {
-  Abi,
-  AccountInterface,
-  CompiledContract,
-  Contract,
-  ContractFactory,
-  ProviderInterface,
-} from 'starknet'
+import { Abi, AccountInterface, CompiledContract, Contract, ContractFactory } from 'starknet'
 import { useStarknet } from '../providers'
 
 /** Arguments for `useContract`. */
@@ -59,10 +52,12 @@ export function useContract({ abi, address }: UseContractProps): UseContractResu
 export interface UseContractFactoryProps {
   /** The compiled contract. */
   compiledContract?: CompiledContract
+  /** The class hash  */
+  classHash: string
   /** The contract abi. */
   abi?: Abi
   /** The account or provider used for deploying. */
-  providerOrAccount?: ProviderInterface | AccountInterface
+  account?: AccountInterface
 }
 
 /** Value returned from `useContractFactory`. */
@@ -87,8 +82,9 @@ export interface UseContractFactoryResult {
  *   const { account } = useAccount()
  *   const { contractFactory } = useContractFactory({
  *     compiledContract: compiledErc20,
+ *     classHash:
  *     abi: compiledErc20.abi,
- *     providerOrAccount: account
+ *     account: account
  *   })
  *
  *   return <p>Nothing to see here...</p>
@@ -97,14 +93,15 @@ export interface UseContractFactoryResult {
  */
 export function useContractFactory({
   compiledContract,
+  classHash,
   abi,
-  providerOrAccount,
+  account,
 }: UseContractFactoryProps): UseContractFactoryResult {
   const contractFactory = useMemo(() => {
-    if (compiledContract) {
-      return new ContractFactory(compiledContract, providerOrAccount, abi)
+    if (compiledContract && account && classHash) {
+      return new ContractFactory(compiledContract, classHash, account, abi)
     }
-  }, [compiledContract, providerOrAccount, abi])
+  }, [compiledContract, classHash, account, abi])
 
   return { contractFactory }
 }

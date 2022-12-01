@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { GetBlockResponse, ProviderInterface } from 'starknet'
-import { BlockIdentifier } from 'starknet/provider/utils'
+import { BlockNumber } from 'starknet'
 import { useStarknet } from '../providers'
 
 /** Value returned from `useStarknetBlock`. */
@@ -49,7 +49,7 @@ export function useStarknetBlock(): StarkNetBlockResult {
 
 export interface FetchBlockArgs {
   /** Identifier for the block to fetch. */
-  blockIdentifier: BlockIdentifier
+  blockIdentifier: BlockNumber
 }
 
 /** Arguments for `useBlock`. */

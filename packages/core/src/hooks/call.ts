@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { ContractInterface, ProviderInterface } from 'starknet'
-import { BlockIdentifier } from 'starknet/dist/provider/utils'
+import { BlockNumber } from 'starknet'
 
 import { useStarknet } from '../providers'
 import { useInvalidateOnBlock } from './invalidate'
@@ -11,7 +11,7 @@ export interface UseStarknetCallOptions {
   /** Refresh data at every block. */
   watch?: boolean
   /** Block identifier used when performing call. */
-  blockIdentifier?: BlockIdentifier
+  blockIdentifier?: BlockNumber
 }
 
 /** Arguments for `useStarknetCall`. */
@@ -115,7 +115,7 @@ interface ReadContractArgs {
   contract?: ContractInterface
   method?: string
   args?: unknown[]
-  blockIdentifier: BlockIdentifier
+  blockIdentifier: BlockNumber
 }
 
 function readContract({ args }: { args: ReadContractArgs }) {

@@ -2,6 +2,7 @@ import { renderHook, waitFor } from '../../test/react'
 import { compiledErc20 } from '../../test/devnet'
 import { useContract, useContractFactory } from './contract'
 import { Abi } from 'starknet'
+import { deventAccounts } from '../../test/devnet'
 
 const address = '0x017239d35be9e3a622b01677fff06c05ea7d926b94f864e59188d1a7eca00b1f'
 
@@ -77,7 +78,12 @@ describe('useContract', () => {
 describe('useContractFactory', () => {
   it('returns the contract factory', async () => {
     const { result } = renderHook(() =>
-      useContractFactory({ abi: compiledErc20.abi, compiledContract: compiledErc20 })
+      useContractFactory({
+        abi: compiledErc20.abi,
+        account: deventAccounts[0],
+        classHash: '0x54328a1075b8820eb43caf0caa233923148c983742402dcfc38541dd843d01a',
+        compiledContract: compiledErc20,
+      })
     )
     await waitFor(() => {
       expect(result.current.contractFactory).toBeDefined()
