@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.14.8
+
+### Patch Changes
+
+- [#196](https://github.com/apibara/starknet-react/pull/196) [`e34a9cb`](https://github.com/apibara/starknet-react/commit/e34a9cb86442a63fa689185052d4fe68cbca7d66) Thanks [@fracek](https://github.com/fracek)! - Update starknet.js version
+
 ## 0.14.7
 
 ### Patch Changes
