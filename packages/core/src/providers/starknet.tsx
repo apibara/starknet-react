@@ -166,7 +166,10 @@ function useStarknetManager({
     state.connector.disconnect().then(
       () => {
         dispatch({ type: 'set_account', account: undefined })
-        dispatch({ type: 'set_provider', provider: undefined })
+        dispatch({
+          type: 'set_provider',
+          provider: userDefaultProvider ? userDefaultProvider : defaultProvider,
+        })
         dispatch({ type: 'set_connector', connector: undefined })
         if (autoConnect) {
           localStorage.removeItem('lastUsedConnector')
