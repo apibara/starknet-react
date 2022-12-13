@@ -16,6 +16,7 @@ export abstract class Connector<Options = any> {
   abstract ready(): Promise<boolean>
   abstract connect(): Promise<AccountInterface>
   abstract disconnect(): Promise<void>
+  abstract handleAccountChanged(): Promise<AccountInterface>
   abstract account(): Promise<AccountInterface | null>
   /** Unique connector id */
   abstract id(): string
