@@ -148,6 +148,7 @@ function useStarknetManager({
           dispatch({ type: 'set_account', account: account.address })
           dispatch({ type: 'set_provider', provider: account })
           dispatch({ type: 'set_connector', connector })
+          connector.initEventListener(handleAccountChanged)
           if (autoConnect) {
             localStorage.setItem('lastUsedConnector', connector.id())
           }
@@ -161,6 +162,10 @@ function useStarknetManager({
     [autoConnect]
   )
 
+  const handleAccountChanged = useCallback((data: string[]) => {
+    dispatch({ type: 'set_account', account: data[0] })
+  }, [])
+
   const disconnect = useCallback(() => {
     if (!state.connector) return
     state.connector.disconnect().then(
@@ -171,6 +176,7 @@ function useStarknetManager({
           provider: userDefaultProvider ? userDefaultProvider : defaultProvider,
         })
         dispatch({ type: 'set_connector', connector: undefined })
+        state.connector?.removeEventListener(handleAccountChanged)
         if (autoConnect) {
           localStorage.removeItem('lastUsedConnector')
         }

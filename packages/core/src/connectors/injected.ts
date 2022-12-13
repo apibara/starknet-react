@@ -65,8 +65,6 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
 
     try {
       await this._wallet.enable()
-      this._wallet.on('accountsChanged', this.handleAccountChanged)
-      this._wallet.on('networkChanged', this.handleAccountChanged)
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()
@@ -90,9 +88,6 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     if (!this._wallet?.isConnected) {
       throw new UserNotConnectedError()
     }
-
-    this._wallet.off('accountsChanged', this.handleAccountChanged)
-    this._wallet.off('networkChanged', this.handleAccountChanged)
   }
 
   async account(): Promise<AccountInterface | null> {
@@ -121,14 +116,24 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.name
   }
 
-  async handleAccountChanged(): Promise<AccountInterface> {
+  async initEventListener(accountChangeCb: EventHandler) {
     this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
     }
 
-    return this._wallet.account
+    this._wallet.on('accountsChanged', accountChangeCb)
+  }
+
+  async removeEventListener(accountChangeCb: EventHandler) {
+    this.ensureWallet()
+
+    if (!this._wallet) {
+      throw new ConnectorNotConnectedError()
+    }
+
+    this._wallet.off('accountsChanged', accountChangeCb)
   }
 
   private ensureWallet() {
