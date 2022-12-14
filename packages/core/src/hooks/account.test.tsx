@@ -30,6 +30,18 @@ describe('useAccount', () => {
           .returns(index > 1)
           .setup((conn) => conn.account())
           .returnsAsync(account)
+          .setup((conn) =>
+            conn.initEventListener(() => {
+              return
+            })
+          )
+          .returns(Promise.resolve())
+          .setup((conn) =>
+            conn.removeEventListener(() => {
+              return
+            })
+          )
+          .returns(Promise.resolve())
         return mock
       })
 
@@ -57,6 +69,18 @@ describe('useAccount', () => {
           .returns(index > 1)
           .setup((conn) => conn.account())
           .returnsAsync(account)
+          .setup((conn) =>
+            conn.initEventListener(() => {
+              return
+            })
+          )
+          .returns(Promise.resolve())
+          .setup((conn) =>
+            conn.removeEventListener(() => {
+              return
+            })
+          )
+          .returns(Promise.resolve())
         return mock
       })
 
