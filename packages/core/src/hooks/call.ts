@@ -1,44 +1,53 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { ContractInterface, ProviderInterface } from 'starknet'
+import { Abi, ContractInterface, ProviderInterface } from 'starknet'
 import { BlockNumber } from 'starknet'
 
 import { useStarknet } from '../providers'
+import { useContract } from './contract'
 import { useInvalidateOnBlock } from './invalidate'
 
-/** Call options. */
-export interface UseStarknetCallOptions {
+/** Contract Read options. */
+export interface UseContractReadOptions {
   /** Refresh data at every block. */
   watch?: boolean
   /** Block identifier used when performing call. */
   blockIdentifier?: BlockNumber
 }
 
-/** Arguments for `useStarknetCall`. */
-export interface UseStarknetCallProps<T extends unknown[]> {
-  /** The target contract. */
-  contract?: ContractInterface
-  /** The contract's method. */
-  method?: string
-  /** Call arguments. */
+/** Arguments for `useContractRead`. */
+export interface UseContractReadArgs<T extends unknown[]> {
+  /** The target contract's ABI. */
+  abi?: Abi
+  /** The target contract's address. */
+  address?: string
+  /** The contract's function name. */
+  functionName?: string
+  /** Read arguments. */
   args?: T
-  /** Call options. */
-  options?: UseStarknetCallOptions
 }
 
-/** Value returned from `useStarknetCall`. */
-export interface UseStarknetCallResult {
+/** Value returned from `useContractRead`. */
+export interface UseContractReadResult {
   /** Value returned from call. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Array<any>
-  /** True when performing call. */
-  loading: boolean
   /** Error when performing call. */
-  error?: string
-  /** Manually trigger refresh of data. */
-  refresh: () => void
+  error?: unknown
+  isIdle: boolean
   /** True when performing call. */
-  refreshing: boolean
+  isLoading: boolean
+  isFetching: boolean
+  isSuccess: boolean
+  /** False when performing call. */
+  isError: boolean
+  isFetched: boolean
+  isFetchedAfterMount: boolean
+  /** True when performing call. */
+  isRefetching: boolean
+  /** Manually trigger refresh of data. */
+  refetch: () => void
+  status: 'idle' | 'error' | 'loading' | 'success'
 }
 
 /**
@@ -46,82 +55,98 @@ export interface UseStarknetCallResult {
  *
  * @remarks
  *
- * The hook only performs a call if the target `contract`,
- * `method`, and `args` are not undefined.
+ * The hook only performs a call if the target `abi`, `address`,
+ * `functionName`, and `args` are not undefined.
  *
  * @example
  * This example shows how to fetch the user ERC-20 balance.
  * ```tsx
  * function Component() {
- *   const { contract } = useContract({
- *     address: ethAddress,
- *     abi: compiledErc20.abi
- *   })
  *   const { address } = useAccount()
- *   const { data, loading, error, refresh } = useStarknetCall({
- *     contract,
- *     method: 'balanceOf',
+ *   const { data, isLoading, error, refetch } = useStarknetCall({
+ *     address: ethAddress,
+ *     abi: compiledErc20.abi,
+ *     functionName: 'balanceOf',
  *     args: [address],
- *     options: {
- *       watch: false
- *     }
+ *     watch: false
  *   })
  *
- *   if (loading) return <span>Loading...</span>
+ *   if (isLoading) return <span>Loading...</span>
  *   if (error) return <span>Error: {error}</span>
  *
  *   return (
  *     <div>
- *       <button onClick={refresh}>Refresh</button>
+ *       <button onClick={refetch}>Refetch</button>
  *       <p>Balance: {JSON.stringify(data)}</p>
  *     </div>
  *   )
  * }
  * ```
  */
-export function useStarknetCall<T extends unknown[]>({
-  contract,
-  method,
+export function useContractRead<T extends unknown[]>({
+  abi,
+  address,
+  functionName,
   args,
-  options,
-}: UseStarknetCallProps<T>): UseStarknetCallResult {
+  watch = false,
+  blockIdentifier = 'pending',
+}: UseContractReadArgs<T> & UseContractReadOptions): UseContractReadResult {
   const { library } = useStarknet()
-
-  const blockIdentifier = options?.blockIdentifier || 'pending'
+  const { contract } = useContract({ abi, address })
 
   const queryKey_ = useMemo(
-    () => queryKey({ library, args: { contract, method, args, blockIdentifier } }),
-    [library, contract, method, args, blockIdentifier]
+    () => queryKey({ library, args: { contract, functionName, args, blockIdentifier } }),
+    [library, contract, functionName, args, blockIdentifier]
   )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, isLoading, isError, refetch, isRefetching } = useQuery<any | undefined>(
+  const {
+    data,
+    error,
+    isStale: isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  } = useQuery<any | undefined>(
     queryKey_,
-    readContract({ args: { contract, method, args, blockIdentifier } })
+    readContract({ args: { contract, functionName, args, blockIdentifier } })
   )
 
-  useInvalidateOnBlock({ enabled: options?.watch, queryKey: queryKey_ })
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
 
   return {
     data,
-    loading: isLoading,
-    refreshing: isRefetching,
-    refresh: refetch,
-    error: isError ? 'error performing call' : undefined,
+    error: error ?? undefined,
+    isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
   }
 }
 
 interface ReadContractArgs {
   contract?: ContractInterface
-  method?: string
+  functionName?: string
   args?: unknown[]
   blockIdentifier: BlockNumber
 }
 
 function readContract({ args }: { args: ReadContractArgs }) {
   return async () => {
-    if (!args.args || !args.contract || !args.method) return null
-    const call = args.contract && args.method && args.contract[args.method]
+    if (!args.args || !args.contract || !args.functionName) return null
+    const call = args.contract && args.functionName && args.contract[args.functionName]
     if (!call) return null
 
     return await call(...args.args, {
@@ -131,13 +156,13 @@ function readContract({ args }: { args: ReadContractArgs }) {
 }
 
 function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
-  const { contract, method, args: callArgs, blockIdentifier } = args
+  const { contract, functionName, args: callArgs, blockIdentifier } = args
   return [
     {
       entity: 'readContract',
       chainId: library.chainId,
       contract: contract?.address,
-      method,
+      functionName,
       args: callArgs,
       blockIdentifier,
     },
