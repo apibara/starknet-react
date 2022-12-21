@@ -70,3 +70,5 @@ function compileContract(name: string): CompiledContract {
 
 export const compiledErc20 = compileContract('erc20')
 export const compiledDapp = compileContract('dapp')
+export const compiledStarknetId = compileContract('starknetId')
+export const compiledNaming = compileContract('naming')
