@@ -10,8 +10,8 @@ describe('useStarknetCall', () => {
   })
 
   function useTestHook({
-    address,
-    functionName,
+    address = '',
+    functionName = '',
     args,
   }: {
     address?: string
