@@ -18,11 +18,11 @@ export interface UseContractReadOptions {
 /** Arguments for `useContractRead`. */
 export interface UseContractReadArgs<T extends unknown[]> {
   /** The target contract's ABI. */
-  abi?: Abi
+  abi: Abi
   /** The target contract's address. */
-  address?: string
+  address: string
   /** The contract's function name. */
-  functionName?: string
+  functionName: string
   /** Read arguments. */
   args?: T
 }
