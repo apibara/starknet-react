@@ -3,7 +3,7 @@ import { GetTransactionResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
 
 /** Arguments for the `useTransaction` hook. */
-export interface UseTransactionProps {
+export interface UseTransactionArgs {
   /** The transaction hash. */
   hash?: string
 }
@@ -12,10 +12,19 @@ export interface UseTransactionProps {
 export interface UseTransactionResult {
   /** The transaction data. */
   data?: GetTransactionResponse
-  /** True if fetching data. */
-  loading: boolean
   /** Error while fetching the transaction. */
   error?: unknown
+  /** True if fetching data. */
+  isLoading: boolean
+  isIdle: boolean
+  isFetching: boolean
+  isSuccess: boolean
+  isError: boolean
+  isFetched: boolean
+  isFetchedAfterMount: boolean
+  isRefetching: boolean
+  refetch: () => void
+  status: 'idle' | 'error' | 'loading' | 'success'
 }
 
 /**
@@ -31,27 +40,54 @@ export interface UseTransactionResult {
  * This hook shows how to fetch a transaction.
  * ```tsx
  * function Component() {
- *   const { data, loading, error } = useTransaction({ hash: txHash })
+ *   const { data, isLoading, error } = useTransaction({ hash: txHash })
  *
- *   if (loading) return <span>Loading...</span>
+ *   if (isLoading) return <span>Loading...</span>
  *   if (error) return <span>Error: {JSON.stringify(error)}</span>
  *   return <span>{data.transaction_hash}</span>
  * }
  */
-export function useTransaction({ hash }: UseTransactionProps): UseTransactionResult {
+export function useTransaction({ hash }: UseTransactionArgs): UseTransactionResult {
   const { library } = useStarknet()
-  const { data, isLoading, error } = useQuery(
+  const {
+    data,
+    error,
+    isStale: isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  } = useQuery(
     queryKey({ library, hash }),
     fetchTransaction({
       library,
       hash,
     })
   )
-  return { data, loading: isLoading, error: error ?? undefined }
+
+  return {
+    data,
+    error: error ?? undefined,
+    isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  }
 }
 
 /** Arguments for the `useTransactions` hook. */
-export interface UseTransactionsProps {
+export interface UseTransactionsArgs {
   /** The transactions hashes. */
   hashes: string[]
 }
@@ -84,7 +120,7 @@ export interface UseTransactionsProps {
  * }
  * ```
  */
-export function useTransactions({ hashes }: UseTransactionsProps): UseTransactionResult[] {
+export function useTransactions({ hashes }: UseTransactionsArgs): UseTransactionResult[] {
   const { library } = useStarknet()
   const result = useQueries({
     queries: hashes.map((hash) => ({
@@ -96,11 +132,35 @@ export function useTransactions({ hashes }: UseTransactionsProps): UseTransactio
     })),
   })
 
-  return result.map(({ data, isLoading, error }) => ({
-    data,
-    loading: isLoading,
-    error: error ?? undefined,
-  }))
+  return result.map(
+    ({
+      data,
+      error,
+      isStale: isIdle,
+      isLoading,
+      isFetching,
+      isSuccess,
+      isError,
+      isFetched,
+      isFetchedAfterMount,
+      isRefetching,
+      refetch,
+      status,
+    }) => ({
+      data,
+      error: error ?? undefined,
+      isIdle,
+      isLoading,
+      isFetching,
+      isSuccess,
+      isError,
+      isFetched,
+      isFetchedAfterMount,
+      isRefetching,
+      refetch,
+      status,
+    })
+  )
 }
 
 function queryKey({ library, hash }: { library: ProviderInterface; hash?: string }) {
