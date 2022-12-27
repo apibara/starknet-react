@@ -15,9 +15,15 @@ describe('useTransaction', () => {
 
       await waitFor(
         () => {
-          expect(result.current.error).toBeUndefined()
-          expect(result.current.loading).toBeFalsy()
           expect(result.current.data?.transaction_hash).toEqual(hash)
+          expect(result.current.error).toBeUndefined()
+          expect(result.current.isIdle).toBeTruthy()
+          expect(result.current.isLoading).toBeFalsy()
+          expect(result.current.isFetching).toBeFalsy()
+          expect(result.current.isFetched).toBeTruthy()
+          expect(result.current.isFetchedAfterMount).toBeTruthy()
+          expect(result.current.isRefetching).toBeFalsy()
+          expect(result.current.status).toEqual('success')
         },
         {
           timeout: 10000,
@@ -34,8 +40,16 @@ describe('useTransaction', () => {
       await waitFor(
         () => {
           expect(result.current.error).toBeDefined()
-          expect(result.current.loading).toBeFalsy()
           expect(result.current.data).toBeUndefined()
+          expect(result.current.isLoading).toBeFalsy()
+          expect(result.current.isIdle).toBeTruthy()
+          expect(result.current.isFetching).toBeFalsy()
+          expect(result.current.isSuccess).toBeFalsy()
+          expect(result.current.isError).toBeTruthy()
+          expect(result.current.isFetched).toBeTruthy()
+          expect(result.current.isFetchedAfterMount).toBeTruthy()
+          expect(result.current.isRefetching).toBeFalsy()
+          expect(result.current.status).toEqual('error')
         },
         {
           timeout: 10000,
@@ -47,9 +61,18 @@ describe('useTransaction', () => {
 
       await waitFor(
         () => {
-          expect(result.current.error).toBeUndefined()
-          expect(result.current.loading).toBeFalsy()
           expect(result.current.data?.transaction_hash).toEqual(hash)
+          expect(result.current.error).toBeUndefined()
+          expect(result.current.isLoading).toBeFalsy()
+          expect(result.current.isIdle).toBeTruthy()
+          expect(result.current.isLoading).toBeFalsy()
+          expect(result.current.isFetching).toBeFalsy()
+          expect(result.current.isSuccess).toBeTruthy()
+          expect(result.current.isError).toBeFalsy()
+          expect(result.current.isFetched).toBeTruthy()
+          expect(result.current.isFetchedAfterMount).toBeTruthy()
+          expect(result.current.isRefetching).toBeFalsy()
+          expect(result.current.status).toEqual('success')
         },
         {
           timeout: 10000,
@@ -107,9 +130,9 @@ describe('useTransactions', () => {
       await waitFor(
         () => {
           expect(result.current.length).toEqual(3)
-          expect(result.current[0].loading).toBeFalsy()
-          expect(result.current[1].loading).toBeFalsy()
-          expect(result.current[2].loading).toBeFalsy()
+          expect(result.current[0].isLoading).toBeFalsy()
+          expect(result.current[1].isLoading).toBeFalsy()
+          expect(result.current[2].isLoading).toBeFalsy()
 
           expect(result.current[0].data?.transaction_hash).toEqual(hash0)
           expect(result.current[1].error).toBeDefined()
