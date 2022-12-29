@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { GetTransactionReceiptResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
 import { useInvalidateOnBlock } from './invalidate'
@@ -40,6 +40,11 @@ export interface UseTransactionReceiptProps {
    * Callback function that will handle the transaction given the status "NOT_RECEIVED".
    */
   onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
+  /**
+   * @optional
+   * Callback function that will handle the transaction whenever it changes.
+   */
+  onStatusChange?: (transaction: GetTransactionReceiptResponse) => void
 }
 
 /** Value returned from `useTransactionReceipt`. */
@@ -121,7 +126,9 @@ export function useTransactionReceipt({
   onPending,
   onReceived,
   onRejected,
+  onStatusChange,
 }: UseTransactionReceiptProps): UseTransactionReceiptResult {
+  const [currentStatus, setCurrentStatus] = useState<string>('')
   const { library } = useStarknet()
   const queryKey_ = useMemo(() => queryKey({ library, hash }), [library, hash])
   const { data, isLoading, error, refetch } = useQuery(
@@ -135,34 +142,45 @@ export function useTransactionReceipt({
         switch (status) {
           case 'ACCEPTED_ON_L1':
             if (onAcceptedOnL1) {
+              setCurrentStatus('ACCEPTED_ON_L1')
               onAcceptedOnL1(data)
             }
             break
           case 'ACCEPTED_ON_L2':
             if (onAcceptedOnL2) {
+              setCurrentStatus('ACCEPTED_ON_L2')
               onAcceptedOnL2(data)
             }
             break
           case 'NOT_RECEIVED':
             if (onNotReceived) {
+              setCurrentStatus('NOT_RECEIVED')
               onNotReceived(data)
             }
             break
           case 'PENDING':
             if (onPending) {
+              setCurrentStatus('PENDING')
               onPending(data)
             }
             break
           case 'RECEIVED':
             if (onReceived) {
+              setCurrentStatus('RECEIVED')
               onReceived(data)
             }
             break
           case 'REJECTED':
             if (onRejected) {
+              setCurrentStatus('REJECTED')
               onRejected(data)
             }
             break
+        }
+        if (status !== currentStatus) {
+          if (onStatusChange) {
+            onStatusChange(data)
+          }
         }
       },
     }
