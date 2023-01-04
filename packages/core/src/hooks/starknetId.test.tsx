@@ -16,11 +16,15 @@ describe('useStarkName', () => {
   let account: Account
   let calls: Call[]
 
+  let namingAddress: string
+
   beforeAll(async () => {
     const namingDeployment = await devnetProvider.deployContract({ contract: compiledNaming })
     const starknetIdDeployment = await devnetProvider.deployContract({
       contract: compiledStarknetId,
     })
+
+    namingAddress = namingDeployment.contract_address
 
     account = deventAccounts[1]!
     calls = [
@@ -82,27 +86,23 @@ describe('useStarkName', () => {
   it('should get starkname', async () => {
     const { result } = renderHook(() => useTestHook({ calls }), { connectors })
 
-    await waitFor(() => {
-      expect(result.current.data).toBeUndefined()
-      expect(result.current.error).toBeUndefined()
-    })
-
     act(() => result.current.connect(result.current.connectors[2]))
 
     await waitFor(() => {
-      console.log('current', result.current)
-      expect(result.current.data).toBeUndefined()
+      expect(result.current.account).toBeDefined()
     })
 
-    const { result: res } = renderHook(() => useStarkName({ address: account.address }))
+    // const { result: starkNameResult } = renderHook(() => useStarkName({ address: account.address }))
 
+    const { result: starkNameResult } = renderHook(() => useStarkName({ address: namingAddress }))
     await waitFor(
       () => {
-        console.log('starkname', res)
+        console.log(starkNameResult)
+        expect(starkNameResult.current.data).toEqual('ben.stark')
       },
       {
-        timeout: 60000,
-        interval: 2000,
+        timeout: 30000,
+        interval: 1000,
       }
     )
   })
