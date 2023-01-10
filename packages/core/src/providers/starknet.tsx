@@ -208,10 +208,7 @@ function useStarknetManager({
           return
         }
 
-        const account = await lastConnectedConnector.connect()
-        dispatch({ type: 'set_account', account: account.address })
-        dispatch({ type: 'set_provider', provider: account })
-        dispatch({ type: 'set_connector', connector: lastConnectedConnector })
+        await connect(lastConnectedConnector)
       } catch {
         // no-op
       }
