@@ -53,7 +53,7 @@ export interface FetchBlockArgs {
 }
 
 /** Arguments for `useBlock`. */
-export type UseBlockProps = Partial<FetchBlockArgs> & {
+export type UseBlockArgs = Partial<FetchBlockArgs> & {
   /** How often to refresh the data. */
   refetchInterval?: number | false
   /** Callback fired every time a new block is fetched. */
@@ -64,12 +64,20 @@ export type UseBlockProps = Partial<FetchBlockArgs> & {
 export interface UseBlockResult {
   /** Block data. */
   data?: GetBlockResponse
-  /** True if loading block data. */
-  isLoading: boolean
-  /** True if error while loading data. */
-  isError: boolean
   /** Error fetching block. */
   error?: unknown
+  isIdle: boolean
+  /** True if loading block data. */
+  isLoading: boolean
+  isFetching: boolean
+  isSuccess: boolean
+  /** True if error while loading data. */
+  isError: boolean
+  isFetched: boolean
+  isFetchedAfterMount: boolean
+  isRefetching: boolean
+  refetch: () => void
+  status: 'idle' | 'error' | 'loading' | 'success'
 }
 
 /**
@@ -116,10 +124,23 @@ export function useBlock({
   refetchInterval,
   onSuccess,
   blockIdentifier = 'latest',
-}: UseBlockProps = {}): UseBlockResult {
+}: UseBlockArgs = {}): UseBlockResult {
   const { library } = useStarknet()
 
-  const { data, isLoading, isError, error } = useQuery<GetBlockResponse | undefined, string>(
+  const {
+    data,
+    error,
+    isStale: isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  } = useQuery<GetBlockResponse | undefined, string>(
     ['block', blockIdentifier],
     fetchBlock({ library, args: { blockIdentifier } }),
     {
@@ -130,7 +151,20 @@ export function useBlock({
       },
     }
   )
-  return { data, isLoading, isError, error }
+  return {
+    data,
+    error,
+    isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  }
 }
 
 function fetchBlock({
@@ -142,5 +176,116 @@ function fetchBlock({
 }): () => Promise<GetBlockResponse | undefined> {
   return async () => {
     return await library.getBlock(args.blockIdentifier)
+  }
+}
+
+/** Arguments for `useBlockNumber`. */
+export type UseBlockNumberArgs = Partial<FetchBlockArgs> & {
+  /** How often to refresh the data. */
+  refetchInterval?: number | false
+  /** Callback fired every time a new block is fetched. */
+  onSuccess?: (blockNumber: number) => void
+}
+
+/** Value returned from `useBlockNumber`. */
+export interface UseBlockNumberResult {
+  /** Block data. */
+  blockNumber?: number
+  /** Error fetching block. */
+  error?: unknown
+  isIdle: boolean
+  /** True if loading block data. */
+  isLoading: boolean
+  isFetching: boolean
+  isSuccess: boolean
+  /** True if error while loading data. */
+  isError: boolean
+  isFetched: boolean
+  isFetchedAfterMount: boolean
+  isRefetching: boolean
+  refetch: () => void
+  status: 'idle' | 'error' | 'loading' | 'success'
+}
+
+/**
+ * Hook for fetching the current block number.
+ *
+ * @remarks
+ *
+ * Control if and how often data is refreshed with `refetchInterval`.
+ *
+ * @example
+ * This example shows how to fetch the current block only once.
+ * ```tsx
+ * function Component() {
+ *   const { data, isLoading, isError } = useBlockNumber({
+ *     refetchInterval: false
+ *   })
+ *
+ *   if (isLoading) return <span>Loading...</span>
+ *   if (isError) return <span>Error...</span>
+ *   return <span>Block number: {data}</span>
+ * }
+ * ```
+ *
+ * @example
+ * This example shows how to fetch the current block every 3 seconds.
+ * Use your browser network monitor to verify that the hook is refetching the
+ * data.
+ * ```tsx
+ * function Component() {
+ *   const { data, isLoading, isError } = useBlockNumber({
+ *     refetchInterval: 3000
+ *   })
+ *
+ *   if (isLoading) return <span>Loading...</span>
+ *   if (isError) return <span>Error...</span>
+ *   return <span>Block Number: {data}</span>
+ * }
+ * ```
+ */
+export function useBlockNumber({
+  refetchInterval,
+  onSuccess,
+}: UseBlockNumberArgs = {}): UseBlockNumberResult {
+  const { library } = useStarknet()
+
+  const {
+    data,
+    error,
+    isStale: isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
+  } = useQuery<GetBlockResponse | undefined, string>(
+    ['block', 'latest'],
+    fetchBlock({ library, args: { blockIdentifier: 'latest' } }),
+    {
+      refetchInterval,
+      useErrorBoundary: true,
+      onSuccess: (block) => {
+        if (block && onSuccess) onSuccess(block.block_number)
+      },
+    }
+  )
+  return {
+    blockNumber: data?.block_number,
+    error,
+    isIdle,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isRefetching,
+    refetch,
+    status,
   }
 }
