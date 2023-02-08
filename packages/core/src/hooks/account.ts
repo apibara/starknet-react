@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AccountInterface } from 'starknet'
 import { Connector } from '../connectors'
-import { useConnectors } from './connectors'
+import { useConnect } from './connectors'
 import { useStarknet } from '../providers'
 
 /** Account connection status. */
-export type AccountStatus = 'connected' | 'disconnected'
+export type AccountStatus = 'connected' | 'disconnected' | 'connecting' | 'reconnecting'
 
 /**
  * Value returned from `useAccount`.
@@ -17,6 +17,10 @@ export interface UseAccountResult {
   address?: string
   /** The connected connector. */
   connector?: Connector
+  isConnecting?: boolean
+  isReconnecting?: boolean
+  isConnected?: boolean
+  isDisconnected?: boolean
   /** The connection status. */
   status: AccountStatus
 }
@@ -43,13 +47,17 @@ export interface UseAccountResult {
  */
 export function useAccount(): UseAccountResult {
   const { account: connectedAccount } = useStarknet()
-  const { connectors } = useConnectors()
+  const { connectors } = useConnect()
   const [state, setState] = useState<UseAccountResult>({ status: 'disconnected' })
 
   const refreshState = useCallback(async () => {
     if (!connectedAccount) {
       return setState({
         status: 'disconnected',
+        isDisconnected: true,
+        isConnected: false,
+        isConnecting: false,
+        isReconnecting: false,
       })
     }
     for (const connector of connectors) {
@@ -61,6 +69,10 @@ export function useAccount(): UseAccountResult {
           account: connAccount,
           address: connectedAccount,
           status: 'connected',
+          isConnected: true,
+          isConnecting: false,
+          isDisconnected: false,
+          isReconnecting: false,
         })
       }
     }
