@@ -7,7 +7,16 @@ import { Connector } from '~/connectors'
 
 function useTestHook() {
   const { connectors, connect } = useStarknet()
-  const { account, address, connector, status } = useAccount()
+  const {
+    account,
+    address,
+    connector,
+    status,
+    isConnected,
+    isConnecting,
+    isReconnecting,
+    isDisconnected,
+  } = useAccount()
   return {
     account,
     connectors,
@@ -15,6 +24,10 @@ function useTestHook() {
     address,
     connector,
     status,
+    isConnected,
+    isConnecting,
+    isReconnecting,
+    isDisconnected,
   }
 }
 
@@ -54,6 +67,10 @@ describe('useAccount', () => {
         expect(result.current.address).toBeUndefined()
         expect(result.current.connector).toBeUndefined()
         expect(result.current.status).toEqual('disconnected')
+        expect(result.current.isConnected).toBeFalsy()
+        expect(result.current.isConnecting).toBeFalsy()
+        expect(result.current.isReconnecting).toBeFalsy()
+        expect(result.current.isDisconnected).toBeTruthy()
       })
     })
   })
@@ -97,6 +114,8 @@ describe('useAccount', () => {
         expect(result.current.address).toEqual(deventAccounts[2].address)
         expect(result.current.connector).toBeDefined()
         expect(result.current.status).toEqual('connected')
+        expect(result.current.isConnected).toBeTruthy()
+        expect(result.current.isDisconnected).toBeFalsy()
       })
     })
   })
