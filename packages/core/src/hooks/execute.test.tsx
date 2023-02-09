@@ -1,10 +1,10 @@
 import { renderHook, waitFor, act } from '../../test/react'
 import { compiledDapp, devnetProvider, connectors } from '../../test/devnet'
-import { Call, useStarknetExecute } from './execute'
+import { Call, useContractWrite } from './execute'
 import { useStarknet } from '~/providers'
 import { useAccount } from './account'
 
-describe('useStarknetExecute', () => {
+describe('useContractWrite', () => {
   let address: string
   let calls: Call[]
   beforeAll(async () => {
@@ -28,16 +28,18 @@ describe('useStarknetExecute', () => {
   function useTestHook({ calls }: { calls?: Call[] }) {
     const { connectors, connect } = useStarknet()
     const { account } = useAccount()
-    const { data, error, loading, reset, execute } = useStarknetExecute({ calls })
+    const test = useContractWrite({ calls })
+    console.log(test)
+    const { data, error, isLoading, reset, write } = useContractWrite({ calls })
     return {
       account,
       connectors,
       connect,
       data,
       error,
-      loading,
+      isLoading,
       reset,
-      execute,
+      write,
     }
   }
 
@@ -52,7 +54,7 @@ describe('useStarknetExecute', () => {
 
       await act(async () => {
         try {
-          await result.current.execute()
+          await result.current.write()
         } catch (err) {
           // error is expected
           console.log(err)
@@ -89,7 +91,7 @@ describe('useStarknetExecute', () => {
       })
 
       await act(async () => {
-        await result.current.execute()
+        await result.current.write()
       })
 
       await waitFor(() => {
