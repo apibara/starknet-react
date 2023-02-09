@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AccountInterface } from 'starknet'
 import { Connector } from '../connectors'
-import { useConnect } from './connectors'
+import { useConnectors } from './connectors'
 import { useStarknet } from '../providers'
 
 /** Account connection status. */
@@ -47,7 +47,7 @@ export interface UseAccountResult {
  */
 export function useAccount(): UseAccountResult {
   const { account: connectedAccount } = useStarknet()
-  const { connectors } = useConnect()
+  const { connectors } = useConnectors()
   const [state, setState] = useState<UseAccountResult>({ status: 'disconnected' })
 
   const refreshState = useCallback(async () => {
