@@ -12,8 +12,8 @@ export interface Call {
   calldata: unknown[]
 }
 
-/** Arguments for `useStarknetExecute`. */
-export interface UseStarknetExecuteArgs {
+/** Arguments for `useContractWrite`. */
+export interface UseContractWriteArgs {
   /** List of smart contract calls to execute. */
   calls?: Call | Call[]
   /** Metadata associated with the transaction. */
@@ -21,18 +21,22 @@ export interface UseStarknetExecuteArgs {
   metadata?: any
 }
 
-/** Value returned from `useStarknetExecute` */
-export interface UseStarknetExecute {
+/** Value returned from `useContractWrite` */
+export interface UseContractWriteResult {
   /** Data returned from the execute call. */
   data?: string
   /** True if the execute call is being executed. */
-  loading: boolean
+  isLoading: boolean
   /** Error while running execute. */
   error?: unknown
   /** Reset the hook state. */
   reset: () => void
   /** Execute the calls. */
-  execute: () => Promise<InvokeFunctionResponse | undefined>
+  write: () => Promise<InvokeFunctionResponse | undefined>
+  isError: boolean
+  isIdle: boolean
+  isSuccess: boolean
+  status: 'idle' | 'error' | 'loading' | 'success'
 }
 
 /**
@@ -59,7 +63,7 @@ export interface UseStarknetExecute {
  *     return Array(count).fill(tx)
  *   }, [address, count])
  *
- *   const { execute } = useStarknetExecute({ calls })
+ *   const { execute } = useContractWrite({ calls })
  *
  *   const inc = useCallback(
  *     () => setCount(c => c + 1),
@@ -78,25 +82,28 @@ export interface UseStarknetExecute {
  *         <button onClick={inc}>Increment</button>
  *       </p>
  *       <p>
- *         <button onClick={execute}>Execute</button>
+ *         <button onClick={write}>Write</button>
  *       </p>
  *     </>
  *   )
  * }
  * ```
  */
-export function useStarknetExecute({ calls, metadata }: UseStarknetExecuteArgs) {
+export function useContractWrite({ calls, metadata }: UseContractWriteArgs) {
   const { account } = useAccount()
-  const { data, isLoading, error, reset, mutateAsync } = useMutation(
-    writeContract({ account, args: { calls, metadata } })
-  )
+  const { data, isLoading, error, reset, mutateAsync, isIdle, isSuccess, status, isError } =
+    useMutation(writeContract({ account, args: { calls, metadata } }))
 
   return {
     data,
-    loading: isLoading,
     error: error ?? undefined,
     reset,
-    execute: mutateAsync,
+    write: mutateAsync,
+    isError,
+    isIdle,
+    isLoading,
+    isSuccess,
+    status,
   }
 }
 
@@ -105,7 +112,7 @@ function writeContract({
   args,
 }: {
   account?: AccountInterface
-  args: UseStarknetExecuteArgs
+  args: UseContractWriteArgs
 }) {
   return async () => {
     const { calls, metadata } = args
