@@ -24,8 +24,8 @@ export const DEVNET_ACCOUNTS = [
 
 export const devnetProvider = new SequencerProvider({ baseUrl: DEVNET_URL })
 const originalWaitForTransaction = devnetProvider.waitForTransaction.bind(devnetProvider)
-devnetProvider.waitForTransaction = (txHash, successStates, retryInterval) => {
-  return originalWaitForTransaction(txHash, successStates, retryInterval || 1000)
+devnetProvider.waitForTransaction = (txHash, retryInterval, successStates) => {
+  return originalWaitForTransaction(txHash, retryInterval || 1000, successStates)
 }
 
 export const invalidProvider = new SequencerProvider({ baseUrl: 'http://localhost:100' })
