@@ -14,7 +14,7 @@ const templatesFolderPath = path.join(__dirname, '..', 'templates')
 
 let projectPath = ''
 
-// TODO SETUP COMMANDER HERE
+// TODO: Setup commander
 
 async function run() {
   const response = await prompts({
