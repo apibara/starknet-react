@@ -12,7 +12,7 @@
     "create-starknet": "dist/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yohan Tancrez",
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",

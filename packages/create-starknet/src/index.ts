@@ -75,3 +75,5 @@ async function run() {
 }
 
 run()
+  .then(() => process.exit(0))
+  .catch(console.error)
