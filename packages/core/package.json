@@ -15,7 +15,7 @@
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint --fix src --ext .ts,.tsx",
     "typedoc": "typedoc",
-    "test": "jest --config jest.config.ts"
+    "test": "jest --config jest.config.ts --silent"
   },
   "peerDependencies": {
     "react": "^17.0 || ^18.0",
