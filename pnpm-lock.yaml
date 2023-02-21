@@ -61,6 +61,7 @@ importers:
       '@types/jest': ^29.0.2
       '@types/node': ^17.0.39
       '@types/react': ^18.0.11
+      get-starknet-core: ^2.0.0
       immutable: ^4.0.0
       jest: ^29.0.0
       jest-environment-jsdom: ^29.0.3
@@ -70,6 +71,7 @@ importers:
       typescript: ^4.7.3
     dependencies:
       '@tanstack/react-query': 4.3.4
+      get-starknet-core: 2.0.0
       immutable: 4.1.0
     devDependencies:
       '@jest/environment': 29.0.3
@@ -7853,6 +7855,15 @@ packages:
       }
     engines: { node: '>=8.0.0' }
     dev: true
+
+  /get-starknet-core/2.0.0:
+    resolution:
+      {
+        integrity: sha512-cpPQrn2/uw1dxn/gpDiVtKrYxyoSkCsrz1mf7CqeyNxcSiiqsHHRNIGyFtqSm2hCduA1kl7ddVugLoTul/oBQQ==,
+      }
+    peerDependencies:
+      starknet: ^4.9.0
+    dev: false
 
   /get-stream/5.2.0:
     resolution:
