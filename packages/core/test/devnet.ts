@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 import { Mock } from 'moq.ts'
-import { Account, SequencerProvider, ec, CompiledContract } from 'starknet'
+import { Account, SequencerProvider, ec, CompiledContract, json } from 'starknet'
 import { Connector } from '~/connectors'
 
 const DEFAULT_DEVNET_URL = 'http://localhost:5050'
@@ -65,8 +65,10 @@ export const connectors = deventAccounts.map((account, index) =>
 )
 
 function compileContract(name: string): CompiledContract {
-  return JSON.parse(fs.readFileSync(`${__dirname}/contracts/${name}.json`).toString('ascii'))
+  return json.parse(fs.readFileSync(`${__dirname}/contracts/${name}.json`).toString('ascii'))
 }
 
 export const compiledErc20 = compileContract('erc20')
 export const compiledDapp = compileContract('dapp')
+export const compiledStarknetId = compileContract('starknetId')
+export const compiledNaming = compileContract('naming')
