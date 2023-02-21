@@ -6,6 +6,7 @@ import {
   UserNotConnectedError,
   UserRejectedRequestError,
 } from '../errors'
+import { getStarknet, StarknetWindowObject } from 'get-starknet-core'
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
@@ -38,7 +39,7 @@ export interface IStarknetWindowObject {
 }
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
-  private _wallet?: IStarknetWindowObject
+  private _wallet?: StarknetWindowObject
 
   constructor({ options }: { options: InjectedConnectorOptions }) {
     super({ options })
@@ -136,9 +137,11 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     this._wallet.off('accountsChanged', accountChangeCb)
   }
 
-  private ensureWallet() {
-    const installed = getInstalledWallets()
-    const wallet = installed[this.options.id]
+  private async ensureWallet() {
+    const starknet = getStarknet()
+    const installed = await starknet.getAvailableWallets()
+    console.log('installed', installed)
+    const wallet = installed[Number(this.options.id)]
     if (wallet) {
       this._wallet = wallet
     }
