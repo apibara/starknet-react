@@ -72,6 +72,13 @@ async function run() {
   packageJson.name = projectName
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
+
+  // TODO: Add colors with chalk
+  console.log(`Success! Created ${projectName} at ${projectPath}\n`)
+  console.log('We suggest that you begin by typing:')
+  console.log(`- cd ${projectName}`)
+  console.log('- npm install')
+  console.log('- npm run dev')
 }
 
 run()
