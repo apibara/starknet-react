@@ -8,7 +8,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "turbo run build --parallel",
-    "test": "turbo run test --parallel --silent=false",
+    "test": "turbo run test --parallel",
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
     "typedoc": "turbo run typedoc --filter @starknet-react/*",
