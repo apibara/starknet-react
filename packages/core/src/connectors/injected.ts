@@ -140,8 +140,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   private async ensureWallet() {
     const starknet = getStarknet()
     const installed = await starknet.getAvailableWallets()
-    console.log('installed', installed)
-    const wallet = installed[Number(this.options.id)]
+    const wallet = installed.filter((w) => w.id === this.options.id)[0]
     if (wallet) {
       this._wallet = wallet
     }
