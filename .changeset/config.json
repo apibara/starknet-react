@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.6.4/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "auclantis/starknet-react" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "apibara/starknet-react" }],
   "commit": false,
   "linked": [],
   "access": "public",
