@@ -1,5 +1,15 @@
 # @starknet-react/core
 
+## 0.15.0
+
+### Minor Changes
+
+- [`94413da`](https://github.com/apibara/starknet-react/commit/94413da0878efb92efb8ce47f58a3112ad8e471f) Thanks [@fracek](https://github.com/fracek)! - Use get-starknet connectors
+
+### Patch Changes
+
+- [`94413da`](https://github.com/apibara/starknet-react/commit/94413da0878efb92efb8ce47f58a3112ad8e471f) Thanks [@fracek](https://github.com/fracek)! - Add starknet.id hooks
+
 ## 0.14.8
 
 ### Patch Changes
