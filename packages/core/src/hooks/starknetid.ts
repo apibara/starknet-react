@@ -104,7 +104,7 @@ export function useStarkName({ address, contract }: StarkNameArgs): StarkNameRes
   }
 }
 
-interface AddressFromStarkNameArgs {
+export interface AddressFromStarkNameArgs {
   /** Stark name. */
   name: string
   /** Naming contract to use . */
