@@ -32,7 +32,8 @@ export interface UseContractWriteResult {
   /** Reset the hook state. */
   reset: () => void
   /** Execute the calls. */
-  write: () => Promise<InvokeFunctionResponse | undefined>
+  write: ((args?: UseContractWriteArgs) => void) | undefined
+  writeAsync: ((args?: UseContractWriteArgs) => Promise<InvokeFunctionResponse>) | undefined
   isError: boolean
   isIdle: boolean
   isSuccess: boolean
@@ -91,14 +92,15 @@ export interface UseContractWriteResult {
  */
 export function useContractWrite({ calls, metadata }: UseContractWriteArgs) {
   const { account } = useAccount()
-  const { data, isLoading, error, reset, mutateAsync, isIdle, isSuccess, status, isError } =
+  const { data, isLoading, error, reset, mutate, mutateAsync, isIdle, isSuccess, status, isError } =
     useMutation(writeContract({ account, args: { calls, metadata } }))
 
   return {
     data,
     error: error ?? undefined,
     reset,
-    write: mutateAsync,
+    write: mutate,
+    writeAsync: mutateAsync,
     isError,
     isIdle,
     isLoading,

@@ -30,7 +30,7 @@ describe('useContractWrite', () => {
     const { account } = useAccount()
     const test = useContractWrite({ calls })
     console.log(test)
-    const { data, error, isLoading, reset, write } = useContractWrite({ calls })
+    const { data, error, isLoading, reset, writeAsync } = useContractWrite({ calls })
     return {
       account,
       connectors,
@@ -39,7 +39,7 @@ describe('useContractWrite', () => {
       error,
       isLoading,
       reset,
-      write,
+      writeAsync,
     }
   }
 
@@ -54,7 +54,7 @@ describe('useContractWrite', () => {
 
       await act(async () => {
         try {
-          await result.current.write()
+          await result.current.writeAsync()
         } catch (err) {
           // error is expected
           console.log(err)
@@ -91,7 +91,7 @@ describe('useContractWrite', () => {
       })
 
       await act(async () => {
-        await result.current.write()
+        await result.current.writeAsync()
       })
 
       await waitFor(() => {
