@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.15.1
+
+### Patch Changes
+
+- [#218](https://github.com/apibara/starknet-react/pull/218) [`df22f16`](https://github.com/apibara/starknet-react/commit/df22f16bf935d88238e5f99d5ed11bfd0a22dd09) Thanks [@fracek](https://github.com/fracek)! - Export starknet.id hook
+
 ## 0.15.0
 
 ### Minor Changes
