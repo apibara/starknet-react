@@ -8,7 +8,7 @@ export interface StarkNetBlockResult {
   /** Block data. */
   data?: GetBlockResponse
   /** True if loading block. */
-  loading?: boolean
+  isLoading?: boolean
   /** Error loading block. */
   error?: string
 }
@@ -42,7 +42,7 @@ export function useStarknetBlock(): StarkNetBlockResult {
 
   return {
     data,
-    loading: isLoading,
+    isLoading,
     error: isError ? 'error loading block number' : undefined,
   }
 }
