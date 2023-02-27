@@ -3,7 +3,7 @@ import { Abi, AccountInterface, CompiledContract, Contract, ContractFactory } fr
 import { useStarknet } from '../providers'
 
 /** Arguments for `useContract`. */
-export interface UseContractProps {
+export interface UseContractArgs {
   /** The contract abi. */
   abi?: Abi
   /** The contract address. */
@@ -36,7 +36,7 @@ export interface UseContractResult {
  * }
  * ```
  */
-export function useContract({ abi, address }: UseContractProps): UseContractResult {
+export function useContract({ abi, address }: UseContractArgs): UseContractResult {
   const { library } = useStarknet()
 
   const contract = useMemo(() => {
