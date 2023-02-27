@@ -6,7 +6,7 @@ import {
   deventAccounts,
 } from '../../test/devnet'
 import { renderHook, waitFor } from '../../test/react'
-import { useStarkName, useAddressFromStarkName } from './starknetId'
+import { useStarkName, useAddressFromStarkName } from './starknetid'
 
 describe('useStarkName', () => {
   jest.setTimeout(500000)
