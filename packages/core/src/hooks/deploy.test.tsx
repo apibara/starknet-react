@@ -16,9 +16,9 @@ describe('useDeploy', () => {
       classHash: '0x54328a1075b8820eb43caf0caa233923148c983742402dcfc38541dd843d01a',
       abi: compiledErc20.abi,
     })
-    const { data, loading, error, reset, deploy } = useDeploy({ contractFactory })
+    const { data, isLoading, error, reset, deployAsync } = useDeploy({ contractFactory })
 
-    return { data, loading, error, reset, deploy, connect, connectors, account }
+    return { data, isLoading, error, reset, deployAsync, connect, connectors, account }
   }
 
   describe('without a factory', () => {
@@ -32,7 +32,7 @@ describe('useDeploy', () => {
       await act(async () => {
         // error expected
         try {
-          await result.current.deploy()
+          await result.current.deployAsync()
         } catch (err) {
           console.log(err)
         }
@@ -58,14 +58,14 @@ describe('useDeploy', () => {
       })
 
       await act(async () => {
-        await result.current.deploy()
+        await result.current.deployAsync()
       })
 
       await waitFor(
         () => {
           expect(result.current.data).toBeDefined()
           expect(result.current.data).toBeInstanceOf(Contract)
-          expect(result.current.loading).toBeFalsy()
+          expect(result.current.isLoading).toBeFalsy()
           expect(result.current.error).toBeUndefined()
         },
         {
