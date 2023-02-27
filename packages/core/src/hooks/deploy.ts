@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { ContractFactory, RawCalldata, number, Contract } from 'starknet'
 
 /** Arguments for `useDeploy`. */
-export interface UseDeployProps {
+export interface UseDeployArgs {
   /** The contract factory. */
   contractFactory?: ContractFactory
   /** Calldata passed to the constructor. */
@@ -16,13 +16,18 @@ export interface UseDeployResult {
   /** The deployed contract. */
   data?: Contract
   /** True if deploying. */
-  loading: boolean
+  isLoading: boolean
   /** Error while deploying. */
   error?: unknown
   /** Reset hook state. */
   reset: () => void
   /** Send deploy transaction. */
-  deploy: () => Promise<Contract | undefined>
+  deploy: () => void | undefined
+  deployAsync: () => Promise<Contract | undefined>
+  isError: boolean
+  isIdle: boolean
+  isSuccess: boolean
+  status: 'error' | 'idle' | 'loading' | 'success'
 }
 
 /**
@@ -75,21 +80,25 @@ export function useDeploy({
   contractFactory,
   constructorCalldata,
   addressSalt,
-}: UseDeployProps): UseDeployResult {
-  const { data, isLoading, error, reset, mutateAsync } = useMutation(
-    deployContract({ contractFactory, constructorCalldata, addressSalt })
-  )
+}: UseDeployArgs): UseDeployResult {
+  const { data, isLoading, error, reset, mutateAsync, mutate, isError, isIdle, isSuccess, status } =
+    useMutation(deployContract({ contractFactory, constructorCalldata, addressSalt }))
 
   return {
     data,
-    loading: isLoading,
+    isLoading,
     error: error ?? undefined,
     reset,
-    deploy: mutateAsync,
+    deploy: mutate,
+    deployAsync: mutateAsync,
+    isError,
+    isIdle,
+    isSuccess,
+    status,
   }
 }
 
-function deployContract({ contractFactory, constructorCalldata, addressSalt }: UseDeployProps) {
+function deployContract({ contractFactory, constructorCalldata, addressSalt }: UseDeployArgs) {
   return async () => {
     if (contractFactory === undefined) {
       throw new Error('No contract factory defined')
