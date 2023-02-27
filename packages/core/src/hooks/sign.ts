@@ -6,7 +6,7 @@ import { useStarknet } from '../providers'
 interface State {
   data?: string[]
   error?: string
-  loading: boolean
+  isLoading: boolean
 }
 
 interface StartSigning {
@@ -38,35 +38,36 @@ function starknetSignReducer(state: State, action: Action): State {
   if (action.type === 'start_signing') {
     return {
       ...state,
-      loading: true,
+      isLoading: true,
     }
   } else if (action.type === 'set_signature') {
     return {
       ...state,
       data: action.data,
-      loading: false,
+      isLoading: false,
     }
   } else if (action.type === 'set_error') {
     return {
       ...state,
       error: action.error,
-      loading: false,
+      isLoading: false,
     }
   } else if (action.type === 'reset') {
     return {
       ...state,
       data: undefined,
       error: undefined,
-      loading: false,
+      isLoading: false,
     }
   }
   return state
 }
 
-export interface UseSignTypedData {
+export interface UseSignTypedDataResult {
   data?: string[]
   error?: string
-  loading: boolean
+  isLoading: boolean
+  isError: boolean
   signTypedData: () => Promise<Signature | undefined>
   reset: () => void
 }
@@ -117,9 +118,9 @@ export interface UseSignTypedData {
  * }
  * ```
  */
-export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedData {
+export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDataResult {
   const [state, dispatch] = useReducer(starknetSignReducer, {
-    loading: false,
+    isLoading: false,
   })
 
   const { account: accountAddress, connectors } = useStarknet()
@@ -128,7 +129,7 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
     dispatch({ type: 'reset' })
   }, [dispatch])
 
-  const { data, error, loading } = state
+  const { data, error, isLoading } = state
 
   const signTypedData = useCallback(async () => {
     dispatch({ type: 'reset' })
@@ -159,7 +160,8 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
   return {
     data,
     error,
-    loading,
+    isLoading,
+    isError: error ? true : false,
     signTypedData,
     reset,
   }
