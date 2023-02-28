@@ -1,12 +1,11 @@
 import { useBlock, useBlockNumber } from './block'
 import { renderHook, waitFor } from '../../test/react'
-import { connectors, devnetProvider, compiledErc20 } from '../../test/devnet'
+import { connectors, compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
 
 describe('useBlock', () => {
   beforeAll(async () => {
-    await devnetProvider.deployContract({
-      contract: compiledErc20,
-    })
+    const account = deventAccounts[1]!
+    await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
   })
 
   it('returns the latest block by default', async () => {

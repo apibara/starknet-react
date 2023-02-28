@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '../../test/react'
-import { compiledErc20, devnetProvider } from '../../test/devnet'
 import { useWaitForTransaction } from './receipt'
+import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
 
 describe('useWaitForTransaction', () => {
   let hash: string
   beforeAll(async () => {
-    const tx = await devnetProvider.deployContract({ contract: compiledErc20 })
-    hash = tx.transaction_hash
+    const account = deventAccounts[1]!
+    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    hash = tx.deploy.transaction_hash
   })
 
   describe('when given a valid tx hash', () => {

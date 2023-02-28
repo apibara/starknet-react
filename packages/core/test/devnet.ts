@@ -72,3 +72,6 @@ export const compiledErc20 = compileContract('erc20')
 export const compiledDapp = compileContract('dapp')
 export const compiledStarknetId = compileContract('starknetId')
 export const compiledNaming = compileContract('naming')
+
+export const erc20ClassHash = '0x02864c45bd4ba3e66d8f7855adcadf07205c88f43806ffca664f1f624765207e'
+export const dappClassHash = '0x04367b26fbb92235e8d1137d19c080e6e650a6889ded726d00658411cc1046f5'
