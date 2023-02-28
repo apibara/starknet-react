@@ -1,12 +1,14 @@
 import { renderHook, waitFor } from '../../test/react'
-import { compiledErc20, devnetProvider } from '../../test/devnet'
 import { useContractRead } from './call'
+import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
+import { useContract } from './contract'
 
 describe('useStarknetCall', () => {
   let address: string
   beforeAll(async () => {
-    const tx = await devnetProvider.deployContract({ contract: compiledErc20 })
-    address = tx.contract_address
+    const account = deventAccounts[1]!
+    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    address = tx.deploy.contract_address
   })
 
   function useTestHook({

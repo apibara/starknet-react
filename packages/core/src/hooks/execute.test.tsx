@@ -1,5 +1,11 @@
 import { renderHook, waitFor, act } from '../../test/react'
-import { compiledDapp, devnetProvider, connectors } from '../../test/devnet'
+import {
+  compiledDapp,
+  devnetProvider,
+  connectors,
+  deventAccounts,
+  dappClassHash,
+} from '../../test/devnet'
 import { Call, useContractWrite } from './execute'
 import { useStarknet } from '~/providers'
 import { useAccount } from './account'
@@ -8,9 +14,10 @@ describe('useContractWrite', () => {
   let address: string
   let calls: Call[]
   beforeAll(async () => {
-    const tx = await devnetProvider.deployContract({ contract: compiledDapp })
-    await devnetProvider.waitForTransaction(tx.transaction_hash)
-    address = tx.contract_address
+    const account = deventAccounts[1]!
+    const tx = await account.declareDeploy({ contract: compiledDapp, classHash: dappClassHash })
+    await devnetProvider.waitForTransaction(tx.deploy.transaction_hash)
+    address = tx.deploy.contract_address
     calls = [
       {
         contractAddress: address,

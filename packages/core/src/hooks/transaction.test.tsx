@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '../../test/react'
-import { compiledErc20, devnetProvider } from '../../test/devnet'
+import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
 import { useTransaction, useTransactions } from './transaction'
 
 describe('useTransaction', () => {
   let hash: string
   beforeAll(async () => {
-    const tx = await devnetProvider.deployContract({ contract: compiledErc20 })
-    hash = tx.transaction_hash
+    const account = deventAccounts[1]!
+    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    hash = tx.deploy.transaction_hash
   })
 
   describe('when given a valid tx hash', () => {
@@ -87,10 +88,11 @@ describe('useTransactions', () => {
   let hash0: string
   let hash1: string
   beforeAll(async () => {
-    const tx0 = await devnetProvider.deployContract({ contract: compiledErc20 })
-    hash0 = tx0.transaction_hash
-    const tx1 = await devnetProvider.deployContract({ contract: compiledErc20 })
-    hash1 = tx1.transaction_hash
+    const account = deventAccounts[1]!
+    const tx0 = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    hash0 = tx0.deploy.transaction_hash
+    const tx1 = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    hash1 = tx1.deploy.transaction_hash
   })
 
   describe('when changing the number of hashes', () => {
