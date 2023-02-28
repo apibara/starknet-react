@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
-import { defaultProvider, ProviderInterface } from 'starknet'
+import { Provider, ProviderInterface } from 'starknet'
 import { Connector } from '../connectors'
 import { ConnectorNotFoundError } from '../errors'
 
@@ -35,11 +35,19 @@ export interface StarknetState {
   error?: Error
 }
 
+// We define our own provider that defaults to testnet
+// as defaultProvider from starknet.js is initialized to testnet2
+const customDefaultProvider = new Provider({
+  sequencer: {
+    network: 'goerli-alpha',
+  },
+})
+
 const STARKNET_INITIAL_STATE: StarknetState = {
   account: undefined,
   connect: () => undefined,
   disconnect: () => undefined,
-  library: defaultProvider,
+  library: customDefaultProvider,
   connectors: [],
 }
 
@@ -108,7 +116,7 @@ function reducer(state: StarknetManagerState, action: Action): StarknetManagerSt
       return { ...state, account: action.account }
     }
     case 'set_provider': {
-      return { ...state, library: action.provider ?? defaultProvider }
+      return { ...state, library: action.provider ?? customDefaultProvider }
     }
     case 'set_connector': {
       return { ...state, connector: action.connector }
@@ -135,7 +143,7 @@ function useStarknetManager({
 }: UseStarknetManagerProps): StarknetState {
   const connectors = userConnectors ?? []
   const [state, dispatch] = useReducer(reducer, {
-    library: userDefaultProvider ? userDefaultProvider : defaultProvider,
+    library: userDefaultProvider ? userDefaultProvider : customDefaultProvider,
     connectors,
   })
 
@@ -165,18 +173,31 @@ function useStarknetManager({
     dispatch({ type: 'set_account', account: undefined })
     dispatch({
       type: 'set_provider',
-      provider: userDefaultProvider ? userDefaultProvider : defaultProvider,
+      provider: userDefaultProvider ? userDefaultProvider : customDefaultProvider,
     })
     dispatch({ type: 'set_connector', connector: undefined })
     if (autoConnect) {
       localStorage.removeItem('lastUsedConnector')
     }
     if (!state.connector) return
-    state.connector.removeEventListener(handleAccountChanged)
-    state.connector.disconnect().catch((err) => {
-      console.error(err)
-      dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
-    })
+    state.connector.disconnect().then(
+      () => {
+        dispatch({ type: 'set_account', account: undefined })
+        dispatch({
+          type: 'set_provider',
+          provider: userDefaultProvider ? userDefaultProvider : customDefaultProvider,
+        })
+        dispatch({ type: 'set_connector', connector: undefined })
+        state.connector?.removeEventListener(handleAccountChanged)
+        if (autoConnect) {
+          localStorage.removeItem('lastUsedConnector')
+        }
+      },
+      (err) => {
+        console.error(err)
+        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
+      }
+    )
   }, [autoConnect, state.connector])
 
   const handleAccountChanged = useCallback(() => {
