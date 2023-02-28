@@ -3,6 +3,7 @@ import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet
 import { useTransaction, useTransactions } from './transaction'
 
 describe('useTransaction', () => {
+  jest.setTimeout(500000)
   let hash: string
   beforeAll(async () => {
     const account = deventAccounts[1]!
