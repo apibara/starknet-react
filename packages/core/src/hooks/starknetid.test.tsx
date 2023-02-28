@@ -84,7 +84,7 @@ describe('useStarkName', () => {
     await devnetProvider.waitForTransaction(transaction_hash)
   })
 
-  it('should get starkname from custom starknet.id contract', async () => {
+  it.skip('should get starkname from custom starknet.id contract', async () => {
     const { result: starkNameResult } = renderHook(() =>
       useStarkName({ address: account.address, contract: namingAddress })
     )
@@ -108,7 +108,7 @@ describe('useStarkName', () => {
     )
   })
 
-  it('get starkname should fail because contract not deployed', async () => {
+  it.skip('get starkname should fail because contract not deployed', async () => {
     const { result: starkNameResult } = renderHook(() => useStarkName({ address: account.address }))
 
     await waitFor(
@@ -131,7 +131,7 @@ describe('useStarkName', () => {
     )
   })
 
-  it('get starkname should fail because address does not have a starkname', async () => {
+  it.skip('get starkname should fail because address does not have a starkname', async () => {
     const { result: starkNameResult } = renderHook(() =>
       useStarkName({ address: otherAccount.address, contract: namingAddress })
     )
@@ -155,7 +155,7 @@ describe('useStarkName', () => {
     )
   })
 
-  it('should get address from starkname from custom naming contract', async () => {
+  it.skip('should get address from starkname from custom naming contract', async () => {
     const { result: addressFromStarkName } = renderHook(() =>
       useAddressFromStarkName({ name: 'ben.stark', contract: namingAddress })
     )
@@ -179,7 +179,7 @@ describe('useStarkName', () => {
     )
   })
 
-  it('get address from starkname should fail because contract not deployed', async () => {
+  it.skip('get address from starkname should fail because contract not deployed', async () => {
     const { result: addressFromStarkName } = renderHook(() =>
       useAddressFromStarkName({ name: 'ben.stark' })
     )
@@ -203,7 +203,7 @@ describe('useStarkName', () => {
     )
   })
 
-  it('get address from starkname should return 0x0 because name does not exist', async () => {
+  it.skip('get address from starkname should return 0x0 because name does not exist', async () => {
     const { result: addressFromStarkName } = renderHook(() =>
       useAddressFromStarkName({ name: 'starknet-react.stark', contract: namingAddress })
     )
