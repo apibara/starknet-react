@@ -8,6 +8,10 @@ import {
 import { renderHook, waitFor } from '../../test/react'
 import { useStarkName, useAddressFromStarkName } from './starknetid'
 
+// Tests skipped for now because devnet provider is initialized with a custom baseUrl
+// but the chainId of testnet which result in the provider object being setup to testnet
+// instead of devnet in the starknetid hooks.
+
 describe('useStarkName', () => {
   jest.setTimeout(500000)
   let account: Account
