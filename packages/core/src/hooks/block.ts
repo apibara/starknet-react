@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { GetBlockResponse, ProviderInterface } from 'starknet'
-import { BlockNumber } from 'starknet'
+import { GetBlockResponse, ProviderInterface, BlockNumber } from 'starknet'
 import { useStarknet } from '../providers'
 
 /** Value returned from `useStarknetBlock`. */
