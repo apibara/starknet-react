@@ -42,7 +42,7 @@ async function run() {
       console.error(
         `Could not create a project called ${chalk.red(
           path.basename(path.resolve(projectPath))
-        )}:\n${validation}`
+        )}\n${validation}`
       )
       return
     }
