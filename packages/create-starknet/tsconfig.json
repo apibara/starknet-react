@@ -3,7 +3,6 @@
     "target": "es2016",
     "lib": ["es6"],
     "module": "commonjs",
-    "rootDir": "src",
     "resolveJsonModule": true,
     "outDir": "dist",
     "esModuleInterop": true,
@@ -12,5 +11,5 @@
     "noImplicitAny": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "exclude": ["templates", "dist"]
 }

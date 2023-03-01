@@ -19,6 +19,7 @@
   "author": "Yohan Tancrez",
   "license": "MIT",
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
     "@types/prompts": "2.0.1",
@@ -34,6 +35,8 @@
     "templates"
   ],
   "dependencies": {
+    "chalk": "4.1.2",
+    "commander": "^10.0.0",
     "fs-extra": "^11.1.0",
     "prompts": "2.1.0",
     "validate-npm-package-name": "^5.0.0"
