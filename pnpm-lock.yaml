@@ -88,7 +88,6 @@ importers:
 
   packages/create-starknet:
     specifiers:
-      '@types/chalk': ^2.2.0
       '@types/fs-extra': ^11.0.1
       '@types/node': ^18.11.18
       '@types/prompts': 2.0.1
@@ -109,7 +108,6 @@ importers:
       prompts: 2.1.0
       validate-npm-package-name: 5.0.0
     devDependencies:
-      '@types/chalk': 2.2.0
       '@types/fs-extra': 11.0.1
       '@types/node': 18.13.0
       '@types/prompts': 2.0.1
@@ -4709,16 +4707,6 @@ packages:
       magic-string: 0.25.9
     dev: false
 
-  /@types/chalk/2.2.0:
-    resolution:
-      {
-        integrity: sha512-1zzPV9FDe1I/WHhRkf9SNgqtRJWZqrBWgu7JGveuHmmyR9CnAPCie2N/x+iHrgnpYBIcCJWHBoMRv2TRWktsvw==,
-      }
-    deprecated: This is a stub types definition for chalk (https://github.com/chalk/chalk). chalk provides its own type definitions, so you don't need @types/chalk installed!
-    dependencies:
-      chalk: 5.2.0
-    dev: true
-
   /@types/debug/4.1.7:
     resolution:
       {
@@ -6014,14 +6002,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  /chalk/5.2.0:
-    resolution:
-      {
-        integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==,
-      }
-    engines: { node: ^12.17.0 || ^14.13 || >=16.0.0 }
-    dev: true
 
   /char-regex/1.0.2:
     resolution:
