@@ -19,10 +19,8 @@ You will be asked for the name of your project before it can be created for you.
 You can also pass command line arguments to set up a new project
 non-interactively. See `create-starknet-app --help`:
 
-```bash
-Usage: create-starknet [project-directory] [options]
-
-Create starknet apps with one command
+```
+create-starknet [project-directory] [options]
 
 Options:
   -V, --version  output the version number
