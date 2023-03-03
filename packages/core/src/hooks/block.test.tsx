@@ -40,9 +40,8 @@ describe('useBlock', () => {
 
 describe('useBlockNumber', () => {
   beforeAll(async () => {
-    await devnetProvider.deployContract({
-      contract: compiledErc20,
-    })
+    const account = deventAccounts[1]!
+    await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
   })
 
   it('returns the current block', async () => {
