@@ -24,7 +24,7 @@ export function CodeBlock({
   }
 
   return (
-    <Box p="5" rounded="md" my="2" bg="cat.mantle">
+    <Box p="5" rounded="md" my="2" bg="cat.mantle" overflowX="scroll">
       <Highlight {...defaultProps} code={code} language={language as Language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
