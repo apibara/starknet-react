@@ -24,5 +24,6 @@ create-starknet [project-directory] [options]
 
 Options:
   -V, --version  output the version number
+  -t, --template <name>  Explicitly tell the CLI to bootstrap the app using the specified template (choices: "next", "vite")
   -h, --help     display help for command
 ```
