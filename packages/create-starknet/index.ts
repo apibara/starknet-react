@@ -3,7 +3,7 @@
 import path from 'path'
 import prompts from 'prompts'
 import fs from 'fs-extra'
-import { Command } from 'commander'
+import { Command, Option } from 'commander'
 import chalk from 'chalk'
 
 import createStarknetPackageJson from './package.json'
@@ -17,6 +17,12 @@ process.on('SIGTERM', handleSigTerm)
 const templatesFolderPath = path.join(__dirname, '..', 'templates')
 
 let projectPath = ''
+let selectedTemplate = ''
+
+const templateNameToFolder = [
+  ['Next.js', 'next'],
+  ['Vite (React)', 'vite'],
+]
 
 const program = new Command()
 
@@ -26,11 +32,22 @@ program
   .version(createStarknetPackageJson.version)
   .arguments('[project-directory]')
   .usage('[project-directory] [options]')
-  .action((projectDirectory) => {
+
+  .addOption(
+    new Option(
+      '-t, --template <name>',
+      'Explicitly tell the CLI to bootstrap the app using the specified template'
+    ).choices(templateNameToFolder.map(([_, templateFolderName]) => templateFolderName))
+  )
+  .action((projectDirectory, options) => {
     if (projectDirectory) {
       projectPath = projectDirectory
     }
+    if (options.template) {
+      selectedTemplate = options.template
+    }
   })
+  .showHelpAfterError('(add --help for additional information)')
 
 program.parse(process.argv)
 
@@ -63,8 +80,23 @@ async function run() {
   const resolvedProjectPath = path.resolve(projectPath)
   const projectName = path.basename(resolvedProjectPath)
 
-  // TODO: Pick the proper template
-  const selectedTemplatePath = path.join(templatesFolderPath, 'next')
+  // If the project template has already been selected with the options
+  if (selectedTemplate.length === 0) {
+    const response = await prompts({
+      initial: 0,
+      type: 'select',
+      name: 'framework',
+      message: 'What framework would you like to use?',
+      choices: templateNameToFolder.map(([templateName, templateFolderName]) => ({
+        title: templateName,
+        value: templateFolderName,
+      })),
+    })
+
+    selectedTemplate = response.framework
+  }
+
+  const selectedTemplatePath = path.join(templatesFolderPath, selectedTemplate)
 
   fs.copySync(selectedTemplatePath, resolvedProjectPath, { overwrite: false })
 
@@ -89,7 +121,7 @@ async function run() {
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
 
-  console.log(`Success! Created ${projectName} at ${resolvedProjectPath}\n`)
+  console.log(`Success! Created ${projectName} at ${chalk.green(resolvedProjectPath)}\n`)
   console.log('We suggest that you begin by typing:\n')
   console.log(`    ${chalk.cyan('cd')} ${projectName}`)
   console.log(`    ${chalk.cyan('npm install')}`)

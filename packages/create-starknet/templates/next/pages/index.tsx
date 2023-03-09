@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useBlock } from '@starknet-react/core'
-import WalletBar from '@/components/WalletBar'
+import WalletBar from '../components/WalletBar'
 
 export default function Home() {
   const { data, isLoading, isError } = useBlock({
