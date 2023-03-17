@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.16.0
+
+### Minor Changes
+
+- [#228](https://github.com/apibara/starknet-react/pull/228) [`af3793c`](https://github.com/apibara/starknet-react/commit/af3793ccf7d1a358ada5ce24950ecf628edf34bc) Thanks [@florian-bellotti](https://github.com/florian-bellotti)! - Fix injected connector
+
+* [`3549c63`](https://github.com/apibara/starknet-react/commit/3549c63ec6688efec77804a77a2f40ade09c1570) Thanks [@irisdv](https://github.com/irisdv)! - Update starknet-react hooks to match wagmi api
+
 ## 0.15.1
 
 ### Patch Changes
