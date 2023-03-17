@@ -51,14 +51,14 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async ready(): Promise<boolean> {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this._wallet) return false
     return await this._wallet.isPreauthorized()
   }
 
   async connect(): Promise<AccountInterface> {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotFoundError()
@@ -80,7 +80,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async disconnect(): Promise<void> {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this.available()) {
       throw new ConnectorNotFoundError()
@@ -92,7 +92,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async account(): Promise<AccountInterface | null> {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
@@ -118,7 +118,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async initEventListener(accountChangeCb: EventHandler) {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
@@ -128,7 +128,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async removeEventListener(accountChangeCb: EventHandler) {
-    this.ensureWallet()
+    await this.ensureWallet()
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
