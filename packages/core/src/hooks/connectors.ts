@@ -14,6 +14,8 @@ export interface UseConnectorsResult {
   disconnect: () => void
   /** Refresh the list of available connectors. */
   refresh: () => void
+  /** Whether the connectors are loading. */
+  isLoading: boolean
 }
 
 /**
@@ -74,17 +76,19 @@ export interface UseConnectorsResult {
  * }
  * ```
  */
-export function useConnectors(): UseConnectorsResult {
+export function useConnectorsDev(): UseConnectorsResult {
   const { connectors, connect, disconnect } = useStarknet()
   const [available, setAvailable] = useState<Connector[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setAvailable(connectors.filter((conn) => conn.available()))
-  }, [connectors, setAvailable])
+    setIsLoading(false)
+  }, [connectors, setAvailable, setIsLoading])
 
   const refresh = useCallback(() => {
     setAvailable(connectors.filter((conn) => conn.available()))
   }, [connectors, setAvailable])
 
-  return { available, connectors, connect, disconnect, refresh }
+  return { available, connectors, connect, disconnect, refresh, isLoading }
 }
