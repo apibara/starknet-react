@@ -44,7 +44,7 @@ describe('useConnectors', () => {
     await waitFor(() => {
       expect(result.current.connectors).toHaveLength(connectors.length)
       expect(result.current.available).toHaveLength(1)
-      expect(result.current.isLoading).toBeFalsy()
+      expect(result.current.isLoading).toBeTruthy()
     })
   })
 
@@ -66,6 +66,7 @@ describe('useConnectors', () => {
     await waitFor(() => {
       expect(result.current.connectors).toHaveLength(connectors.length)
       expect(result.current.available).toHaveLength(0)
+      expect(result.current.isLoading).toBeTruthy()
     })
 
     mocks[1].setup((conn) => conn.available()).returns(true)
@@ -74,6 +75,7 @@ describe('useConnectors', () => {
     await waitFor(() => {
       result.current.refresh()
       expect(result.current.available).toHaveLength(2)
+      expect(result.current.isLoading).toBeFalsy()
     })
   })
 })
