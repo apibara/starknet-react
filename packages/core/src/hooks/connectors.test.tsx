@@ -44,6 +44,7 @@ describe('useConnectors', () => {
     await waitFor(() => {
       expect(result.current.connectors).toHaveLength(connectors.length)
       expect(result.current.available).toHaveLength(1)
+      expect(result.current.isLoading).toBeFalsy()
     })
   })
 
