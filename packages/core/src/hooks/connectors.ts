@@ -76,7 +76,7 @@ export interface UseConnectorsResult {
  * }
  * ```
  */
-export function useConnectorsDev(): UseConnectorsResult {
+export function useConnectors(): UseConnectorsResult {
   const { connectors, connect, disconnect } = useStarknet()
   const [available, setAvailable] = useState<Connector[]>([])
   const [isLoading, setIsLoading] = useState(true)
