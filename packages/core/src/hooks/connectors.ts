@@ -83,6 +83,7 @@ export function useConnectors(): UseConnectorsResult {
 
   useEffect(() => {
     setAvailable(connectors.filter((conn) => conn.available()))
+    setIsLoading(false)
   }, [connectors, setAvailable])
 
   const refresh = useCallback(() => {
