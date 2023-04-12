@@ -8,6 +8,7 @@ import chalk from 'chalk'
 
 import createStarknetPackageJson from './package.json'
 import { getPackageNameValidation } from './helpers/validate'
+import { PackageManager, getPackageManager } from './helpers/packageManager'
 
 const handleSigTerm = () => process.exit(0)
 
@@ -18,6 +19,7 @@ const templatesFolderPath = path.join(__dirname, '..', 'templates')
 
 let projectPath = ''
 let selectedTemplate = ''
+let packageManager: PackageManager | null = null
 
 const templateNameToFolder = [
   ['Next.js', 'next'],
@@ -39,12 +41,24 @@ program
       'Explicitly tell the CLI to bootstrap the app using the specified template'
     ).choices(templateNameToFolder.map(([_, templateFolderName]) => templateFolderName))
   )
+  .addOption(new Option('--use-npm', 'Explicitly tell the CLI to bootstrap the app using npm'))
+  .addOption(new Option('--use-yarn', 'Explicitly tell the CLI to bootstrap the app using yarn'))
+  .addOption(new Option('--use-pnpm', 'Explicitly tell the CLI to bootstrap the app using pnpm'))
   .action((projectDirectory, options) => {
     if (projectDirectory) {
       projectPath = projectDirectory
     }
     if (options.template) {
       selectedTemplate = options.template
+    }
+    if (options.useNpm) {
+      packageManager = 'npm'
+    }
+    if (options.usePnpm) {
+      packageManager = 'pnpm'
+    }
+    if (options.useYarn) {
+      packageManager = 'yarn'
     }
   })
   .showHelpAfterError('(add --help for additional information)')
@@ -80,7 +94,7 @@ async function run() {
   const resolvedProjectPath = path.resolve(projectPath)
   const projectName = path.basename(resolvedProjectPath)
 
-  // If the project template has already been selected with the options
+  // If the project template has not already been selected with the options
   if (selectedTemplate.length === 0) {
     const response = await prompts({
       initial: 0,
@@ -94,6 +108,11 @@ async function run() {
     })
 
     selectedTemplate = response.framework
+  }
+
+  // If the project package manager has not been defined with the options
+  if (packageManager === null) {
+    packageManager = getPackageManager()
   }
 
   const selectedTemplatePath = path.join(templatesFolderPath, selectedTemplate)
@@ -124,8 +143,11 @@ async function run() {
   console.log(`Success! Created ${projectName} at ${chalk.green(resolvedProjectPath)}\n`)
   console.log('We suggest that you begin by typing:\n')
   console.log(`    ${chalk.cyan('cd')} ${projectName}`)
-  console.log(`    ${chalk.cyan('npm install')}`)
-  console.log(`    ${chalk.cyan('npm run dev')}`)
+  // TODO: Automatically install dependencies with the proper package manager
+  console.log(`    ${chalk.cyan(`${packageManager} install`)}`)
+  console.log(
+    `    ${chalk.cyan(`${packageManager} ${packageManager === 'yarn' ? '' : 'run '}dev`)}`
+  )
 }
 
 run()
