@@ -25,5 +25,8 @@ create-starknet [project-directory] [options]
 Options:
   -V, --version  output the version number
   -t, --template <name>  Explicitly tell the CLI to bootstrap the app using the specified template (choices: "next", "vite")
+  --use-npm              Explicitly tell the CLI to bootstrap the app using npm
+  --use-yarn             Explicitly tell the CLI to bootstrap the app using yarn
+  --use-pnpm             Explicitly tell the CLI to bootstrap the app using pnpm
   -h, --help     display help for command
 ```
