@@ -8,10 +8,7 @@ export function getPackageManager(): PackageManager {
       return 'yarn'
     } else if (userAgent.includes('pnpm')) {
       return 'pnpm'
-    } else {
-      return 'npm'
     }
-  } else {
-    return 'npm'
   }
+  return 'npm'
 }
