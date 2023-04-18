@@ -2,20 +2,19 @@
 
 import path from 'path'
 import prompts from 'prompts'
-import fs from 'fs-extra'
+// import fs from 'fs-extra'
 import { Command, Option } from 'commander'
 import chalk from 'chalk'
 
 import createStarknetPackageJson from './package.json'
 import { getPackageNameValidation } from './helpers/validate'
 import { PackageManager, getPackageManager } from './helpers/packageManager'
+import { installTemplate } from './helpers/installation'
 
 const handleSigTerm = () => process.exit(0)
 
 process.on('SIGINT', handleSigTerm)
 process.on('SIGTERM', handleSigTerm)
-
-const templatesFolderPath = path.join(__dirname, '..', 'templates')
 
 let projectPath = ''
 let selectedTemplate = ''
@@ -34,7 +33,6 @@ program
   .version(createStarknetPackageJson.version)
   .arguments('[project-directory]')
   .usage('[project-directory] [options]')
-
   .addOption(
     new Option(
       '-t, --template <name>',
@@ -115,30 +113,7 @@ async function run() {
     packageManager = getPackageManager()
   }
 
-  const selectedTemplatePath = path.join(templatesFolderPath, selectedTemplate)
-
-  fs.copySync(selectedTemplatePath, resolvedProjectPath, { overwrite: false })
-
-  const filesToRename = [
-    ['gitignore', '.gitignore'],
-    ['eslintrc.json', '.eslintrc.json'],
-    ['README-template.md', 'README.md'],
-  ]
-
-  filesToRename.forEach(([previousFileName, newFileName]) => {
-    const previousFilePath = path.join(resolvedProjectPath, previousFileName)
-    const newFilePath = path.join(resolvedProjectPath, newFileName)
-
-    if (fs.existsSync(previousFilePath)) {
-      fs.renameSync(previousFilePath, newFilePath)
-    }
-  })
-
-  const packageJsonPath = path.join(resolvedProjectPath, 'package.json')
-  const packageJson = fs.readJsonSync(packageJsonPath)
-  packageJson.name = projectName
-
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
+  installTemplate(selectedTemplate, resolvedProjectPath, projectName)
 
   console.log(`Success! Created ${projectName} at ${chalk.green(resolvedProjectPath)}\n`)
   console.log('We suggest that you begin by typing:\n')
