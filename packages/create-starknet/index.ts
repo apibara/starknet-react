@@ -9,7 +9,7 @@ import chalk from 'chalk'
 import createStarknetPackageJson from './package.json'
 import { getPackageNameValidation } from './helpers/validate'
 import { PackageManager, getPackageManager } from './helpers/packageManager'
-import { installTemplate } from './helpers/installation'
+import { Template, installTemplate } from './helpers/installation'
 
 const handleSigTerm = () => process.exit(0)
 
@@ -17,10 +17,10 @@ process.on('SIGINT', handleSigTerm)
 process.on('SIGTERM', handleSigTerm)
 
 let projectPath = ''
-let selectedTemplate = ''
+let selectedTemplate: Template | null = null
 let packageManager: PackageManager | null = null
 
-const templateNameToFolder = [
+const templateNameToFolder: Array<[string, Template]> = [
   ['Next.js', 'next'],
   ['Vite (React)', 'vite'],
 ]
@@ -93,7 +93,7 @@ async function run() {
   const projectName = path.basename(resolvedProjectPath)
 
   // If the project template has not already been selected with the options
-  if (selectedTemplate.length === 0) {
+  if (selectedTemplate === null) {
     const response = await prompts({
       initial: 0,
       type: 'select',

@@ -1,11 +1,18 @@
 import path from 'path'
 import fs from 'fs-extra'
 
+export type Template = 'next' | 'vite'
+
 export function installTemplate(
-  selectedTemplate: string,
+  selectedTemplate: Template | null,
   resolvedProjectPath: string,
   projectName: string
 ) {
+  if (selectedTemplate === null) {
+    // Should never happen
+    throw new Error('A template should be selected')
+  }
+
   const templatesFolderPath = path.join(__dirname, '../..', 'templates')
 
   const selectedTemplatePath = path.join(templatesFolderPath, selectedTemplate)
