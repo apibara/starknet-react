@@ -88,12 +88,14 @@ importers:
 
   packages/create-starknet:
     specifiers:
+      '@types/cross-spawn': ^6.0.2
       '@types/fs-extra': ^11.0.1
       '@types/node': ^18.11.18
       '@types/prompts': 2.0.1
       '@types/validate-npm-package-name': ^4.0.0
       chalk: 4.1.2
       commander: ^10.0.0
+      cross-spawn: ^7.0.3
       fs-extra: ^11.1.0
       nodemon: ^2.0.20
       prompts: 2.1.0
@@ -102,8 +104,10 @@ importers:
       typescript: ^4.9.5
       validate-npm-package-name: ^5.0.0
     dependencies:
+      '@types/cross-spawn': 6.0.2
       chalk: 4.1.2
       commander: 10.0.0
+      cross-spawn: 7.0.3
       fs-extra: 11.1.0
       prompts: 2.1.0
       validate-npm-package-name: 5.0.0
@@ -4707,6 +4711,15 @@ packages:
       magic-string: 0.25.9
     dev: false
 
+  /@types/cross-spawn/6.0.2:
+    resolution:
+      {
+        integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==,
+      }
+    dependencies:
+      '@types/node': 18.13.0
+    dev: false
+
   /@types/debug/4.1.7:
     resolution:
       {
@@ -4887,7 +4900,6 @@ packages:
       {
         integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==,
       }
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution:
@@ -6406,7 +6418,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: true
 
   /css-box-model/1.2.1:
     resolution:
@@ -8791,7 +8802,6 @@ packages:
       {
         integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==,
       }
-    dev: true
 
   /isomorphic-fetch/3.0.0:
     resolution:
@@ -10944,7 +10954,6 @@ packages:
         integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==,
       }
     engines: { node: '>=8' }
-    dev: true
 
   /path-key/4.0.0:
     resolution:
@@ -11967,7 +11976,6 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       shebang-regex: 3.0.0
-    dev: true
 
   /shebang-regex/1.0.0:
     resolution:
@@ -11983,7 +11991,6 @@ packages:
         integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==,
       }
     engines: { node: '>=8' }
-    dev: true
 
   /shiki/0.11.1:
     resolution:
@@ -13576,7 +13583,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: true
 
   /word-wrap/1.2.3:
     resolution:
