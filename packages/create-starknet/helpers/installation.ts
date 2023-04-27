@@ -47,6 +47,7 @@ export async function installDependencies(
   packageManager: PackageManager,
   resolvedProjectPath: string
 ) {
+  console.log('Installing dependencies...')
   const args = [
     'install',
     packageManager === 'yarn' ? '--cwd' : '--prefix',
