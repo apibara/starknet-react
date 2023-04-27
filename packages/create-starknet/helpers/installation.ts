@@ -1,5 +1,7 @@
 import path from 'path'
 import fs from 'fs-extra'
+import { PackageManager } from './packageManager'
+import spawn from 'cross-spawn'
 
 export type Template = 'next' | 'vite'
 
@@ -39,4 +41,35 @@ export function installTemplate(
   packageJson.name = projectName
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
+}
+
+export async function installDependencies(
+  packageManager: PackageManager,
+  resolvedProjectPath: string
+) {
+  const args = [
+    'install',
+    packageManager === 'yarn' ? '--cwd' : '--prefix',
+    resolvedProjectPath,
+    packageManager === 'pnpm' ? '--quiet' : '--silent',
+  ]
+
+  return new Promise((resolve, reject) => {
+    const child = spawn(packageManager, args, {
+      stdio: 'inherit',
+      env: {
+        ...process.env,
+        ADBLOCK: '1',
+        NODE_ENV: 'development',
+        DISABLE_OPENCOLLECTIVE: '1',
+      },
+    })
+    child.on('close', (code) => {
+      if (code !== 0) {
+        reject(`Error while installing dependencies`)
+        return
+      }
+      resolve(true)
+    })
+  })
 }

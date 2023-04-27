@@ -2,14 +2,13 @@
 
 import path from 'path'
 import prompts from 'prompts'
-// import fs from 'fs-extra'
 import { Command, Option } from 'commander'
 import chalk from 'chalk'
 
 import createStarknetPackageJson from './package.json'
 import { getPackageNameValidation } from './helpers/validate'
 import { PackageManager, getPackageManager } from './helpers/packageManager'
-import { Template, installTemplate } from './helpers/installation'
+import { Template, installTemplate, installDependencies } from './helpers/installation'
 
 const handleSigTerm = () => process.exit(0)
 
@@ -115,11 +114,11 @@ async function run() {
 
   installTemplate(selectedTemplate, resolvedProjectPath, projectName)
 
+  await installDependencies(packageManager, resolvedProjectPath)
+
   console.log(`Success! Created ${projectName} at ${chalk.green(resolvedProjectPath)}\n`)
   console.log('We suggest that you begin by typing:\n')
   console.log(`    ${chalk.cyan('cd')} ${projectName}`)
-  // TODO: Automatically install dependencies with the proper package manager
-  console.log(`    ${chalk.cyan(`${packageManager} install`)}`)
   console.log(
     `    ${chalk.cyan(`${packageManager} ${packageManager === 'yarn' ? '' : 'run '}dev`)}`
   )
