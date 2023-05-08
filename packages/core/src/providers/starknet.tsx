@@ -148,7 +148,6 @@ function useStarknetManager({
           dispatch({ type: 'set_account', account: account.address })
           dispatch({ type: 'set_provider', provider: account })
           dispatch({ type: 'set_connector', connector })
-          connector.initEventListener(handleAccountChanged)
           if (autoConnect) {
             localStorage.setItem('lastUsedConnector', connector.id())
           }
@@ -162,31 +161,36 @@ function useStarknetManager({
     [autoConnect]
   )
 
-  const handleAccountChanged = useCallback((data: string[]) => {
-    dispatch({ type: 'set_account', account: data[0] })
-  }, [])
-
   const disconnect = useCallback(() => {
+    dispatch({ type: 'set_account', account: undefined })
+    dispatch({
+      type: 'set_provider',
+      provider: userDefaultProvider ? userDefaultProvider : defaultProvider,
+    })
+    dispatch({ type: 'set_connector', connector: undefined })
+    if (autoConnect) {
+      localStorage.removeItem('lastUsedConnector')
+    }
     if (!state.connector) return
-    state.connector.disconnect().then(
-      () => {
-        dispatch({ type: 'set_account', account: undefined })
-        dispatch({
-          type: 'set_provider',
-          provider: userDefaultProvider ? userDefaultProvider : defaultProvider,
-        })
-        dispatch({ type: 'set_connector', connector: undefined })
-        state.connector?.removeEventListener(handleAccountChanged)
-        if (autoConnect) {
-          localStorage.removeItem('lastUsedConnector')
-        }
-      },
-      (err) => {
-        console.error(err)
-        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
-      }
-    )
+    state.connector.removeEventListener(handleAccountChanged)
+    state.connector.disconnect().catch((err) => {
+      console.error(err)
+      dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
+    })
   }, [autoConnect, state.connector])
+
+  const handleAccountChanged = useCallback(() => {
+    disconnect()
+    if (state.connector) {
+      connect(state.connector)
+    }
+  }, [state.connector])
+
+  useEffect(() => {
+    if (state.connector) {
+      state.connector?.initEventListener(handleAccountChanged)
+    }
+  }, [state.connector, handleAccountChanged])
 
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
