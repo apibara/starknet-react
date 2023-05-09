@@ -1,5 +1,13 @@
 # create-starknet
 
+## 1.2.0
+
+### Minor Changes
+
+- [#231](https://github.com/apibara/starknet-react/pull/231) [`149bf00`](https://github.com/apibara/starknet-react/commit/149bf00f7a4c705d2a10562d222c2318955dbdb4) Thanks [@YohanTz](https://github.com/YohanTz)! - Added option to select the package manager the new project will be created with
+
+* [#233](https://github.com/apibara/starknet-react/pull/233) [`517616d`](https://github.com/apibara/starknet-react/commit/517616d33fef87099b4fbe946af18cf70e9e1ee6) Thanks [@YohanTz](https://github.com/YohanTz)! - Automatically install dependencies after the template"
+
 ## 1.1.0
 
 ### Minor Changes

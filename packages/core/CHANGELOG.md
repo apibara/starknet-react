@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.17.0
+
+### Minor Changes
+
+- [#234](https://github.com/apibara/starknet-react/pull/234) [`a2880a2`](https://github.com/apibara/starknet-react/commit/a2880a2f857f84d1c959303f89bc6aedcb6eb7f2) Thanks [@florian-bellotti](https://github.com/florian-bellotti)! - fix change account
+
+* [#229](https://github.com/apibara/starknet-react/pull/229) [`ad3a8d6`](https://github.com/apibara/starknet-react/commit/ad3a8d6109b654fb6a9e09c9edf4ea749c13b967) Thanks [@0xads](https://github.com/0xads)! - useConnectors return isLoading
+
 ## 0.16.0
 
 ### Minor Changes
