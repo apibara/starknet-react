@@ -180,24 +180,11 @@ function useStarknetManager({
       localStorage.removeItem('lastUsedConnector')
     }
     if (!state.connector) return
-    state.connector.disconnect().then(
-      () => {
-        dispatch({ type: 'set_account', account: undefined })
-        dispatch({
-          type: 'set_provider',
-          provider: userDefaultProvider ? userDefaultProvider : customDefaultProvider,
-        })
-        dispatch({ type: 'set_connector', connector: undefined })
-        state.connector?.removeEventListener(handleAccountChanged)
-        if (autoConnect) {
-          localStorage.removeItem('lastUsedConnector')
-        }
-      },
-      (err) => {
-        console.error(err)
-        dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
-      }
-    )
+    state.connector.removeEventListener(handleAccountChanged)
+    state.connector.disconnect().catch((err) => {
+      console.error(err)
+      dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
+    })
   }, [autoConnect, state.connector])
 
   const handleAccountChanged = useCallback(() => {
