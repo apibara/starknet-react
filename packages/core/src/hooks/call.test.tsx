@@ -1,7 +1,6 @@
 import { renderHook, waitFor } from '../../test/react'
 import { useContractRead } from './call'
 import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
-import { useContract } from './contract'
 
 describe('useStarknetCall', () => {
   let address: string
