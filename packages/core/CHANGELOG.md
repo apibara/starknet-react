@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.17.1
+
+### Patch Changes
+
+- [#220](https://github.com/apibara/starknet-react/pull/220) [`ddccd53`](https://github.com/apibara/starknet-react/commit/ddccd535288810acacda28d6524c3c08292fe3e8) Thanks [@irisdv](https://github.com/irisdv)! - Update starknet.js version & starknet.id hooks
+
 ## 0.17.0
 
 ### Minor Changes
