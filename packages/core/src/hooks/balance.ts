@@ -165,21 +165,18 @@ export function useBalance({
     }
 
     const {
-      decimals: { decimals },
+      decimals: { decimals: contractDecimals },
       balance: { balance: balanceUint256 },
       symbol: { symbol },
     } = contractData
 
-    const contractDecimals = decimals.toNumber()
+    const decimals = contractDecimals.toNumber()
     const balanceAsBN = uint256.uint256ToBN(balanceUint256)
-    const formatted = (
-      Number(balanceAsBN.toString()) /
-      10 ** (formatUnits || contractDecimals)
-    ).toString()
+    const formatted = (Number(balanceAsBN.toString()) / 10 ** (formatUnits || decimals)).toString()
     const formattedSymbol = shortString.decodeShortString(symbol)
 
     return {
-      decimals: contractDecimals,
+      decimals,
       formatted,
       symbol: formattedSymbol,
       value: balanceAsBN,
