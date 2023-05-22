@@ -7,19 +7,19 @@ import {
   uint256,
 } from 'starknet'
 import { UseContractReadOptions, UseContractReadResult } from './call'
-import { useContract, useStarknet } from '..'
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useInvalidateOnBlock } from './invalidate'
+import { useContract, useStarknet } from '..'
 
 /** Arguments for `useBalance`. */
 export interface UseBalanceArgs extends UseContractReadOptions {
-  /** The target contract's address. */
+  /** The contract's address. Defaults to the ETH token. */
   token?: string
-  /** The target address. */
+  /** The address to fetch balance for. */
   address?: string
-  /** Decimals. */
-  decimals?: number
+  /** Decimals to format the balance. Defaults to the token's decimals */
+  formatUnits?: number
 }
 
 export interface UseBalanceReadResult extends Omit<UseContractReadResult, 'data'> {
@@ -27,12 +27,29 @@ export interface UseBalanceReadResult extends Omit<UseContractReadResult, 'data'
     decimals: number
     formatted: string
     symbol: string
-    value: bigint
+    value: ReturnType<typeof uint256.uint256ToBN>
   }
 }
 
-const ETH_TOKEN_ADDRESS = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7'
-const BALANCE_ABI_FRAGMENT = [
+const ETHTokenAddress = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7'
+const balanceABIFragment = [
+  {
+    members: [
+      {
+        name: 'low',
+        offset: 0,
+        type: 'felt',
+      },
+      {
+        name: 'high',
+        offset: 1,
+        type: 'felt',
+      },
+    ],
+    name: 'Uint256',
+    size: 2,
+    type: 'struct',
+  },
   {
     name: 'balanceOf',
     type: 'function',
@@ -76,22 +93,49 @@ const BALANCE_ABI_FRAGMENT = [
   },
 ]
 
+/**
+ * Hook for fetching balance information for ERC-20 tokens.
+ *
+ * @remarks
+ *
+ * The hook only performs a call if the target `address` is defined.
+ *
+ * @example
+ * This example shows how to fetch the user Ethereum token balance.
+ * ```tsx
+ * function Component() {
+ *   const { address } = useAccount()
+ *   const { data, isLoading, error, refetch } = useBalance({
+ *     address
+ *   })
+ *
+ *   if (isLoading) return <span>Loading...</span>
+ *   if (error) return <span>Error: {error}</span>
+ *
+ *   return (
+ *     <div>
+ *       <button onClick={refetch}>Refetch</button>
+ *       <p>Balance: {data.formatted} {data.symbol}</p>
+ *     </div>
+ *   )
+ * }
+ * ```
+ */
 export function useBalance({
-  token = ETH_TOKEN_ADDRESS,
+  token = ETHTokenAddress,
   address,
-  decimals,
+  formatUnits,
   watch = false,
   blockIdentifier = 'pending',
 }: UseBalanceArgs): UseBalanceReadResult {
   const { library } = useStarknet()
-  const { contract } = useContract({ abi: BALANCE_ABI_FRAGMENT, address: token })
+  const { contract } = useContract({ abi: balanceABIFragment, address: token })
 
   const queryKey_ = useMemo(
-    () => queryKey({ library, args: { contract, args: [address], blockIdentifier } }),
+    () => queryKey({ library, args: { contract, address, blockIdentifier } }),
     [library, contract, address, blockIdentifier]
   )
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const {
     data: contractData,
     error,
@@ -107,7 +151,7 @@ export function useBalance({
     status,
   } = useQuery<ReadContractResult | undefined>(
     queryKey_,
-    readContract({ args: { contract, args: [address], blockIdentifier } }),
+    readContract({ args: { contract, address, blockIdentifier } }),
     {
       enabled: !!address,
     }
@@ -120,18 +164,27 @@ export function useBalance({
       return undefined
     }
 
-    const contractDecimals = Number(BigInt(contractData.decimals.decimals).toString())
-    const balance = Number(BigInt(contractData.balance.balance).toString())
-    const formatted = (balance / 10 ** (decimals || contractDecimals)).toString()
-    const formattedSymbol = shortString.decodeShortString(contractData.symbol.symbol)
+    const {
+      decimals: { decimals },
+      balance: { balance: balanceUint256 },
+      symbol: { symbol },
+    } = contractData
+
+    const contractDecimals = decimals.toNumber()
+    const balanceAsBN = uint256.uint256ToBN(balanceUint256)
+    const formatted = (
+      Number(balanceAsBN.toString()) /
+      10 ** (formatUnits || contractDecimals)
+    ).toString()
+    const formattedSymbol = shortString.decodeShortString(symbol)
 
     return {
-      decimals: decimals || contractDecimals,
+      decimals: contractDecimals,
       formatted,
       symbol: formattedSymbol,
-      value: contractData.balance.balance,
+      value: balanceAsBN,
     }
-  }, [contractData, decimals])
+  }, [contractData, formatUnits])
 
   return {
     data,
@@ -151,7 +204,7 @@ export function useBalance({
 
 interface ReadContractArgs {
   contract?: ContractInterface
-  args?: unknown[]
+  address?: string
   blockIdentifier: BlockNumber
 }
 
@@ -163,20 +216,24 @@ type ReadContractResult = {
 
 function readContract({ args }: { args: ReadContractArgs }) {
   return async () => {
-    if (!args.args || !args.contract) return null
+    if (!args.address || !args.contract) return null
 
-    const [balance, symbol, decimals] = await Promise.all([
-      args.contract.call('balanceOf', args.args),
-      args.contract.call('symbol', []),
-      args.contract.call('decimals', []),
-    ])
+    try {
+      const [balance, symbol, decimals] = await Promise.all([
+        args.contract.call('balanceOf', [args.address]),
+        args.contract.call('symbol', []),
+        args.contract.call('decimals', []),
+      ])
 
-    return { balance, symbol, decimals }
+      return { balance, symbol, decimals }
+    } catch {
+      return null
+    }
   }
 }
 
 function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
-  const { contract, args: callArgs, blockIdentifier } = args
+  const { contract, address: callArgs, blockIdentifier } = args
   return [
     {
       entity: 'balance',
