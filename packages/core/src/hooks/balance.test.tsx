@@ -1,15 +1,8 @@
 import { renderHook, waitFor } from '../../test/react'
-import { compiledErc20, deventAccounts, erc20ClassHash } from '../../test/devnet'
+import { deventAccounts } from '../../test/devnet'
 import { useBalance } from './balance'
 
 describe('useBalance', () => {
-  let address: string
-  beforeAll(async () => {
-    const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
-    address = tx.deploy.contract_address
-  })
-
   function useTestHook({ address, token }: { address?: string; token?: string }) {
     return useBalance({
       address,
@@ -38,7 +31,7 @@ describe('useBalance', () => {
 
   describe('when reading', () => {
     it('returns data if it succeeds', async () => {
-      const { result } = renderHook(() => useTestHook({ address }))
+      const { result } = renderHook(() => useTestHook({ address: deventAccounts[1].address }))
 
       await waitFor(() => {
         expect(result.current.data).toBeDefined()
