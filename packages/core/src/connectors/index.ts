@@ -1,8 +1,8 @@
 export { Connector } from './base'
 export {
   InjectedConnector,
-  InjectedConnectorOptions,
-  IStarknetWindowObject,
-  EventHandler,
-  EventType,
+  type InjectedConnectorOptions,
+  type IStarknetWindowObject,
+  type EventHandler,
+  type EventType,
 } from './injected'

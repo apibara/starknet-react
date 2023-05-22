@@ -1,4 +1,5 @@
 export * from './account'
+export * from './balance'
 export * from './block'
 export * from './call'
 export * from './connectors'
