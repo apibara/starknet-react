@@ -25,7 +25,7 @@ const exampleData = {
   },
   primaryType: 'Mail',
   domain: {
-    name: 'StarkNet Mail',
+    name: 'Starknet Mail',
     version: '1',
     chainId: 1,
   },

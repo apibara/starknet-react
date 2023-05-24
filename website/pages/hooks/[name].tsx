@@ -11,7 +11,7 @@ export default function HookPage({ hook }: { hook: Function }) {
   return (
     <Layout>
       <Head>
-        <title>{hook.name} - StarkNet React</title>
+        <title>{hook.name} - Starknet React</title>
       </Head>
       <Box maxW="70rem" mx="auto" pt="12" mb="20">
         <Heading fontSize="6xl" as="h1" textAlign="center">

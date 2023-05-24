@@ -24,7 +24,7 @@ export function Header() {
         <NextLink href="/" passHref>
           <a>
             <Text as="h2" fontWeight="bold" fontSize="xl">
-              StarkNet React
+              Starknet React
             </Text>
           </a>
         </NextLink>
