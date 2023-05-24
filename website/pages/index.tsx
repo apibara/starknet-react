@@ -8,16 +8,16 @@ export default function IndexPage() {
   return (
     <Layout>
       <Head>
-        <title>StarkNet React - a collection of React hooks for StarkNet</title>
+        <title>Starknet React - a collection of React hooks for Starknet</title>
       </Head>
       <Center h="full">
         <VStack>
           <Box textAlign="center">
             <Heading as="h1" fontSize="7xl">
-              StarkNet React
+              Starknet React
             </Heading>
             <Heading as="h2" fontSize="4xl" color="cat.peach" mt="4">
-              A collection of React hooks for StarkNet.
+              A collection of React hooks for Starknet.
             </Heading>
           </Box>
           <HStack pt="8" gap="20">

@@ -41,7 +41,7 @@ export interface UseContractWriteResult {
 }
 
 /**
- * Hook to perform a StarkNet multicall.
+ * Hook to perform a Starknet multicall.
  *
  * @remarks
  *

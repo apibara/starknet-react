@@ -4,7 +4,7 @@ import { Provider, ProviderInterface } from 'starknet'
 import { Connector } from '../connectors'
 import { ConnectorNotFoundError } from '../errors'
 
-/** State of the StarkNet context. */
+/** State of the Starknet context. */
 export interface StarknetState {
   /**
    * Connected account address.
@@ -54,7 +54,7 @@ const STARKNET_INITIAL_STATE: StarknetState = {
 const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
 
 /**
- * Returns the current StarkNet context state.
+ * Returns the current Starknet context state.
  *
  * @remarks
  *
@@ -66,7 +66,7 @@ const StarknetContext = createContext<StarknetState>(STARKNET_INITIAL_STATE)
  *  - `connect`, `disconnect`, `connectors`: `useConnectors`
  *
  * @example
- * This example shows how to access the StarkNet provider.
+ * This example shows how to access the Starknet provider.
  * ```tsx
  * function Component() {
  *   const { library } = useStarknet()
@@ -251,7 +251,7 @@ export interface StarknetProviderProps {
   queryClient?: QueryClient
 }
 
-/** Root StarkNet context provider. */
+/** Root Starknet context provider. */
 export function StarknetProvider({
   children,
   defaultProvider,

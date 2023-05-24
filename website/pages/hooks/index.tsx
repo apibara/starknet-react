@@ -55,7 +55,7 @@ export default function ApiPage() {
   return (
     <Layout>
       <Head>
-        <title>Hooks Reference - StarkNet React</title>
+        <title>Hooks Reference - Starknet React</title>
       </Head>
       <Box pt="12" display="flex" alignItems="center" justifyContent="center">
         <VStack>

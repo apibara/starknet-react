@@ -31,7 +31,7 @@ export interface UseDeployResult {
 }
 
 /**
- * Hook to deploy a StarkNet contract.
+ * Hook to deploy a Starknet contract.
  *
  * @remarks
  *
@@ -53,7 +53,7 @@ export interface UseDeployResult {
  *
  *   // notice constructor args are felt encoded
  *   const constructorCalldata = useMemo(() => [
- *     encodeShortString('StarkNet React'), // name
+ *     encodeShortString('Starknet React'), // name
  *     encodeShortString('SNR'), // symbol
  *     18, // decimals
  *     10000, // initial_supply.low

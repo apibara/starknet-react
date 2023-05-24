@@ -46,14 +46,14 @@ export default function GetStartedPage() {
   return (
     <Layout>
       <Head>
-        <title>Get Started - StarkNet React</title>
+        <title>Get Started - Starknet React</title>
       </Head>
       <Box maxW="70rem" mx="auto" pt="12" mb="20">
         <Heading fontSize="6xl" as="h1" textAlign="center">
           Get Started
         </Heading>
         <Heading mt="4" as="h2" color="cat.peach" fontSize="xl" textAlign="center">
-          Start building StarkNet applications in less than a minute.
+          Start building Starknet applications in less than a minute.
         </Heading>
         <Section>
           <SectionHeading>Quick setup</SectionHeading>
@@ -114,7 +114,7 @@ export default function GetStartedPage() {
           </Heading>
           <Text>Start by adding the following import statement to your `_app.tsx` file.</Text>
           <Markdown>{PROVIDER_IMPORT}</Markdown>
-          <Text>Then edit the application component to include the StarkNet provider.</Text>
+          <Text>Then edit the application component to include the Starknet provider.</Text>
           <Markdown>{PROVIDER_NEXT}</Markdown>
         </Section>
       </Box>

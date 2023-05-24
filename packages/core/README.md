@@ -1,6 +1,6 @@
 # `@starknet-react/core`
 
-StarkNet React is a collection of React hooks for StarkNet.
+Starknet React is a collection of React hooks for Starknet.
 
 ## Installation
 
