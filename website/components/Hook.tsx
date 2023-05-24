@@ -1,3 +1,5 @@
+'use client'
+
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import { useMemo } from 'react'
 import { deprecationTag, Function, TextLike } from '../lib/typedoc'
@@ -7,21 +9,18 @@ function Content({ content }: { content: TextLike[] }) {
   const textContent = useMemo(() => {
     return content.map((c) => c.text).join('')
   }, [content])
-
   return <Markdown>{textContent}</Markdown>
 }
 
 function Summary({ hook }: { hook: Function }) {
-  const summary = useMemo(() => {
-    return hook.signatures[0]?.comment?.summary ?? []
-  }, [hook])
+  const summary = (hook?.signatures && hook?.signatures?.[0]?.comment?.summary) ?? []
 
   return <Content content={summary} />
 }
 
 function Remarks({ hook }: { hook: Function }) {
   const remarks = useMemo(() => {
-    const tags = hook.signatures[0]?.comment?.blockTags
+    const tags = hook?.signatures?.[0]?.comment?.blockTags
     if (!tags) return undefined
     return tags.find((t) => t.tag === '@remarks')
   }, [hook])
@@ -35,7 +34,7 @@ function Remarks({ hook }: { hook: Function }) {
 
 function Example({ hook }: { hook: Function }) {
   const examples = useMemo(() => {
-    const tags = hook.signatures[0]?.comment?.blockTags
+    const tags = hook?.signatures?.[0]?.comment?.blockTags
     if (!tags) return []
     return tags.filter((t) => t.tag === '@example')
   }, [hook])
@@ -68,19 +67,20 @@ function Deprecation({ hook }: { hook: Function }) {
 
   return (
     <Alert
-      mt={8}
+      mt="10px"
       maxW="30rem"
       mx="auto"
       status="warning"
       variant="subtle"
       flexDir="column"
-      background="cat.peach"
-      rounded="md"
+      background="#fab387"
+      rounded="10px"
       boxShadow="xl"
-      color="cat.base"
+      color="#1e1e2e"
+      padding="10px"
     >
-      <AlertIcon boxSize={10} />
-      <AlertTitle mt={4} mb={1} fontSize="lg">
+      <AlertIcon color="#f97316" height={30} width={30} />
+      <AlertTitle mt={4} mb={1} fontWeight="bold" fontSize="lg">
         Deprecation Notice
       </AlertTitle>
       <AlertDescription>

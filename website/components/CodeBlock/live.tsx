@@ -1,5 +1,6 @@
+'use client'
 import React, { useMemo, useState } from 'react'
-import { Box, Button, chakra, useClipboard } from '@chakra-ui/react'
+import { Box, Button, chakra, color, useClipboard } from '@chakra-ui/react'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 import { scope } from './scope'
 import { useLiveEditorStyle, useLiveErrorStyle } from './styles'
@@ -18,10 +19,11 @@ function EditableNotice() {
     <Box
       pos="absolute"
       top=".25rem"
+      left="35%"
       w="full"
       textAlign="center"
       fontSize="small"
-      color="cat.overlay"
+      color="#9399b2"
     >
       This example is editable
     </Box>
@@ -38,7 +40,6 @@ export default function ReactLiveBlock({
 }) {
   const [editorCode, setEditorCode] = useState(code)
   const onChange = (newCode: string) => setEditorCode(newCode.trim())
-  const liveErrorStyle = useLiveErrorStyle()
   const liveEditorStyle = useLiveEditorStyle()
   const connectors = useMemo(
     () =>
@@ -53,35 +54,45 @@ export default function ReactLiveBlock({
   return (
     <StarknetConfig connectors={connectors} autoConnect>
       <LiveProvider code={editorCode} scope={scope}>
-        <Box mt="5" p="4" borderColor="cat.peach" borderWidth={1} rounded="md" overflow="auto">
-          <WalletBar w="full" borderBottom="1px solid" borderColor="cat.overlay" mb="4" pb="4" />
+        <Box
+          mt="15"
+          mb="30"
+          p="20"
+          borderColor="#fab387"
+          borderWidth={1}
+          borderRadius="5px"
+          overflow="auto"
+        >
+          <WalletBar w="full" borderBottom="1px solid" borderColor="#9399b2" mb="20" pb="5" />
           <LiveCodePreview
             zIndex="1"
             __css={{
               button: {
                 background: 'transparent',
                 rounded: 'sm',
-                borderColor: 'cat.text',
+                borderColor: '#cdd6f4',
                 borderWidth: 1,
                 m: '3',
                 p: '2',
               },
-              span: { color: 'cat.text' },
-              p: { color: 'cat.text', m: '3' },
+              span: { color: '#cdd6f4' },
+              p: { color: '#cdd6f4', m: '3' },
             }}
           />
         </Box>
         <Box pos="relative" zIndex="0">
-          <Box p="5" pt="7" rounded="md" my="8" bg="cat.mantle">
+          <Box p="5" pt="20" borderRadius="5px" my="8" bg="#181825">
             <Button
               pos="absolute"
-              top="2"
-              right="2"
+              top="5"
+              right="10"
+              borderRadius="5px"
+              padding="3px"
               zIndex="10"
-              bg="cat.peach"
-              color="cat.base"
-              size="xs"
-              _hover={{ bg: 'cat.yellow' }}
+              bg="#fab387"
+              color="#1e1e2e"
+              size="sm"
+              _hover={{ bg: '#f9e2af' }}
               onClick={onCopy}
             >
               {hasCopied ? 'Copied' : 'Copy'}
@@ -90,13 +101,22 @@ export default function ReactLiveBlock({
           </Box>
           <EditableNotice />
         </Box>
-        <LiveError style={liveErrorStyle} />
+        <LiveError
+          style={{
+            fontSize: '14',
+            padding: '8px',
+            borderRadius: '5px',
+            color: '#1e1e2e',
+            backgroundColor: '#eba0ac',
+            overflowX: 'auto',
+            marginTop: '20px',
+          }}
+        />
       </LiveProvider>
     </StarknetConfig>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const shuffle = <T extends any[]>(arr: T): T => {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))

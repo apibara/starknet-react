@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import * as StarkNetReactCore from '@starknet-react/core'
 import compiledErc20 from './abi/compiledErc20.json'

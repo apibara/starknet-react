@@ -1,5 +1,8 @@
+'use client'
+
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import type { AppProps } from 'next/app'
+import { CacheProvider } from '@chakra-ui/next-js'
+import { ReactNode } from 'react'
 
 const theme = extendTheme({
   fonts: {
@@ -42,12 +45,14 @@ const theme = extendTheme({
   },
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <CacheProvider>
+      <ChakraProvider resetCSS theme={theme}>
+        {children}
+      </ChakraProvider>
+    </CacheProvider>
   )
 }
 
-export default MyApp
+export default Providers

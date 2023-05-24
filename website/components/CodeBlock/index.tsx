@@ -1,3 +1,4 @@
+'use client'
 import { useBoolean, Box } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useMemo } from 'react'
@@ -24,7 +25,7 @@ export function CodeBlock({
   }
 
   return (
-    <Box p="5" rounded="md" my="2" bg="cat.mantle" overflowX="scroll">
+    <Box p="20" rounded="md" my="2" bg="#181825" overflowX="scroll">
       <Highlight {...defaultProps} code={code} language={language as Language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
