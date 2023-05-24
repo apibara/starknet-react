@@ -1,4 +1,4 @@
-# StarkNet React
+# Starknet React
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@starknet-react/core">
@@ -12,7 +12,7 @@
   </a>
 </p>
 
-**StarkNet React** is a collection of React hooks for StarkNet. It is inspired by
+**Starknet React** is a collection of React hooks for Starknet. It is inspired by
 [wagmi](https://github.com/tmm/wagmi), powered by [starknet.js](https://github.com/0xs34n/starknet.js).
 
 ## Documentation
