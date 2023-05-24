@@ -1,4 +1,4 @@
-# StarkNet React Documentation
+# Starknet React Documentation
 
 ## Getting Started
 
