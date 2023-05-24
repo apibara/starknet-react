@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.17.2
+
+### Patch Changes
+
+- [#241](https://github.com/apibara/starknet-react/pull/241) [`edaa363`](https://github.com/apibara/starknet-react/commit/edaa363e353fa9490c5bdf039212c3fec1a82ee3) Thanks [@davelange](https://github.com/davelange)! - add useBalance hook
+
 ## 0.17.1
 
 ### Patch Changes
