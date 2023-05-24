@@ -79,5 +79,14 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --quiet --fix --cache"
   },
-  "browserslist": "> 0.25%, not dead"
+  "browserslist": "> 0.25%, not dead",
+  "dependencies": {
+    "@chakra-ui/next-js": "^2.1.3",
+    "@chakra-ui/react": "^2.3.4",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@starknet-react/core": "workspace:^",
+    "framer-motion": "^7.4.0",
+    "get-starknet": "^2.1.0"
+  }
 }

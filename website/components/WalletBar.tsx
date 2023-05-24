@@ -1,17 +1,25 @@
+'use client'
 import { Box, BoxProps, Button, ButtonProps, HStack, Text } from '@chakra-ui/react'
 import { useAccount, useConnectors } from '@starknet-react/core'
 import { useMemo } from 'react'
 
 function WalletButton(props: ButtonProps) {
   return (
-    <Button
-      bg="transparent"
-      borderColor="cat.peach"
-      borderWidth={1}
-      color="cat.text"
-      _hover={{ bg: 'cat.peach', color: 'cat.base' }}
-      {...props}
-    />
+    <>
+      <Button
+        bg="transparent"
+        borderColor="#fab387"
+        borderWidth={1}
+        borderRadius="5px"
+        paddingLeft="10px"
+        paddingTop="5px"
+        paddingBottom="5px"
+        paddingRight="10px"
+        color="#cdd6f4"
+        _hover={{ bg: '#fab387', color: '#1e1e2e' }}
+        {...props}
+      />
+    </>
   )
 }
 
@@ -19,11 +27,15 @@ function ConnectWallet() {
   const { connectors, connect } = useConnectors()
 
   return (
-    <HStack w="full" justifyContent="space-between">
+    <HStack marginBottom="10px" padding="3" w="full" justifyContent="space-between">
       <Text>Connect wallet</Text>
       <HStack gap="4">
         {connectors.map((conn) => (
-          <WalletButton key={conn.id()} onClick={() => connect(conn)} disabled={!conn.available()}>
+          <WalletButton
+            key={conn.id()}
+            onClick={() => connect(conn)}
+            isDisabled={!conn.available()}
+          >
             {conn.id()}
           </WalletButton>
         ))}

@@ -1,3 +1,4 @@
+'use client'
 import { useToken } from '@chakra-ui/react'
 import type { PrismTheme } from 'prism-react-renderer'
 import React from 'react'
