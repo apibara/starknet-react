@@ -18,6 +18,11 @@ const Home = () => {
             View Hooks
           </div>
         </Link>
+        <Link passHref href="/rsc" className=" text-cat-neutral500 text-xl">
+          <div className="py-2 px-4 hover:bg-cat-slate700 w-32 text-center bg-cat-base border-solid border-2 rounded-md border-cat-neutral500">
+            RSC
+          </div>
+        </Link>
       </div>
     </div>
   )

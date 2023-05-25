@@ -4,6 +4,9 @@ const nextConfig = {
   swcMinify: true,
   basePath: '/starknet-react',
   assetPrefix: '/starknet-react',
+  images: {
+    formats: ['image/webp'],
+  },
 }
 
 module.exports = nextConfig
