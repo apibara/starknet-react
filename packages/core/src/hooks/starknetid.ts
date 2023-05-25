@@ -35,13 +35,16 @@ export interface StarkNameResult {
  * @remarks
  *
  * This hook fetches the stark name of the specified address.
- * It defaults to the starknet.id contract but a different contract can be targetted by specifying its contract address
+ * It defaults to the starknet.id contract but a different contract can be
+ * targetted by specifying its contract address
  * If address does not have a stark name, it will return "stark"
  *
  * @example
- * This example shows how to get the stark name of an address using the default Starknet.id contract
+ * This example shows how to get the stark name of an address using the default
+ * Starknet.id contract
  * ```tsx
  * function Component() {
+ *   const { address } = useAccount()
  *   const { data, isLoading, isError } = useStarkName({ address })
  *
  *   if (isLoading) return <span>Loading...</span>
@@ -51,9 +54,11 @@ export interface StarkNameResult {
  * ```
  *
  *  @example
- * This example shows how to get the stark name of an address specifying a different contract address
+ * This example shows how to get the stark name of an address specifying a
+ * different contract address
  * ```tsx
  * function Component() {
+ *   const { address } = useAccount()
  *   const { data, isLoading, isError } = useStarkName({ address, contract: '0x1234' })
  *
  *   if (isLoading) return <span>Loading...</span>
