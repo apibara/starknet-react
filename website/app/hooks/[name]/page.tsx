@@ -12,3 +12,8 @@ export default function Page({ params }: { params: IParams }) {
 
   return <Hooks hook={hook} />
 }
+
+export async function generateStaticParams() {
+  const hooks = getAllHooks()
+  return hooks.map(({ name }) => ({ name }))
+}
