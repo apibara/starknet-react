@@ -113,6 +113,7 @@ export function useContractRead<T extends unknown[]>({
     isRefetching,
     refetch,
     status,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } = useQuery<any | undefined>(
     queryKey_,
     readContract({ args: { contract, functionName, args, blockIdentifier } })

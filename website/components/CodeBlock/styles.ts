@@ -1,6 +1,5 @@
 'use client'
 import { useToken } from '@chakra-ui/react'
-import type { PrismTheme } from 'prism-react-renderer'
 import React from 'react'
 
 export function useLiveErrorStyle(): React.CSSProperties {
@@ -25,7 +24,7 @@ export function useLiveEditorStyle(): React.CSSProperties {
   }
 }
 
-export function useCodeTheme(): PrismTheme {
+export function useCodeTheme(): any {
   const [text, background, comment] = useToken('colors', ['cat.text', 'cat.mantle', 'cat.overlay'])
   return {
     plain: {

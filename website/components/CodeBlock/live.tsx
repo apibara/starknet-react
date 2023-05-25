@@ -6,7 +6,6 @@ import { scope } from './scope'
 import { useLiveEditorStyle, useLiveErrorStyle } from './styles'
 import { WalletBar } from '../WalletBar'
 import { InjectedConnector, StarknetConfig } from '@starknet-react/core'
-import { PrismTheme } from 'prism-react-renderer'
 
 const LiveCodePreview = chakra(LivePreview, {
   baseStyle: {
@@ -36,7 +35,8 @@ export default function ReactLiveBlock({
 }: {
   language: string
   code: string
-  theme?: PrismTheme
+  theme?: any
+  children?: React.ReactNode
 }) {
   const [editorCode, setEditorCode] = useState(code)
   const onChange = (newCode: string) => setEditorCode(newCode.trim())

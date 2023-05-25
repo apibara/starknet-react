@@ -185,14 +185,15 @@ function useStarknetManager({
       console.error(err)
       dispatch({ type: 'set_error', error: new ConnectorNotFoundError() })
     })
-  }, [autoConnect, state.connector])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoConnect, state.connector, userDefaultProvider])
 
   const handleAccountChanged = useCallback(() => {
     disconnect()
     if (state.connector) {
       connect(state.connector)
     }
-  }, [state.connector])
+  }, [state.connector, connect, disconnect])
 
   useEffect(() => {
     if (state.connector) {
