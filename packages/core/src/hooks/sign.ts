@@ -81,12 +81,18 @@ export interface UseSignTypedDataResult {
  * wallet private key.
  *
  * @example
- * This example shows how to sign some data.
+ * This example shows how to sign some data. The message must follow
+ * EIP712 (https://www.starknetjs.com/docs/guides/signature).
+ *
  * ```tsx
  * function Component() {
- *   const { data, signTypedData } = useSignTypedData(message)
  *   const message = {
  *     types: {
+ *      StarkNetDomain: [
+ *         { name: "name", type: "felt" },
+ *         { name: "version", type: "felt" },
+ *         { name: "chainId", type: "felt" },
+ *       ],
  *       Person: [
  *         { name: 'name', type: 'felt' }
  *       ],
@@ -106,6 +112,8 @@ export interface UseSignTypedDataResult {
  *       }
  *     }
  *   }
+ *
+ *  const { data, signTypedData } = useSignTypedData(message)
  *
  *   return (
  *     <>
