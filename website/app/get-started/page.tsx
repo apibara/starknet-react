@@ -50,10 +50,10 @@ export default function Home() {
       </div>
       <HookSection>
         <SectionHeading>Quick Setup</SectionHeading>
-        <p className="mt-10 text-cat-text">
+        <div className="mt-10 text-cat-text">
           We recommend creating a new starknet-react app using create-starknet, which sets up a
           starknet app using TypeScript automatically for you. To create a project, run:
-        </p>
+        </div>
         <Tabs isManual={false} />
         <div className="mt-4 text-cat-text">
           You can also pass command line arguments to set up a new project non-interactively. See

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 interface NavigationItemProps {
   href: string
@@ -12,7 +12,7 @@ const NavigationItem = ({ href, title }: NavigationItemProps) => {
   const pathname = usePathname()
 
   const isActive =
-    href === '/' ? pathname === '/starknet-react' : pathname?.startsWith(`/starknet-react/${href}`)
+    href === '/' ? pathname === '/starknet-react' : pathname?.startsWith(`/starknet-react${href}`)
 
   return (
     <div className={`${isActive ? 'border-b-2 ' : 'border-b-0'} border-cat-peach py-1`}>
@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <div className="py-4 px-8 bg-cat-crust w-full flex justify-between">
       <div className="items center">
-        <Link href="/home" passHref className="text-xl font-bold text-cat-text">
+        <Link href="/" passHref className="text-xl font-bold text-cat-text">
           Starknet React
         </Link>
       </div>
@@ -39,6 +39,7 @@ const Header = () => {
         <NavigationItem href="/" title="Home" />
         <NavigationItem href="/get-started" title="Get Started" />
         <NavigationItem href="/hooks" title="Hooks" />
+        <NavigationItem href="/rsc" title="RSC" />
       </div>
     </div>
   )
