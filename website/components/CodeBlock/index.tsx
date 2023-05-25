@@ -1,11 +1,9 @@
 'use client'
 import { useBoolean, Box } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
 import React, { useEffect, useMemo } from 'react'
-import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import { Highlight } from 'prism-react-renderer'
 import { useCodeTheme } from './styles'
-
-const ReactLiveBlock = dynamic(() => import('./live'))
+import ReactLiveBlock from './live'
 
 export function CodeBlock({
   language,
@@ -26,7 +24,7 @@ export function CodeBlock({
 
   return (
     <Box p="20" rounded="md" my="2" bg="#181825" overflowX="scroll">
-      <Highlight {...defaultProps} code={code} language={language as Language} theme={theme}>
+      <Highlight code={code} language={language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
             {tokens.map((line, i) => (

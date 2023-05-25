@@ -1,9 +1,10 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { StarknetConfig } from '@starknet-react/core'
 
 interface StarknetProviderProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const StarknetProvider = ({ children }: StarknetProviderProps) => {
