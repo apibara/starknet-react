@@ -188,8 +188,12 @@ export type UseBlockNumberArgs = Partial<FetchBlockArgs> & {
 
 /** Value returned from `useBlockNumber`. */
 export interface UseBlockNumberResult {
-  /** Block data. */
+  /** Block number.
+   * @deprecated Use `data` instead.
+   */
   blockNumber?: number
+  /** Block number. */
+  data?: number
   /** Error fetching block. */
   error?: unknown
   isIdle: boolean
@@ -273,8 +277,10 @@ export function useBlockNumber({
       },
     }
   )
+
   return {
     blockNumber: data?.block_number,
+    data: data?.block_number,
     error,
     isIdle,
     isLoading,
