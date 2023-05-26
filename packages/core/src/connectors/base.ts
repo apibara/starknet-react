@@ -24,4 +24,6 @@ export abstract class Connector<Options = any> {
   abstract id(): string
   /** Connector name */
   abstract name(): string
+  /** Connector icon */
+  abstract icon(): string
 }
