@@ -117,6 +117,14 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.name
   }
 
+  icon(): string {
+    this.ensureWallet()
+    if (!this._wallet) {
+      throw new ConnectorNotConnectedError()
+    }
+    return this._wallet.icon
+  }
+
   async initEventListener(accountChangeCb: EventHandler) {
     await this.ensureWallet()
 
