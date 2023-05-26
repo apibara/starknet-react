@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.17.3
+
+### Patch Changes
+
+- [`92d0a58`](https://github.com/apibara/starknet-react/commit/92d0a58462d68c6353c2531abc145a42e15c951d) Thanks [@fracek](https://github.com/fracek)! - Add connector icon support
+
 ## 0.17.2
 
 ### Patch Changes
