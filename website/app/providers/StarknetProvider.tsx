@@ -8,7 +8,11 @@ interface StarknetProviderProps {
 }
 
 const StarknetProvider = ({ children }: StarknetProviderProps) => {
-  return <StarknetConfig>{children}</StarknetConfig>
+  return (
+    <StarknetConfig>
+      <>{children}</>
+    </StarknetConfig>
+  )
 }
 
 export default StarknetProvider
