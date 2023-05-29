@@ -10,7 +10,7 @@ interface HookItemProps {
 const HookItem = ({ name, description, href = '/', isDeprecated }: HookItemProps) => {
   return (
     <Link href={href} passHref>
-      <div className="transition ease-in-out delay-200 hover:-translate-y-2 hover:-translate-x-2   border-cat-surface  hover:border-cat-peach">
+      <div className=" transition ease-in-out delay-200 hover:-translate-y-2 hover:-translate-x-2   border-cat-surface  hover:border-cat-peach">
         <div
           className={`p-3 rounded-t-lg text-start font-bold ${
             isDeprecated ? 'text-cat-text' : 'text-cat-base'

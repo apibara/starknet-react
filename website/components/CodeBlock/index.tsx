@@ -1,7 +1,7 @@
 'use client'
 import { useBoolean, Box } from '@chakra-ui/react'
 import React, { useEffect, useMemo } from 'react'
-import { Highlight } from 'prism-react-renderer'
+import Highlight, { Language, Prism } from 'prism-react-renderer'
 import { useCodeTheme } from './styles'
 import ReactLiveBlock from './live'
 
@@ -9,7 +9,7 @@ export function CodeBlock({
   language,
   children,
 }: {
-  language: string
+  language: Language
   wrapLines: boolean
   children: string | string[]
 }) {
@@ -24,7 +24,7 @@ export function CodeBlock({
 
   return (
     <Box p="20" rounded="md" my="2" bg="#181825" overflowX="scroll">
-      <Highlight code={code} language={language} theme={theme}>
+      <Highlight Prism={Prism} code={code} language={language} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
             {tokens.map((line, i) => (
