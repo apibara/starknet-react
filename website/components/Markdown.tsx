@@ -11,7 +11,7 @@ const MarkdownComponents: object = {
     const match = /language-(\w+)/.exec(className || '')
     const hasMeta = node?.data?.meta
     return match ? (
-      <CodeBlock language={match[1] as Language} wrapLines={hasMeta ? true : false}>
+      <CodeBlock language={match[1] as any} wrapLines={hasMeta ? true : false}>
         {children}
       </CodeBlock>
     ) : (
