@@ -43,23 +43,23 @@ function MyApp({ Component, pageProps }) {
 
 export default function Home() {
   return (
-    <div className="max-w-70 pt-12 mb-12">
+    <div className="max-w-70 pt-12 mb-12 mx-4 lg:mx-0">
       <div className="text-6xl text-center text-cat-text">Get Started</div>
       <div className="mt-4 text-cat-peach text-xl text-center">
         Start building Starknet applications in less than a minute.
       </div>
       <HookSection>
         <SectionHeading>Quick Setup</SectionHeading>
-        <div className="mt-10 text-cat-text">
+        <div className="mt-10 text-cat-text md:text-left lg:text-center">
           We recommend creating a new starknet-react app using create-starknet, which sets up a
           starknet app using TypeScript automatically for you. To create a project, run:
         </div>
         <Tabs isManual={false} />
-        <div className="mt-4 text-cat-text">
+        <div className="mt-4 text-cat-text md:text-left lg:text-center">
           You can also pass command line arguments to set up a new project non-interactively. See
           create-starknet --help:
         </div>
-        <div className="text-cat-text mt-4">
+        <div className="text-cat-text mt-4 ">
           <Markdown>{CREATE_STARKNET_HELP}</Markdown>
         </div>
       </HookSection>
