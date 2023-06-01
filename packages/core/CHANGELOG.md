@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.17.4
+
+### Patch Changes
+
+- [#254](https://github.com/apibara/starknet-react/pull/254) [`d60cec9`](https://github.com/apibara/starknet-react/commit/d60cec97f01466137564af5708c79af6d60b99f2) Thanks [@fracek](https://github.com/fracek)! - Invalidate transaction queries on new block
+
 ## 0.17.3
 
 ### Patch Changes
