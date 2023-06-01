@@ -116,7 +116,8 @@ export interface UseTransactionsArgs {
  * ```tsx
  * function Component() {
  *   const results = useTransactions({
- *     hashes: [txHash, txHash2]
+ *     hashes: [txHash, txHash2],
+ *     watch: true,
  *   })
  *
  *   return (
@@ -131,7 +132,10 @@ export interface UseTransactionsArgs {
  * }
  * ```
  */
-export function useTransactions({ hashes }: UseTransactionsArgs): UseTransactionResult[] {
+export function useTransactions({
+  hashes,
+  watch = false,
+}: UseTransactionsArgs): UseTransactionResult[] {
   const { library } = useStarknet()
   const result = useQueries({
     queries: hashes.map((hash) => ({
@@ -141,6 +145,11 @@ export function useTransactions({ hashes }: UseTransactionsArgs): UseTransaction
         hash,
       }),
     })),
+  })
+
+  useInvalidateOnBlock({
+    enabled: watch,
+    queryKey: [{ entity: 'transaction', chainId: library?.chainId }],
   })
 
   return result.map(
