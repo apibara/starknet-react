@@ -1,11 +1,14 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { GetTransactionResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
+import { useInvalidateOnBlock } from './invalidate'
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionArgs {
   /** The transaction hash. */
   hash?: string
+  /** Refresh data at every block. */
+  watch?: boolean
 }
 
 /** Value returned from `useTransaction`. */
@@ -40,15 +43,19 @@ export interface UseTransactionResult {
  * This hook shows how to fetch a transaction.
  * ```tsx
  * function Component() {
- *   const { data, isLoading, error } = useTransaction({ hash: txHash })
+ *   const { data, isLoading, error } = useTransaction({
+ *     hash: txHash,
+ *     watch: true,
+ *   })
  *
  *   if (isLoading) return <span>Loading...</span>
  *   if (error) return <span>Error: {JSON.stringify(error)}</span>
  *   return <span>{data.transaction_hash}</span>
  * }
  */
-export function useTransaction({ hash }: UseTransactionArgs): UseTransactionResult {
+export function useTransaction({ hash, watch = false }: UseTransactionArgs): UseTransactionResult {
   const { library } = useStarknet()
+  const queryKey_ = queryKey({ library, hash })
   const {
     data,
     error,
@@ -63,12 +70,14 @@ export function useTransaction({ hash }: UseTransactionArgs): UseTransactionResu
     refetch,
     status,
   } = useQuery(
-    queryKey({ library, hash }),
+    queryKey_,
     fetchTransaction({
       library,
       hash,
     })
   )
+
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
 
   return {
     data,
@@ -90,6 +99,8 @@ export function useTransaction({ hash }: UseTransactionArgs): UseTransactionResu
 export interface UseTransactionsArgs {
   /** The transactions hashes. */
   hashes: string[]
+  /** Refresh data at every block. */
+  watch?: boolean
 }
 
 /**
