@@ -22,10 +22,11 @@
     "starknet": "^4.22.0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.3.4",
-    "@tanstack/react-query-devtools": "^4.29.12",
-    "get-starknet-core": "^2.0.0",
-    "immutable": "^4.0.0"
+    "@tanstack/react-query": "^4.29.12",
+    "get-starknet-core": "^2.1.0",
+    "immutable": "^4.3.0",
+    "react": "^18.2.0",
+    "starknet": "^4.22.0"
   },
   "repository": "apibara/starknet-react",
   "homepage": "https://apibara.github.io/starknet-react/",
@@ -35,17 +36,17 @@
     "l2"
   ],
   "devDependencies": {
-    "@jest/environment": "^29.0.3",
+    "@jest/environment": "^29.5.0",
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.0.2",
-    "@types/node": "^17.0.39",
-    "@types/react": "^18.0.11",
-    "jest": "^29.0.0",
-    "jest-environment-jsdom": "^29.0.3",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^17.0.45",
+    "@types/react": "^18.2.8",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "moq.ts": "^9.0.2",
-    "ts-jest": "^29.0.1",
-    "typedoc": "^0.23.15",
-    "typescript": "^4.7.3"
+    "ts-jest": "^29.1.0",
+    "typedoc": "^0.23.28",
+    "typescript": "^4.9.5"
   },
   "eslintConfig": {
     "extends": [
