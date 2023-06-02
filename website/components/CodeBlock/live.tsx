@@ -52,7 +52,7 @@ export default function ReactLiveBlock({
   const { hasCopied, onCopy } = useClipboard(code)
 
   return (
-    <StarknetConfig connectors={connectors} autoConnect>
+    <StarknetConfig connectors={connectors} autoConnect enableDevtools>
       <LiveProvider code={editorCode} scope={scope}>
         <Box
           mt="15"
