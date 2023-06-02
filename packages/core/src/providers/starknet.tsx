@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { Provider, ProviderInterface } from 'starknet'
 import { Connector } from '../connectors'
@@ -250,6 +251,8 @@ export interface StarknetProviderProps {
   autoConnect?: boolean
   /** Low-level react-query client to use. */
   queryClient?: QueryClient
+  /** Enable react-query devtools. */
+  enableDevtools?: boolean
 }
 
 /** Root Starknet context provider. */
@@ -259,10 +262,12 @@ export function StarknetProvider({
   connectors,
   autoConnect,
   queryClient,
+  enableDevtools = false,
 }: StarknetProviderProps): JSX.Element {
   const state = useStarknetManager({ defaultProvider, connectors, autoConnect })
   return (
     <QueryClientProvider client={queryClient ?? new QueryClient()}>
+      {enableDevtools ? <ReactQueryDevtools initialIsOpen={false} /> : null}
       <StarknetContext.Provider value={state}>{children}</StarknetContext.Provider>
     </QueryClientProvider>
   )
