@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.17.5
+
+### Patch Changes
+
+- [#256](https://github.com/apibara/starknet-react/pull/256) [`d0cf301`](https://github.com/apibara/starknet-react/commit/d0cf3013a90643c92725a6a77207235795b0e144) Thanks [@fracek](https://github.com/fracek)! - Add option to display react-query devtools
+
 ## 0.17.4
 
 ### Patch Changes
