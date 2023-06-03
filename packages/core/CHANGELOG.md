@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 0.17.6
+
+### Patch Changes
+
+- [#258](https://github.com/apibara/starknet-react/pull/258) [`ac063f9`](https://github.com/apibara/starknet-react/commit/ac063f9f85136e25a8aabca08b0ef1c0ccdd6944) Thanks [@fracek](https://github.com/fracek)! - Remove react-query devtools
+
+- [#258](https://github.com/apibara/starknet-react/pull/258) [`ac063f9`](https://github.com/apibara/starknet-react/commit/ac063f9f85136e25a8aabca08b0ef1c0ccdd6944) Thanks [@fracek](https://github.com/fracek)! - Update dependencies
+
 ## 0.17.5
 
 ### Patch Changes
