@@ -47,7 +47,7 @@ describe('useStarkName', () => {
     const keyPair = ec.getKeyPair(number.toBN(whitelistingPrivateKey))
     const signed = ec.sign(keyPair, hashed)
 
-    const { transaction_hash } = await account.execute([
+    const { transaction_hash } = await account.write([
       {
         contractAddress: namingAddress,
         entrypoint: 'initializer',

@@ -64,7 +64,7 @@ export interface UseContractWriteResult {
  *     return Array(count).fill(tx)
  *   }, [address, count])
  *
- *   const { execute } = useContractWrite({ calls })
+ *   const { write } = useContractWrite({ calls })
  *
  *   const inc = useCallback(
  *     () => setCount(c => c + 1),
@@ -124,7 +124,7 @@ function writeContract({
     if (calls === undefined) {
       throw new Error('No calls specified')
     }
-    const response = await account.execute(calls)
+    const response = await account.write(calls)
     console.warn(`TODO: ignoring metadata`, metadata)
     return response
   }
