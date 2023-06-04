@@ -124,7 +124,7 @@ function writeContract({
     if (calls === undefined) {
       throw new Error('No calls specified')
     }
-    const response = await account.write(calls)
+    const response = await account.execute(calls)
     console.warn(`TODO: ignoring metadata`, metadata)
     return response
   }
