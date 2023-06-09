@@ -17,7 +17,7 @@ export function useLiveErrorStyle(): React.CSSProperties {
 }
 
 export function useLiveEditorStyle(): React.CSSProperties {
-  const [mono] = useToken('fonts', ['mono'])
+  const [mono] = useToken('fonts', [`'Iosevka', monospace`])
   return {
     fontSize: '14',
     fontFamily: mono,
@@ -42,7 +42,6 @@ export function useCodeTheme(): any {
         types: ['function'],
         style: {
           color: 'rgb(137, 180, 250)',
-          fontStyle: 'italic',
         },
       },
       {
@@ -91,7 +90,6 @@ export function useCodeTheme(): any {
         types: ['string'],
         style: {
           color: 'rgb(166, 227, 161)',
-          fontStyle: 'italic',
         },
       },
       {
@@ -116,7 +114,6 @@ export function useCodeTheme(): any {
         types: ['comment'],
         style: {
           color: comment,
-          fontStyle: 'italic',
         },
       },
     ],

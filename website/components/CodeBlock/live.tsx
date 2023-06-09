@@ -1,11 +1,15 @@
 'use client'
 import React, { useMemo, useState } from 'react'
-import { Box, Button, chakra, color, useClipboard } from '@chakra-ui/react'
+import { Box, Button, chakra, color, useClipboard, Text } from '@chakra-ui/react'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 import { scope } from './scope'
-import { useLiveEditorStyle, useLiveErrorStyle } from './styles'
+import { useLiveEditorStyle } from './styles'
 import { WalletBar } from '../WalletBar'
 import { InjectedConnector, StarknetConfig } from '@starknet-react/core'
+
+import Image from 'next/image'
+import react from '../../public/react.png'
+import copyIcon from '../../public/copyIcon.png'
 
 const LiveCodePreview = chakra(LivePreview, {
   baseStyle: {
@@ -17,12 +21,13 @@ function EditableNotice() {
   return (
     <Box
       pos="absolute"
-      top=".25rem"
+      top="40px"
       left="35%"
       w="full"
       textAlign="center"
       fontSize="small"
       color="#9399b2"
+      marginTop="5px"
     >
       This example is editable
     </Box>
@@ -32,11 +37,13 @@ function EditableNotice() {
 export default function ReactLiveBlock({
   code,
   theme,
+  filepath,
 }: {
   language: string
   code: string
   theme?: any
   children?: React.ReactNode
+  filepath?: string
 }) {
   const [editorCode, setEditorCode] = useState(code)
   const onChange = (newCode: string) => setEditorCode(newCode.trim())
@@ -49,7 +56,7 @@ export default function ReactLiveBlock({
       ]),
     []
   )
-  const { hasCopied, onCopy } = useClipboard(code)
+  const { onCopy } = useClipboard(code)
 
   return (
     <StarknetConfig connectors={connectors} autoConnect>
@@ -60,7 +67,7 @@ export default function ReactLiveBlock({
           p="20"
           borderColor="#fab387"
           borderWidth={1}
-          borderRadius="5px"
+          borderRadius="10px"
           overflow="auto"
         >
           <WalletBar w="full" borderBottom="1px solid" borderColor="#9399b2" mb="20" pb="5" />
@@ -81,22 +88,35 @@ export default function ReactLiveBlock({
           />
         </Box>
         <Box pos="relative" zIndex="0">
-          <Box p="5" pt="20" borderRadius="5px" my="8" bg="#181825">
-            <Button
-              pos="absolute"
-              top="5"
-              right="10"
-              borderRadius="5px"
-              padding="3px"
-              zIndex="10"
-              bg="#fab387"
-              color="#1e1e2e"
-              size="sm"
-              _hover={{ bg: '#f9e2af' }}
-              onClick={onCopy}
+          <Box
+            marginTop="10px"
+            borderRadius="10px"
+            borderWidth="2px"
+            bg="#11111b"
+            borderColor="#45475a"
+            my="8"
+          >
+            <Box
+              display="flex"
+              flexDirection="row"
+              height="40px"
+              borderBottomWidth="2px"
+              borderColor="#45475a"
+              justifyContent="space-between"
+              alignItems="center"
+              marginBottom="15px"
             >
-              {hasCopied ? 'Copied' : 'Copy'}
-            </Button>
+              <Box alignItems="center" display="flex" flexDirection="row" gap="10px">
+                <Image className="ml-2" src={react} alt="ts" width={25} height={20} />
+                {filepath && <p className="text-sm">{filepath}</p>}
+              </Box>
+              <Box display="flex" flexDirection="row" gap="10">
+                <Button onClick={onCopy}>
+                  <Image src={copyIcon} alt="copyIcon" width={20} height={20} className="mr-4" />
+                </Button>
+              </Box>
+            </Box>
+
             <LiveEditor onChange={onChange} theme={theme} style={liveEditorStyle} />
           </Box>
           <EditableNotice />

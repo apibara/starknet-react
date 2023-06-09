@@ -7,7 +7,7 @@ import approuter from '../../public/approuter.png'
 import clientserver from '../../public/clientservercomparison.png'
 
 const CLIENT_COMPONENT = `
-\`\`\`ts
+\`\`\`js
 // NOTE: *before* Server Components
 
 import marked from 'marked'; // 35.9K (11.2K gzipped)
@@ -21,7 +21,7 @@ function NoteWithMarkdown({text}) {
 \`\`\`
 `
 const SERVER_COMPONENT = `
-\`\`\`ts
+\`\`\`js
 // Server Component === zero bundle size
 
 import marked from 'marked'; // zero bundle size
@@ -35,7 +35,7 @@ function NoteWithMarkdown({text}) {
 `
 
 const DATABASE_ACCESS = `
-\`\`\`ts
+\`\`\`js
 import db from 'db';
 
 async function Note({id}) {
@@ -70,7 +70,7 @@ export default function ExampleClientComponent({
 `
 
 const PAGE_PATTERN = `
-\`\`\`ts
+\`\`\`js
 // This pattern works:
 // You can pass a Server Component as a child or prop of a
 // Client Component.
@@ -133,7 +133,9 @@ const RSC = () => {
           it increases code size and hurts performance for our users.
         </div>
         <div className="text-cat-text mt-5">
-          <Markdown>{CLIENT_COMPONENT}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {CLIENT_COMPONENT}
+          </Markdown>
           <div className="mt-5 text-center md:text-left lg:text-center ">
             NOTE: With Next.13 App directory all components are by default server components so if
             we want our component to be rendered on the client we have to use <b>use client</b>
@@ -146,11 +148,15 @@ const RSC = () => {
             build, taking full advantage of React’s component-oriented model and freely using
             third-party packages while incurring zero impact on bundle size.
           </div>
-          <Markdown>{SERVER_COMPONENT}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {SERVER_COMPONENT}
+          </Markdown>
         </div>
         <div className="text-xl text-cat-peach text-center mt-5">Full Access to the Backend</div>
         <div className="text-cat-text mt-5 mb-5">
-          <Markdown>{DATABASE_ACCESS}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {DATABASE_ACCESS}
+          </Markdown>
         </div>
         <SectionHeading>Usage</SectionHeading>
         <div className="text-xl text-cat-peach text-center">Writing code</div>
@@ -182,10 +188,14 @@ const RSC = () => {
           A common pattern is to use the React children prop to create the <b>hole</b>.
         </div>
         <div className="text-cat-text mt-5">
-          <Markdown>{CLIENT_COMPONENT_CHILDREN}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {CLIENT_COMPONENT_CHILDREN}
+          </Markdown>
         </div>
         <div className="text-cat-text mt-5 mb-5">
-          <Markdown>{PAGE_PATTERN}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {PAGE_PATTERN}
+          </Markdown>
         </div>
         <SectionHeading>Folders and Files</SectionHeading>
         <div className="text-xl text-cat-peach text-center mt-5">App Router</div>
@@ -208,7 +218,9 @@ const RSC = () => {
           automatically wrap all pages within the folder where the layout is defined.
         </div>
         <div className="text-cat-text mt-5 ">
-          <Markdown>{ROOT_LAYOUT}</Markdown>
+          <Markdown filepath="app/rsc/page.tsx" theme="dracula" shiki>
+            {ROOT_LAYOUT}
+          </Markdown>
         </div>
       </HookSection>
     </div>

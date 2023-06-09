@@ -60,7 +60,9 @@ export default function Home() {
           create-starknet --help:
         </div>
         <div className="text-cat-text mt-4 ">
-          <Markdown>{CREATE_STARKNET_HELP}</Markdown>
+          <Markdown shiki theme="dracula" filepath="app/get-started/page.tsx">
+            {CREATE_STARKNET_HELP}
+          </Markdown>
         </div>
       </HookSection>
       <HookSection>
@@ -75,13 +77,17 @@ export default function Home() {
           Start by adding the following import statement to your `_app.tsx` file.
         </div>
         <div className="  text-cat-text mt-4">
-          <Markdown>{PROVIDER_IMPORT}</Markdown>
+          <Markdown shiki theme="dracula" filepath="app/get-started/page.tsx">
+            {PROVIDER_IMPORT}
+          </Markdown>
         </div>
         <div className="mt-4 text-cat-text">
           Then edit the application component to include the Starknet provider.
         </div>
         <div className="  text-cat-text mt-4">
-          <Markdown>{PROVIDER_NEXT}</Markdown>
+          <Markdown shiki theme="dracula" filepath="app/get-started/page.tsx">
+            {PROVIDER_NEXT}
+          </Markdown>
         </div>
       </HookSection>
     </div>
