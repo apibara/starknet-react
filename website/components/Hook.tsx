@@ -5,11 +5,11 @@ import { useMemo } from 'react'
 import { deprecationTag, Function, TextLike } from '../lib/typedoc'
 import { Markdown } from './Markdown'
 
-function Content({ content }: { content: TextLike[] }) {
+function Content({ content, hookName }: { content: TextLike[]; hookName?: string }) {
   const textContent = useMemo(() => {
     return content.map((c) => c.text).join('')
   }, [content])
-  return <Markdown>{textContent}</Markdown>
+  return <Markdown filepath={`app/hooks/${hookName}/page.tsx`}>{textContent}</Markdown>
 }
 
 function Summary({ hook }: { hook: Function }) {
@@ -42,7 +42,7 @@ function Example({ hook }: { hook: Function }) {
   return (
     <>
       {examples.map((example, i) => (
-        <Content content={example.content} key={i} />
+        <Content hookName={hook.name} content={example.content} key={i} />
       ))}
     </>
   )
