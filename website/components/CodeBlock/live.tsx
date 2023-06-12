@@ -6,10 +6,9 @@ import { scope } from './scope'
 import { useLiveEditorStyle } from './styles'
 import { WalletBar } from '../WalletBar'
 import { InjectedConnector, StarknetConfig } from '@starknet-react/core'
-
-import Image from 'next/image'
-import react from '../../public/react.png'
-import copyIcon from '../../public/copyIcon.png'
+import { SiReact } from 'react-icons/si'
+import { IoMdCheckmark } from 'react-icons/io'
+import { MdOutlineContentCopy } from 'react-icons/md'
 
 const LiveCodePreview = chakra(LivePreview, {
   baseStyle: {
@@ -56,7 +55,7 @@ export default function ReactLiveBlock({
       ]),
     []
   )
-  const { onCopy } = useClipboard(code)
+  const { hasCopied, onCopy } = useClipboard(code)
 
   return (
     <StarknetConfig connectors={connectors} autoConnect>
@@ -107,12 +106,16 @@ export default function ReactLiveBlock({
               marginBottom="15px"
             >
               <Box alignItems="center" display="flex" flexDirection="row" gap="10px">
-                <Image className="ml-2" src={react} alt="ts" width={25} height={20} />
+                <SiReact className="ml-2" />
                 {filepath && <p className="text-sm">{filepath}</p>}
               </Box>
               <Box display="flex" flexDirection="row" gap="10">
                 <Button onClick={onCopy}>
-                  <Image src={copyIcon} alt="copyIcon" width={20} height={20} className="mr-4" />
+                  {hasCopied ? (
+                    <IoMdCheckmark className="mr-4" />
+                  ) : (
+                    <MdOutlineContentCopy className="mr-4" />
+                  )}
                 </Button>
               </Box>
             </Box>
