@@ -1,4 +1,4 @@
-import { AccountInterface, ProviderInterface } from 'starknet'
+import { AccountInterface } from 'starknet'
 import { Connector } from './base'
 import {
   ConnectorNotConnectedError,
@@ -6,36 +6,12 @@ import {
   UserNotConnectedError,
   UserRejectedRequestError,
 } from '../errors'
-import { getStarknet, StarknetWindowObject } from 'get-starknet-core'
+import { getStarknet, StarknetWindowObject, AccountChangeEventHandler } from 'get-starknet-core'
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
   /** The wallet id. */
   id: string
-}
-
-/** Wallet event type. */
-export type EventType = 'accountsChanged' | 'networkChanged'
-
-/** Wallet event handler. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type EventHandler = (data: any) => void
-
-/** Interface implemented by all injected starknet wallets. */
-export interface IStarknetWindowObject {
-  enable: (options?: { showModal?: boolean }) => Promise<string[]>
-  isPreauthorized: () => Promise<boolean>
-  on: (event: EventType, handleEvent: EventHandler) => void
-  off: (event: EventType, handleEvent: EventHandler) => void
-
-  id: string
-  name: string
-  version: string
-  icon: string
-  provider: ProviderInterface
-  isConnected: boolean
-  account: AccountInterface
-  selectedAddress?: string
 }
 
 export class InjectedConnector extends Connector<InjectedConnectorOptions> {
@@ -65,7 +41,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     }
 
     try {
-      await this._wallet.enable()
+      await this._wallet.enable({ starknetVersion: 'v4' })
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()
@@ -125,7 +101,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.icon
   }
 
-  async initEventListener(accountChangeCb: EventHandler) {
+  async initEventListener(accountChangeCb: AccountChangeEventHandler) {
     await this.ensureWallet()
 
     if (!this._wallet) {
@@ -135,7 +111,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     this._wallet.on('accountsChanged', accountChangeCb)
   }
 
-  async removeEventListener(accountChangeCb: EventHandler) {
+  async removeEventListener(accountChangeCb: AccountChangeEventHandler) {
     await this.ensureWallet()
 
     if (!this._wallet) {
