@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 0.18.0
+
+### Minor Changes
+
+- [#263](https://github.com/apibara/starknet-react/pull/263) [`dfda7eb`](https://github.com/apibara/starknet-react/commit/dfda7eb1163d1eba250180a401fd85645ed2b251) Thanks [@fracek](https://github.com/fracek)! - Request AccountInterface v4 to injected wallets
+
 ## 0.17.6
 
 ### Patch Changes
