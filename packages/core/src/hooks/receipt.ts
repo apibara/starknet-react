@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { GetTransactionReceiptResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
 import { useInvalidateOnBlock } from './invalidate'
+import { Chain, useNetwork } from '..'
 
 /** Arguments for the `useWaitForTransaction` hook. */
 export interface UseWaitForTransactionArgs {
@@ -131,7 +132,8 @@ export function useWaitForTransaction({
   onRejected,
 }: UseWaitForTransactionArgs): UseWaitForTransactionResult {
   const { library } = useStarknet()
-  const queryKey_ = useMemo(() => queryKey({ library, hash }), [library, hash])
+  const { chain } = useNetwork()
+  const queryKey_ = useMemo(() => queryKey({ chain, hash }), [chain, hash])
 
   const {
     data,
@@ -204,8 +206,8 @@ export function useWaitForTransaction({
   }
 }
 
-function queryKey({ library, hash }: { library: ProviderInterface; hash?: string }) {
-  return [{ entity: 'transactionReceipt', chainId: library.chainId, hash }] as const
+function queryKey({ chain, hash }: { chain?: Chain; hash?: string }) {
+  return [{ entity: 'transactionReceipt', chainId: chain?.id, hash }] as const
 }
 
 interface WaitForTransactionArgs {

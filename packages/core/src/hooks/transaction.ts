@@ -2,6 +2,8 @@ import { useQueries, useQuery } from '@tanstack/react-query'
 import { GetTransactionResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
 import { useInvalidateOnBlock } from './invalidate'
+import { useNetwork } from './network'
+import { Chain } from '..'
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionArgs {
@@ -55,7 +57,8 @@ export interface UseTransactionResult {
  */
 export function useTransaction({ hash, watch = false }: UseTransactionArgs): UseTransactionResult {
   const { library } = useStarknet()
-  const queryKey_ = queryKey({ library, hash })
+  const { chain } = useNetwork()
+  const queryKey_ = queryKey({ chain, hash })
   const {
     data,
     error,
@@ -137,9 +140,10 @@ export function useTransactions({
   watch = false,
 }: UseTransactionsArgs): UseTransactionResult[] {
   const { library } = useStarknet()
+  const { chain } = useNetwork()
   const result = useQueries({
     queries: hashes.map((hash) => ({
-      queryKey: queryKey({ library, hash }),
+      queryKey: queryKey({ chain, hash }),
       queryFn: fetchTransaction({
         library,
         hash,
@@ -149,7 +153,7 @@ export function useTransactions({
 
   useInvalidateOnBlock({
     enabled: watch,
-    queryKey: [{ entity: 'transaction', chainId: library?.chainId }],
+    queryKey: [{ entity: 'transaction', chainId: chain?.id }],
   })
 
   return result.map(
@@ -183,11 +187,11 @@ export function useTransactions({
   )
 }
 
-function queryKey({ library, hash }: { library: ProviderInterface; hash?: string }) {
+function queryKey({ chain, hash }: { chain?: Chain; hash?: string }) {
   return [
     {
       entity: 'transaction',
-      chainId: library.chainId,
+      chainId: chain?.id,
       hash: hash,
     },
   ] as const

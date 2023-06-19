@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { ContractInterface, InvokeFunctionResponse, Overrides } from 'starknet'
+import { ContractInterface, InvokeFunctionResponse, ArgsOrCalldata, InvokeOptions } from 'starknet'
 
 /** Arguments for `useStarknetInvoke`. */
 export interface UseStarknetInvokeArgs {
@@ -10,18 +10,18 @@ export interface UseStarknetInvokeArgs {
 }
 
 /** Arguments for the `invoke` function. */
-export interface InvokeArgs<T extends unknown[]> {
+export interface InvokeArgs<T extends ArgsOrCalldata> {
   /** The args the contract method is called with. */
   args: T
   /** Transaction overrides. */
-  overrides?: Overrides
+  invokeOptions?: InvokeOptions
   /** Metadata associated with the transaction. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any
 }
 
 /** Value returned from `useStarknetInvoke` */
-export interface UseStarknetInvokeResult<T extends unknown[]> {
+export interface UseStarknetInvokeResult<T extends ArgsOrCalldata> {
   /** Data returned from the invoke call. */
   data?: InvokeFunctionResponse
   /** True if the execute call is being invoked. */
@@ -67,7 +67,7 @@ export interface UseStarknetInvokeResult<T extends unknown[]> {
  * }
  * ```
  */
-export function useStarknetInvoke<T extends unknown[]>({
+export function useStarknetInvoke<T extends ArgsOrCalldata>({
   contract,
   method,
 }: UseStarknetInvokeArgs): UseStarknetInvokeResult<T> {
@@ -84,21 +84,21 @@ export function useStarknetInvoke<T extends unknown[]>({
   }
 }
 
-function writeContract<T extends unknown[]>({
+function writeContract<T extends ArgsOrCalldata>({
   contract,
   method,
 }: {
   contract?: ContractInterface
   method?: string
 }) {
-  return async ({ args, metadata, overrides }: InvokeArgs<T>) => {
+  return async ({ args, metadata, invokeOptions }: InvokeArgs<T>) => {
     if (contract === undefined) {
       throw new Error('No contract specified')
     }
     if (method === undefined) {
       throw new Error('No method specified')
     }
-    const response = await contract.invoke(method, args, overrides)
+    const response = await contract.invoke(method, args, invokeOptions)
     console.warn(`TODO: ignoring metadata`, metadata)
     return response
   }
