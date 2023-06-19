@@ -1,16 +1,9 @@
-import {
-  BlockNumber,
-  ContractInterface,
-  ProviderInterface,
-  Result,
-  shortString,
-  uint256,
-} from 'starknet'
+import { BlockNumber, ContractInterface, Result, shortString, uint256 } from 'starknet'
 import { UseContractReadOptions, UseContractReadResult } from './call'
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useInvalidateOnBlock } from './invalidate'
-import { useContract, useStarknet } from '..'
+import { Chain, useContract, useNetwork } from '..'
 
 /** Arguments for `useBalance`. */
 export interface UseBalanceArgs extends UseContractReadOptions {
@@ -128,12 +121,12 @@ export function useBalance({
   watch = false,
   blockIdentifier = 'pending',
 }: UseBalanceArgs): UseBalanceReadResult {
-  const { library } = useStarknet()
+  const { chain } = useNetwork()
   const { contract } = useContract({ abi: balanceABIFragment, address: token })
 
   const queryKey_ = useMemo(
-    () => queryKey({ library, args: { contract, address, blockIdentifier } }),
-    [library, contract, address, blockIdentifier]
+    () => queryKey({ chain, args: { contract, address, blockIdentifier } }),
+    [chain, contract, address, blockIdentifier]
   )
 
   const {
@@ -229,12 +222,12 @@ function readContract({ args }: { args: ReadContractArgs }) {
   }
 }
 
-function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
+function queryKey({ chain, args }: { chain?: Chain; args: ReadContractArgs }) {
   const { contract, address: callArgs, blockIdentifier } = args
   return [
     {
       entity: 'balance',
-      chainId: library.chainId,
+      chainId: chain?.id,
       contract: contract?.address,
       args: callArgs,
       blockIdentifier,

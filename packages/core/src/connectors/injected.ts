@@ -3,6 +3,7 @@ import { Connector } from './base'
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
+  UnsupportedAccountInterfaceError,
   UserNotConnectedError,
   UserRejectedRequestError,
 } from '../errors'
@@ -41,7 +42,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     }
 
     try {
-      await this._wallet.enable({ starknetVersion: 'v4' })
+      await this._wallet.enable({ starknetVersion: 'v5' })
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError()

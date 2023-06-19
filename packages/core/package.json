@@ -19,14 +19,14 @@
   },
   "peerDependencies": {
     "react": "^17.0 || ^18.0",
-    "starknet": "^4.22.0"
+    "starknet": "^5.0.0"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.12",
     "get-starknet-core": "^2.1.0",
     "immutable": "^4.3.0",
     "react": "^18.2.0",
-    "starknet": "^4.22.0"
+    "starknet": "5.12.0"
   },
   "repository": "apibara/starknet-react",
   "homepage": "https://apibara.github.io/starknet-react/",

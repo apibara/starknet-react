@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { Abi, ContractInterface, ProviderInterface } from 'starknet'
+import { Abi, ContractInterface } from 'starknet'
 import { BlockNumber } from 'starknet'
 
-import { useStarknet } from '../providers'
 import { useContract } from './contract'
 import { useInvalidateOnBlock } from './invalidate'
+import { useNetwork } from './network'
+import { Chain } from '..'
 
 /** Contract Read options. */
 export interface UseContractReadOptions {
@@ -91,12 +92,12 @@ export function useContractRead<T extends unknown[]>({
   watch = false,
   blockIdentifier = 'pending',
 }: UseContractReadArgs<T> & UseContractReadOptions): UseContractReadResult {
-  const { library } = useStarknet()
+  const { chain } = useNetwork()
   const { contract } = useContract({ abi, address })
 
   const queryKey_ = useMemo(
-    () => queryKey({ library, args: { contract, functionName, args, blockIdentifier } }),
-    [library, contract, functionName, args, blockIdentifier]
+    () => queryKey({ chain, args: { contract, functionName, args, blockIdentifier } }),
+    [chain, contract, functionName, args, blockIdentifier]
   )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -156,12 +157,12 @@ function readContract({ args }: { args: ReadContractArgs }) {
   }
 }
 
-function queryKey({ library, args }: { library: ProviderInterface; args: ReadContractArgs }) {
+function queryKey({ chain, args }: { chain?: Chain; args: ReadContractArgs }) {
   const { contract, functionName, args: callArgs, blockIdentifier } = args
   return [
     {
       entity: 'readContract',
-      chainId: library.chainId,
+      chain,
       contract: contract?.address,
       functionName,
       args: callArgs,

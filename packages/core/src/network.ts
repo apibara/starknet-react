@@ -21,8 +21,8 @@ export function chainById(chainId: constants.StarknetChainId): Chain | undefined
 }
 
 const KNOWN_CHAINS: Record<constants.StarknetChainId, Chain> = {
-  [constants.StarknetChainId.MAINNET]: {
-    id: constants.StarknetChainId.MAINNET,
+  [constants.StarknetChainId.SN_MAIN]: {
+    id: constants.StarknetChainId.SN_MAIN,
     name: 'Starknet Mainnet',
     blockExplorer: {
       name: 'Voyager',
@@ -30,16 +30,16 @@ const KNOWN_CHAINS: Record<constants.StarknetChainId, Chain> = {
     },
     testnet: false,
   },
-  [constants.StarknetChainId.TESTNET]: {
-    id: constants.StarknetChainId.TESTNET,
+  [constants.StarknetChainId.SN_GOERLI]: {
+    id: constants.StarknetChainId.SN_GOERLI,
     name: 'Starknet Görli',
     blockExplorer: {
       name: 'Voyager',
       url: 'https://goerli.voyager.online',
     },
   },
-  [constants.StarknetChainId.TESTNET2]: {
-    id: constants.StarknetChainId.TESTNET2,
+  [constants.StarknetChainId.SN_GOERLI2]: {
+    id: constants.StarknetChainId.SN_GOERLI2,
     name: 'Starknet Görli 2',
     blockExplorer: {
       name: 'Voyager',

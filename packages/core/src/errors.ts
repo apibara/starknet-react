@@ -22,3 +22,9 @@ export class UserNotConnectedError extends Error {
   name = 'UserNotConnectedError'
   message = 'User not connected'
 }
+
+export class UnsupportedAccountInterfaceError extends Error {
+  name = 'UnsupportedAccountInterfaceError'
+  message =
+    'Unsupported account interface. starknet-react v1 only supports the starknet.js v5 account interface'
+}
