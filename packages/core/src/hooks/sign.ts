@@ -1,4 +1,4 @@
-import { typedData } from 'starknet'
+import { stark, typedData } from 'starknet'
 import type { AccountInterface, Signature } from 'starknet'
 import { useCallback, useReducer } from 'react'
 import { useStarknet } from '../providers'
@@ -43,7 +43,7 @@ function starknetSignReducer(state: State, action: Action): State {
   } else if (action.type === 'set_signature') {
     return {
       ...state,
-      data: action.data,
+      data: stark.formatSignature(action.data),
       isLoading: false,
     }
   } else if (action.type === 'set_error') {
@@ -166,7 +166,7 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
   }, [accountAddress, connectors, typedData])
 
   return {
-    data,
+    data: stark.formatSignature(data),
     error,
     isLoading,
     isError: error ? true : false,

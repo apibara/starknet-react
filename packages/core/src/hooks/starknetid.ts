@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
 import { constants, Provider } from 'starknet'
 import { useStarknet } from '../providers'
 
@@ -70,14 +69,6 @@ export interface StarkNameResult {
 export function useStarkName({ address, contract }: StarkNameArgs): StarkNameResult {
   const { library } = useStarknet()
 
-  const provider = useMemo(() => {
-    return new Provider({
-      sequencer: {
-        network: library.chainId,
-      },
-    })
-  }, [library])
-
   const {
     data,
     isLoading,
@@ -94,7 +85,13 @@ export function useStarkName({ address, contract }: StarkNameArgs): StarkNameRes
   } = useQuery({
     queryKey: ['starkName'],
     queryFn: async () => {
-      const namingContract = contract ?? getStarknetIdContract(library.chainId)
+      const chainId = await library.getChainId()
+      const provider = new Provider({
+        sequencer: {
+          network: chainId,
+        },
+      })
+      const namingContract = contract ?? getStarknetIdContract(chainId)
       const result = provider.getStarkName(address, namingContract)
       if (result instanceof Error) throw new Error(result.message)
       return result
@@ -170,14 +167,6 @@ export function useAddressFromStarkName({
 }: AddressFromStarkNameArgs): AddressFromStarkNameResult {
   const { library } = useStarknet()
 
-  const provider = useMemo(() => {
-    return new Provider({
-      sequencer: {
-        network: library.chainId,
-      },
-    })
-  }, [library])
-
   const {
     data,
     isLoading,
@@ -194,7 +183,13 @@ export function useAddressFromStarkName({
   } = useQuery({
     queryKey: ['addressFromStarkName'],
     queryFn: async () => {
-      const namingContract = contract ?? getStarknetIdContract(library.chainId)
+      const chainId = await library.getChainId()
+      const provider = new Provider({
+        sequencer: {
+          network: chainId,
+        },
+      })
+      const namingContract = contract ?? getStarknetIdContract(chainId)
       const result = provider.getAddressFromStarkName(name, namingContract)
       if (result instanceof Error) throw new Error(result.message)
       return result
@@ -224,10 +219,10 @@ export function getStarknetIdContract(chainId: string): string {
     '0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce'
 
   switch (chainId) {
-    case constants.StarknetChainId.MAINNET:
+    case constants.StarknetChainId.SN_MAIN:
       return starknetIdMainnetContract
 
-    case constants.StarknetChainId.TESTNET:
+    case constants.StarknetChainId.SN_GOERLI:
       return starknetIdTestnetContract
 
     default:

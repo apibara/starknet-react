@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
-import { Provider, ProviderInterface } from 'starknet'
+import { Provider, ProviderInterface, constants } from 'starknet'
 import { Connector } from '../connectors'
 import { ConnectorNotFoundError } from '../errors'
 
@@ -39,7 +39,7 @@ export interface StarknetState {
 // as defaultProvider from starknet.js is initialized to testnet2
 const customDefaultProvider = new Provider({
   sequencer: {
-    network: 'goerli-alpha',
+    network: constants.NetworkName.SN_GOERLI,
   },
 })
 

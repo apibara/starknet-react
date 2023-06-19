@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
 import { useStarknet } from '..'
 import { chainById, Chain } from '../network'
+import { useQuery } from '@tanstack/react-query'
 
 /** Value returned from `useNetwork`. */
 export interface UseNetworkResult {
@@ -28,12 +28,13 @@ export interface UseNetworkResult {
 export function useNetwork(): UseNetworkResult {
   const { library } = useStarknet()
 
-  const chain = useMemo(() => {
+  const { data: chain } = useQuery([], async () => {
     if (!library) {
       return undefined
     }
-    return chainById(library.chainId)
-  }, [library])
+
+    return chainById(await library.getChainId())
+  })
 
   return { chain }
 }

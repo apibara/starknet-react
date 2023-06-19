@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { ContractFactory, RawCalldata, number, Contract } from 'starknet'
+import { ContractFactory, RawCalldata, num, Contract, CallData } from 'starknet'
 
 /** Arguments for `useDeploy`. */
 export interface UseDeployArgs {
@@ -8,7 +8,7 @@ export interface UseDeployArgs {
   /** Calldata passed to the constructor. */
   constructorCalldata?: RawCalldata
   /** Salt used when generating the address. */
-  addressSalt?: number.BigNumberish
+  addressSalt?: num.BigNumberish
 }
 
 /** Value returned from `useDeploy`. */
@@ -103,6 +103,6 @@ function deployContract({ contractFactory, constructorCalldata, addressSalt }: U
     if (contractFactory === undefined) {
       throw new Error('No contract factory defined')
     }
-    return await contractFactory.deploy(constructorCalldata, addressSalt)
+    return await contractFactory.deploy(CallData.toCalldata(constructorCalldata), { addressSalt })
   }
 }
