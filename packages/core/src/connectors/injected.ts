@@ -53,6 +53,11 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
       throw new UserRejectedRequestError()
     }
 
+    // This is to ensure that v5 account interface is used.
+    if (!(this._wallet.account instanceof AccountInterface)) {
+      throw new UnsupportedAccountInterfaceError()
+    }
+
     return this._wallet.account
   }
 
