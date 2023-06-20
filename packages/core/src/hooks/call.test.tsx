@@ -6,7 +6,10 @@ describe('useStarknetCall', () => {
   let address: string
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    const tx = await account.declareAndDeploy({
+      contract: compiledErc20,
+      classHash: erc20ClassHash,
+    })
     address = tx.deploy.contract_address
   })
 

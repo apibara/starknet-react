@@ -6,7 +6,10 @@ describe('useWaitForTransaction', () => {
   let hash: string
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    const tx = await account.declareAndDeploy({
+      contract: compiledErc20,
+      classHash: erc20ClassHash,
+    })
     hash = tx.deploy.transaction_hash
   })
 

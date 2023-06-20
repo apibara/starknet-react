@@ -1,4 +1,4 @@
-import { Account, hash, ec, number } from 'starknet'
+import { Account, ec, num, stark } from 'starknet'
 import {
   compiledNaming,
   compiledStarknetId,
@@ -23,13 +23,13 @@ describe('useStarkName', () => {
     otherAccount = deventAccounts[2]!
 
     // Declare & deploy Naming and id contract
-    const namingResponse = await account.declareDeploy({
+    const namingResponse = await account.declareAndDeploy({
       contract: compiledNaming,
       classHash: '0x3f2f8c80ab2d404bcfb4182e8528708e4efa2c646dd711bdd7b721ecc6111f7',
     })
     namingAddress = namingResponse.deploy.contract_address
 
-    const idResponse = await account.declareDeploy({
+    const idResponse = await account.declareAndDeploy({
       contract: compiledStarknetId,
       classHash: '0x1eb5a8308760d82321cb3ee8967581bb1d38348c7d2f082a07580040c52217c',
     })
@@ -40,12 +40,11 @@ describe('useStarkName', () => {
       '1893860513534673656759973582609638731665558071107553163765293299136715951024'
     const whitelistingPrivateKey =
       '301579081698031303837612923223391524790804435085778862878979120159194507372'
-    const hashed = hash.pedersen([
-      hash.pedersen([number.toBN('18925'), number.toBN('1922775124')]),
-      number.toBN(number.hexToDecimalString(account.address)),
-    ])
-    const keyPair = ec.getKeyPair(number.toBN(whitelistingPrivateKey))
-    const signed = ec.sign(keyPair, hashed)
+    const hashed = ec.starkCurve.pedersen(
+      ec.starkCurve.pedersen(num.toBigInt('18925'), num.toBigInt('1922775124')),
+      num.toBigInt(num.hexToDecimalString(account.address))
+    )
+    const signed = stark.formatSignature(ec.starkCurve.sign(whitelistingPrivateKey, hashed))
 
     const { transaction_hash } = await account.execute([
       {

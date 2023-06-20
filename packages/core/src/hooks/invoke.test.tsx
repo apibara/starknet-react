@@ -16,7 +16,7 @@ describe('useStarknetExecute', () => {
   let contract: ContractInterface
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledDapp, classHash: dappClassHash })
+    const tx = await account.declareAndDeploy({ contract: compiledDapp, classHash: dappClassHash })
     await devnetProvider.waitForTransaction(tx.deploy.transaction_hash)
     address = tx.deploy.contract_address
     contract = new Contract(compiledDapp.abi, address)
@@ -153,7 +153,7 @@ describe('useStarknetExecute', () => {
       })
 
       await act(async () => {
-        await result.current.invoke({ args: [42], overrides: { maxFee: 1000 } })
+        await result.current.invoke({ args: [42], invokeOptions: { maxFee: 1000 } })
       })
 
       await waitFor(() => {
