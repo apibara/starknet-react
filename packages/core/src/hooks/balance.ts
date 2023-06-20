@@ -1,9 +1,11 @@
-import { BlockNumber, ContractInterface, Result, shortString, uint256 } from 'starknet'
+import { BlockNumber, ContractInterface, num, shortString, uint256 } from 'starknet'
 import { UseContractReadOptions, UseContractReadResult } from './call'
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useInvalidateOnBlock } from './invalidate'
 import { Chain, useContract, useNetwork } from '..'
+import { balanceSchema, decimalsSchema, symbolSchema } from './balanceSchema'
+import { z } from 'zod'
 
 /** Arguments for `useBalance`. */
 export interface UseBalanceArgs extends UseContractReadOptions {
@@ -163,10 +165,10 @@ export function useBalance({
       symbol: { symbol },
     } = contractData
 
-    const decimals = contractDecimals.toNumber()
+    const decimals = Number(contractDecimals)
     const balanceAsBN = uint256.uint256ToBN(balanceUint256)
     const formatted = (Number(balanceAsBN.toString()) / 10 ** (formatUnits || decimals)).toString()
-    const formattedSymbol = shortString.decodeShortString(symbol)
+    const formattedSymbol = shortString.decodeShortString(num.toHex(symbol))
 
     return {
       decimals,
@@ -199,9 +201,9 @@ interface ReadContractArgs {
 }
 
 type ReadContractResult = {
-  balance: Result
-  symbol: Result
-  decimals: Result
+  balance: z.infer<typeof balanceSchema>
+  symbol: z.infer<typeof symbolSchema>
+  decimals: z.infer<typeof decimalsSchema>
 } | null
 
 function readContract({ args }: { args: ReadContractArgs }) {
@@ -210,12 +212,18 @@ function readContract({ args }: { args: ReadContractArgs }) {
 
     try {
       const [balance, symbol, decimals] = await Promise.all([
-        args.contract.call('balanceOf', [args.address]),
+        args.contract.call('balanceOf', [args.address], {
+          parseResponse: true,
+        }),
         args.contract.call('symbol', []),
         args.contract.call('decimals', []),
       ])
 
-      return { balance, symbol, decimals }
+      const parsedBalance = balanceSchema.parse(balance)
+      const parsedSymbol = symbolSchema.parse(symbol)
+      const parsedDecimals = decimalsSchema.parse(decimals)
+
+      return { balance: parsedBalance, symbol: parsedSymbol, decimals: parsedDecimals }
     } catch {
       return null
     }
