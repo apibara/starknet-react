@@ -5,7 +5,7 @@ import { connectors, compiledErc20, deventAccounts, erc20ClassHash } from '../..
 describe('useBlock', () => {
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    await account.declareAndDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
   })
 
   it('returns the latest block by default', async () => {
@@ -41,7 +41,7 @@ describe('useBlock', () => {
 describe('useBlockNumber', () => {
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    await account.declareAndDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
   })
 
   it('returns the current block', async () => {

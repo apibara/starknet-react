@@ -6,16 +6,17 @@ import {
   deventAccounts,
   dappClassHash,
 } from '../../test/devnet'
-import { Call, useContractWrite } from './execute'
+import { useContractWrite } from './execute'
 import { useStarknet } from '~/providers'
 import { useAccount } from './account'
+import { Call } from 'starknet'
 
 describe('useContractWrite', () => {
   let address: string
   let calls: Call[]
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledDapp, classHash: dappClassHash })
+    const tx = await account.declareAndDeploy({ contract: compiledDapp, classHash: dappClassHash })
     await devnetProvider.waitForTransaction(tx.deploy.transaction_hash)
     address = tx.deploy.contract_address
     calls = [

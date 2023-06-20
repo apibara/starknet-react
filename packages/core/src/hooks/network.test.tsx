@@ -7,7 +7,7 @@ describe('useNetwork', () => {
     const { result } = renderHook(() => useNetwork())
     await waitFor(() => {
       expect(result.current.chain).toBeDefined()
-      expect(result.current.chain?.id).toEqual(constants.StarknetChainId.TESTNET)
+      expect(result.current.chain?.id).toEqual(constants.StarknetChainId.SN_GOERLI)
     })
   })
 })
