@@ -26,7 +26,8 @@
     "get-starknet-core": "^2.1.0",
     "immutable": "^4.3.0",
     "react": "^18.2.0",
-    "starknet": "5.12.0"
+    "starknet": "5.12.0",
+    "zod": "^3.21.4"
   },
   "repository": "apibara/starknet-react",
   "homepage": "https://apibara.github.io/starknet-react/",
