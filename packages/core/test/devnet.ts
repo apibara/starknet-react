@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 import { Mock } from 'moq.ts'
-import { Account, SequencerProvider, ec, CompiledContract, json } from 'starknet'
+import { Account, SequencerProvider, CompiledContract, json } from 'starknet'
 import { Connector } from '~/connectors'
 
 const DEFAULT_DEVNET_URL = 'http://localhost:5050'
@@ -24,14 +24,14 @@ export const DEVNET_ACCOUNTS = [
 
 export const devnetProvider = new SequencerProvider({ baseUrl: DEVNET_URL })
 const originalWaitForTransaction = devnetProvider.waitForTransaction.bind(devnetProvider)
-devnetProvider.waitForTransaction = (txHash, retryInterval, successStates) => {
-  return originalWaitForTransaction(txHash, retryInterval || 1000, successStates)
+devnetProvider.waitForTransaction = (txHash, options) => {
+  return originalWaitForTransaction(txHash, options || { retryInterval: 1000 })
 }
 
 export const invalidProvider = new SequencerProvider({ baseUrl: 'http://localhost:100' })
 
 export const deventAccounts = DEVNET_ACCOUNTS.map(
-  ({ address, secret }) => new Account(devnetProvider, address, ec.getKeyPair(secret))
+  ({ address, secret }) => new Account(devnetProvider, address, secret)
 )
 
 export function mockedConnector(setup: (mock: Mock<Connector>) => void): Connector {
