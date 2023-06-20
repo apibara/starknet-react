@@ -7,7 +7,10 @@ describe('useTransaction', () => {
   let hash: string
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    const tx = await account.declareAndDeploy({
+      contract: compiledErc20,
+      classHash: erc20ClassHash,
+    })
     hash = tx.deploy.transaction_hash
   })
 
@@ -90,9 +93,15 @@ describe('useTransactions', () => {
   let hash1: string
   beforeAll(async () => {
     const account = deventAccounts[1]!
-    const tx0 = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    const tx0 = await account.declareAndDeploy({
+      contract: compiledErc20,
+      classHash: erc20ClassHash,
+    })
     hash0 = tx0.deploy.transaction_hash
-    const tx1 = await account.declareDeploy({ contract: compiledErc20, classHash: erc20ClassHash })
+    const tx1 = await account.declareAndDeploy({
+      contract: compiledErc20,
+      classHash: erc20ClassHash,
+    })
     hash1 = tx1.deploy.transaction_hash
   })
 
