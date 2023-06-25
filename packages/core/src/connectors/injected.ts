@@ -87,11 +87,11 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.account
   }
 
-  id(): string {
+  get id(): string {
     return this.options.id
   }
 
-  name(): string {
+  get name(): string {
     this.ensureWallet()
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()
@@ -99,7 +99,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.name
   }
 
-  icon(): string {
+  get icon(): string {
     this.ensureWallet()
     if (!this._wallet) {
       throw new ConnectorNotConnectedError()

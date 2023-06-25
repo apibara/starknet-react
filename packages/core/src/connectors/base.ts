@@ -21,9 +21,9 @@ export abstract class Connector<Options = any> {
   abstract removeEventListener(accountChangeCb: AccountChangeEventHandler): Promise<void>
   abstract account(): Promise<AccountInterface | null>
   /** Unique connector id */
-  abstract id(): string
+  abstract get id(): string
   /** Connector name */
-  abstract name(): string
+  abstract get name(): string
   /** Connector icon */
-  abstract icon(): string
+  abstract get icon(): string
 }
