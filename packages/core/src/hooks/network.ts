@@ -14,7 +14,7 @@ export interface UseNetworkResult {
  * @remarks
  *
  * The network object contains information about the
- * network, including block explorers.
+ * network.
  *
  * @example
  * This example shows how to display the current network name.
