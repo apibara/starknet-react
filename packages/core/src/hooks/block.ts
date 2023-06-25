@@ -12,40 +12,6 @@ export interface StarkNetBlockResult {
   error?: string
 }
 
-/**
- * Hook for fetching a block.
- *
- * @remarks
- *
- * This hook fetches the `latest` block using the default provider.
- * Block data is continuously refreshed in the background.
- *
- * @deprecated Use {@link useBlock}.
- *
- * @example
- * This example shows how to fetch the latest block.
- * ```tsx
- * function Component() {
- *   const { data, loading, error } = useStarknetBlock()
- *
- *   if (loading) return <span>Loading...</span>
- *   if (error) return <span>Error...</span>
- *   return <span>Hash: {data.block_hash}</span>
- * }
- * ```
- */
-export function useStarknetBlock(): StarkNetBlockResult {
-  const { data, isLoading, isError } = useBlock({
-    blockIdentifier: 'latest',
-  })
-
-  return {
-    data,
-    isLoading,
-    error: isError ? 'error loading block number' : undefined,
-  }
-}
-
 export interface FetchBlockArgs {
   /** Identifier for the block to fetch. */
   blockIdentifier: BlockNumber
@@ -188,10 +154,6 @@ export type UseBlockNumberArgs = Partial<FetchBlockArgs> & {
 
 /** Value returned from `useBlockNumber`. */
 export interface UseBlockNumberResult {
-  /** Block number.
-   * @deprecated Use `data` instead.
-   */
-  blockNumber?: number
   /** Block number. */
   data?: number
   /** Error fetching block. */
@@ -279,7 +241,6 @@ export function useBlockNumber({
   )
 
   return {
-    blockNumber: data?.block_number,
     data: data?.block_number,
     error,
     isIdle,

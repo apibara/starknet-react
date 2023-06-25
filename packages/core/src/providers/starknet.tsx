@@ -8,25 +8,17 @@ import { ConnectorNotFoundError } from '../errors'
 export interface StarknetState {
   /**
    * Connected account address.
-   *
-   * @deprecated Use `useAccount`.
    */
   account?: string
   /**
    * Connect the given connector.
-   *
-   * @deprecated Use `useConnectors`.
    */
   connect: (connector: Connector) => void
   /**
    * Disconnect the currently connected connector.
-   *
-   * @deprecated Use `useConnectors`.
    */
   disconnect: () => void
   /** List of registered connectors.
-   *
-   * @deprecated Use `useConnectors`.
    */
   connectors: Connector[]
   /** Current provider. */

@@ -2,16 +2,6 @@ import { useMutation } from '@tanstack/react-query'
 import { AccountInterface, InvokeFunctionResponse, Call } from 'starknet'
 import { useAccount } from './account'
 
-/** Represents a contract call. */
-// export interface Call {
-//   /** The address of the contract. */
-//   contractAddress: string
-//   /** The selector of the function to invoke. */
-//   entrypoint: string
-//   /** The raw calldata. */
-//   calldata: unknown[]
-// }
-
 /** Arguments for `useContractWrite`. */
 export interface UseContractWriteArgs {
   /** List of smart contract calls to execute. */
