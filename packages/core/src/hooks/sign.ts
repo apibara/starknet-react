@@ -1,7 +1,8 @@
 import { stark, typedData } from 'starknet'
 import type { AccountInterface, Signature } from 'starknet'
 import { useCallback, useReducer } from 'react'
-import { useStarknet } from '../providers'
+import { useAccount } from './account'
+import { useConnectors } from './connectors'
 
 interface State {
   data?: string[]
@@ -131,7 +132,8 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
     isLoading: false,
   })
 
-  const { account: accountAddress, connectors } = useStarknet()
+  const { address: accountAddress } = useAccount()
+  const { connectors } = useConnectors()
 
   const reset = useCallback(() => {
     dispatch({ type: 'reset' })
@@ -166,7 +168,7 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
   }, [accountAddress, connectors, typedData])
 
   return {
-    data: stark.formatSignature(data),
+    data,
     error,
     isLoading,
     isError: error ? true : false,
