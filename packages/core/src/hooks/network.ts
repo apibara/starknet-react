@@ -1,6 +1,6 @@
-import { useStarknet } from '..'
-import { chainById, Chain } from '../network'
 import { useQuery } from '@tanstack/react-query'
+import { useStarknet } from '../providers'
+import { chainById, Chain } from '../network'
 
 /** Value returned from `useNetwork`. */
 export interface UseNetworkResult {
