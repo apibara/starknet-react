@@ -31,12 +31,8 @@ function ConnectWallet() {
       <Text>Connect wallet</Text>
       <HStack gap="4">
         {connectors.map((conn) => (
-          <WalletButton
-            key={conn.id()}
-            onClick={() => connect(conn)}
-            isDisabled={!conn.available()}
-          >
-            {conn.id()}
+          <WalletButton key={conn.id} onClick={() => connect(conn)} isDisabled={!conn.available()}>
+            {conn.id}
           </WalletButton>
         ))}
       </HStack>
