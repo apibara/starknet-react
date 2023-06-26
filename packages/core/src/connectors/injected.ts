@@ -3,7 +3,6 @@ import { Connector } from './base'
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
-  UnsupportedAccountInterfaceError,
   UserNotConnectedError,
   UserRejectedRequestError,
 } from '../errors'
@@ -54,9 +53,12 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     }
 
     // This is to ensure that v5 account interface is used.
+    // TODO: add back once Braavos updates their interface.
+    /*
     if (!(this._wallet.account instanceof AccountInterface)) {
       throw new UnsupportedAccountInterfaceError()
     }
+    */
 
     return this._wallet.account
   }
