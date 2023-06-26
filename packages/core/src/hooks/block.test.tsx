@@ -49,7 +49,7 @@ describe('useBlockNumber', () => {
 
     await waitFor(
       () => {
-        expect(result.current.blockNumber).toBeDefined()
+        expect(result.current.data).toBeDefined()
         expect(result.current.status).toEqual('success')
       },
       {
