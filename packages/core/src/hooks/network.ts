@@ -22,7 +22,7 @@ export interface UseNetworkResult {
  * function Component() {
  *   const { chain } = useNetwork()
  *
- *   return <span>{chain.name}</span>
+ *   return <span>{chain && chain.name}</span>
  * }
  */
 export function useNetwork(): UseNetworkResult {

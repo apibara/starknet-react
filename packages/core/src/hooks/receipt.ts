@@ -84,7 +84,7 @@ export interface UseWaitForTransactionResult {
  *
  *   if (loading) return <span>Loading...</span>
  *   if (error) return <span>Error: {JSON.stringify(error)}</span>
- *   return <span>{data.status}</span>
+ *   return <span>{data && data.status}</span>
  * }
  * ```
  *
@@ -97,7 +97,7 @@ export interface UseWaitForTransactionResult {
  *
  *   const { data, isLoading, error } = useWaitForTransaction({ hash, watch: true })
  *
- *   const { execute } = useStarknetExecute({
+ *   const { write } = useContractWrite({
  *     calls: [{
  *       contractAddress: ethAddress,
  *       entrypoint: 'transfer',
@@ -106,7 +106,7 @@ export interface UseWaitForTransactionResult {
  *   })
  *
  *   const handleClick = () => {
- *     execute().then(tx => setHash(tx.transaction_hash))
+ *     write().then(tx => setHash(tx.transaction_hash))
  *   }
  *
  *   return (
