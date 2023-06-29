@@ -82,7 +82,7 @@ export interface UseContractFactoryResult {
  *   const { account } = useAccount()
  *   const { contractFactory } = useContractFactory({
  *     compiledContract: compiledErc20,
- *     classHash:
+ *     classHash: erc20ClassHash,
  *     abi: compiledErc20.abi,
  *     account: account
  *   })

@@ -78,7 +78,8 @@ export interface UseContractReadResult {
  *   return (
  *     <div>
  *       <button onClick={refetch}>Refetch</button>
- *       <p>Balance: {JSON.stringify(data)}</p>
+ *       <p>U256 high: {data.balance.high.toString()}</p>
+ *       <p>U256 low: {data.balance.low.toString()}</p>
  *     </div>
  *   )
  * }

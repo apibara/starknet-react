@@ -41,9 +41,9 @@ export interface UseConnectorsResult {
  *   return (
  *     <ul>
  *       {connectors.map((connector) => (
- *         <li key={connector.id()}>
+ *         <li key={connector.id}>
  *           <button onClick={() => connect(connector)}>
- *             Connect {connector.id()}
+ *             Connect {connector.id}
  *           </button>
  *         </li>
  *       ))}
@@ -67,8 +67,11 @@ export interface UseConnectorsResult {
  *   return (
  *     <ul>
  *       {available.map((connector) => (
- *         <li key={connector.id()}>
- *          {connector.id()}
+ *         <li key={connector.id}>
+ *           <img
+ *             src={connector.icon}
+ *             alt={connector.id}
+ *             style={{ width: '40px' }}/>
  *         </li>
  *       ))}
  *     </ul>
