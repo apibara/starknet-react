@@ -27,11 +27,9 @@ export interface StarknetState {
   error?: Error
 }
 
-// We define our own provider that defaults to testnet
-// as defaultProvider from starknet.js is initialized to testnet2
 const customDefaultProvider = new Provider({
   sequencer: {
-    network: constants.NetworkName.SN_GOERLI,
+    network: constants.NetworkName.SN_MAIN,
   },
 })
 
