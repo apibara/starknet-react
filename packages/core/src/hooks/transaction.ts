@@ -1,9 +1,9 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { GetTransactionResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
+import { Chain } from '../network'
 import { useInvalidateOnBlock } from './invalidate'
 import { useNetwork } from './network'
-import { Chain } from '..'
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionArgs {
