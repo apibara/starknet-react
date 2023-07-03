@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { GetTransactionReceiptResponse, ProviderInterface } from 'starknet'
 import { useStarknet } from '../providers'
+import { Chain } from '../network'
 import { useInvalidateOnBlock } from './invalidate'
-import { Chain, useNetwork } from '..'
+import { useNetwork } from './network'
 
 /** Arguments for the `useWaitForTransaction` hook. */
 export interface UseWaitForTransactionArgs {
