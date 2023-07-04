@@ -25,6 +25,15 @@ export interface UseAccountResult {
   status: AccountStatus
 }
 
+export interface UseAccountConfig {
+  /** Function to invoke when connected */
+  onConnect?: (args: {
+    address?: UseAccountResult['address']
+    connector?: UseAccountResult['connector']
+  }) => void
+  onDisconnect?: () => void
+}
+
 /**
  * Hook for accessing the account and its connection status.
  *
@@ -45,13 +54,16 @@ export interface UseAccountResult {
  * }
  * ```
  */
-export function useAccount(): UseAccountResult {
+export function useAccount({ onConnect, onDisconnect }: UseAccountConfig = {}): UseAccountResult {
   const { account: connectedAccount } = useStarknet()
   const { connectors } = useConnectors()
   const [state, setState] = useState<UseAccountResult>({ status: 'disconnected' })
 
   const refreshState = useCallback(async () => {
     if (!connectedAccount) {
+      if (!state.isDisconnected && onDisconnect !== undefined) {
+        onDisconnect()
+      }
       return setState({
         status: 'disconnected',
         isDisconnected: true,
@@ -64,6 +76,10 @@ export function useAccount(): UseAccountResult {
       if (!connector.available()) continue
       const connAccount = await connector.account()
       if (connAccount && connAccount?.address === connectedAccount) {
+        if (state.isDisconnected && onConnect !== undefined) {
+          onConnect({ address: connectedAccount, connector })
+        }
+
         return setState({
           connector,
           account: connAccount,
@@ -76,7 +92,7 @@ export function useAccount(): UseAccountResult {
         })
       }
     }
-  }, [setState, connectedAccount, connectors])
+  }, [setState, connectedAccount, connectors, onConnect, onDisconnect, state.isDisconnected])
 
   useEffect(() => {
     refreshState()
