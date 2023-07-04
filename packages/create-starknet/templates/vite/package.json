@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@starknet-react/core": "^0.15.1",
+    "@starknet-react/core": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
