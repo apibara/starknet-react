@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 1.0.1
+
+### Patch Changes
+
+- [#270](https://github.com/apibara/starknet-react/pull/270) [`0f637eb`](https://github.com/apibara/starknet-react/commit/0f637eb1c58bc8c3f410e0096340bf36927bbb32) Thanks [@fracek](https://github.com/fracek)! - Fix get-starknet-core dependency version
+
 ## 1.0.0
 
 ### Major Changes

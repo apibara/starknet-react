@@ -1,5 +1,11 @@
 # create-starknet
 
+## 1.3.0
+
+### Minor Changes
+
+- [#273](https://github.com/apibara/starknet-react/pull/273) [`d811939`](https://github.com/apibara/starknet-react/commit/d8119393f98b194a712c1c7914eede0586b01571) Thanks [@fracek](https://github.com/fracek)! - Update to starknet-react v1
+
 ## 1.2.0
 
 ### Minor Changes
