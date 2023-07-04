@@ -26,8 +26,8 @@ function ConnectWallet() {
       <span>Choose a wallet:</span>
       {connectors.map((connector) => {
         return (
-          <button key={connector.id()} onClick={() => connect(connector)}>
-            {connector.id()}
+          <button key={connector.id} onClick={() => connect(connector)}>
+            {connector.id}
           </button>
         )
       })}
