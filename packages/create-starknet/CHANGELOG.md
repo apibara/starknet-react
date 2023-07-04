@@ -1,5 +1,11 @@
 # create-starknet
 
+## 1.3.1
+
+### Patch Changes
+
+- [#274](https://github.com/apibara/starknet-react/pull/274) [`1068f53`](https://github.com/apibara/starknet-react/commit/1068f5332c98f36ad4cf1e7eba0ed78a9043369d) Thanks [@fracek](https://github.com/fracek)! - Fix template path
+
 ## 1.3.0
 
 ### Minor Changes
