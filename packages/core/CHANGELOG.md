@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 1.0.2
+
+### Patch Changes
+
+- [#281](https://github.com/apibara/starknet-react/pull/281) [`072cc64`](https://github.com/apibara/starknet-react/commit/072cc64a0f76b731d376e4475b87deb5e4baea80) Thanks [@fracek](https://github.com/fracek)! - Add `onConnect` and `onDisconnect` callbacks to `useAccount`
+
 ## 1.0.1
 
 ### Patch Changes
