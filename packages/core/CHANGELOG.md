@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 1.0.3
+
+### Patch Changes
+
+- [#286](https://github.com/apibara/starknet-react/pull/286) [`79a191e`](https://github.com/apibara/starknet-react/commit/79a191ed583214ad87fa211d509fd98357b47d19) Thanks [@fracek](https://github.com/fracek)! - Remove starknet and get-starknet-core from dependencies
+
+- [#284](https://github.com/apibara/starknet-react/pull/284) [`eaad1f0`](https://github.com/apibara/starknet-react/commit/eaad1f00b0d907aad7db32a4fa940fc31511531a) Thanks [@fracek](https://github.com/fracek)! - Fix useNetwork hook
+
 ## 1.0.2
 
 ### Patch Changes
