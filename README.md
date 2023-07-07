@@ -27,10 +27,10 @@ Documentation, including a small demo, [is available online](https://apibara.git
 pnpm add @starknet-react/core
 ```
 
-You also need to add `get-starknet` and `starknet` to your dependencies.
+You also need to add `get-starknet-core` and `starknet` to your dependencies.
 
 ```shell
-pnpm add get-starknet starknet
+pnpm add get-starknet-core starknet
 ```
 
 2. Wrap your app with `StarknetConfig`
