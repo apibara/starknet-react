@@ -81,18 +81,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^4.29.12
         version: 4.29.12(react-dom@18.2.0)(react@18.2.0)
-      get-starknet-core:
-        specifier: ^3.0.1
-        version: 3.0.1(starknet@5.12.0)
       immutable:
         specifier: ^4.3.0
         version: 4.3.0
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      starknet:
-        specifier: 5.12.0
-        version: 5.12.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -112,6 +103,9 @@ importers:
       '@types/react':
         specifier: ^18.2.8
         version: 18.2.8
+      get-starknet-core:
+        specifier: ^3.0.1
+        version: 3.0.1(starknet@5.12.0)
       jest:
         specifier: ^29.5.0
         version: 29.5.0(@types/node@17.0.45)(ts-node@10.9.1)
@@ -121,6 +115,15 @@ importers:
       moq.ts:
         specifier: ^9.0.2
         version: 9.0.2
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      starknet:
+        specifier: 5.12.0
+        version: 5.12.0
       ts-jest:
         specifier: ^29.1.0
         version: 29.1.0(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
@@ -8573,7 +8576,6 @@ packages:
       starknet: ^5.0.0
     dependencies:
       starknet: 5.12.0
-    dev: false
 
   /get-stream@5.2.0:
     resolution:
