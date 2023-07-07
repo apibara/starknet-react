@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { useStarknet } from '../providers'
 import { chainById, Chain } from '../network'
 
@@ -27,14 +27,17 @@ export interface UseNetworkResult {
  */
 export function useNetwork(): UseNetworkResult {
   const { library } = useStarknet()
+  const [chain, setChain] = useState<Chain>()
 
-  const { data: chain } = useQuery([], async () => {
-    if (!library) {
-      return undefined
+  useEffect(() => {
+    if (library) {
+      library.getChainId().then((chainId) => setChain(chainById(chainId)))
+    } else {
+      // library should be always defined, but if it's not then
+      // we reset the chain to undefined.
+      setChain(undefined)
     }
-
-    return chainById(await library.getChainId())
-  })
+  }, [library])
 
   return { chain }
 }
