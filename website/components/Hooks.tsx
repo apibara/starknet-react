@@ -1,4 +1,3 @@
-'use client'
 import HookSection from './HookSection'
 import SectionHeading from '../components/SectionHeading'
 import { Hook } from '../components/Hook'

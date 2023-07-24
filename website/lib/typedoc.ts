@@ -15,19 +15,18 @@ export interface Signature {
   }
   type: {
     type: string
-    id: number
+    target: number
   }
   parameters: {
     type: {
       type: string
-      id: number
+      target: number
     }
   }[]
 }
 
 export interface Function {
   name: string
-  kindString: 'Function'
   signatures: Signature[]
 }
 
@@ -42,7 +41,5 @@ export function deprecationTag(hook: Function) {
 }
 
 export function getAllHooks(): Function[] {
-  return core.children.filter(
-    (child) => child.kindString === 'Function' && child.name.startsWith('use')
-  ) as Function[]
+  return core.children.filter((child) => child.name.startsWith('use')) as Function[]
 }

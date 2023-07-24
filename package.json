@@ -78,5 +78,9 @@
   ],
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --quiet --fix --cache"
+  },
+  "dependencies": {
+    "@starknet-react/core": "workspace:^",
+    "get-starknet": "^3.0.1"
   }
 }
