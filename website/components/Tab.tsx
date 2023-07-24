@@ -1,5 +1,3 @@
-'use client'
-
 interface TabProps {
   label: string
   isActive: boolean

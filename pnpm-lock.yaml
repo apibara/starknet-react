@@ -2,6 +2,13 @@ lockfileVersion: '6.0'
 
 importers:
   .:
+    dependencies:
+      '@starknet-react/core':
+        specifier: workspace:^
+        version: link:packages/core
+      get-starknet:
+        specifier: ^3.0.1
+        version: 3.0.1(starknet@5.12.0)
     devDependencies:
       '@babel/core':
         specifier: ^7.21.8
@@ -128,8 +135,8 @@ importers:
         specifier: ^29.1.0
         version: 29.1.0(@babel/core@7.21.8)(jest@29.5.0)(typescript@4.9.5)
       typedoc:
-        specifier: ^0.23.28
-        version: 0.23.28(typescript@4.9.5)
+        specifier: ^0.24.8
+        version: 0.24.8(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -246,8 +253,8 @@ importers:
         specifier: ^0.14.2
         version: 0.14.2
       typedoc:
-        specifier: ^0.23.15
-        version: 0.23.28(typescript@4.9.5)
+        specifier: ^0.24.8
+        version: 0.24.8(typescript@4.9.5)
     devDependencies:
       '@babel/core':
         specifier: ^7.18.2
@@ -6332,6 +6339,13 @@ packages:
     engines: { node: '>=8' }
     dev: true
 
+  /bowser@2.11.0:
+    resolution:
+      {
+        integrity: sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==,
+      }
+    dev: false
+
   /bplist-parser@0.2.0:
     resolution:
       {
@@ -8576,6 +8590,18 @@ packages:
       starknet: ^5.0.0
     dependencies:
       starknet: 5.12.0
+
+  /get-starknet@3.0.1(starknet@5.12.0):
+    resolution:
+      {
+        integrity: sha512-EyUl+DVQH5PXW2OUdY06/yaqlMizzLKRLzp3S+VhYz+l6wGvW5pmhTXHLaYI4hWfebIDfFkFvAPxVPv/TkWLyA==,
+      }
+    dependencies:
+      bowser: 2.11.0
+      get-starknet-core: 3.0.1(starknet@5.12.0)
+    transitivePeerDependencies:
+      - starknet
+    dev: false
 
   /get-stream@5.2.0:
     resolution:
@@ -11105,12 +11131,12 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
-  /minimatch@7.4.6:
+  /minimatch@9.0.3:
     resolution:
       {
-        integrity: sha512-sBz8G/YjVniEz6lKPNpKxXwazJe4c19fEfV2GDMX6AjFz+MX9uDWIZW8XreVhkFW3fkIdTv/gxWr/Kks5FFAVw==,
+        integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==,
       }
-    engines: { node: '>=10' }
+    engines: { node: '>=16 || 14 >=14.17' }
     dependencies:
       brace-expansion: 2.0.1
 
@@ -13983,19 +14009,19 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typedoc@0.23.28(typescript@4.9.5):
+  /typedoc@0.24.8(typescript@4.9.5):
     resolution:
       {
-        integrity: sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==,
+        integrity: sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==,
       }
     engines: { node: '>= 14.14' }
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
-      minimatch: 7.4.6
+      minimatch: 9.0.3
       shiki: 0.14.2
       typescript: 4.9.5
 
