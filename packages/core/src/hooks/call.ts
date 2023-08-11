@@ -149,8 +149,10 @@ interface ReadContractArgs {
 function readContract({ args }: { args: ReadContractArgs }) {
   return async () => {
     if (!args.args || !args.contract || !args.functionName) return null
-    const call = args.contract && args.functionName && args.contract[args.functionName]
-    if (!call) return null
+    const canCall = args.contract && args.functionName
+    if (!canCall) return null
+    const call = args.contract[args.functionName]
+    if (!call) throw new Error(`Function ${args.functionName} not found on contract`)
 
     return await call(...args.args, {
       blockIdentifier: args.blockIdentifier,
