@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 1.0.4
+
+### Patch Changes
+
+- [#294](https://github.com/apibara/starknet-react/pull/294) [`5836c47`](https://github.com/apibara/starknet-react/commit/5836c475406aa76b6041419ac3a76d7231fd87cb) Thanks [@fracek](https://github.com/fracek)! - Throw exception if a contract method doesn't exist
+
 ## 1.0.3
 
 ### Patch Changes
