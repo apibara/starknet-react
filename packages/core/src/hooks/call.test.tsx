@@ -148,4 +148,30 @@ describe('useStarknetCall', () => {
       })
     })
   })
+
+  describe('when function does not exist', () => {
+    it('returns an error', async () => {
+      const { result } = renderHook(() =>
+        useTestHook({ functionName: 'this_one_doesnt_exist', address, args: [] })
+      )
+
+      await waitFor(() => {
+        expect(result.current.error).toBeDefined()
+        expect(result.current.status).toEqual('error')
+        expect(result.current.data).toBeUndefined()
+        expect(result.current.isIdle).toBeTruthy()
+        expect(result.current.isLoading).toBeFalsy()
+        expect(result.current.isFetching).toBeFalsy()
+        expect(result.current.isSuccess).toBeFalsy()
+        expect(result.current.isError).toBeTruthy()
+        expect(result.current.isFetched).toBeTruthy()
+        expect(result.current.isFetchedAfterMount).toBeTruthy()
+        expect(result.current.isRefetching).toBeFalsy()
+      },
+      {
+        timeout: 30000,
+        interval: 1000,
+      })
+    })
+  })
 })
