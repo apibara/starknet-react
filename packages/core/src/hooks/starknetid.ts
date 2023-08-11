@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { constants, Provider } from 'starknet'
+import { Provider } from 'starknet'
 import { useStarknet } from '../providers'
 
 export interface StarkNameArgs {
@@ -43,7 +43,7 @@ export interface StarkNameResult {
  * Starknet.id contract
  * ```tsx
  * function Component() {
- *   const { address } = useAccount()
+ *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
  *   const { data, isLoading, isError } = useStarkName({ address })
  *
  *   if (isLoading) return <span>Loading...</span>
@@ -57,7 +57,7 @@ export interface StarkNameResult {
  * different contract address
  * ```tsx
  * function Component() {
- *   const { address } = useAccount()
+ *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
  *   const { data, isLoading, isError } = useStarkName({ address, contract: '0x1234' })
  *
  *   if (isLoading) return <span>Loading...</span>
@@ -85,14 +85,10 @@ export function useStarkName({ address, contract }: StarkNameArgs): StarkNameRes
   } = useQuery({
     queryKey: ['starkName'],
     queryFn: async () => {
-      const chainId = await library.getChainId()
-      const provider = new Provider({
-        sequencer: {
-          network: chainId,
-        },
-      })
-      const namingContract = contract ?? getStarknetIdContract(chainId)
-      const result = provider.getStarkName(address, namingContract)
+      const provider = new Provider(library)
+      console.log('lookup ', address, ' on ', contract)
+      const result = provider.getStarkName(address, contract)
+      console.log('result', result)
       if (result instanceof Error) throw new Error(result.message)
       return result
     },
@@ -183,14 +179,8 @@ export function useAddressFromStarkName({
   } = useQuery({
     queryKey: ['addressFromStarkName'],
     queryFn: async () => {
-      const chainId = await library.getChainId()
-      const provider = new Provider({
-        sequencer: {
-          network: chainId,
-        },
-      })
-      const namingContract = contract ?? getStarknetIdContract(chainId)
-      const result = provider.getAddressFromStarkName(name, namingContract)
+      const provider = new Provider(library)
+      const result = provider.getAddressFromStarkName(name, contract)
       if (result instanceof Error) throw new Error(result.message)
       return result
     },
@@ -212,20 +202,3 @@ export function useAddressFromStarkName({
   }
 }
 
-export function getStarknetIdContract(chainId: string): string {
-  const starknetIdMainnetContract =
-    '0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678'
-  const starknetIdTestnetContract =
-    '0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce'
-
-  switch (chainId) {
-    case constants.StarknetChainId.SN_MAIN:
-      return starknetIdMainnetContract
-
-    case constants.StarknetChainId.SN_GOERLI:
-      return starknetIdTestnetContract
-
-    default:
-      throw new Error('Starknet.id is not yet deployed on this network')
-  }
-}
