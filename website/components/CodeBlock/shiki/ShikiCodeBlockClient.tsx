@@ -1,10 +1,13 @@
 'use client'
 import parse from 'html-react-parser'
 
-import { useClipboard, Button } from '@chakra-ui/react'
 import { MdOutlineContentCopy } from 'react-icons/md'
 import { IoMdCheckmark } from 'react-icons/io'
 import { SiJavascript, SiTypescript, SiGnubash } from 'react-icons/si'
+
+import { Button } from '../../../@/components/ui/button'
+
+import { useClipboard } from '../../hooks/useClipboard'
 
 interface ShikiCodeBlockClientProps {
   html: string
@@ -21,7 +24,7 @@ export const ShikiCodeBlockClient = ({
 }: ShikiCodeBlockClientProps) => {
   const htmlCode = parse(html)
 
-  const { hasCopied, onCopy } = useClipboard(code)
+  const { hasCopied, copyToClipboard } = useClipboard(code)
 
   const Icon: Record<string, React.ReactNode> = {
     JavaScript: <SiJavascript />,
@@ -36,10 +39,10 @@ export const ShikiCodeBlockClient = ({
           {Icon[languageText] && Icon[languageText]}
           <div className="pl-4 text-sm">{filepath}</div>
         </div>
-        <div className="flex flex-row gap-8">
-          {languageText && <div className="text-cat-text text-sm">{languageText}</div>}
-          <Button onClick={onCopy}>
-            {hasCopied ? <IoMdCheckmark /> : <MdOutlineContentCopy />}
+        <div className="flex items-center flex-row gap-8">
+          {languageText && <div className="text-cat-text text-sm ">{languageText}</div>}
+          <Button className="p-0" onClick={copyToClipboard}>
+            {hasCopied ? <IoMdCheckmark size={20} /> : <MdOutlineContentCopy size={20} />}
           </Button>
         </div>
       </div>

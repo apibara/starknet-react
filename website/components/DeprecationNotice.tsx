@@ -1,7 +1,8 @@
-'use client'
-import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/react'
-
 import { Markdown } from './Markdown'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../@/components/ui/card'
+
+import { FaExclamationCircle } from 'react-icons/fa'
 
 interface DeprecationNoticeProps {
   deprecation: string
@@ -9,26 +10,18 @@ interface DeprecationNoticeProps {
 
 export const DeprecationNotice = ({ deprecation }: DeprecationNoticeProps) => {
   return (
-    <Alert
-      mt="10px"
-      maxW="30rem"
-      mx="auto"
-      status="warning"
-      variant="subtle"
-      flexDir="column"
-      background="#fab387"
-      rounded="10px"
-      boxShadow="xl"
-      color="#1e1e2e"
-      padding="10px"
-    >
-      <AlertIcon color="#f97316" height={30} width={30} />
-      <AlertTitle mt={4} mb={1} fontWeight="bold" fontSize="lg">
-        Deprecation Notice
-      </AlertTitle>
-      <AlertDescription>
+    <Card className="max-w-[480px] mx-auto flex-col bg-cat-peach mt-[10px] rounded-xl p-[10px] flex text-center">
+      <CardHeader>
+        <CardTitle className="flex justify-center mb-[5px] ">
+          <FaExclamationCircle size={30} className="text-cat-orangeWarning " />
+        </CardTitle>
+        <CardDescription className="text-md font-bold text-cat-base">
+          Deprecation Notice
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="text-md  text-cat-base">
         <Markdown>{deprecation}</Markdown>
-      </AlertDescription>
-    </Alert>
+      </CardContent>
+    </Card>
   )
 }
