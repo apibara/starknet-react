@@ -1,25 +1,20 @@
-'use client'
-import { Box, BoxProps, Button, ButtonProps, HStack, Text } from '@chakra-ui/react'
 import { useAccount, useConnectors } from '@starknet-react/core'
-import { useMemo } from 'react'
 
-function WalletButton(props: ButtonProps) {
+import { Button } from '../@/components/ui/button'
+
+interface WalletButtonProps {
+  isDisabled?: boolean
+  key?: any
+  onClick: () => void
+  children: any
+}
+
+function WalletButton(props: WalletButtonProps) {
   return (
-    <>
-      <Button
-        bg="transparent"
-        borderColor="#fab387"
-        borderWidth={1}
-        borderRadius="5px"
-        paddingLeft="10px"
-        paddingTop="5px"
-        paddingBottom="5px"
-        paddingRight="10px"
-        color="#cdd6f4"
-        _hover={{ bg: '#fab387', color: '#1e1e2e' }}
-        {...props}
-      />
-    </>
+    <Button
+      {...props}
+      className="bg-transparent border-cat-peach border-2 hover:bg-cat-peach hover:text-cat-base"
+    />
   )
 }
 
@@ -27,16 +22,16 @@ function ConnectWallet() {
   const { connectors, connect } = useConnectors()
 
   return (
-    <HStack marginBottom="10px" padding="3" w="full" justifyContent="space-between">
-      <Text>Connect wallet</Text>
-      <HStack gap="4">
+    <div className="flex w-full justify-between">
+      <div>Connect wallet</div>
+      <div className="gap-4 flex">
         {connectors.map((conn) => (
           <WalletButton key={conn.id} onClick={() => connect(conn)} isDisabled={!conn.available()}>
             {conn.id}
           </WalletButton>
         ))}
-      </HStack>
-    </HStack>
+      </div>
+    </div>
   )
 }
 
@@ -44,23 +39,23 @@ function WalletConnected() {
   const { address } = useAccount()
   const { disconnect } = useConnectors()
 
-  const short = useMemo(() => {
-    if (!address) return ''
-    return `${address.slice(0, 6)}...${address.slice(-4)}`
-  }, [address])
+  if (!address) return <div>{''}</div>
+  const short = `${address.slice(0, 6)}...${address.slice(-4)}`
 
   return (
-    <HStack w="full" justifyContent="space-between">
-      <Text>Connected: {short}</Text>
+    <div className="justify-between flex">
+      <div>Connected: {short}</div>
       <WalletButton onClick={disconnect}>Disconnect</WalletButton>
-    </HStack>
+    </div>
   )
 }
 
-export type WalletBarProps = BoxProps
-
-export function WalletBar({ ...props }: WalletBarProps) {
+export function WalletBar() {
   const { address } = useAccount()
 
-  return <Box {...props}>{address ? <WalletConnected /> : <ConnectWallet />}</Box>
+  return (
+    <div className="w-full border-b-[1px] border-cat-overlay mb-[20px] pb-[10px]">
+      {address ? <WalletConnected /> : <ConnectWallet />}
+    </div>
+  )
 }

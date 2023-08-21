@@ -1,35 +1,17 @@
-'use client'
-import { useToken } from '@chakra-ui/react'
 import React from 'react'
 
-export function useLiveErrorStyle(): React.CSSProperties {
-  const [background, color] = useToken('colors', ['cat.maroon', 'cat.base'])
-  const [borderRadius] = useToken('radii', ['md'])
-
-  return {
-    fontSize: '14',
-    padding: '8px',
-    borderRadius,
-    color,
-    background,
-    overflowX: 'auto',
-  }
-}
-
 export function useLiveEditorStyle(): React.CSSProperties {
-  const [mono] = useToken('fonts', [`'Iosevka', monospace`])
   return {
+    fontFamily: `'Iosevka', monospace`,
     fontSize: '14',
-    fontFamily: mono,
   }
 }
 
 export function useCodeTheme(): any {
-  const [text, background, comment] = useToken('colors', ['cat.text', 'cat.mantle', 'cat.overlay'])
   return {
     plain: {
-      color: text,
-      backgroundColor: background,
+      color: 'cat.text',
+      backgroundColor: 'cat.mantle',
     },
     styles: [
       {
@@ -113,7 +95,7 @@ export function useCodeTheme(): any {
       {
         types: ['comment'],
         style: {
-          color: comment,
+          color: 'cat.overlay',
         },
       },
     ],

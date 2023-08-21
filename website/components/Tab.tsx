@@ -1,3 +1,5 @@
+import { Button } from '../@/components/ui/button'
+
 interface TabProps {
   label: string
   isActive: boolean
@@ -6,14 +8,14 @@ interface TabProps {
 
 const Tab = ({ label, isActive, onClick }: TabProps) => {
   return (
-    <button
+    <Button
       className={`py-2 px-4 ${
-        isActive ? ' bg-cat-neutral rounded-full text-cat-neutral700' : 'bg-blue-500'
+        isActive ? ' bg-cat-neutral rounded-full text-cat-neutral700' : 'bg-cat-base'
       } text-cat-text `}
       onClick={onClick}
     >
       {label}
-    </button>
+    </Button>
   )
 }
 

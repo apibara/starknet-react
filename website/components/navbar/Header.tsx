@@ -1,10 +1,12 @@
 'use client'
-
-import Link from 'next/link'
-import burgerMenu from '../../public/svg/burger-menu-svgrepo-com.svg'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+
+import Link from 'next/link'
+import Image from 'next/image'
+
+import burgerMenu from '../../public/svg/burger-menu-svgrepo-com.svg'
+import { Button } from '../../@/components/ui/button'
 
 interface NavigationItemProps {
   href: string
@@ -63,9 +65,9 @@ const Header = () => {
         </div>
 
         <div className="sm:hidden">
-          <button onClick={handleOnClick}>
+          <Button className="p-0 h-0" onClick={handleOnClick}>
             <Image alt="burger-menu.png" src={burgerMenu} height={20} width={20} />
-          </button>
+          </Button>
         </div>
       </div>
     </div>
