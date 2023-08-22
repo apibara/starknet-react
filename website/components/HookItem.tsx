@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '../@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface HookItemProps {
   name: string
@@ -11,8 +11,8 @@ interface HookItemProps {
 const HookItem = ({ name, description, href = '/', isDeprecated }: HookItemProps) => {
   return (
     <Link href={href} passHref>
-      <Card className="transition ease-in-out delay-200 hover:-translate-y-2 hover:-translate-x-2   border-cat-surface  hover:border-cat-peach">
-        <CardHeader>
+      <Card className="transition ease-in-out delay-200  hover:-translate-y-2 hover:-translate-x-2   border-cat-surface  hover:border-cat-peach">
+        <CardHeader className="p-0">
           <CardTitle
             className={`text-md p-3 rounded-t-lg text-start font-bold ${
               isDeprecated ? 'text-cat-text' : 'text-cat-base'

@@ -10,7 +10,7 @@ import { MdOutlineContentCopy } from 'react-icons/md'
 
 import { useClipboard } from '../hooks/useClipboard'
 
-import { Button } from '../../@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { scope } from './scope'
 import { useLiveEditorStyle } from './styles'
 import { WalletBar } from '../WalletBar'

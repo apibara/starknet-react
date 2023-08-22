@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import burgerMenu from '../../public/svg/burger-menu-svgrepo-com.svg'
-import { Button } from '../../@/components/ui/button'
+import { Button } from '@/components/ui/button'
 
 interface NavigationItemProps {
   href: string
