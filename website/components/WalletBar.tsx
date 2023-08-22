@@ -1,6 +1,6 @@
 import { useAccount, useConnectors } from '@starknet-react/core'
 
-import { Button } from '../@/components/ui/button'
+import { Button } from '@/components/ui/button'
 
 interface WalletButtonProps {
   isDisabled?: boolean

@@ -5,7 +5,7 @@ import { MdOutlineContentCopy } from 'react-icons/md'
 import { IoMdCheckmark } from 'react-icons/io'
 import { SiJavascript, SiTypescript, SiGnubash } from 'react-icons/si'
 
-import { Button } from '../../../@/components/ui/button'
+import { Button } from '@/components/ui/button'
 
 import { useClipboard } from '../../hooks/useClipboard'
 
