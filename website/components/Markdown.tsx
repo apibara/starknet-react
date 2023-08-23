@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import { CodeBlock } from './CodeBlock'
+import { CodeBlock } from './code-block'
 import { Lang, Theme } from 'shiki'
-import { ShikiCodeBlock } from './CodeBlock/shiki/ShikiCodeBlock'
+import { ShikiCodeBlock } from './code-block/shiki/ShikiCodeBlock'
 import { trimCode } from '../lib/helpers/trimCode'
 
 export function Markdown({

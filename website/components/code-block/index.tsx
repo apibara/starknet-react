@@ -5,7 +5,7 @@ import { useCodeTheme } from './styles'
 import ReactLiveBlock from './live'
 import { trimCode } from '../../lib/helpers/trimCode'
 
-import { useBoolean } from '../hooks/useBoolean'
+import { useBoolean } from '../../lib/hooks/useBoolean'
 
 type ToggleState = {
   isMounted: boolean

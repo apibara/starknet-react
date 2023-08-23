@@ -8,7 +8,7 @@ import { SiReact } from 'react-icons/si'
 import { IoMdCheckmark } from 'react-icons/io'
 import { MdOutlineContentCopy } from 'react-icons/md'
 
-import { useClipboard } from '../hooks/useClipboard'
+import { useClipboard } from '../../lib/hooks/useClipboard'
 
 import { Button } from '@/components/ui/button'
 import { scope } from './scope'
