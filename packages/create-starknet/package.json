@@ -7,8 +7,9 @@
     "build": "rimraf ./dist && tsc",
     "dev": "npx nodemon",
     "start": "pnpm run build && node dist/index.js",
-    "lint": "eslint index.ts --ext .ts,.tsx",
-    "lint:fix": "eslint --fix index.ts --ext .ts,.tsx"
+    "lint": "biome check .",
+    "lint:fix": "pnpm lint --apply",
+    "format": "biome format . --write"
   },
   "bin": {
     "create-starknet": "dist/index.js"
@@ -43,11 +44,5 @@
     "fs-extra": "^11.1.0",
     "prompts": "2.1.0",
     "validate-npm-package-name": "^5.0.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
-    ]
   }
 }

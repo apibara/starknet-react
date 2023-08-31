@@ -1,35 +1,35 @@
-import { useQueries, useQuery } from '@tanstack/react-query'
-import { GetTransactionResponse, ProviderInterface } from 'starknet'
-import { useStarknet } from '../providers'
-import { Chain } from '../network'
-import { useInvalidateOnBlock } from './invalidate'
-import { useNetwork } from './network'
+import { useQueries, useQuery } from "@tanstack/react-query";
+import { GetTransactionResponse, ProviderInterface } from "starknet";
+import { Chain } from "../network";
+import { useStarknet } from "../providers";
+import { useInvalidateOnBlock } from "./invalidate";
+import { useNetwork } from "./network";
 
 /** Arguments for the `useTransaction` hook. */
 export interface UseTransactionArgs {
   /** The transaction hash. */
-  hash?: string
+  hash?: string;
   /** Refresh data at every block. */
-  watch?: boolean
+  watch?: boolean;
 }
 
 /** Value returned from `useTransaction`. */
 export interface UseTransactionResult {
   /** The transaction data. */
-  data?: GetTransactionResponse
+  data?: GetTransactionResponse;
   /** Error while fetching the transaction. */
-  error?: unknown
+  error?: unknown;
   /** True if fetching data. */
-  isLoading: boolean
-  isIdle: boolean
-  isFetching: boolean
-  isSuccess: boolean
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  isLoading: boolean;
+  isIdle: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -55,10 +55,13 @@ export interface UseTransactionResult {
  *   return <span>{data.transaction_hash}</span>
  * }
  */
-export function useTransaction({ hash, watch = false }: UseTransactionArgs): UseTransactionResult {
-  const { library } = useStarknet()
-  const { chain } = useNetwork()
-  const queryKey_ = queryKey({ chain, hash })
+export function useTransaction({
+  hash,
+  watch = false,
+}: UseTransactionArgs): UseTransactionResult {
+  const { library } = useStarknet();
+  const { chain } = useNetwork();
+  const queryKey_ = queryKey({ chain, hash });
   const {
     data,
     error,
@@ -77,10 +80,10 @@ export function useTransaction({ hash, watch = false }: UseTransactionArgs): Use
     fetchTransaction({
       library,
       hash,
-    })
-  )
+    }),
+  );
 
-  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ });
 
   return {
     data,
@@ -95,15 +98,15 @@ export function useTransaction({ hash, watch = false }: UseTransactionArgs): Use
     isRefetching,
     refetch,
     status,
-  }
+  };
 }
 
 /** Arguments for the `useTransactions` hook. */
 export interface UseTransactionsArgs {
   /** The transactions hashes. */
-  hashes: string[]
+  hashes: string[];
   /** Refresh data at every block. */
-  watch?: boolean
+  watch?: boolean;
 }
 
 /**
@@ -139,8 +142,8 @@ export function useTransactions({
   hashes,
   watch = false,
 }: UseTransactionsArgs): UseTransactionResult[] {
-  const { library } = useStarknet()
-  const { chain } = useNetwork()
+  const { library } = useStarknet();
+  const { chain } = useNetwork();
   const result = useQueries({
     queries: hashes.map((hash) => ({
       queryKey: queryKey({ chain, hash }),
@@ -149,12 +152,12 @@ export function useTransactions({
         hash,
       }),
     })),
-  })
+  });
 
   useInvalidateOnBlock({
     enabled: watch,
-    queryKey: [{ entity: 'transaction', chainId: chain?.id }],
-  })
+    queryKey: [{ entity: "transaction", chainId: chain?.id }],
+  });
 
   return result.map(
     ({
@@ -183,23 +186,26 @@ export function useTransactions({
       isRefetching,
       refetch,
       status,
-    })
-  )
+    }),
+  );
 }
 
 function queryKey({ chain, hash }: { chain?: Chain; hash?: string }) {
   return [
     {
-      entity: 'transaction',
+      entity: "transaction",
       chainId: chain?.id,
       hash: hash,
     },
-  ] as const
+  ] as const;
 }
 
-function fetchTransaction({ library, hash }: { library: ProviderInterface; hash?: string }) {
+function fetchTransaction({
+  library,
+  hash,
+}: { library: ProviderInterface; hash?: string }) {
   return async () => {
-    if (!hash) throw new Error('hash is required')
-    return await library.getTransaction(hash)
-  }
+    if (!hash) throw new Error("hash is required");
+    return await library.getTransaction(hash);
+  };
 }

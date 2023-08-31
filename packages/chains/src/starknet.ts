@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import { Chain } from "./types";
 
 // Starknet chain ids are generated as follows:
 //
@@ -9,12 +9,12 @@ import { Chain } from './types'
 // is the chain id.
 
 export const mainnet = {
-  id: BigInt('0x534e5f4d41494e'),
-  network: 'mainnet',
-  name: 'Starknet',
+  id: BigInt("0x534e5f4d41494e"),
+  network: "mainnet",
+  name: "Starknet",
   nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
+    name: "Ether",
+    symbol: "ETH",
     decimals: 18,
   },
 
@@ -26,15 +26,15 @@ export const mainnet = {
       http: [],
     },
   },
-} as const satisfies Chain
+} as const satisfies Chain;
 
 export const goerli = {
-  id: BigInt('0x534e5f474f45524c49'),
-  network: 'goerli',
-  name: 'Starknet Testnet',
+  id: BigInt("0x534e5f474f45524c49"),
+  network: "goerli",
+  name: "Starknet Testnet",
   nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
+    name: "Ether",
+    symbol: "ETH",
     decimals: 18,
   },
   testnet: true,
@@ -46,15 +46,15 @@ export const goerli = {
       http: [],
     },
   },
-} as const satisfies Chain
+} as const satisfies Chain;
 
 export const goerli2 = {
-  id: BigInt('0x534e5f474f45524c4932'),
-  network: 'goerli2',
-  name: 'Starknet Testnet 2',
+  id: BigInt("0x534e5f474f45524c4932"),
+  network: "goerli2",
+  name: "Starknet Testnet 2",
   nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
+    name: "Ether",
+    symbol: "ETH",
     decimals: 18,
   },
   testnet: true,
@@ -66,4 +66,4 @@ export const goerli2 = {
       http: [],
     },
   },
-} as const satisfies Chain
+} as const satisfies Chain;

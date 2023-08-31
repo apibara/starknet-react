@@ -5,44 +5,44 @@
 // Notice that `Chain.id` is a bigint, because Starknet chain ids are outside of
 // the number safe range.
 
-export type Address = `0x${string}`
+export type Address = `0x${string}`;
 
 export type Chain = {
   /** ID in number form */
-  id: bigint
+  id: bigint;
 
   /** Human-readable name */
-  name: string
+  name: string;
 
   /** Internal network name */
-  network: string
+  network: string;
 
   /** Currency used by the chain */
-  nativeCurrency: NativeCurrency
+  nativeCurrency: NativeCurrency;
 
   /** Collection of RPC endpoints */
   rpcUrls: {
-    [key: string]: RpcUrls
-    default: RpcUrls
-    public: RpcUrls
-  }
+    [key: string]: RpcUrls;
+    default: RpcUrls;
+    public: RpcUrls;
+  };
 
   /** Flag for testnet networks */
-  testnet?: boolean
-}
+  testnet?: boolean;
+};
 
 export type NativeCurrency = {
   /** Human-readable name */
-  name: string
+  name: string;
 
   /** Currency symbol */
-  symbol: string
+  symbol: string;
 
   /** Number of decimals */
-  decimals: number
-}
+  decimals: number;
+};
 
 export type RpcUrls = {
-  http: readonly string[]
-  websocket?: readonly string[]
-}
+  http: readonly string[];
+  websocket?: readonly string[];
+};

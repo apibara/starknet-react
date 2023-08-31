@@ -1,9 +1,11 @@
-import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import { CodeBlock } from './code-block'
-import { Lang, Theme } from 'shiki'
-import { ShikiCodeBlock } from './code-block/shiki/ShikiCodeBlock'
-import { trimCode } from '../lib/helpers/trimCode'
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import { Lang, Theme } from "shiki";
+
+import { trimCode } from "@/lib/helpers/trimCode";
+
+import { CodeBlock } from "./code-block";
+import { ShikiCodeBlock } from "./code-block/shiki/ShikiCodeBlock";
 
 export function Markdown({
   children,
@@ -11,17 +13,17 @@ export function Markdown({
   theme,
   filepath,
 }: {
-  children: string
-  shiki?: boolean
-  theme?: Theme
-  filepath?: string
+  children: string;
+  shiki?: boolean;
+  theme?: Theme;
+  filepath?: string;
 }) {
   const MarkdownComponents: object = {
     // @ts-ignore
     code({ node, className, inline: _inline, children, ...props }) {
-      const match = /language-(\w+)/.exec(className || '')
-      const hasMeta = node?.data?.meta
-      const code = trimCode(children)
+      const match = /language-(\w+)/.exec(className || "");
+      const hasMeta = node?.data?.meta;
+      const code = trimCode(children);
       return match ? (
         shiki ? (
           /* @ts-expect-error Server Component */
@@ -32,7 +34,11 @@ export function Markdown({
             code={code}
           />
         ) : (
-          <CodeBlock filepath={filepath} language={match[1]} wrapLines={hasMeta ? true : false}>
+          <CodeBlock
+            filepath={filepath}
+            language={match[1] ?? ""}
+            wrapLines={hasMeta ? true : false}
+          >
             {children}
           </CodeBlock>
         )
@@ -40,9 +46,11 @@ export function Markdown({
         <code className={className} {...props}>
           {children}
         </code>
-      )
+      );
     },
-  }
+  };
 
-  return <ReactMarkdown components={MarkdownComponents}>{children}</ReactMarkdown>
+  return (
+    <ReactMarkdown components={MarkdownComponents}>{children}</ReactMarkdown>
+  );
 }

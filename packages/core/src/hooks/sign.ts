@@ -1,76 +1,81 @@
-import { stark, typedData } from 'starknet'
-import type { AccountInterface, Signature } from 'starknet'
-import { useCallback, useReducer } from 'react'
-import { useAccount } from './account'
-import { useConnectors } from './connectors'
+import { useCallback, useReducer } from "react";
+import { stark, typedData } from "starknet";
+import type { AccountInterface, Signature } from "starknet";
+import { useAccount } from "./account";
+import { useConnectors } from "./connectors";
 
 interface State {
-  data?: string[]
-  error?: string
-  isLoading: boolean
+  data?: string[];
+  error?: string;
+  isLoading: boolean;
 }
 
 interface StartSigning {
-  type: 'start_signing'
+  type: "start_signing";
 }
 
 interface SetSignature {
-  type: 'set_signature'
-  data: Signature
+  type: "set_signature";
+  data: Signature;
 }
 
 interface SetSigningError {
-  type: 'set_error'
-  error: string
+  type: "set_error";
+  error: string;
 }
 
 interface SetSuccess {
-  type: 'set_success'
-  isSuccess: boolean
+  type: "set_success";
+  isSuccess: boolean;
 }
 
 interface Reset {
-  type: 'reset'
+  type: "reset";
 }
 
-type Action = StartSigning | SetSignature | SetSigningError | SetSuccess | Reset
+type Action =
+  | StartSigning
+  | SetSignature
+  | SetSigningError
+  | SetSuccess
+  | Reset;
 
 function starknetSignReducer(state: State, action: Action): State {
-  if (action.type === 'start_signing') {
+  if (action.type === "start_signing") {
     return {
       ...state,
       isLoading: true,
-    }
-  } else if (action.type === 'set_signature') {
+    };
+  } else if (action.type === "set_signature") {
     return {
       ...state,
       data: stark.formatSignature(action.data),
       isLoading: false,
-    }
-  } else if (action.type === 'set_error') {
+    };
+  } else if (action.type === "set_error") {
     return {
       ...state,
       error: action.error,
       isLoading: false,
-    }
-  } else if (action.type === 'reset') {
+    };
+  } else if (action.type === "reset") {
     return {
       ...state,
       data: undefined,
       error: undefined,
       isLoading: false,
-    }
+    };
   }
-  return state
+  return state;
 }
 
 export interface UseSignTypedDataResult {
-  data?: string[]
-  error?: string
-  isLoading: boolean
-  isError: boolean
-  signTypedData: () => Promise<Signature | undefined>
-  reset: () => void
+  data?: string[];
+  error?: string;
+  isLoading: boolean;
+  isError: boolean;
+  signTypedData: () => Promise<Signature | undefined>;
+  reset: () => void;
 }
 
 /**
@@ -127,45 +132,48 @@ export interface UseSignTypedDataResult {
  * }
  * ```
  */
-export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDataResult {
+export function useSignTypedData(
+  typedData: typedData.TypedData,
+): UseSignTypedDataResult {
   const [state, dispatch] = useReducer(starknetSignReducer, {
     isLoading: false,
-  })
+  });
 
-  const { address: accountAddress } = useAccount()
-  const { connectors } = useConnectors()
+  const { address: accountAddress } = useAccount();
+  const { connectors } = useConnectors();
 
   const reset = useCallback(() => {
-    dispatch({ type: 'reset' })
-  }, [dispatch])
+    dispatch({ type: "reset" });
+  }, [dispatch]);
 
-  const { data, error, isLoading } = state
+  const { data, error, isLoading } = state;
 
   const signTypedData = useCallback(async () => {
-    dispatch({ type: 'reset' })
-    dispatch({ type: 'start_signing' })
+    dispatch({ type: "reset" });
+    dispatch({ type: "start_signing" });
     try {
-      let accountInterface: AccountInterface | null = null
-      const availableConnectors = connectors.filter((conn) => conn.available())
+      let accountInterface: AccountInterface | null = null;
+      const availableConnectors = connectors.filter((conn) => conn.available());
       for (const connector of availableConnectors) {
-        const account = await connector.account()
+        const account = await connector.account();
         if (account && account.address === accountAddress) {
-          accountInterface = account
-          break
+          accountInterface = account;
+          break;
         }
       }
       if (!accountInterface) {
-        throw new Error(`No connector for address ${accountAddress}`)
+        throw new Error(`No connector for address ${accountAddress}`);
       }
-      const response = await accountInterface.signMessage(typedData)
-      dispatch({ type: 'set_signature', data: response })
-      return response
+      const response = await accountInterface.signMessage(typedData);
+      dispatch({ type: "set_signature", data: response });
+      return response;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err)
-      dispatch({ type: 'set_error', error: errorMessage })
-      console.error(err)
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      dispatch({ type: "set_error", error: errorMessage });
+      console.error(err);
     }
-  }, [accountAddress, connectors, typedData])
+    return undefined;
+  }, [accountAddress, connectors, typedData]);
 
   return {
     data,
@@ -174,5 +182,5 @@ export function useSignTypedData(typedData: typedData.TypedData): UseSignTypedDa
     isError: error ? true : false,
     signTypedData,
     reset,
-  }
+  };
 }

@@ -3,32 +3,26 @@
   "baseBranch": "origin/main",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"]
-    },
-    "@starknet-react/core#typedoc": {
-      "dependsOn": ["@starknet-react/core#build"]
-    },
-    "website#dev": {
-      "dependsOn": ["@starknet-react/core#build", "@starknet-react/core#typedoc"],
-      "outputs": []
-    },
-    "website#build": {
-      "dependsOn": ["@starknet-react/core#build", "@starknet-react/core#typedoc"],
-      "outputs": []
-    },
-    "website#export": {
-      "dependsOn": ["website#build"],
-      "outputs": []
-    },
-    "test": {
-      "dependsOn": ["@starknet-react/core#build"],
-      "outputs": []
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "outputs": [
+        "dist/**"
+      ],
+      "outputMode": "new-only"
     },
     "lint": {
-      "outputs": []
+      "dependsOn": ["^build"]
     },
     "lint:fix": {
-      "outputs": []
+      "dependsOn": ["^build"]
+    },
+    "format": {
+      "dependsOn": ["^build"]
     }
   }
 }

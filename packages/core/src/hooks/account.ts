@@ -1,37 +1,41 @@
-import { useCallback, useEffect, useState } from 'react'
-import { AccountInterface } from 'starknet'
-import { Connector } from '../connectors'
-import { useConnectors } from './connectors'
-import { useStarknet } from '../providers'
+import { useCallback, useEffect, useState } from "react";
+import { AccountInterface } from "starknet";
+import { Connector } from "../connectors";
+import { useStarknet } from "../providers";
+import { useConnectors } from "./connectors";
 
 /** Account connection status. */
-export type AccountStatus = 'connected' | 'disconnected' | 'connecting' | 'reconnecting'
+export type AccountStatus =
+  | "connected"
+  | "disconnected"
+  | "connecting"
+  | "reconnecting";
 
 /**
  * Value returned from `useAccount`.
  */
 export interface UseAccountResult {
   /** The connected account object. */
-  account?: AccountInterface
+  account?: AccountInterface;
   /** The address of the connected account. */
-  address?: string
+  address?: string;
   /** The connected connector. */
-  connector?: Connector
-  isConnecting?: boolean
-  isReconnecting?: boolean
-  isConnected?: boolean
-  isDisconnected?: boolean
+  connector?: Connector;
+  isConnecting?: boolean;
+  isReconnecting?: boolean;
+  isConnected?: boolean;
+  isDisconnected?: boolean;
   /** The connection status. */
-  status: AccountStatus
+  status: AccountStatus;
 }
 
 export interface UseAccountConfig {
   /** Function to invoke when connected */
   onConnect?: (args: {
-    address?: UseAccountResult['address']
-    connector?: UseAccountResult['connector']
-  }) => void
-  onDisconnect?: () => void
+    address?: UseAccountResult["address"];
+    connector?: UseAccountResult["connector"];
+  }) => void;
+  onDisconnect?: () => void;
 }
 
 /**
@@ -54,49 +58,61 @@ export interface UseAccountConfig {
  * }
  * ```
  */
-export function useAccount({ onConnect, onDisconnect }: UseAccountConfig = {}): UseAccountResult {
-  const { account: connectedAccount } = useStarknet()
-  const { connectors } = useConnectors()
-  const [state, setState] = useState<UseAccountResult>({ status: 'disconnected' })
+export function useAccount({
+  onConnect,
+  onDisconnect,
+}: UseAccountConfig = {}): UseAccountResult {
+  const { account: connectedAccount } = useStarknet();
+  const { connectors } = useConnectors();
+  const [state, setState] = useState<UseAccountResult>({
+    status: "disconnected",
+  });
 
   const refreshState = useCallback(async () => {
     if (!connectedAccount) {
       if (!state.isDisconnected && onDisconnect !== undefined) {
-        onDisconnect()
+        onDisconnect();
       }
       return setState({
-        status: 'disconnected',
+        status: "disconnected",
         isDisconnected: true,
         isConnected: false,
         isConnecting: false,
         isReconnecting: false,
-      })
+      });
     }
     for (const connector of connectors) {
-      if (!connector.available()) continue
-      const connAccount = await connector.account()
+      if (!connector.available()) continue;
+      const connAccount = await connector.account();
       if (connAccount && connAccount?.address === connectedAccount) {
         if (state.isDisconnected && onConnect !== undefined) {
-          onConnect({ address: connectedAccount, connector })
+          onConnect({ address: connectedAccount, connector });
         }
 
         return setState({
           connector,
           account: connAccount,
           address: connectedAccount,
-          status: 'connected',
+          status: "connected",
           isConnected: true,
           isConnecting: false,
           isDisconnected: false,
           isReconnecting: false,
-        })
+        });
       }
     }
-  }, [setState, connectedAccount, connectors, onConnect, onDisconnect, state.isDisconnected])
+  }, [
+    setState,
+    connectedAccount,
+    connectors,
+    onConnect,
+    onDisconnect,
+    state.isDisconnected,
+  ]);
 
   useEffect(() => {
-    refreshState()
-  }, [refreshState])
+    refreshState();
+  }, [refreshState]);
 
-  return state
+  return state;
 }

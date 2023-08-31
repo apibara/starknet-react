@@ -1,10 +1,9 @@
-export {
-  StarknetConfig,
+export { StarknetConfig, useTransactionManager } from "./providers";
+export type {
   StarknetConfigProps,
   StarknetProviderProps,
-  useTransactionManager,
   TransactionManagerState,
-} from './providers'
-export * from './hooks'
-export * from './connectors'
-export * from './network'
+} from "./providers";
+export * from "./hooks";
+export * from "./connectors";
+export * from "./network";

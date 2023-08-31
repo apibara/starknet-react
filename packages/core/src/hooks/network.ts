@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useStarknet } from '../providers'
-import { chainById, Chain } from '../network'
+import { useEffect, useState } from "react";
+import { Chain, chainById } from "../network";
+import { useStarknet } from "../providers";
 
 /** Value returned from `useNetwork`. */
 export interface UseNetworkResult {
   /** The current chain. */
-  chain?: Chain
+  chain?: Chain;
 }
 
 /**
@@ -26,18 +26,18 @@ export interface UseNetworkResult {
  * }
  */
 export function useNetwork(): UseNetworkResult {
-  const { library } = useStarknet()
-  const [chain, setChain] = useState<Chain>()
+  const { library } = useStarknet();
+  const [chain, setChain] = useState<Chain>();
 
   useEffect(() => {
     if (library) {
-      library.getChainId().then((chainId) => setChain(chainById(chainId)))
+      library.getChainId().then((chainId) => setChain(chainById(chainId)));
     } else {
       // library should be always defined, but if it's not then
       // we reset the chain to undefined.
-      setChain(undefined)
+      setChain(undefined);
     }
-  }, [library])
+  }, [library]);
 
-  return { chain }
+  return { chain };
 }

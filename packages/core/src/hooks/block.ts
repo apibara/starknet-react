@@ -1,48 +1,48 @@
-import { useQuery } from '@tanstack/react-query'
-import { GetBlockResponse, ProviderInterface, BlockNumber } from 'starknet'
-import { useStarknet } from '../providers'
+import { useQuery } from "@tanstack/react-query";
+import { BlockNumber, GetBlockResponse, ProviderInterface } from "starknet";
+import { useStarknet } from "../providers";
 
 /** Value returned from `useStarknetBlock`. */
 export interface StarkNetBlockResult {
   /** Block data. */
-  data?: GetBlockResponse
+  data?: GetBlockResponse;
   /** True if loading block. */
-  isLoading?: boolean
+  isLoading?: boolean;
   /** Error loading block. */
-  error?: string
+  error?: string;
 }
 
 export interface FetchBlockArgs {
   /** Identifier for the block to fetch. */
-  blockIdentifier: BlockNumber
+  blockIdentifier: BlockNumber;
 }
 
 /** Arguments for `useBlock`. */
 export type UseBlockArgs = Partial<FetchBlockArgs> & {
   /** How often to refresh the data. */
-  refetchInterval?: number | false
+  refetchInterval?: number | false;
   /** Callback fired every time a new block is fetched. */
-  onSuccess?: (block: GetBlockResponse) => void
-}
+  onSuccess?: (block: GetBlockResponse) => void;
+};
 
 /** Value returned from `useBlock`. */
 export interface UseBlockResult {
   /** Block data. */
-  data?: GetBlockResponse
+  data?: GetBlockResponse;
   /** Error fetching block. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True if loading block data. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
   /** True if error while loading data. */
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -88,9 +88,9 @@ export interface UseBlockResult {
 export function useBlock({
   refetchInterval,
   onSuccess,
-  blockIdentifier = 'latest',
+  blockIdentifier = "latest",
 }: UseBlockArgs = {}): UseBlockResult {
-  const { library } = useStarknet()
+  const { library } = useStarknet();
 
   const {
     data,
@@ -106,16 +106,16 @@ export function useBlock({
     refetch,
     status,
   } = useQuery<GetBlockResponse | undefined, string>(
-    ['block', blockIdentifier],
+    ["block", blockIdentifier],
     fetchBlock({ library, args: { blockIdentifier } }),
     {
       refetchInterval,
       useErrorBoundary: true,
       onSuccess: (block) => {
-        if (block && onSuccess) onSuccess(block)
+        if (block && onSuccess) onSuccess(block);
       },
-    }
-  )
+    },
+  );
   return {
     data,
     error,
@@ -129,47 +129,47 @@ export function useBlock({
     isRefetching,
     refetch,
     status,
-  }
+  };
 }
 
 function fetchBlock({
   library,
   args,
 }: {
-  library: ProviderInterface
-  args: FetchBlockArgs
+  library: ProviderInterface;
+  args: FetchBlockArgs;
 }): () => Promise<GetBlockResponse | undefined> {
   return async () => {
-    return await library.getBlock(args.blockIdentifier)
-  }
+    return await library.getBlock(args.blockIdentifier);
+  };
 }
 
 /** Arguments for `useBlockNumber`. */
 export type UseBlockNumberArgs = Partial<FetchBlockArgs> & {
   /** How often to refresh the data. */
-  refetchInterval?: number | false
+  refetchInterval?: number | false;
   /** Callback fired every time a new block is fetched. */
-  onSuccess?: (blockNumber: number) => void
-}
+  onSuccess?: (blockNumber: number) => void;
+};
 
 /** Value returned from `useBlockNumber`. */
 export interface UseBlockNumberResult {
   /** Block number. */
-  data?: number
+  data?: number;
   /** Error fetching block. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True if loading block data. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
   /** True if error while loading data. */
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -213,7 +213,7 @@ export function useBlockNumber({
   refetchInterval,
   onSuccess,
 }: UseBlockNumberArgs = {}): UseBlockNumberResult {
-  const { library } = useStarknet()
+  const { library } = useStarknet();
 
   const {
     data,
@@ -229,16 +229,16 @@ export function useBlockNumber({
     refetch,
     status,
   } = useQuery<GetBlockResponse | undefined, string>(
-    ['block', 'latest'],
-    fetchBlock({ library, args: { blockIdentifier: 'latest' } }),
+    ["block", "latest"],
+    fetchBlock({ library, args: { blockIdentifier: "latest" } }),
     {
       refetchInterval,
       useErrorBoundary: true,
       onSuccess: (block) => {
-        if (block && onSuccess) onSuccess(block.block_number)
+        if (block && onSuccess) onSuccess(block.block_number);
       },
-    }
-  )
+    },
+  );
 
   return {
     data: data?.block_number,
@@ -253,5 +253,5 @@ export function useBlockNumber({
     isRefetching,
     refetch,
     status,
-  }
+  };
 }

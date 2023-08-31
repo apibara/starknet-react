@@ -1,11 +1,17 @@
-import { Markdown } from './Markdown'
+import { Markdown } from "./Markdown";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-import { FaExclamationCircle } from 'react-icons/fa'
+import { FaExclamationCircle } from "react-icons/fa";
 
 interface DeprecationNoticeProps {
-  deprecation: string
+  deprecation: string;
 }
 
 export const DeprecationNotice = ({ deprecation }: DeprecationNoticeProps) => {
@@ -23,5 +29,5 @@ export const DeprecationNotice = ({ deprecation }: DeprecationNoticeProps) => {
         <Markdown>{deprecation}</Markdown>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
