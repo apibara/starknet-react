@@ -1,33 +1,35 @@
-import { useMutation } from '@tanstack/react-query'
-import { AccountInterface, InvokeFunctionResponse, Call } from 'starknet'
-import { useAccount } from './account'
+import { useMutation } from "@tanstack/react-query";
+import { AccountInterface, Call, InvokeFunctionResponse } from "starknet";
+import { useAccount } from "./account";
 
 /** Arguments for `useContractWrite`. */
 export interface UseContractWriteArgs {
   /** List of smart contract calls to execute. */
-  calls?: Call | Call[]
+  calls?: Call | Call[];
   /** Metadata associated with the transaction. */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metadata?: any
+  // rome-ignore lint: don't break backwards compatibility
+  metadata?: any;
 }
 
 /** Value returned from `useContractWrite` */
 export interface UseContractWriteResult {
   /** Data returned from the execute call. */
-  data?: string
+  data?: string;
   /** True if the execute call is being executed. */
-  isLoading: boolean
+  isLoading: boolean;
   /** Error while running execute. */
-  error?: unknown
+  error?: unknown;
   /** Reset the hook state. */
-  reset: () => void
+  reset: () => void;
   /** Execute the calls. */
-  write: ((args?: UseContractWriteArgs) => void) | undefined
-  writeAsync: ((args?: UseContractWriteArgs) => Promise<InvokeFunctionResponse>) | undefined
-  isError: boolean
-  isIdle: boolean
-  isSuccess: boolean
-  status: 'idle' | 'error' | 'loading' | 'success'
+  write: ((args?: UseContractWriteArgs) => void) | undefined;
+  writeAsync:
+    | ((args?: UseContractWriteArgs) => Promise<InvokeFunctionResponse>)
+    | undefined;
+  isError: boolean;
+  isIdle: boolean;
+  isSuccess: boolean;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -81,9 +83,19 @@ export interface UseContractWriteResult {
  * ```
  */
 export function useContractWrite({ calls, metadata }: UseContractWriteArgs) {
-  const { account } = useAccount()
-  const { data, isLoading, error, reset, mutate, mutateAsync, isIdle, isSuccess, status, isError } =
-    useMutation(writeContract({ account, args: { calls, metadata } }))
+  const { account } = useAccount();
+  const {
+    data,
+    isLoading,
+    error,
+    reset,
+    mutate,
+    mutateAsync,
+    isIdle,
+    isSuccess,
+    status,
+    isError,
+  } = useMutation(writeContract({ account, args: { calls, metadata } }));
 
   return {
     data,
@@ -96,26 +108,26 @@ export function useContractWrite({ calls, metadata }: UseContractWriteArgs) {
     isLoading,
     isSuccess,
     status,
-  }
+  };
 }
 
 function writeContract({
   account,
   args,
 }: {
-  account?: AccountInterface
-  args: UseContractWriteArgs
+  account?: AccountInterface;
+  args: UseContractWriteArgs;
 }) {
   return async () => {
-    const { calls, metadata } = args
+    const { calls, metadata } = args;
     if (account === undefined) {
-      throw new Error('No connector connected')
+      throw new Error("No connector connected");
     }
     if (calls === undefined) {
-      throw new Error('No calls specified')
+      throw new Error("No calls specified");
     }
-    const response = await account.execute(calls)
-    console.warn(`TODO: ignoring metadata`, metadata)
-    return response
-  }
+    const response = await account.execute(calls);
+    console.warn("TODO: ignoring metadata", metadata);
+    return response;
+  };
 }

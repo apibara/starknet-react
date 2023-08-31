@@ -1,31 +1,31 @@
-import { useQuery } from '@tanstack/react-query'
-import { Provider } from 'starknet'
-import { useStarknet } from '../providers'
+import { useQuery } from "@tanstack/react-query";
+import { Provider } from "starknet";
+import { useStarknet } from "../providers";
 
 export interface StarkNameArgs {
   /** Account address. */
-  address: string
+  address: string;
   /** Naming contract to use . */
-  contract?: string
+  contract?: string;
 }
 
 export interface StarkNameResult {
   /** Stark name. */
-  data?: string
+  data?: string;
   /** Error fetching name. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True if loading stark name. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
   /** True if error while loading stark name. */
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -66,8 +66,11 @@ export interface StarkNameResult {
  * }
  * ```
  */
-export function useStarkName({ address, contract }: StarkNameArgs): StarkNameResult {
-  const { library } = useStarknet()
+export function useStarkName({
+  address,
+  contract,
+}: StarkNameArgs): StarkNameResult {
+  const { library } = useStarknet();
 
   const {
     data,
@@ -83,16 +86,16 @@ export function useStarkName({ address, contract }: StarkNameArgs): StarkNameRes
     refetch,
     status,
   } = useQuery({
-    queryKey: ['starkName'],
+    queryKey: ["starkName"],
     queryFn: async () => {
-      const provider = new Provider(library)
-      console.log('lookup ', address, ' on ', contract)
-      const result = provider.getStarkName(address, contract)
-      console.log('result', result)
-      if (result instanceof Error) throw new Error(result.message)
-      return result
+      const provider = new Provider(library);
+      console.log("lookup ", address, " on ", contract);
+      const result = provider.getStarkName(address, contract);
+      console.log("result", result);
+      if (result instanceof Error) throw new Error(result.message);
+      return result;
     },
-  })
+  });
 
   return {
     data,
@@ -107,33 +110,33 @@ export function useStarkName({ address, contract }: StarkNameArgs): StarkNameRes
     isRefetching,
     refetch,
     status,
-  }
+  };
 }
 
 export interface AddressFromStarkNameArgs {
   /** Stark name. */
-  name: string
+  name: string;
   /** Naming contract to use . */
-  contract?: string
+  contract?: string;
 }
 
 export interface AddressFromStarkNameResult {
   /** Address. */
-  data?: string
+  data?: string;
   /** Error fetching name. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True if loading stark name. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
   /** True if error while loading stark name. */
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -161,7 +164,7 @@ export function useAddressFromStarkName({
   name,
   contract,
 }: AddressFromStarkNameArgs): AddressFromStarkNameResult {
-  const { library } = useStarknet()
+  const { library } = useStarknet();
 
   const {
     data,
@@ -177,14 +180,14 @@ export function useAddressFromStarkName({
     refetch,
     status,
   } = useQuery({
-    queryKey: ['addressFromStarkName'],
+    queryKey: ["addressFromStarkName"],
     queryFn: async () => {
-      const provider = new Provider(library)
-      const result = provider.getAddressFromStarkName(name, contract)
-      if (result instanceof Error) throw new Error(result.message)
-      return result
+      const provider = new Provider(library);
+      const result = provider.getAddressFromStarkName(name, contract);
+      if (result instanceof Error) throw new Error(result.message);
+      return result;
     },
-  })
+  });
 
   return {
     data,
@@ -199,5 +202,5 @@ export function useAddressFromStarkName({
     isRefetching,
     refetch,
     status,
-  }
+  };
 }

@@ -1,54 +1,53 @@
-import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
-import { Abi, ContractInterface } from 'starknet'
-import { BlockNumber } from 'starknet'
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { Abi, BlockNumber, ContractInterface } from "starknet";
 
-import { useContract } from './contract'
-import { useInvalidateOnBlock } from './invalidate'
-import { useNetwork } from './network'
-import { Chain } from '..'
+import { Chain } from "..";
+import { useContract } from "./contract";
+import { useInvalidateOnBlock } from "./invalidate";
+import { useNetwork } from "./network";
 
 /** Contract Read options. */
 export interface UseContractReadOptions {
   /** Refresh data at every block. */
-  watch?: boolean
+  watch?: boolean;
   /** Block identifier used when performing call. */
-  blockIdentifier?: BlockNumber
+  blockIdentifier?: BlockNumber;
 }
 
 /** Arguments for `useContractRead`. */
 export interface UseContractReadArgs<T extends unknown[]> {
   /** The target contract's ABI. */
-  abi: Abi
+  abi: Abi;
   /** The target contract's address. */
-  address: string
+  address: string;
   /** The contract's function name. */
-  functionName: string
+  functionName: string;
   /** Read arguments. */
-  args?: T
+  args?: T;
 }
 
 /** Value returned from `useContractRead`. */
 export interface UseContractReadResult {
   /** Value returned from call. */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: Array<any>
+  // rome-ignore lint: don't break backwards compatibility
+  data?: Array<any>;
   /** Error when performing call. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True when performing call. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
   /** False when performing call. */
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
   /** True when performing call. */
-  isRefetching: boolean
+  isRefetching: boolean;
   /** Manually trigger refresh of data. */
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -91,17 +90,20 @@ export function useContractRead<T extends unknown[]>({
   functionName,
   args,
   watch = false,
-  blockIdentifier = 'pending',
+  blockIdentifier = "pending",
 }: UseContractReadArgs<T> & UseContractReadOptions): UseContractReadResult {
-  const { chain } = useNetwork()
-  const { contract } = useContract({ abi, address })
+  const { chain } = useNetwork();
+  const { contract } = useContract({ abi, address });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, args: { contract, functionName, args, blockIdentifier } }),
-    [chain, contract, functionName, args, blockIdentifier]
-  )
+    () =>
+      queryKey({
+        chain,
+        args: { contract, functionName, args, blockIdentifier },
+      }),
+    [chain, contract, functionName, args, blockIdentifier],
+  );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const {
     data,
     error,
@@ -115,13 +117,13 @@ export function useContractRead<T extends unknown[]>({
     isRefetching,
     refetch,
     status,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // rome-ignore lint: don't break backwards compatibility
   } = useQuery<any | undefined>(
     queryKey_,
-    readContract({ args: { contract, functionName, args, blockIdentifier } })
-  )
+    readContract({ args: { contract, functionName, args, blockIdentifier } }),
+  );
 
-  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ });
 
   return {
     data,
@@ -136,40 +138,41 @@ export function useContractRead<T extends unknown[]>({
     isRefetching,
     refetch,
     status,
-  }
+  };
 }
 
 interface ReadContractArgs {
-  contract?: ContractInterface
-  functionName?: string
-  args?: unknown[]
-  blockIdentifier: BlockNumber
+  contract?: ContractInterface;
+  functionName?: string;
+  args?: unknown[];
+  blockIdentifier: BlockNumber;
 }
 
 function readContract({ args }: { args: ReadContractArgs }) {
   return async () => {
-    if (!args.args || !args.contract || !args.functionName) return null
-    const canCall = args.contract && args.functionName
-    if (!canCall) return null
-    const call = args.contract[args.functionName]
-    if (!call) throw new Error(`Function ${args.functionName} not found on contract`)
+    if (!args.args || !args.contract || !args.functionName) return null;
+    const canCall = args.contract && args.functionName;
+    if (!canCall) return null;
+    const call = args.contract[args.functionName];
+    if (!call)
+      throw new Error(`Function ${args.functionName} not found on contract`);
 
     return await call(...args.args, {
       blockIdentifier: args.blockIdentifier,
-    })
-  }
+    });
+  };
 }
 
 function queryKey({ chain, args }: { chain?: Chain; args: ReadContractArgs }) {
-  const { contract, functionName, args: callArgs, blockIdentifier } = args
+  const { contract, functionName, args: callArgs, blockIdentifier } = args;
   return [
     {
-      entity: 'readContract',
+      entity: "readContract",
       chain,
       contract: contract?.address,
       functionName,
       args: callArgs,
       blockIdentifier,
     },
-  ] as const
+  ] as const;
 }

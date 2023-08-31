@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -17,8 +19,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint --fix src --ext .ts,.tsx"
+    "lint": "biome check .",
+    "lint:fix": "pnpm lint --apply",
+    "format": "biome format . --write"
   },
   "repository": "apibara/starknet-react",
   "homepage": "https://apibara.github.io/starknet-react/",
@@ -26,11 +29,5 @@
     "starknet",
     "ethereum",
     "l2"
-  ],
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
-    ]
-  }
+  ]
 }

@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: "export",
   reactStrictMode: true,
   swcMinify: true,
-  basePath: '/starknet-react',
-  assetPrefix: '/starknet-react',
+  basePath: "/starknet-react",
+  assetPrefix: "/starknet-react",
   images: {
     unoptimized: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

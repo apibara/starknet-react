@@ -1,26 +1,26 @@
-'use client'
-import React, { useMemo, useState } from 'react'
+"use client";
+import React, { useMemo, useState } from "react";
 
-import { InjectedConnector, StarknetConfig } from '@starknet-react/core'
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
+import { InjectedConnector, StarknetConfig } from "@starknet-react/core";
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
 
-import { SiReact } from 'react-icons/si'
-import { IoMdCheckmark } from 'react-icons/io'
-import { MdOutlineContentCopy } from 'react-icons/md'
+import { IoMdCheckmark } from "react-icons/io";
+import { MdOutlineContentCopy } from "react-icons/md";
+import { SiReact } from "react-icons/si";
 
-import { useClipboard } from '../../lib/hooks/useClipboard'
+import { WalletBar } from "@/components/WalletBar";
+import { Button } from "@/components/ui/button";
+import { useClipboard } from "@/lib/hooks/useClipboard";
 
-import { Button } from '@/components/ui/button'
-import { scope } from './scope'
-import { useLiveEditorStyle } from './styles'
-import { WalletBar } from '../WalletBar'
+import { scope } from "./scope";
+import { useLiveEditorStyle } from "./styles";
 
 function EditableNotice() {
   return (
     <div className="absolute top-[40px] left-[35%] w-fill text-center text-sm mt-[5px] text-cat-overlay">
       This example is editable
     </div>
-  )
+  );
 }
 
 export default function ReactLiveBlock({
@@ -28,25 +28,26 @@ export default function ReactLiveBlock({
   theme,
   filepath,
 }: {
-  language: string
-  code: string
-  theme?: any
-  children?: React.ReactNode
-  filepath?: string
+  language: string;
+  code: string;
+  // rome-ignore lint: fix types
+  theme?: any;
+  children?: React.ReactNode;
+  filepath?: string;
 }) {
-  const [editorCode, setEditorCode] = useState(code)
-  const onChange = (newCode: string) => setEditorCode(newCode.trim())
-  const liveEditorStyle = useLiveEditorStyle()
+  const [editorCode, setEditorCode] = useState(code);
+  const onChange = (newCode: string) => setEditorCode(newCode.trim());
+  const liveEditorStyle = useLiveEditorStyle();
   const connectors = useMemo(
     () =>
       shuffle([
-        new InjectedConnector({ options: { id: 'argentX' } }),
-        new InjectedConnector({ options: { id: 'braavos' } }),
+        new InjectedConnector({ options: { id: "argentX" } }),
+        new InjectedConnector({ options: { id: "braavos" } }),
       ]),
-    []
-  )
+    [],
+  );
 
-  const { hasCopied, copyToClipboard } = useClipboard(code)
+  const { hasCopied, copyToClipboard } = useClipboard(code);
 
   return (
     <StarknetConfig connectors={connectors} autoConnect>
@@ -57,15 +58,15 @@ export default function ReactLiveBlock({
             zIndex="1"
             __css={{
               button: {
-                background: 'transparent',
-                rounded: 'sm',
-                borderColor: '#cdd6f4',
+                background: "transparent",
+                rounded: "sm",
+                borderColor: "#cdd6f4",
                 borderWidth: 1,
-                m: '3',
-                p: '2',
+                m: "3",
+                p: "2",
               },
-              span: { color: '#cdd6f4' },
-              p: { color: '#cdd6f4', m: '3' },
+              span: { color: "#cdd6f4" },
+              p: { color: "#cdd6f4", m: "3" },
             }}
           />
         </div>
@@ -87,30 +88,34 @@ export default function ReactLiveBlock({
               </div>
             </div>
 
-            <LiveEditor onChange={onChange} theme={theme} style={liveEditorStyle} />
+            <LiveEditor
+              onChange={onChange}
+              theme={theme}
+              style={liveEditorStyle}
+            />
           </div>
           <EditableNotice />
         </div>
         <LiveError
           style={{
-            fontSize: '14',
-            padding: '8px',
-            borderRadius: '5px',
-            color: '#1e1e2e',
-            backgroundColor: '#eba0ac',
-            overflowX: 'auto',
-            marginTop: '20px',
+            fontSize: "14",
+            padding: "8px",
+            borderRadius: "5px",
+            color: "#1e1e2e",
+            backgroundColor: "#eba0ac",
+            overflowX: "auto",
+            marginTop: "20px",
           }}
         />
       </LiveProvider>
     </StarknetConfig>
-  )
+  );
 }
 
-const shuffle = <T extends any[]>(arr: T): T => {
+const shuffle = <T extends unknown[]>(arr: T): T => {
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return arr
-}
+  return arr;
+};

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -10,7 +10,11 @@ const Home = () => {
         A collection of React hooks for Starknet
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-10 lg:gap-20 pt-8">
-        <Link passHref href="/get-started" className="text-cat-neutral500 text-xl ">
+        <Link
+          passHref
+          href="/get-started"
+          className="text-cat-neutral500 text-xl "
+        >
           <div className=" py-2 px-4 hover:bg-cat-slate700  bg-cat-base border-solid border-2 rounded-md border-cat-neutral500">
             Get Started
           </div>
@@ -27,7 +31,7 @@ const Home = () => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

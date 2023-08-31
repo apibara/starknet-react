@@ -1,21 +1,21 @@
-import { useCallback, useEffect, useState } from 'react'
-import { Connector } from '../connectors'
-import { useStarknet } from '../providers'
+import { useCallback, useEffect, useState } from "react";
+import { Connector } from "../connectors";
+import { useStarknet } from "../providers";
 
 /** Value returned from `useConnectors`. */
 export interface UseConnectorsResult {
   /** List of all registered connectors. */
-  connectors: Connector[]
+  connectors: Connector[];
   /** List of available connectors. */
-  available: Connector[]
+  available: Connector[];
   /** Connect the given connector. */
-  connect: (conn: Connector) => void
+  connect: (conn: Connector) => void;
   /** Disconnect the currently connected connector. */
-  disconnect: () => void
+  disconnect: () => void;
   /** Refresh the list of available connectors. */
-  refresh: () => void
+  refresh: () => void;
   /** Whether the connectors are loading. */
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 /**
@@ -80,19 +80,19 @@ export interface UseConnectorsResult {
  * ```
  */
 export function useConnectors(): UseConnectorsResult {
-  const { connectors, connect, disconnect } = useStarknet()
-  const [available, setAvailable] = useState<Connector[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { connectors, connect, disconnect } = useStarknet();
+  const [available, setAvailable] = useState<Connector[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setAvailable(connectors.filter((conn) => conn.available()))
-    setIsLoading(false)
-  }, [connectors, setAvailable])
+    setAvailable(connectors.filter((conn) => conn.available()));
+    setIsLoading(false);
+  }, [connectors, setAvailable]);
 
   const refresh = useCallback(() => {
-    setAvailable(connectors.filter((conn) => conn.available()))
-    setIsLoading(false)
-  }, [connectors, setAvailable, setIsLoading])
+    setAvailable(connectors.filter((conn) => conn.available()));
+    setIsLoading(false);
+  }, [connectors, setAvailable, setIsLoading]);
 
-  return { available, connectors, connect, disconnect, refresh, isLoading }
+  return { available, connectors, connect, disconnect, refresh, isLoading };
 }

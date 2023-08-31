@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import { useBlock } from '@starknet-react/core'
-import WalletBar from '../components/WalletBar'
+import { useBlock } from "@starknet-react/core";
+import Head from "next/head";
+import WalletBar from "../components/WalletBar";
 
 export default function Home() {
   const { data, isLoading, isError } = useBlock({
     refetchInterval: 3000,
-    blockIdentifier: 'latest',
-  })
+    blockIdentifier: "latest",
+  });
   return (
     <>
       <Head>
@@ -22,13 +22,13 @@ export default function Home() {
         </p>
         <div>
           {isLoading
-            ? 'Loading...'
+            ? "Loading..."
             : isError
-            ? 'Error while fetching the latest block hash'
+            ? "Error while fetching the latest block hash"
             : `Latest block hash: ${data?.block_hash}`}
         </div>
         <WalletBar />
       </main>
     </>
-  )
+  );
 }

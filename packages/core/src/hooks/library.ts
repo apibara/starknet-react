@@ -1,10 +1,10 @@
-import { ProviderInterface } from 'starknet'
-import { useStarknet } from '../providers'
+import { ProviderInterface } from "starknet";
+import { useStarknet } from "../providers";
 
 /** Value returned from `useProvider`. */
 export interface UseProviderResult {
   /** The current provider. */
-  provider: ProviderInterface
+  provider: ProviderInterface;
 }
 
 /**
@@ -24,6 +24,6 @@ export interface UseProviderResult {
  * ```
  */
 export function useProvider(): UseProviderResult {
-  const { library: provider } = useStarknet()
-  return { provider }
+  const { library: provider } = useStarknet();
+  return { provider };
 }

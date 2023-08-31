@@ -1,12 +1,12 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "src"
-  },
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "json": "../../website/generated/core.json"
-  }
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "dist",
+    "declarationDir": "dist",
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["src/*"]
+		}
+	},
+	"include": ["src", "*.ts"]
 }

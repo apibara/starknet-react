@@ -1,7 +1,8 @@
-import HookSection from './HookSection'
-import SectionHeading from '../components/SectionHeading'
-import { Hook } from '../components/Hook'
+import { Hook } from "@/components/Hook";
+import SectionHeading from "@/components/SectionHeading";
+import HookSection from "./HookSection";
 
+// rome-ignore lint: fix types
 export default function Hooks({ hook }: { hook: any }) {
   return (
     <div className=" min-h-screen mx-4 lg:mx-0 flex-col items-center text-cat-text my-0 pt-12 mb-20">
@@ -22,5 +23,5 @@ export default function Hooks({ hook }: { hook: any }) {
         <Hook.Example hook={hook} />
       </HookSection>
     </div>
-  )
+  );
 }

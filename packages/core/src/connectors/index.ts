@@ -1,2 +1,2 @@
-export { Connector } from './base'
-export { InjectedConnector, type InjectedConnectorOptions } from './injected'
+export { Connector } from "./base";
+export { InjectedConnector, type InjectedConnectorOptions } from "./injected";

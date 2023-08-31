@@ -7,8 +7,9 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint": "biome check .",
+    "lint:fix": "pnpm lint --apply",
+    "format": "biome format . --write"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -43,21 +44,9 @@
     "@types/react": "^18.0.11",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.14",
-    "eslint": "8.17.0",
-    "eslint-config-next": "13.4.3",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
     "typescript": "^4.7.3"
   },
-  "browserslist": "> 0.25%, not dead",
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "next/core-web-vitals"
-    ],
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "ecmaVersion": 2020
-    }
-  }
+  "browserslist": "> 0.25%, not dead"
 }

@@ -1,24 +1,26 @@
-'use client'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+"use client";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/image";
+import Link from "next/link";
 
-import burgerMenu from '../../public/svg/burger-menu-svgrepo-com.svg'
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
+import burgerMenu from "@/public/svg/burger-menu-svgrepo-com.svg";
 
 interface NavigationItemProps {
-  href: string
-  title: string
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  href: string;
+  title: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NavigationItem = ({ href, title, setIsOpen }: NavigationItemProps) => {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const isActive =
-    href === '/' ? pathname === '/starknet-react' : pathname?.startsWith(`/starknet-react${href}`)
+    href === "/"
+      ? pathname === "/starknet-react"
+      : pathname?.startsWith(`/starknet-react${href}`);
 
   return (
     <div className="py-1 ">
@@ -27,21 +29,21 @@ const NavigationItem = ({ href, title, setIsOpen }: NavigationItemProps) => {
         passHref
         onClick={() => setIsOpen(false)}
         className={`${
-          isActive ? 'border-b-2 ' : 'border-b-0'
+          isActive ? "border-b-2 " : "border-b-0"
         } border-cat-peach py-1 transition ease-in-out delay-200  text-cat-text hover: bg-transparent hover: hover:text-cat-peach`}
       >
         {title}
       </Link>
     </div>
-  )
-}
+  );
+};
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOnClick = () => {
-    setIsOpen((prevVal) => !prevVal)
-  }
+    setIsOpen((prevVal) => !prevVal);
+  };
 
   return (
     <div className="py-4 px-8 bg-cat-crust w-full flex justify-between">
@@ -54,24 +56,33 @@ const Header = () => {
         <div
           className={
             isOpen
-              ? `absolute top-[40px] w-full left-0 grid grid-cols grid-cols-1 bg-cat-crust p-4 mb-10`
-              : `hidden sm:flex gap-4`
+              ? "absolute top-[40px] w-full left-0 grid grid-cols grid-cols-1 bg-cat-crust p-4 mb-10"
+              : "hidden sm:flex gap-4"
           }
         >
           <NavigationItem setIsOpen={setIsOpen} href="/" title="Home" />
-          <NavigationItem setIsOpen={setIsOpen} href="/get-started" title="Get Started" />
+          <NavigationItem
+            setIsOpen={setIsOpen}
+            href="/get-started"
+            title="Get Started"
+          />
           <NavigationItem setIsOpen={setIsOpen} href="/hooks" title="Hooks" />
           <NavigationItem setIsOpen={setIsOpen} href="/rsc" title="RSC" />
         </div>
 
         <div className="sm:hidden">
           <Button className="p-0 h-0" onClick={handleOnClick}>
-            <Image alt="burger-menu.png" src={burgerMenu} height={20} width={20} />
+            <Image
+              alt="burger-menu.png"
+              src={burgerMenu}
+              height={20}
+              width={20}
+            />
           </Button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

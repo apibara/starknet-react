@@ -1,67 +1,67 @@
-import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
-import { GetTransactionReceiptResponse, ProviderInterface } from 'starknet'
-import { useStarknet } from '../providers'
-import { Chain } from '../network'
-import { useInvalidateOnBlock } from './invalidate'
-import { useNetwork } from './network'
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { GetTransactionReceiptResponse, ProviderInterface } from "starknet";
+import { Chain } from "../network";
+import { useStarknet } from "../providers";
+import { useInvalidateOnBlock } from "./invalidate";
+import { useNetwork } from "./network";
 
 /** Arguments for the `useWaitForTransaction` hook. */
 export interface UseWaitForTransactionArgs {
   /** The transaction hash. */
-  hash?: string
+  hash?: string;
   /** Refresh data at every block. */
-  watch?: boolean
+  watch?: boolean;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "ACCEPTED_ON_L1".
    */
-  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void
+  onAcceptedOnL1?: (transaction: GetTransactionReceiptResponse) => void;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "ACCEPTED_ON_L2".
    */
-  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void
+  onAcceptedOnL2?: (transaction: GetTransactionReceiptResponse) => void;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "PENDING".
    */
-  onPending?: (transaction: GetTransactionReceiptResponse) => void
+  onPending?: (transaction: GetTransactionReceiptResponse) => void;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "REJECTED".
    */
-  onRejected?: (transaction: GetTransactionReceiptResponse) => void
+  onRejected?: (transaction: GetTransactionReceiptResponse) => void;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "RECEIVED".
    */
-  onReceived?: (transaction: GetTransactionReceiptResponse) => void
+  onReceived?: (transaction: GetTransactionReceiptResponse) => void;
   /**
    * @optional
    * Callback function that will handle the transaction given the status "NOT_RECEIVED".
    */
-  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void
+  onNotReceived?: (transaction: GetTransactionReceiptResponse) => void;
 }
 
 /** Value returned from `useWaitForTransaction`. */
 export interface UseWaitForTransactionResult {
   /** The transaction receipt data. */
-  data?: GetTransactionReceiptResponse
+  data?: GetTransactionReceiptResponse;
   /** Error while fetching the transaction receipt. */
-  error?: unknown
-  isIdle: boolean
+  error?: unknown;
+  isIdle: boolean;
   /** True if fetching data. */
-  isLoading: boolean
-  isFetching: boolean
-  isSuccess: boolean
-  isError: boolean
-  isFetched: boolean
-  isFetchedAfterMount: boolean
-  isRefetching: boolean
+  isLoading: boolean;
+  isFetching: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+  isFetched: boolean;
+  isFetchedAfterMount: boolean;
+  isRefetching: boolean;
   /** Manually trigger refresh of data. */
-  refetch: () => void
-  status: 'idle' | 'error' | 'loading' | 'success'
+  refetch: () => void;
+  status: "idle" | "error" | "loading" | "success";
 }
 
 /**
@@ -132,9 +132,9 @@ export function useWaitForTransaction({
   onReceived,
   onRejected,
 }: UseWaitForTransactionArgs): UseWaitForTransactionResult {
-  const { library } = useStarknet()
-  const { chain } = useNetwork()
-  const queryKey_ = useMemo(() => queryKey({ chain, hash }), [chain, hash])
+  const { library } = useStarknet();
+  const { chain } = useNetwork();
+  const queryKey_ = useMemo(() => queryKey({ chain, hash }), [chain, hash]);
 
   const {
     data,
@@ -153,43 +153,43 @@ export function useWaitForTransaction({
     enabled: !!hash,
     refetchInterval: (data, _query) => (watch ? refetchInterval(data) : false),
     onSuccess: (data) => {
-      const { status } = data
+      const { status } = data;
       switch (status) {
-        case 'ACCEPTED_ON_L1':
+        case "ACCEPTED_ON_L1":
           if (onAcceptedOnL1) {
-            onAcceptedOnL1(data)
+            onAcceptedOnL1(data);
           }
-          break
-        case 'ACCEPTED_ON_L2':
+          break;
+        case "ACCEPTED_ON_L2":
           if (onAcceptedOnL2) {
-            onAcceptedOnL2(data)
+            onAcceptedOnL2(data);
           }
-          break
-        case 'NOT_RECEIVED':
+          break;
+        case "NOT_RECEIVED":
           if (onNotReceived) {
-            onNotReceived(data)
+            onNotReceived(data);
           }
-          break
-        case 'PENDING':
+          break;
+        case "PENDING":
           if (onPending) {
-            onPending(data)
+            onPending(data);
           }
-          break
-        case 'RECEIVED':
+          break;
+        case "RECEIVED":
           if (onReceived) {
-            onReceived(data)
+            onReceived(data);
           }
-          break
-        case 'REJECTED':
+          break;
+        case "REJECTED":
           if (onRejected) {
-            onRejected(data)
+            onRejected(data);
           }
-          break
+          break;
       }
     },
-  })
+  });
 
-  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ })
+  useInvalidateOnBlock({ enabled: watch, queryKey: queryKey_ });
 
   return {
     data,
@@ -204,44 +204,44 @@ export function useWaitForTransaction({
     isRefetching,
     refetch,
     status,
-  }
+  };
 }
 
 function queryKey({ chain, hash }: { chain?: Chain; hash?: string }) {
-  return [{ entity: 'transactionReceipt', chainId: chain?.id, hash }] as const
+  return [{ entity: "transactionReceipt", chainId: chain?.id, hash }] as const;
 }
 
 interface WaitForTransactionArgs {
   /** The transaction hash. */
-  hash?: string
-  library: ProviderInterface
+  hash?: string;
+  library: ProviderInterface;
 }
 
 function fetchTransactionReceipt({ library, hash }: WaitForTransactionArgs) {
   return async () => {
-    if (!hash) throw new Error('hash is required')
+    if (!hash) throw new Error("hash is required");
 
-    return await library.getTransactionReceipt(hash)
-  }
+    return await library.getTransactionReceipt(hash);
+  };
 }
 
 function refetchInterval(data: GetTransactionReceiptResponse | undefined) {
-  if (!data) return false
-  const { status } = data
+  if (!data) return false;
+  const { status } = data;
   switch (status) {
-    case 'ACCEPTED_ON_L1':
-      return false
-    case 'ACCEPTED_ON_L2':
-      return 60000
-    case 'NOT_RECEIVED':
-      return 500
-    case 'PENDING':
-      return 5000
-    case 'RECEIVED':
-      return 5000
-    case 'REJECTED':
-      return false
+    case "ACCEPTED_ON_L1":
+      return false;
+    case "ACCEPTED_ON_L2":
+      return 60000;
+    case "NOT_RECEIVED":
+      return 500;
+    case "PENDING":
+      return 5000;
+    case "RECEIVED":
+      return 5000;
+    case "REJECTED":
+      return false;
     default:
-      return false
+      return false;
   }
 }

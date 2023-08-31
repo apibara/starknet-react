@@ -1,8 +1,7 @@
-import Tabs from '../../components/Tabs'
-
-import HookSection from '../../components/HookSection'
-import SectionHeading from '../../components/SectionHeading'
-import { Markdown } from '../../components/Markdown'
+import HookSection from "@/components/HookSection";
+import { Markdown } from "@/components/Markdown";
+import SectionHeading from "@/components/SectionHeading";
+import Tabs from "@/components/Tabs";
 
 const CREATE_STARKNET_HELP = `
   \`\`\`bash
@@ -18,13 +17,13 @@ const CREATE_STARKNET_HELP = `
     --use-pnpm             Explicitly tell the CLI to bootstrap the app using pnpm
     -h, --help             display help for command
   \`\`\`
-`
+`;
 
 const PROVIDER_IMPORT = `
 \`\`\`ts
 import { StarknetConfig, InjectedConnector } from '@starknet-react/core'
 \`\`\`
-`
+`;
 const PROVIDER_NEXT = `
 \`\`\`ts
 function MyApp({ Component, pageProps }) {
@@ -39,7 +38,7 @@ function MyApp({ Component, pageProps }) {
   )
 }
 \`\`\`
-`
+`;
 
 export default function Home() {
   return (
@@ -51,13 +50,14 @@ export default function Home() {
       <HookSection>
         <SectionHeading>Quick Setup</SectionHeading>
         <div className="mt-10 text-cat-text md:text-left lg:text-center">
-          We recommend creating a new starknet-react app using create-starknet, which sets up a
-          starknet app using TypeScript automatically for you. To create a project, run:
+          We recommend creating a new starknet-react app using create-starknet,
+          which sets up a starknet app using TypeScript automatically for you.
+          To create a project, run:
         </div>
         <Tabs isManual={false} />
         <div className="mt-4 text-cat-text md:text-left lg:text-center">
-          You can also pass command line arguments to set up a new project non-interactively. See
-          create-starknet --help:
+          You can also pass command line arguments to set up a new project
+          non-interactively. See create-starknet --help:
         </div>
         <div className="text-cat-text mt-4 ">
           <Markdown shiki theme="dracula" filepath="app/get-started/page.tsx">
@@ -74,7 +74,8 @@ export default function Home() {
         <Tabs isManual />
         <div className="text-3xl mt-10 text-cat-text">Usage with Next.js</div>
         <div className="mt-4 text-cat-text">
-          Start by adding the following import statement to your `_app.tsx` file.
+          Start by adding the following import statement to your `_app.tsx`
+          file.
         </div>
         <div className="  text-cat-text mt-4">
           <Markdown shiki theme="dracula" filepath="app/get-started/page.tsx">
@@ -91,5 +92,5 @@ export default function Home() {
         </div>
       </HookSection>
     </div>
-  )
+  );
 }

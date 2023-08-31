@@ -1,32 +1,34 @@
-import { constants } from 'starknet'
+import { constants } from "starknet";
 
 /** Information about a Starknet network. */
 export type Chain = {
   /** Chain ID. */
-  id: string
+  id: string;
   /** Human-readable name. */
-  name: string
+  name: string;
   /** Flag for test networks. */
-  testnet?: boolean
-}
+  testnet?: boolean;
+};
 
 /** Returns a chain information from its id. */
-export function chainById(chainId: constants.StarknetChainId): Chain | undefined {
-  return KNOWN_CHAINS[chainId]
+export function chainById(
+  chainId: constants.StarknetChainId,
+): Chain | undefined {
+  return KNOWN_CHAINS[chainId];
 }
 
 const KNOWN_CHAINS: Record<constants.StarknetChainId, Chain> = {
   [constants.StarknetChainId.SN_MAIN]: {
     id: constants.StarknetChainId.SN_MAIN,
-    name: 'Starknet Mainnet',
+    name: "Starknet Mainnet",
     testnet: false,
   },
   [constants.StarknetChainId.SN_GOERLI]: {
     id: constants.StarknetChainId.SN_GOERLI,
-    name: 'Starknet Görli',
+    name: "Starknet Görli",
   },
   [constants.StarknetChainId.SN_GOERLI2]: {
     id: constants.StarknetChainId.SN_GOERLI2,
-    name: 'Starknet Görli 2',
+    name: "Starknet Görli 2",
   },
-}
+};

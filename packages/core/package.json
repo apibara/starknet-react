@@ -2,9 +2,21 @@
   "name": "@starknet-react/core",
   "version": "1.0.4",
   "license": "MIT",
-  "source": "src/index.ts",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js",
+      "default": "./dist/hooks/index.js"
+    }
+  },
   "files": [
     "dist",
     "src",
@@ -12,10 +24,11 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint --fix src --ext .ts,.tsx",
+    "lint": "biome check .",
+    "lint:fix": "pnpm lint --apply",
+    "format": "biome format . --write",
     "typedoc": "typedoc",
-    "test": "jest --config jest.config.ts --silent"
+    "test": ""
   },
   "peerDependencies": {
     "get-starknet-core": "^3.0.1",
@@ -23,6 +36,7 @@
     "starknet": "^5.0.0"
   },
   "dependencies": {
+    "@starknet-react/chains": "workspace:^",
     "@tanstack/react-query": "^4.29.12",
     "immutable": "^4.3.0",
     "zod": "^3.21.4"
@@ -35,37 +49,16 @@
     "l2"
   ],
   "devDependencies": {
-    "@jest/environment": "^29.5.0",
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.5.2",
     "@types/node": "^17.0.45",
     "@types/react": "^18.2.8",
     "get-starknet-core": "^3.0.1",
-    "jest": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
     "moq.ts": "^9.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "starknet": "5.12.0",
-    "ts-jest": "^29.1.0",
+    "testcontainers": "^10.2.1",
     "typedoc": "^0.24.8",
     "typescript": "^4.9.5"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:react-hooks/recommended"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "src/**/*.test.tsx"
-        ],
-        "rules": {
-          "@typescript-eslint/no-non-null-assertion": "off"
-        }
-      }
-    ]
   }
 }

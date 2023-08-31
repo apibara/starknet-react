@@ -1,33 +1,39 @@
-import { useMutation } from '@tanstack/react-query'
-import { ContractFactory, RawCalldata, num, Contract, CallData } from 'starknet'
+import { useMutation } from "@tanstack/react-query";
+import {
+  CallData,
+  Contract,
+  ContractFactory,
+  RawCalldata,
+  num,
+} from "starknet";
 
 /** Arguments for `useDeploy`. */
 export interface UseDeployArgs {
   /** The contract factory. */
-  contractFactory?: ContractFactory
+  contractFactory?: ContractFactory;
   /** Calldata passed to the constructor. */
-  constructorCalldata?: RawCalldata
+  constructorCalldata?: RawCalldata;
   /** Salt used when generating the address. */
-  addressSalt?: num.BigNumberish
+  addressSalt?: num.BigNumberish;
 }
 
 /** Value returned from `useDeploy`. */
 export interface UseDeployResult {
   /** The deployed contract. */
-  data?: Contract
+  data?: Contract;
   /** True if deploying. */
-  isLoading: boolean
+  isLoading: boolean;
   /** Error while deploying. */
-  error?: unknown
+  error?: unknown;
   /** Reset hook state. */
-  reset: () => void
+  reset: () => void;
   /** Send deploy transaction. */
-  deploy: () => void | undefined
-  deployAsync: () => Promise<Contract | undefined>
-  isError: boolean
-  isIdle: boolean
-  isSuccess: boolean
-  status: 'error' | 'idle' | 'loading' | 'success'
+  deploy: () => void | undefined;
+  deployAsync: () => Promise<Contract | undefined>;
+  isError: boolean;
+  isIdle: boolean;
+  isSuccess: boolean;
+  status: "error" | "idle" | "loading" | "success";
 }
 
 /**
@@ -81,8 +87,20 @@ export function useDeploy({
   constructorCalldata,
   addressSalt,
 }: UseDeployArgs): UseDeployResult {
-  const { data, isLoading, error, reset, mutateAsync, mutate, isError, isIdle, isSuccess, status } =
-    useMutation(deployContract({ contractFactory, constructorCalldata, addressSalt }))
+  const {
+    data,
+    isLoading,
+    error,
+    reset,
+    mutateAsync,
+    mutate,
+    isError,
+    isIdle,
+    isSuccess,
+    status,
+  } = useMutation(
+    deployContract({ contractFactory, constructorCalldata, addressSalt }),
+  );
 
   return {
     data,
@@ -95,14 +113,21 @@ export function useDeploy({
     isIdle,
     isSuccess,
     status,
-  }
+  };
 }
 
-function deployContract({ contractFactory, constructorCalldata, addressSalt }: UseDeployArgs) {
+function deployContract({
+  contractFactory,
+  constructorCalldata,
+  addressSalt,
+}: UseDeployArgs) {
   return async () => {
     if (contractFactory === undefined) {
-      throw new Error('No contract factory defined')
+      throw new Error("No contract factory defined");
     }
-    return await contractFactory.deploy(CallData.toCalldata(constructorCalldata), { addressSalt })
-  }
+    return await contractFactory.deploy(
+      CallData.toCalldata(constructorCalldata),
+      { addressSalt },
+    );
+  };
 }

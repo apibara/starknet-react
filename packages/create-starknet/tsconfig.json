@@ -1,15 +1,13 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "lib": ["es6"],
-    "module": "commonjs",
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
     "resolveJsonModule": true,
-    "outDir": "dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true
-  },
-  "exclude": ["templates", "dist"]
+		"outDir": "dist",
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["src/*"]
+		}
+	},
+	"include": ["src", "*.ts"]
 }
+
