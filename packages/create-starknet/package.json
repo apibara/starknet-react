@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
+    "clean": "rimraf ./dist",
     "dev": "npx nodemon",
     "start": "pnpm run build && node dist/index.js",
     "lint": "biome check .",

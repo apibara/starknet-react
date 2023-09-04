@@ -18,7 +18,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
+    "clean": "rimraf dist",
     "lint": "biome check .",
     "lint:fix": "pnpm lint --apply",
     "format": "biome format . --write"
@@ -29,5 +30,9 @@
     "starknet",
     "ethereum",
     "l2"
-  ]
+  ],
+  "devDependencies": {
+    "rimraf": "^4.1.2",
+    "tsup": "^7.2.0"
+  }
 }

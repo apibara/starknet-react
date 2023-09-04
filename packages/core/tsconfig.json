@@ -8,5 +8,10 @@
 			"~/*": ["src/*"]
 		}
 	},
-	"include": ["src", "*.ts"]
+	"include": ["src", "*.ts"],
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "json": "../../website/generated/core.json"
+  }
 }

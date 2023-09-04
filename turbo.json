@@ -15,6 +15,15 @@
       ],
       "outputMode": "new-only"
     },
+    "dev": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "test:typecheck": {
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "dependsOn": ["^build"]
     },
@@ -23,6 +32,9 @@
     },
     "format": {
       "dependsOn": ["^build"]
+    },
+    "clean": {
+      "dependsOn": []
     }
   }
 }

@@ -1,13 +1,21 @@
+const { withContentlayer } = require("next-contentlayer");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
   reactStrictMode: true,
   swcMinify: true,
-  basePath: "/starknet-react",
-  assetPrefix: "/starknet-react",
-  images: {
-    unoptimized: true,
-  },
+  redirects: async () => [
+    {
+      source: "/docs",
+      destination: "/docs/getting-started",
+      permanent: true,
+    },
+    {
+      source: "/demos",
+      destination: "/demos/connect-wallet",
+      permanent: true,
+    },
+  ],
 };
 
-module.exports = nextConfig;
+module.exports = withContentlayer(nextConfig);

@@ -1,8 +1,4 @@
-import {
-  AccountChangeEventHandler,
-  StarknetWindowObject,
-  getStarknet,
-} from "get-starknet-core";
+import { StarknetWindowObject } from "get-starknet-core";
 import { AccountInterface } from "starknet";
 import {
   ConnectorNotConnectedError,
@@ -10,19 +6,37 @@ import {
   UserNotConnectedError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector } from "./base";
+import { Connector, ConnectorIcons } from "./base";
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
   /** The wallet id. */
   id: string;
+  /** Wallet human readable name. */
+  name: string;
+  /** Wallet icons. */
+  icon: ConnectorIcons;
 }
 
-export class InjectedConnector extends Connector<InjectedConnectorOptions> {
+export class InjectedConnector extends Connector {
   private _wallet?: StarknetWindowObject;
+  private _options: InjectedConnectorOptions;
 
   constructor({ options }: { options: InjectedConnectorOptions }) {
-    super({ options });
+    super();
+    this._options = options;
+  }
+
+  get id(): string {
+    return this._options.id;
+  }
+
+  get name(): string {
+    return this._options.name;
+  }
+
+  get icon(): ConnectorIcons {
+    return this._options.icon;
   }
 
   available(): boolean {
@@ -31,14 +45,14 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async ready(): Promise<boolean> {
-    await this.ensureWallet();
+    this.ensureWallet();
 
     if (!this._wallet) return false;
     return await this._wallet.isPreauthorized();
   }
 
   async connect(): Promise<AccountInterface> {
-    await this.ensureWallet();
+    this.ensureWallet();
 
     if (!this._wallet) {
       throw new ConnectorNotFoundError();
@@ -56,19 +70,30 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
       throw new UserRejectedRequestError();
     }
 
-    // This is to ensure that v5 account interface is used.
-    // TODO: add back once Braavos updates their interface.
-    /*
-    if (!(this._wallet.account instanceof AccountInterface)) {
-      throw new UnsupportedAccountInterfaceError()
-    }
-    */
+    this._wallet.on("accountsChanged", (accounts: string[] | string) => {
+      let account;
+      if (typeof accounts === "string") {
+        account = accounts;
+      } else {
+        account = accounts[0];
+      }
+
+      if (account) {
+        this.emit("change", { account });
+      } else {
+        this.emit("disconnect");
+      }
+    });
+
+    this._wallet.on("networkChanged", (_network?: string) => {
+      // TODO: Handle network change.
+    });
 
     return this._wallet.account;
   }
 
   async disconnect(): Promise<void> {
-    await this.ensureWallet();
+    this.ensureWallet();
 
     if (!this.available()) {
       throw new ConnectorNotFoundError();
@@ -80,7 +105,7 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
   }
 
   async account(): Promise<AccountInterface | null> {
-    await this.ensureWallet();
+    this.ensureWallet();
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError();
@@ -93,52 +118,53 @@ export class InjectedConnector extends Connector<InjectedConnectorOptions> {
     return this._wallet.account;
   }
 
-  get id(): string {
-    return this.options.id;
-  }
-
-  get name(): string {
-    this.ensureWallet();
-    if (!this._wallet) {
-      throw new ConnectorNotConnectedError();
-    }
-    return this._wallet.name;
-  }
-
-  get icon(): string {
-    this.ensureWallet();
-    if (!this._wallet) {
-      throw new ConnectorNotConnectedError();
-    }
-    return this._wallet.icon;
-  }
-
-  async initEventListener(accountChangeCb: AccountChangeEventHandler) {
-    await this.ensureWallet();
-
-    if (!this._wallet) {
-      throw new ConnectorNotConnectedError();
-    }
-
-    this._wallet.on("accountsChanged", accountChangeCb);
-  }
-
-  async removeEventListener(accountChangeCb: AccountChangeEventHandler) {
-    await this.ensureWallet();
-
-    if (!this._wallet) {
-      throw new ConnectorNotConnectedError();
-    }
-
-    this._wallet.off("accountsChanged", accountChangeCb);
-  }
-
-  private async ensureWallet() {
-    const starknet = getStarknet();
-    const installed = await starknet.getAvailableWallets();
-    const wallet = installed.filter((w) => w.id === this.options.id)[0];
+  private ensureWallet() {
+    const installed = getAvailableWallets(globalThis);
+    const wallet = installed.filter((w) => w.id === this._options.id)[0];
     if (wallet) {
       this._wallet = wallet;
     }
   }
+}
+
+// biome-ignore lint: window could contain anything
+function getAvailableWallets(obj: Record<string, any>): StarknetWindowObject[] {
+  return Object.values(
+    Object.getOwnPropertyNames(obj).reduce<
+      Record<string, StarknetWindowObject>
+    >((wallets, key) => {
+      if (key.startsWith("starknet")) {
+        const wallet = obj[key];
+
+        if (isWalletObject(wallet) && !wallets[wallet.id]) {
+          wallets[wallet.id] = wallet as StarknetWindowObject;
+        }
+      }
+      return wallets;
+    }, {}),
+  );
+}
+
+// biome-ignore lint: wallet could be anything
+function isWalletObject(wallet: any): boolean {
+  try {
+    return (
+      wallet &&
+      [
+        // wallet's must have methods/members, see IStarknetWindowObject
+        "request",
+        "isConnected",
+        "provider",
+        "enable",
+        "isPreauthorized",
+        "on",
+        "off",
+        "version",
+        "id",
+        "name",
+        "icon",
+      ].every((key) => key in wallet)
+    );
+  } catch (err) {}
+  return false;
 }

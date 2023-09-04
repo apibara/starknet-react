@@ -13,17 +13,28 @@ export const mainnet = {
   network: "mainnet",
   name: "Starknet",
   nativeCurrency: {
+    address:
+      "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
     name: "Ether",
     symbol: "ETH",
     decimals: 18,
   },
 
   rpcUrls: {
+    alchemy: {
+      http: ["https://starknet-mainnet.g.alchemy.com/v2"],
+    },
+    infura: {
+      http: ["https://starknet-mainnet.infura.io/v3"],
+    },
+    lava: {
+      http: ["https://g.w.lavanet.xyz:443/gateway/strk/rpc-http"],
+    },
     default: {
       http: [],
     },
     public: {
-      http: [],
+      http: ["https://json-rpc.starknet-mainnet.public.lavanet.xyz"],
     },
   },
 } as const satisfies Chain;
@@ -33,37 +44,28 @@ export const goerli = {
   network: "goerli",
   name: "Starknet Testnet",
   nativeCurrency: {
+    address:
+      "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
     name: "Ether",
     symbol: "ETH",
     decimals: 18,
   },
   testnet: true,
   rpcUrls: {
+    alchemy: {
+      http: ["https://starknet-goerli.g.alchemy.com/v2"],
+    },
+    infura: {
+      http: ["https://starknet-goerli.infura.io/v3"],
+    },
+    lava: {
+      http: ["https://g.w.lavanet.xyz:443/gateway/strkt/rpc-http"],
+    },
     default: {
       http: [],
     },
     public: {
-      http: [],
-    },
-  },
-} as const satisfies Chain;
-
-export const goerli2 = {
-  id: BigInt("0x534e5f474f45524c4932"),
-  network: "goerli2",
-  name: "Starknet Testnet 2",
-  nativeCurrency: {
-    name: "Ether",
-    symbol: "ETH",
-    decimals: 18,
-  },
-  testnet: true,
-  rpcUrls: {
-    default: {
-      http: [],
-    },
-    public: {
-      http: [],
+      http: ["https://json-rpc.starknet-testnet.public.lavanet.xyz"],
     },
   },
 } as const satisfies Chain;
