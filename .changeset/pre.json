@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@starknet-react/chains": "0.0.0",
+    "@starknet-react/core": "1.0.4",
+    "create-starknet": "1.3.2",
+    "website": "0.1.0"
+  },
+  "changesets": []
+}

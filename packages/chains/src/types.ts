@@ -32,6 +32,9 @@ export type Chain = {
 };
 
 export type NativeCurrency = {
+  /** Token address */
+  address: Address;
+
   /** Human-readable name */
   name: string;
 

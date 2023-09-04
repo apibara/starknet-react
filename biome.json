@@ -39,6 +39,7 @@
       "abi/*.json",
       ".next",
       "out",
+      "docs",
       "generated"
     ]
   }

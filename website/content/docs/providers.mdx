@@ -1,0 +1,77 @@
+---
+title: RPC Providers
+priority: 80
+---
+
+You need to configure an RPC provider to allow your dapp to fetch data from
+Starknet.
+
+Starknet React providers are factories that, given a chain, return a Starknet.js
+`ProviderInterface` object.
+
+## Providers
+
+This section provides an alphabetical list of RPC Providers supported by
+Starknet React.
+
+### Public
+
+Starknet React ships with a public provider that you can use for quick demos.
+This provider is kindly provided by [Lava network](https://www.lavanet.xyz/).
+For any project that makes more than an handful of requests, you should use one
+of the providers below.
+
+### JSON-RPC
+
+This is generic RPC provider. Use it to connect to private endpoints or to
+services not yet supported by Starknet React.
+
+```tsx
+import { Chain, jsonRpcProvider } from "@starknet-react/core";
+
+function rpc(chain: Chain) {
+  return {
+    http: `https://${chain.network}.example.org`
+  }
+}
+
+const providers = [
+  jsonRpcProvider({ rpc })
+];
+```
+
+### Alchemy
+
+Create an Alchemy API key from the dashboard.
+
+```ts
+import { alchemyProvider } from "@starknet-react/core";
+
+const providers = [
+  alchemyProvider({ apiKey })
+];
+```
+
+### Infura
+
+Create an Infura API key from the dashboard.
+
+```ts
+import { infuraProvider } from "@starknet-react/core";
+
+const providers = [
+  infuraProvider({ apiKey })
+];
+```
+
+### Lava
+
+Create a Lava API key from the dashboard.
+
+```ts
+import { lavaProvider } from "@starknet-react/core";
+
+const providers = [
+  lavaProvider({ apiKey })
+];
+```

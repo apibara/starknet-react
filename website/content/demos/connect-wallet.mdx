@@ -1,0 +1,55 @@
+---
+title: Connect Wallet
+priority: 100
+---
+
+This example shows how to build a basic "connect wallet" interface with Starknet
+React.
+
+You will learn the basic concepts, such as:
+
+ - what are connectors, provider, and chains.
+ - how to connect and disconnect the user's wallet.
+ - how to display the currently connected account.
+
+<DemoContainer>
+  <ConnectWalletDemo />
+</DemoContainer>
+
+## Step 1
+
+```tsx components/starknet-provider.tsx
+import { goerli } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  publicProvider,
+  argent,
+  braavos,
+} from "@starknet-react/core";
+
+export function StarknetProvider({ children }: { children: React.ReactNode }) {
+  const chains = [goerli];
+  const providers = [publicProvider()];
+  const connectors = useMemo(
+    () => shuffle([argent(), braavos()]), []
+  );
+
+  return (
+    <StarknetConfig
+      chains={chains}
+      providers={providers}
+      connectors={connectors}
+    >
+      {children}
+    </StarknetConfig>
+  );
+}
+```
+
+## Step 2
+
+Challenge with connect wallet:
+
+ - wallets are dynamic since they require the injected object to be present.
+
+## Step 3
