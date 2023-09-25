@@ -5,7 +5,7 @@
     <img alt="@starknet-react/core" src="https://img.shields.io/npm/v/@starknet-react/core">
   </a>
   <a href="https://github.com/apibara/starknet-react/actions/workflows/release.yml">
-    <img alt="Release Status" src="https://img.shields.io/github/workflow/status/apibara/starknet-react/Release">
+    <img alt="Release Status" src="https://img.shields.io/github/actions/workflow/status/apibara/starknet-react/build.yml">
   </a>
   <a href="https://www.github.com/apibara/starknet-react">
     <img alt="MIT LICENSE" src="https://img.shields.io/github/license/apibara/starknet-react">
@@ -17,11 +17,11 @@
 
 ## Documentation
 
-Documentation, including a small demo, [is available online](https://apibara.github.io/starknet-react/).
+Documentation, including a demos, [is available online](https://starknet-react.com/).
 
 ## Getting Started
 
-1. Add `@starknet-react/core` to your dependencies.
+1. Add `@starknet-react/chains` and `@starknet-react/core` to your dependencies.
 
 ```shell
 pnpm add @starknet-react/core
@@ -36,9 +36,19 @@ pnpm add get-starknet-core starknet
 2. Wrap your app with `StarknetConfig`
 
 ```typescript
-import { StarknetConfig } from '@starknet-react/core'
+import { goerli } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  publicProvider,
+  argent,
+  braavos,
+} from "@starknet-react/core";
 
 function App() {
+  const chains = [goerli];
+  const providers = [publicProvider()];
+  const connectors = [braavos(), argent()];
+
   return (
     <StarknetConfig>
       <YourApp />
@@ -62,3 +72,4 @@ function YourComponent() {
 ## License
 
 This library is licensed under the MIT license.
+
