@@ -48,7 +48,7 @@ function Inner() {
       </CardHeader>
       <CardContent className="space-y-4">
         <p>Change the number of transactions to send:</p>
-        <div className="w-full flex flex-row justify-center">
+        <div className="w-full flex flex-row justify-center items-center">
           <Button
             variant="outline"
             size="icon"

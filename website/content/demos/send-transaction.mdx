@@ -3,9 +3,135 @@ title: Send Transaction
 priority: 90
 ---
 
-This example shows how to send a transaction.
+This example shows how to send a multicall transaction using the
+`useContractWrite` hook.
 
 <DemoContainer>
   <SendTransactionDemo />
 </DemoContainer>
 
+## The `useContractWrite` hook
+
+This hook accepts a list of Starknet calls object, represented as a list of
+`Call` objects.
+The hook returns, among other things, a `write` method that submits the
+transaction, and a `writeAsync` method that submits the transaction and returns
+a promise with the transaction object. You should use `write` if you're not
+interested in using the return value, and `writeAsync` if you are.
+
+## Building the `Call` list
+
+Use the `Contract.populateTransaction` functions to easily build a list of `Call` objects.
+First we instantiate a `Contract` object using the `useContract` hook. In this
+example, we connect it to the network's native currency contract.
+
+```tsx balance.tsx focus=1:6,9:15
+import {
+  useAccount,
+  useContract,
+  useContractWrite,
+  useNetwork,
+} from "@starknet-react/core";
+
+function MyComponent() {
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+
+  const { contract } = useContract({
+    abi: erc20ABI,
+    address: chain.nativeCurrency.address,
+  });
+}
+```
+
+The next step is to build a list of calls based on user's input. In this
+example, we create a number of calls equal to an user-provided counter.
+Notice how we use `contract.populateTransaction` to build a `Call` object using
+a syntax similar to a function call.
+
+```tsx balance.tsx focus=17:30
+import {
+  useAccount,
+  useContract,
+  useContractWrite,
+  useNetwork,
+} from "@starknet-react/core";
+
+function MyComponent() {
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+
+  const { contract } = useContract({
+    abi: erc20ABI,
+    address: chain.nativeCurrency.address,
+  });
+
+  const [count, setCount] = useState(1);
+
+  const calls = useMemo(() => {
+    if (!address || !contract) return [];
+
+    return Array.from({ length: count }, (_, i) => {
+      const amount = uint256.bnToUint256(BigInt(i));
+      return contract.populateTransaction["transfer"]!(address, amount);
+    });
+  }, [contract, address, count]);
+
+  const { write, isLoading, error } = useContractWrite({
+    calls,
+  });
+}
+```
+
+The `write` function is used to submit the transaction, while `isLoading` is
+true while the hook is waiting for the user to confirm the transaction in their
+wallet. We can use this to build a nice "send transaction" button.
+
+```tsx balance.tsx focus=32:45
+import {
+  useAccount,
+  useContract,
+  useContractWrite,
+  useNetwork,
+} from "@starknet-react/core";
+
+function MyComponent() {
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+
+  const { contract } = useContract({
+    abi: erc20ABI,
+    address: chain.nativeCurrency.address,
+  });
+
+  const [count, setCount] = useState(1);
+
+  const calls = useMemo(() => {
+    if (!address || !contract) return [];
+
+    return Array.from({ length: count }, (_, i) => {
+      const amount = uint256.bnToUint256(BigInt(i));
+      return contract.populateTransaction["transfer"]!(address, amount);
+    });
+  }, [contract, address, count]);
+
+  const { write, isLoading, error } = useContractWrite({
+    calls,
+  });
+
+  return (
+    <Button
+      className="w-full"
+      onClick={() => write({})}
+      disabled={!address || isLoading}
+    >
+      {isLoading ? (
+        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+      ) : (
+        <SendHorizonal className="h-4 w-4 mr-2" />
+      )}
+      Send Transactions
+    </Button>
+  );
+}
+```

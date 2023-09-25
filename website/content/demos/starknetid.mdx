@@ -3,9 +3,86 @@ title: Starknet.ID
 priority: 10
 ---
 
-This example shows how to lookup Starknet.ID addresses and names.
+This example shows how to lookup [Starknet.ID](https://www.starknet.id/)
+addresses and names.
 
 <DemoContainer>
   <StarknetIDDemo />
 </DemoContainer>
 
+## Lookup address
+
+Use the `useStarkAddress` to map a Starknet.ID name to a wallet address.
+
+```tsx lookup-address.tsx
+import { useStarkName } from "@starknet-react/core";
+
+function MyComponent() {
+  const [starknetId, setStarknetId] = useState<string>("");
+  const debouncedStarknetId = useDebounce(starknetId, 500);
+
+  const { data, error, isLoading } = useStarkAddress({
+    name: debouncedStarknetId,
+  });
+
+  return (
+    <div className="space-y-2">
+      <div className="space-y-1">
+        <Label htmlFor="starknet-id">Starknet ID</Label>
+        <Input
+          id="starknet-id"
+          placeholder="vitalik.stark"
+          value={starknetId}
+          onChange={(evt) => setStarknetId(evt.target.value)}
+        />
+      </div>
+      <div className="space-y-1">
+        {isLoading ? (
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        ) : (
+          <p>Address: {data}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+## Lookup name
+
+Use the `useStarkName` hook to lookup the Starknet.ID associated with a Starknet
+address.
+
+```tsx lookup-name.tsx
+import { useStarkAddress } from "@starknet-react/core";
+
+function MyComponent() {
+  const [address, setAddress] = useState<string>("");
+  const debounceAddress = useDebounce(address, 500);
+
+  const { data, error, isLoading } = useStarkName({
+    address: debounceAddress
+  });
+
+  return (
+    <div className="space-y-2">
+      <div className="space-y-1">
+        <Label htmlFor="address">Address</Label>
+        <Input
+          id="address"
+          placeholder="0x0508...8775"
+          value={address}
+          onChange={(evt) => setAddress(evt.target.value)}
+        />
+      </div>
+      <div className="space-y-1">
+        {isLoading ? (
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        ) : (
+          <p>Name: {data}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+```

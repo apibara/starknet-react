@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { cn } from "@/lib/utils";
 import { monoFont, sansFont } from "@/lib/fonts";
+import { JotaiProvider } from "@/components/jotai-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -30,12 +31,14 @@ export default function RootLayout({
         monoFont.variable,
       )}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="relative flex min-h-screen flex-col">
-            <SiteHeader />
-            <div className="flex-1">
-              {children}
+          <JotaiProvider>
+            <div className="relative flex min-h-screen flex-col">
+              <SiteHeader />
+              <div className="flex-1">
+                {children}
+              </div>
             </div>
-          </div>
+          </JotaiProvider>
         </ThemeProvider>
       </body>
     </html>
