@@ -50,8 +50,8 @@ export default async function DocPage({ params }: DocPageProps) {
 
   return (
     <DocContainer title={doc.title} section="Docs">
+      <Mdx code={doc.body.code} />
     </DocContainer>
   );
 }
-      // <Mdx code={doc.body.code} />
 

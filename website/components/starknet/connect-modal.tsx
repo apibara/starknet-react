@@ -15,7 +15,7 @@ export default function ConnectModal() {
   return (
     <div className="w-full flex justify-end">
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button variant="ghost">Connect Wallet</Button>
         </DialogTrigger>
         <DialogContent>

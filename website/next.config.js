@@ -6,6 +6,11 @@ const nextConfig = {
   swcMinify: true,
   redirects: async () => [
     {
+      source: "/",
+      destination: "/docs/getting-started",
+      permanent: true,
+    },
+    {
       source: "/docs",
       destination: "/docs/getting-started",
       permanent: true,

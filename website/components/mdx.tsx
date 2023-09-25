@@ -2,13 +2,16 @@
 import React from "react";
 
 import { useMDXComponent } from "next-contentlayer/hooks";
+import { Info } from "lucide-react";
 
 import { ConnectWalletDemo } from "@/components/demos/connect-wallet";
 import { SendTransactionDemo } from "@/components/demos/send-transaction";
 import { SignMessageDemo } from "@/components/demos/sign-message";
 import { TokenBalanceDemo } from "@/components/demos/balance";
 import { StarknetIDDemo } from "@/components/demos/starknetid";
+import { TransactionManagerDemo } from "@/components/demos/transaction-manager";
 import { DemoContainer } from "@/components/demo-container";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 
 const components = {
@@ -17,7 +20,13 @@ const components = {
   SignMessageDemo,
   StarknetIDDemo,
   TokenBalanceDemo,
+  TransactionManagerDemo,
   DemoContainer,
+
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  Info,
 
   // Typography
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (

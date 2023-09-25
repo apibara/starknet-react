@@ -21,7 +21,7 @@ export default function DisconnectModal() {
   return (
     <div className="w-full flex justify-end">
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button variant="ghost">{addressShort}</Button>
         </DialogTrigger>
         <DialogContent>

@@ -15,7 +15,7 @@ export type UseQueryProps<
   TQueryKey extends QueryKey = QueryKey,
 > = Pick<
   UseQueryOptions_<TQueryFnData, TError, TData, TQueryKey>,
-  "enabled" | "refetchInterval" | "suspense"
+  "enabled" | "refetchInterval" | "suspense" | "retry" | "retryDelay"
 >;
 
 export type UseQueryResult<TData, TError> = Pick<

@@ -22,7 +22,7 @@ jobs:
       - name: Set Node version
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7.1.7

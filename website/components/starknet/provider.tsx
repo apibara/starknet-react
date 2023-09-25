@@ -12,9 +12,7 @@ import { useMemo } from "react";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli];
-
   const providers = [publicProvider()];
-
   const connectors = useMemo(() => shuffle([argent(), braavos()]), []);
 
   return (

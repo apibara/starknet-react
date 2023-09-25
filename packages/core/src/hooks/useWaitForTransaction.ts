@@ -61,6 +61,7 @@ export function useWaitForTransaction({
   return useQuery({
     queryKey: queryKey_,
     queryFn: queryFn({ provider, hash }),
+    ...props,
   });
 }
 
