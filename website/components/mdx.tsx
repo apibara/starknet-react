@@ -4,6 +4,7 @@ import React from "react";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Info } from "lucide-react";
 
+import { AccountsDemo } from "@/components/demos/accounts";
 import { ConnectWalletDemo } from "@/components/demos/connect-wallet";
 import { SendTransactionDemo } from "@/components/demos/send-transaction";
 import { SignMessageDemo } from "@/components/demos/sign-message";
@@ -15,6 +16,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 
 const components = {
+  AccountsDemo,
   ConnectWalletDemo,
   SendTransactionDemo,
   SignMessageDemo,

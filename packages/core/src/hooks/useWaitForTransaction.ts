@@ -42,16 +42,14 @@ export type UseWaitForTransactionResult = UseQueryResult<
 export function useWaitForTransaction({
   hash,
   watch,
+  enabled: enabled_ = true,
   ...props
 }: UseWaitForTransactionProps): UseWaitForTransactionResult {
   const { provider, chain } = useStarknet();
 
   const queryKey_ = useMemo(() => queryKey({ chain, hash }), [chain, hash]);
 
-  const enabled = useMemo(
-    () => Boolean(props.enabled && hash),
-    [props.enabled, hash],
-  );
+  const enabled = useMemo(() => Boolean(enabled_ && hash), [enabled_, hash]);
 
   useInvalidateOnBlock({
     enabled: Boolean(enabled && watch),
@@ -61,6 +59,7 @@ export function useWaitForTransaction({
   return useQuery({
     queryKey: queryKey_,
     queryFn: queryFn({ provider, hash }),
+    enabled,
     ...props,
   });
 }

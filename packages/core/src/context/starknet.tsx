@@ -12,11 +12,10 @@ import { AccountInterface, ProviderInterface, RpcProvider } from "starknet";
 import { Connector } from "~/connectors";
 import { ConnectorNotFoundError } from "~/errors";
 import { ChainProviderFactory } from "~/providers";
+import { AccountProvider } from "./account";
 
 /** State of the Starknet context. */
 export interface StarknetState {
-  /** Connected account. */
-  account?: AccountInterface;
   /** Connected connector. */
   connector?: Connector;
   /** Connect the given connector. */
@@ -138,7 +137,7 @@ function useStarknetManager({
   providers,
   connectors = [],
   autoConnect = false,
-}: UseStarknetManagerProps): StarknetState {
+}: UseStarknetManagerProps): StarknetState & { account?: AccountInterface } {
   const initialChain = chains[0];
   if (initialChain === undefined) {
     throw new Error("Must provide at least one chain.");
@@ -241,9 +240,9 @@ function useStarknetManager({
   }, []);
 
   return {
+    account: state.currentAccount,
     provider: state.currentProvider,
     chain: state.currentChain,
-    account: state.currentAccount,
     connector: state.currentConnector,
     connect,
     disconnect,
@@ -277,7 +276,7 @@ export function StarknetProvider({
   queryClient,
   children,
 }: StarknetProviderProps): JSX.Element {
-  const state = useStarknetManager({
+  const { account, ...state } = useStarknetManager({
     chains,
     providers,
     connectors,
@@ -287,7 +286,7 @@ export function StarknetProvider({
   return (
     <QueryClientProvider client={queryClient ?? new QueryClient()}>
       <StarknetContext.Provider value={state}>
-        {children}
+        <AccountProvider account={account}>{children}</AccountProvider>
       </StarknetContext.Provider>
     </QueryClientProvider>
   );

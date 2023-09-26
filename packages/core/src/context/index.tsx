@@ -2,6 +2,8 @@ import React from "react";
 
 import { StarknetProvider, StarknetProviderProps } from "./starknet";
 
+export { AccountProvider as OverrideAccount } from "./account";
+
 export type StarknetConfigProps = StarknetProviderProps;
 
 export function StarknetConfig({ children, ...config }: StarknetConfigProps) {

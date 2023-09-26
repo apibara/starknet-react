@@ -42,6 +42,7 @@ export function useBalance({
   token,
   address,
   watch = false,
+  enabled: enabled_ = true,
   ...props
 }: UseBalanceProps) {
   const { chain } = useNetwork();
@@ -56,8 +57,8 @@ export function useBalance({
   );
 
   const enabled = useMemo(
-    () => Boolean(props.enabled && contract && address),
-    [chain, contract, address],
+    () => Boolean(enabled_ && contract && address),
+    [enabled_, contract, address],
   );
 
   useInvalidateOnBlock({

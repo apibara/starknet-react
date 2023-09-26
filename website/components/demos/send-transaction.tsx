@@ -6,8 +6,9 @@ import {
   useContract,
   useContractWrite,
   useNetwork,
+  useWaitForTransaction,
 } from "@starknet-react/core";
-import { Plus, Minus, SendHorizonal, Loader2, AlertCircle } from "lucide-react";
+import { Plus, Minus, SendHorizonal, Loader2, AlertCircle, Check, Cross } from "lucide-react";
 import { uint256 } from "starknet";
 
 import { StarknetProvider } from "@/components/starknet/provider";
@@ -16,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { erc20ABI } from "@/lib/erc20";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+
 
 function Inner() {
   const { address } = useAccount();
@@ -37,9 +39,75 @@ function Inner() {
     });
   }, [contract, address, count]);
 
-  const { write, isLoading, error } = useContractWrite({
+  const {
+    write,
+    reset,
+    data: tx,
+    isLoading: isSubmitting,
+    isError: isSubmitError,
+    error: submitError,
+  } = useContractWrite({
     calls,
   });
+
+  const {
+    data: receipt,
+    isLoading,
+    isError,
+    error,
+  } = useWaitForTransaction({
+    hash: tx?.transaction_hash,
+    watch: true,
+    retry: true,
+    refetchInterval: 2000,
+  });
+
+  const buttonContent = useMemo(() => {
+    if (isSubmitting) {
+      return (
+        <>
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+          Send Transactions
+        </>
+      );
+    }
+
+    if (isLoading) {
+      return (
+        <>
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+          Waiting for confirmation
+        </>
+      );
+    }
+
+    if (receipt && receipt.status === "REJECTED") {
+      return (
+        <>
+          <Cross className="h-4 w-4 mr-2" />
+          Transaction rejected
+        </>
+      );
+    }
+
+    if (receipt) {
+      return (
+        <>
+          <Check className="h-4 w-4 mr-2" />
+          Transaction confirmed
+        </>
+      );
+    }
+
+    return (
+      <>
+        <SendHorizonal className="h-4 w-4 mr-2" />
+        Send Transactions
+      </>
+    );
+  }, [isSubmitting, isLoading, receipt]);
+
+  const action = () => receipt ? reset() : write({});
 
   return (
     <Card className="mx-auto max-w-[400px]">
@@ -67,21 +135,23 @@ function Inner() {
         </div>
         <Button
           className="w-full"
-          onClick={() => write({})}
-          disabled={!address || isLoading}
+          onClick={action}
+          disabled={!address || isSubmitting || isLoading}
         >
-          {isLoading ? (
-            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-          ) : (
-            <SendHorizonal className="h-4 w-4 mr-2" />
-          )}
-          Send Transactions
+          {buttonContent}
         </Button>
-        {error ? (
+        {isSubmitError ? (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error.message}</AlertDescription>
+            <AlertDescription>{submitError?.message}</AlertDescription>
+          </Alert>
+        ) : null}
+        {isError ? (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error?.message}</AlertDescription>
           </Alert>
         ) : null}
       </CardContent>

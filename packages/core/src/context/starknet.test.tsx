@@ -1,6 +1,6 @@
 import { devnet } from "@starknet-react/chains";
 import { describe, expect, it } from "vitest";
-import { address, connector } from "../../test/devnet";
+import { connector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
 
 import { useStarknet } from "./starknet";
@@ -18,12 +18,12 @@ describe("StarknetProvider", () => {
   it("connects to a connector", async () => {
     const { result } = renderHook(() => useStarknet());
 
-    expect(result.current.account).toBeUndefined();
+    expect(result.current.connector).toBeUndefined();
 
     await act(async () => {
       await result.current.connect({ connector: connector });
     });
 
-    expect(result.current.account?.address).toEqual(address);
+    expect(result.current.connector).toBeDefined();
   });
 });

@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --ch-scrollycoding-sticker-width: 600px;
     --gradient: linear-gradient(to top left,#5f2c82,#49a09d);
 
     --background: 269 98.05% 98.42%;

@@ -1,22 +1,32 @@
-import { AccountInterface, Call, InvokeFunctionResponse } from "starknet";
+import {
+  Abi,
+  AccountInterface,
+  Call,
+  InvocationsDetails,
+  InvokeFunctionResponse,
+} from "starknet";
 
 import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
 
 import { useAccount } from "./useAccount";
 
 /** Arguments for `useContractWrite`. */
-export type Variables = {
+export type ContractWriteVariables = {
   /** List of smart contract calls to execute. */
   calls?: Call[];
+  /** Contract ABIs for better displaying. */
+  abis?: Abi[];
+  /** Transaction options. */
+  options?: InvocationsDetails;
 };
 
-export type UseContractWriteProps = Variables &
-  UseMutationProps<InvokeFunctionResponse, Error, Variables>;
+export type UseContractWriteProps = ContractWriteVariables &
+  UseMutationProps<InvokeFunctionResponse, Error, ContractWriteVariables>;
 
 type MutationResult = UseMutationResult<
   InvokeFunctionResponse,
   Error,
-  Variables
+  ContractWriteVariables
 >;
 
 export type UseContractWriteResult = Omit<
@@ -39,6 +49,8 @@ export type UseContractWriteResult = Omit<
  */
 export function useContractWrite({
   calls,
+  abis,
+  options,
   ...props
 }: UseContractWriteProps): UseContractWriteResult {
   const { account } = useAccount();
@@ -56,8 +68,8 @@ export function useContractWrite({
     status,
     variables,
   } = useMutation({
-    mutationKey: mutationKey({ account, calls }),
-    mutationFn: mutationFn({ account, calls }),
+    mutationKey: mutationKey({ account, calls, abis, options }),
+    mutationFn: mutationFn({ account, calls, abis, options }),
     ...props,
   });
 
@@ -80,17 +92,31 @@ export function useContractWrite({
 function mutationKey({
   account,
   calls,
-}: { account?: AccountInterface; calls?: Call[] }) {
-  return [{ entity: "contractWrite", account, calls }] as const;
+  abis,
+  options,
+}: {
+  account?: AccountInterface;
+  calls?: Call[];
+  abis?: Abi[];
+  options?: InvocationsDetails;
+}) {
+  return [{ entity: "contractWrite", account, calls, abis, options }] as const;
 }
 
 function mutationFn({
   account,
   calls,
-}: { account?: AccountInterface; calls?: Call[] }) {
+  abis,
+  options,
+}: {
+  account?: AccountInterface;
+  calls?: Call[];
+  abis?: Abi[];
+  options?: InvocationsDetails;
+}) {
   return async function () {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
-    return account?.execute(calls);
+    return await account?.execute(calls, abis, options);
   };
 }
