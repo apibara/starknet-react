@@ -7,6 +7,7 @@ export * from "./useContract";
 export * from "./useContractFactory";
 export * from "./useContractRead";
 export * from "./useContractWrite";
+export * from "./useDeployAccount";
 export * from "./useDisconnect";
 export * from "./useInvalidateOnBlock";
 export * from "./useNetwork";

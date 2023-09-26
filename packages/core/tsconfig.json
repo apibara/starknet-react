@@ -9,9 +9,5 @@
 		}
 	},
 	"include": ["src", "*.ts"],
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "json": "../../website/generated/core.json"
-  }
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"]
 }

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Provider, ProviderInterface } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
@@ -60,11 +61,20 @@ export type StarkNameResult = UseQueryResult<string, unknown>;
 export function useStarkName({
   address,
   contract,
+  ...props
 }: StarkNameArgs): StarkNameResult {
   const { provider } = useProvider();
+
+  const enabled = useMemo(
+    () => Boolean(props.enabled && address),
+    [props.enabled, address],
+  );
+
   return useQuery({
     queryKey: queryKey({ address, contract }),
     queryFn: queryFn({ address, contract, provider }),
+    enabled,
+    ...props,
   });
 }
 

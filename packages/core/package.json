@@ -28,19 +28,18 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup && typedoc",
+    "build": "tsup",
     "clean": "rimraf dist",
     "lint": "biome check .",
     "lint:fix": "pnpm lint --apply",
     "format": "biome format . --write",
-    "typedoc": "typedoc",
     "test": "vitest",
     "test:typecheck": "vitest typecheck"
   },
   "peerDependencies": {
     "get-starknet-core": "^3.2.0",
     "react": "^18.0",
-    "starknet": "^5.18.0"
+    "starknet": "^5.19.0"
   },
   "dependencies": {
     "@starknet-react/chains": "workspace:^",

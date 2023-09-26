@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AccountInterface } from "starknet";
 
 import { Connector } from "~/connectors";
+import { useStarknetAccount } from "~/context/account";
 import { useStarknet } from "~/context/starknet";
 
 import { useConnect } from "./useConnect";
@@ -68,7 +69,7 @@ export function useAccount({
   onConnect,
   onDisconnect,
 }: UseAccountProps = {}): UseAccountResult {
-  const { account: connectedAccount } = useStarknet();
+  const { account: connectedAccount } = useStarknetAccount();
   const { connectors } = useConnect();
   const [state, setState] = useState<UseAccountResult>({
     status: "disconnected",
@@ -87,6 +88,7 @@ export function useAccount({
         isReconnecting: false,
       });
     }
+
     for (const connector of connectors) {
       if (!connector.available()) continue;
       const connAccount = await connector.account();
@@ -107,6 +109,19 @@ export function useAccount({
         });
       }
     }
+
+    // If we get here, we're not connected to any connector.
+    // This can happen if it's an arcade account.
+    setState({
+      connector: undefined,
+      account: connectedAccount,
+      address: connectedAccount.address,
+      status: "connected",
+      isConnected: true,
+      isConnecting: false,
+      isDisconnected: false,
+      isReconnecting: false,
+    });
   }, [
     setState,
     connectedAccount,
