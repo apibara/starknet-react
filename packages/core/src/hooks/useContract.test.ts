@@ -205,7 +205,7 @@ describe("useContract", () => {
           },
           "providerOrAccount": RpcProvider {
             "blockIdentifier": "pending",
-            "chainId": undefined,
+            "chainId": "0x534e5f474f45524c49",
             "headers": {
               "Content-Type": "application/json",
             },

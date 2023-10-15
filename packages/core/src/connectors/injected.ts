@@ -1,3 +1,4 @@
+import { goerli, mainnet } from "@starknet-react/chains";
 import { StarknetWindowObject } from "get-starknet-core";
 import { AccountInterface } from "starknet";
 import {
@@ -6,7 +7,7 @@ import {
   UserNotConnectedError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector, ConnectorIcons } from "./base";
+import { Connector, ConnectorData, ConnectorIcons } from "./base";
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
@@ -44,6 +45,18 @@ export class InjectedConnector extends Connector {
     return this._wallet !== undefined;
   }
 
+  async chainId(): Promise<bigint> {
+    this.ensureWallet();
+
+    if (!this._wallet) {
+      throw new ConnectorNotConnectedError();
+    }
+
+    const chainIdHex = await this._wallet.provider.getChainId();
+    const chainId = BigInt(chainIdHex);
+    return chainId;
+  }
+
   async ready(): Promise<boolean> {
     this.ensureWallet();
 
@@ -51,45 +64,43 @@ export class InjectedConnector extends Connector {
     return await this._wallet.isPreauthorized();
   }
 
-  async connect(): Promise<AccountInterface> {
+  async connect(): Promise<ConnectorData> {
     this.ensureWallet();
 
     if (!this._wallet) {
       throw new ConnectorNotFoundError();
     }
 
+    let accounts;
     try {
-      await this._wallet.enable({ starknetVersion: "v5" });
+      accounts = await this._wallet.enable({ starknetVersion: "v5" });
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError();
     }
 
-    if (!this._wallet.isConnected) {
+    if (!this._wallet.isConnected || !accounts) {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError();
     }
 
-    this._wallet.on("accountsChanged", (accounts: string[] | string) => {
-      let account;
-      if (typeof accounts === "string") {
-        account = accounts;
-      } else {
-        account = accounts[0];
-      }
-
-      if (account) {
-        this.emit("change", { account });
-      } else {
-        this.emit("disconnect");
-      }
+    this._wallet.on("accountsChanged", async (accounts: string[] | string) => {
+      await this.onAccountsChanged(accounts);
     });
 
-    this._wallet.on("networkChanged", (_network?: string) => {
-      // TODO: Handle network change.
+    this._wallet.on("networkChanged", (network?: string) => {
+      this.onNetworkChanged(network);
     });
 
-    return this._wallet.account;
+    await this.onAccountsChanged(accounts);
+
+    const account = this._wallet.account.address;
+    const chainId = await this.chainId();
+
+    return {
+      account,
+      chainId,
+    };
   }
 
   async disconnect(): Promise<void> {
@@ -102,17 +113,15 @@ export class InjectedConnector extends Connector {
     if (!this._wallet?.isConnected) {
       throw new UserNotConnectedError();
     }
+
+    this.emit("disconnect");
   }
 
-  async account(): Promise<AccountInterface | null> {
+  async account(): Promise<AccountInterface> {
     this.ensureWallet();
 
-    if (!this._wallet) {
+    if (!this._wallet || !this._wallet.account) {
       throw new ConnectorNotConnectedError();
-    }
-
-    if (!this._wallet.account) {
-      return null;
     }
 
     return this._wallet.account;
@@ -123,6 +132,44 @@ export class InjectedConnector extends Connector {
     const wallet = installed.filter((w) => w.id === this._options.id)[0];
     if (wallet) {
       this._wallet = wallet;
+    }
+  }
+
+  private async onAccountsChanged(accounts: string[] | string): Promise<void> {
+    let account;
+    if (typeof accounts === "string") {
+      account = accounts;
+    } else {
+      account = accounts[0];
+    }
+
+    if (account) {
+      const chainId = await this.chainId();
+      this.emit("change", { account, chainId });
+    } else {
+      this.emit("disconnect");
+    }
+  }
+
+  private onNetworkChanged(network?: string): void {
+    switch (network) {
+      // Argent
+      case "SN_MAIN":
+        this.emit("change", { chainId: mainnet.id });
+        break;
+      case "SN_GOERLI":
+        this.emit("change", { chainId: goerli.id });
+        break;
+      // Braavos
+      case "mainnet-alpha":
+        this.emit("change", { chainId: mainnet.id });
+        break;
+      case "goerli-alpha":
+        this.emit("change", { chainId: goerli.id });
+        break;
+      default:
+        this.emit("change", {});
+        break;
     }
   }
 }

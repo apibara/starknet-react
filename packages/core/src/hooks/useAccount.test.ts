@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { connector } from "../../test/devnet";
+import { defaultConnector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
 
 import { useAccount } from "./useAccount";
@@ -34,7 +34,9 @@ describe("useAccount", () => {
       const { result } = renderHook(() => useAccountWithConnect());
 
       await act(async () => {
-        result.current.connect.connect({ connector });
+        await result.current.connect.connectAsync({
+          connector: defaultConnector,
+        });
       });
 
       expect(result.current.account.isConnected).toBeTruthy();
@@ -60,13 +62,17 @@ describe("useAccount", () => {
       const { result } = renderHook(() => useAccountWithConnect());
 
       await act(async () => {
-        result.current.connect.connect({ connector });
+        result.current.connect.connect({ connector: defaultConnector });
       });
 
-      expect(result.current.account).toMatchInlineSnapshot(`
+      // skip serializing mock connector
+      expect({
+        ...result.current.account,
+        connector: undefined,
+      }).toMatchInlineSnapshot(`
         {
           "account": Account {
-            "address": "0x6b0a93aafd6a3d06ecd80eb4d7d6708cef12f94607b8d7feb25f8aa33d0da63",
+            "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
             "cairoVersion": "0",
             "deploySelf": [Function],
             "provider": RpcProvider {
@@ -80,11 +86,11 @@ describe("useAccount", () => {
               "retries": 200,
             },
             "signer": Signer {
-              "pk": "0x395d7c753f20cd410168df2b36f13613",
+              "pk": "0xa2866149d7a34fba053b2c8682d98d55",
             },
           },
-          "address": "0x6b0a93aafd6a3d06ecd80eb4d7d6708cef12f94607b8d7feb25f8aa33d0da63",
-          "connector": [Function],
+          "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
+          "connector": undefined,
           "isConnected": true,
           "isConnecting": false,
           "isDisconnected": false,

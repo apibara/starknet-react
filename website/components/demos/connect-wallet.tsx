@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useAccount } from "@starknet-react/core";
+import { useAccount, useNetwork } from "@starknet-react/core";
 
 import { StarknetProvider } from "@/components/starknet/provider";
 import ConnectWallet from "@/components/starknet/connect";
@@ -18,6 +18,7 @@ export function ConnectWalletDemo() {
 
 function Inner() {
   const { address } = useAccount();
+  const { chain } = useNetwork();
   const addressShort = address
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
     : null;
@@ -29,7 +30,7 @@ function Inner() {
       <CardContent className="space-y-4">
         <p>
           {address
-            ? `Connected as ${addressShort}`
+            ? `Connected as ${addressShort} on ${chain.name}`
             : "Connect wallet to get started"}
         </p>
       </CardContent>

@@ -18,7 +18,6 @@ import { erc20ABI } from "@/lib/erc20";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-
 function Inner() {
   const { address } = useAccount();
   const { chain } = useNetwork();

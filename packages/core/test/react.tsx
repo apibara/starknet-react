@@ -1,4 +1,4 @@
-import { devnet } from "@starknet-react/chains";
+import { devnet, mainnet } from "@starknet-react/chains";
 import { QueryClient } from "@tanstack/react-query";
 import {
   RenderHookOptions,
@@ -11,12 +11,13 @@ import React from "react";
 import { StarknetConfig as OgStarknetConfig } from "../src/context";
 import { publicProvider } from "../src/providers";
 
-import { connector, unavailableConnector } from "./devnet";
+import { defaultConnector } from "./devnet";
 
 function StarknetConfig({ children }: { children: React.ReactNode }) {
-  const chains = [devnet];
+  const chains = [devnet, mainnet];
   const providers = [publicProvider()];
-  const connectors = [connector, unavailableConnector];
+  const connectors = [defaultConnector];
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
