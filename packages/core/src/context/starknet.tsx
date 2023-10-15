@@ -1,15 +1,22 @@
-import { Chain } from "@starknet-react/chains";
+import { Chain, goerli, mainnet } from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
-  useReducer,
+  useRef,
+  useState,
 } from "react";
-import { AccountInterface, ProviderInterface, RpcProvider } from "starknet";
+import {
+  constants,
+  AccountInterface,
+  ProviderInterface,
+  RpcProvider,
+} from "starknet";
 
 import { Connector } from "~/connectors";
+import { ConnectorData } from "~/connectors/base";
 import { ConnectorNotFoundError } from "~/errors";
 import { ChainProviderFactory } from "~/providers";
 import { AccountProvider } from "./account";
@@ -72,57 +79,9 @@ export function useStarknet(): StarknetState {
 interface StarknetManagerState {
   currentChain: Chain;
   connectors: Connector[];
-  currentConnector?: Connector;
   currentAccount?: AccountInterface;
   currentProvider: ProviderInterface;
   error?: Error;
-}
-
-interface SetAccount {
-  type: "set_account";
-  connector?: Connector;
-  account?: AccountInterface;
-}
-
-interface SetProvider {
-  type: "set_provider";
-  provider: ProviderInterface;
-  chain: Chain;
-}
-
-interface SetError {
-  type: "set_error";
-  error: Error;
-}
-
-type Action = SetAccount | SetProvider | SetError;
-
-function reducer(
-  state: StarknetManagerState,
-  action: Action,
-): StarknetManagerState {
-  switch (action.type) {
-    case "set_account": {
-      return {
-        ...state,
-        currentConnector: action.connector,
-        currentAccount: action.account,
-      };
-    }
-    case "set_provider": {
-      return {
-        ...state,
-        currentChain: action.chain,
-        currentProvider: action.provider,
-      };
-    }
-    case "set_error": {
-      return { ...state, error: action.error };
-    }
-    default: {
-      return state;
-    }
-  }
 }
 
 interface UseStarknetManagerProps {
@@ -148,61 +107,126 @@ function useStarknetManager({
     providers,
   );
 
-  const [state, dispatch] = useReducer(reducer, {
+  // The currently connected connector needs to be accessible from the
+  // event handler.
+  const connectorRef = useRef<Connector | undefined>();
+  const [state, setState] = useState<StarknetManagerState>({
     currentChain: defaultChain,
     currentProvider: defaultProvider,
     connectors,
   });
 
+  const updateChainAndProvider = useCallback(
+    ({ chainId }: { chainId?: bigint }) => {
+      if (!chainId) return;
+      for (const chain of chains) {
+        if (chain.id === chainId) {
+          const { chain: newChain, provider } = providerForChain(
+            chain,
+            providers,
+          );
+          setState((state) => ({
+            ...state,
+            currentChain: newChain,
+            currentProvider: provider,
+          }));
+          return;
+        }
+      }
+    },
+    [setState, chains],
+  );
+
+  const handleConnectorChange = useCallback(
+    async ({ chainId, account }: ConnectorData) => {
+      if (chainId) {
+        updateChainAndProvider({ chainId });
+      }
+
+      if (account && connectorRef.current) {
+        const account = await connectorRef.current.account();
+        setState((state) => ({
+          ...state,
+          currentAccount: account,
+        }));
+      }
+    },
+    [updateChainAndProvider, setState, connectorRef],
+  );
+
   const connect = useCallback(
     async ({ connector }: { connector: Connector }) => {
+      const needsListenerSetup = connectorRef.current?.id !== connector.id;
+      if (needsListenerSetup) {
+        connectorRef.current?.off("change", handleConnectorChange);
+      }
+
       try {
-        const account = await connector.connect();
-        dispatch({ type: "set_account", connector, account });
+        const { chainId } = await connector.connect();
+        const account = await connector.account();
+
+        if (account.address !== state.currentAccount?.address) {
+          connectorRef.current = connector;
+          setState((state) => ({
+            ...state,
+            currentAccount: account,
+          }));
+        }
+
         if (autoConnect) {
           localStorage.setItem("lastUsedConnector", connector.id);
         }
+
+        if (needsListenerSetup) {
+          connector.on("change", handleConnectorChange);
+        }
+
+        updateChainAndProvider({ chainId });
       } catch (err) {
-        dispatch({ type: "set_error", error: new ConnectorNotFoundError() });
+        setState((state) => ({
+          ...state,
+          error: new ConnectorNotFoundError(),
+        }));
         throw err;
       }
     },
-    [autoConnect],
+    [
+      autoConnect,
+      setState,
+      connectorRef,
+      state.currentAccount,
+      handleConnectorChange,
+      updateChainAndProvider,
+    ],
   );
 
   const disconnect = useCallback(async () => {
-    dispatch({ type: "set_account", connector: undefined });
-    dispatch({
-      type: "set_provider",
-      provider: defaultProvider,
-      chain: defaultChain,
-    });
+    setState((state) => ({
+      ...state,
+      currentAccount: undefined,
+      currentProvider: defaultProvider,
+      currentChain: defaultChain,
+    }));
+
     if (autoConnect) {
       localStorage.removeItem("lastUsedConnector");
     }
-    if (!state.currentConnector) return;
-    state.currentConnector.off("change", handleConnectorChange);
+
+    if (!connectorRef.current) return;
+    connectorRef.current.off("change", handleConnectorChange);
+
     try {
-      await state.currentConnector.disconnect();
-    } catch (err) {
-      console.error(err);
-      dispatch({ type: "set_error", error: new ConnectorNotFoundError() });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoConnect, state.currentConnector, defaultProvider, defaultChain]);
-
-  const handleConnectorChange = useCallback(async () => {
-    await disconnect();
-    if (state.currentConnector) {
-      await connect({ connector: state.currentConnector });
-    }
-  }, [connect, disconnect, state.currentConnector]);
-
-  useEffect(() => {
-    if (state.currentConnector) {
-      state.currentConnector.on("change", handleConnectorChange);
-    }
-  }, [state.currentConnector, handleConnectorChange]);
+      await connectorRef.current.disconnect();
+    } catch {}
+    connectorRef.current = undefined;
+  }, [
+    autoConnect,
+    setState,
+    connectorRef,
+    handleConnectorChange,
+    defaultProvider,
+    defaultChain,
+  ]);
 
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
@@ -231,7 +255,7 @@ function useStarknetManager({
       }
     }
 
-    if (autoConnect && !state.currentConnector) {
+    if (autoConnect && !connectorRef.current) {
       tryAutoConnect(connectors);
     }
     // Dependencies intentionally omitted since we only want
@@ -243,7 +267,7 @@ function useStarknetManager({
     account: state.currentAccount,
     provider: state.currentProvider,
     chain: state.currentChain,
-    connector: state.currentConnector,
+    connector: connectorRef.current,
     connect,
     disconnect,
     connectors,
@@ -304,10 +328,24 @@ function providerForChain(
       if (!nodeUrl) {
         continue;
       }
-      const rpc = new RpcProvider({ nodeUrl });
+      const chainId = starknetChainId(chain.id);
+      const rpc = new RpcProvider({ nodeUrl, chainId });
       return { chain, provider: rpc };
     }
   }
 
   throw new Error(`No provider found for chain ${chain.name}`);
+}
+
+function starknetChainId(
+  chainId: bigint,
+): constants.StarknetChainId | undefined {
+  switch (chainId) {
+    case mainnet.id:
+      return constants.StarknetChainId.SN_MAIN;
+    case goerli.id:
+      return constants.StarknetChainId.SN_GOERLI;
+    default:
+      return undefined;
+  }
 }

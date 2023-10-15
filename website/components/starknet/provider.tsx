@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { goerli } from "@starknet-react/chains";
+import { goerli, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
@@ -11,7 +11,7 @@ import {
 import { useMemo } from "react";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
-  const chains = [goerli];
+  const chains = [goerli, mainnet];
   const providers = [publicProvider()];
   const connectors = useMemo(() => shuffle([argent(), braavos()]), []);
 

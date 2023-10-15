@@ -13,6 +13,8 @@ export type ConnectorIcons = {
 export type ConnectorData = {
   /** Connector account. */
   account?: string;
+  /** Connector network. */
+  chainId?: bigint;
 };
 
 /** Connector events. */
@@ -38,9 +40,11 @@ export abstract class Connector extends EventEmitter<ConnectorEvents> {
   /** Whether connector is already authorized */
   abstract ready(): Promise<boolean>;
   /** Connect wallet. */
-  abstract connect(): Promise<AccountInterface>;
+  abstract connect(): Promise<ConnectorData>;
   /** Disconnect wallet. */
   abstract disconnect(): Promise<void>;
   /** Get current account. */
-  abstract account(): Promise<AccountInterface | null>;
+  abstract account(): Promise<AccountInterface>;
+  /** Get current chain id. */
+  abstract chainId(): Promise<bigint>;
 }
