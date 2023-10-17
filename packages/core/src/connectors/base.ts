@@ -1,4 +1,5 @@
 import EventEmitter from "eventemitter3";
+import { SwitchStarknetChainParameter } from "get-starknet-core";
 import { AccountInterface } from "starknet";
 
 /** Connector icons, as base64 encoded svg. */
@@ -43,4 +44,6 @@ export abstract class Connector extends EventEmitter<ConnectorEvents> {
   abstract disconnect(): Promise<void>;
   /** Get current account. */
   abstract account(): Promise<AccountInterface | null>;
+  /** Switch to the requested network */
+  abstract switchNetwork(chainId: SwitchStarknetChainParameter): Promise<void>;
 }

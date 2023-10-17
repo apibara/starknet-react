@@ -1,4 +1,7 @@
-import { StarknetWindowObject } from "get-starknet-core";
+import {
+  StarknetWindowObject,
+  SwitchStarknetChainParameter,
+} from "get-starknet-core";
 import { AccountInterface } from "starknet";
 import {
   ConnectorNotConnectedError,
@@ -116,6 +119,19 @@ export class InjectedConnector extends Connector {
     }
 
     return this._wallet.account;
+  }
+
+  async switchNetwork(chainId: SwitchStarknetChainParameter): Promise<void> {
+    await this.ensureWallet();
+
+    if (!this._wallet) {
+      throw new ConnectorNotConnectedError();
+    }
+
+    this._wallet.request({
+      type: "wallet_switchStarknetChain",
+      params: chainId,
+    });
   }
 
   private ensureWallet() {
