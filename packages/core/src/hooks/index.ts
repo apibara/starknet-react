@@ -15,4 +15,5 @@ export * from "./useProvider";
 export * from "./useSign";
 export * from "./useStarkAddress";
 export * from "./useStarkName";
+export * from "./useSwitchNetwork";
 export * from "./useWaitForTransaction";
