@@ -106,7 +106,7 @@ function Inner() {
     );
   }, [isSubmitting, isLoading, receipt]);
 
-  const action = () => receipt ? reset() : write({});
+  const action = () => receipt ? reset() : write();
 
   return (
     <Card className="mx-auto max-w-[400px]">

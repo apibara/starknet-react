@@ -59,6 +59,7 @@ export function useContractRead({
   parseArgs,
   parseResult,
   watch = false,
+  enabled: enabled_ = true,
   ...props
 }: UseContractReadProps): UseContractReadResult {
   const { chain } = useNetwork();
@@ -70,8 +71,8 @@ export function useContractRead({
   );
 
   const enabled = useMemo(
-    () => Boolean(props.enabled && contract && functionName && args),
-    [props.enabled, contract, functionName, args],
+    () => Boolean(enabled_ && contract && functionName && args),
+    [enabled_, contract, functionName, args],
   );
 
   useInvalidateOnBlock({
