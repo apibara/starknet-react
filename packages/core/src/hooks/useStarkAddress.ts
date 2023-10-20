@@ -42,14 +42,12 @@ export type UseStarkAddressResult = UseQueryResult<string, Error>;
 export function useStarkAddress({
   name,
   contract,
+  enabled: enabled_ = true,
   ...props
 }: UseStarkAddressProps): UseStarkAddressResult {
   const { provider } = useProvider();
 
-  const enabled = useMemo(
-    () => Boolean(props.enabled && name),
-    [props.enabled, name],
-  );
+  const enabled = useMemo(() => Boolean(enabled_ && name), [enabled_, name]);
 
   return useQuery({
     queryKey: queryKey({ name, contract }),

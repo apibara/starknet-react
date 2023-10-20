@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { account } from "../../test/devnet";
+import { accounts } from "../../test/devnet";
 import { renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
@@ -28,7 +28,7 @@ describe("useBalance", () => {
     // Some issue with the RPC provider.
     it.skip("returns the balance", async () => {
       const { result } = renderHook(() =>
-        useBalance({ address: account.address }),
+        useBalance({ address: accounts.goerli[0].address }),
       );
 
       await waitFor(() => {

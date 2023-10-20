@@ -3,7 +3,6 @@ import { AccountInterface } from "starknet";
 
 import { Connector } from "~/connectors";
 import { useStarknetAccount } from "~/context/account";
-import { useStarknet } from "~/context/starknet";
 
 import { useConnect } from "./useConnect";
 

@@ -58,7 +58,7 @@ function Inner() {
   });
 
   const submitTx = useCallback(async () => {
-    const tx = await writeAsync({});
+    const tx = await writeAsync();
     add(tx.transaction_hash);
   }, [writeAsync]);
 

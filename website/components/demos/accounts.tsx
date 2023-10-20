@@ -154,7 +154,7 @@ function FundBurnerAccount({ address }: { address?: string }) {
         : [],
   });
   const fundAccount = useCallback(async () => {
-    await writeAsync({});
+    await writeAsync();
     setFundedAddress(address);
   }, [setFundedAddress, address, writeAsync]);
 
@@ -292,7 +292,7 @@ function InitializeBurnerAccount() {
       </p>
       {data ? null : (
         <Button
-          onClick={() => write({})}
+          onClick={() => write()}
           className="w-full"
           disabled={
             Boolean(!walletAccount || !burnerAddress || isLoading)
@@ -352,7 +352,7 @@ function WithdrawFunds({ walletAddress }: { walletAddress?: string }) {
         </div>
         {data ? null : (
           <Button
-            onClick={() => write({})}
+            onClick={() => write()}
             className="w-full"
             disabled={Boolean(!address || !walletAddress || isLoading)}
           >

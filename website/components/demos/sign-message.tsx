@@ -31,7 +31,7 @@ function Inner() {
         <p>Sign a message using the Starknet wallet</p>
         <Button
           className="w-full"
-          onClick={() => signTypedData({})}
+          onClick={() => signTypedData()}
           disabled={!account}
         >
           {isLoading ? (

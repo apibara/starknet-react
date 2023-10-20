@@ -61,13 +61,14 @@ export type StarkNameResult = UseQueryResult<string, unknown>;
 export function useStarkName({
   address,
   contract,
+  enabled: enabled_ = true,
   ...props
 }: StarkNameArgs): StarkNameResult {
   const { provider } = useProvider();
 
   const enabled = useMemo(
-    () => Boolean(props.enabled && address),
-    [props.enabled, address],
+    () => Boolean(enabled_ && address),
+    [enabled_, address],
   );
 
   return useQuery({

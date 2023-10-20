@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {
   Abi,
   AccountInterface,
@@ -23,7 +24,7 @@ export type ContractWriteVariables = {
 export type UseContractWriteProps = ContractWriteVariables &
   UseMutationProps<InvokeFunctionResponse, Error, ContractWriteVariables>;
 
-type MutationResult = UseMutationResult<
+export type MutationResult = UseMutationResult<
   InvokeFunctionResponse,
   Error,
   ContractWriteVariables
@@ -69,13 +70,39 @@ export function useContractWrite({
     variables,
   } = useMutation({
     mutationKey: mutationKey({ account, calls, abis, options }),
-    mutationFn: mutationFn({ account, calls, abis, options }),
+    mutationFn: mutationFn({ account }),
     ...props,
   });
 
+  const write = useCallback(
+    (args?: ContractWriteVariables) => {
+      return mutate({
+        ...(args ?? {
+          calls,
+          abis,
+          options,
+        }),
+      });
+    },
+    [mutate, calls, abis, options],
+  );
+
+  const writeAsync = useCallback(
+    (args?: ContractWriteVariables) => {
+      return mutateAsync({
+        ...(args ?? {
+          calls,
+          abis,
+          options,
+        }),
+      });
+    },
+    [mutateAsync, calls, abis, options],
+  );
+
   return {
-    write: mutate,
-    writeAsync: mutateAsync,
+    write,
+    writeAsync,
     data,
     error,
     isError,
@@ -105,16 +132,10 @@ function mutationKey({
 
 function mutationFn({
   account,
-  calls,
-  abis,
-  options,
 }: {
   account?: AccountInterface;
-  calls?: Call[];
-  abis?: Abi[];
-  options?: InvocationsDetails;
 }) {
-  return async function () {
+  return async function ({ calls, abis, options }: ContractWriteVariables) {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
     return await account?.execute(calls, abis, options);
