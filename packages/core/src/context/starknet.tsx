@@ -26,7 +26,7 @@ export interface StarknetState {
   /** Connected connector. */
   connector?: Connector;
   /** Connect the given connector. */
-  connect: ({ connector }: { connector: Connector }) => Promise<void>;
+  connect: ({ connector }: { connector?: Connector }) => Promise<void>;
   /** Disconnect the currently connected connector. */
   disconnect: () => Promise<void>;
   /** List of registered connectors. */
@@ -155,7 +155,11 @@ function useStarknetManager({
   );
 
   const connect = useCallback(
-    async ({ connector }: { connector: Connector }) => {
+    async ({ connector }: { connector?: Connector }) => {
+      if (!connector) {
+        throw new Error("Must provide a connector.");
+      }
+
       const needsListenerSetup = connectorRef.current?.id !== connector.id;
       if (needsListenerSetup) {
         connectorRef.current?.off("change", handleConnectorChange);

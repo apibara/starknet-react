@@ -35,9 +35,11 @@ export type UseContractWriteResult = Omit<
   "mutate" | "mutateAsync"
 > & {
   /** Execute the calls. */
-  write: MutationResult["mutate"];
+  write: (args?: ContractWriteVariables) => void;
   /** Execute the calls. */
-  writeAsync: MutationResult["mutateAsync"];
+  writeAsync: (
+    args?: ContractWriteVariables,
+  ) => Promise<InvokeFunctionResponse>;
 };
 
 /**

@@ -8,7 +8,15 @@ import {
   useNetwork,
   useWaitForTransaction,
 } from "@starknet-react/core";
-import { Plus, Minus, SendHorizonal, Loader2, AlertCircle, Check, Cross } from "lucide-react";
+import {
+  Plus,
+  Minus,
+  SendHorizonal,
+  Loader2,
+  AlertCircle,
+  Check,
+  Cross,
+} from "lucide-react";
 import { uint256 } from "starknet";
 
 import { StarknetProvider } from "@/components/starknet/provider";
@@ -106,7 +114,7 @@ function Inner() {
     );
   }, [isSubmitting, isLoading, receipt]);
 
-  const action = () => receipt ? reset() : write();
+  const action = () => (receipt ? reset() : write());
 
   return (
     <Card className="mx-auto max-w-[400px]">
