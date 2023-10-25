@@ -12,7 +12,14 @@ import {
   useProvider,
 } from "@starknet-react/core";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { AlertCircle, ArrowDownToLine, ArrowUpToLine, Loader2, Lock, Shield } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowDownToLine,
+  ArrowUpToLine,
+  Loader2,
+  Lock,
+  Shield,
+} from "lucide-react";
 import {
   Account,
   AccountInterface,
@@ -138,19 +145,15 @@ function FundBurnerAccount({ address }: { address?: string }) {
   const { account: mainAccount } = useAccount();
   const { contract: eth } = useNativeCurrency();
 
-  const {
-    writeAsync,
-    isLoading,
-    error,
-  } = useContractWrite({
+  const { writeAsync, isLoading, error } = useContractWrite({
     calls:
       eth && mainAccount && address
         ? [
-          eth.populateTransaction["transfer"]!(
-            address,
-            uint256.bnToUint256(FUNDING_AMOUNT),
-          ),
-        ]
+            eth.populateTransaction["transfer"]!(
+              address,
+              uint256.bnToUint256(FUNDING_AMOUNT),
+            ),
+          ]
         : [],
   });
   const fundAccount = useCallback(async () => {
@@ -255,27 +258,21 @@ function InitializeBurnerAccount() {
   const burnerAddress = useAtomValue(burnerAddressAtom);
   const { account: walletAccount } = useAccount();
 
-  const {
-    write,
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useContractWrite({
+  const { write, data, isLoading, isError, error } = useContractWrite({
     calls:
       burnerAddress && walletAccount && eth
         ? [
-          {
-            contractAddress: burnerAddress,
-            entrypoint: "update_whitelisted_calls",
-            calldata: [
-              "1",
-              eth.address,
-              selector.getSelectorFromName("transfer"),
-              "1",
-            ],
-          },
-        ]
+            {
+              contractAddress: burnerAddress,
+              entrypoint: "update_whitelisted_calls",
+              calldata: [
+                "1",
+                eth.address,
+                selector.getSelectorFromName("transfer"),
+                "1",
+              ],
+            },
+          ]
         : [],
   });
 
@@ -294,9 +291,7 @@ function InitializeBurnerAccount() {
         <Button
           onClick={() => write()}
           className="w-full"
-          disabled={
-            Boolean(!walletAccount || !burnerAddress || isLoading)
-          }
+          disabled={Boolean(!walletAccount || !burnerAddress || isLoading)}
         >
           {isLoading ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -325,11 +320,11 @@ function WithdrawFunds({ walletAddress }: { walletAddress?: string }) {
     calls:
       eth && address && walletAddress
         ? [
-          eth.populateTransaction["transfer"]!(
-            walletAddress,
-            uint256.bnToUint256(FUNDING_AMOUNT / 2n),
-          ),
-        ]
+            eth.populateTransaction["transfer"]!(
+              walletAddress,
+              uint256.bnToUint256(FUNDING_AMOUNT / 2n),
+            ),
+          ]
         : [],
   });
 

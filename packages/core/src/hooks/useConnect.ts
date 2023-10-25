@@ -1,13 +1,14 @@
 import { useStarknet } from "~/context/starknet";
 
+import { useCallback } from "react";
 import { Connector } from "~/connectors/base";
 import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
 
-type Variables = { connector: Connector };
+export type ConnectVariables = { connector?: Connector };
 
-type MutationResult = UseMutationResult<void, unknown, Variables>;
+type MutationResult = UseMutationResult<void, unknown, ConnectVariables>;
 
-export type UseConnectProps = UseMutationProps<void, unknown, Variables>;
+export type UseConnectProps = UseMutationProps<void, unknown, ConnectVariables>;
 
 /** Value returned from `useConnect`. */
 export type UseConnectResult = Omit<
@@ -21,9 +22,9 @@ export type UseConnectResult = Omit<
   /** Connector waiting approval for connection. */
   pendingConnector?: Connector;
   /** Connect to a new connector. */
-  connect: MutationResult["mutate"];
+  connect: (args?: ConnectVariables) => void;
   /** Connect to a new connector. */
-  connectAsync: MutationResult["mutateAsync"];
+  connectAsync: (args?: ConnectVariables) => Promise<void>;
 };
 
 /**
@@ -53,7 +54,7 @@ export type UseConnectResult = Omit<
  * ```
  */
 export function useConnect(props: UseConnectProps = {}): UseConnectResult {
-  const { connector, connectors, connect, chain } = useStarknet();
+  const { connector, connectors, connect: connect_, chain } = useStarknet();
 
   const {
     mutate,
@@ -70,16 +71,26 @@ export function useConnect(props: UseConnectProps = {}): UseConnectResult {
     variables,
   } = useMutation({
     mutationKey: [{ entity: "connect", chainId: chain.name }],
-    mutationFn: connect,
+    mutationFn: connect_,
     ...props,
   });
+
+  const connect = useCallback(
+    (args?: ConnectVariables) => mutate(args ?? { connector }),
+    [mutate, connector],
+  );
+
+  const connectAsync = useCallback(
+    (args?: ConnectVariables) => mutateAsync(args ?? { connector }),
+    [mutateAsync, connector],
+  );
 
   return {
     connector,
     connectors,
     pendingConnector: variables?.connector,
-    connect: mutate,
-    connectAsync: mutateAsync,
+    connect,
+    connectAsync,
     data,
     reset,
     status,

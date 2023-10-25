@@ -4,21 +4,25 @@ import { AccountInterface, Signature, TypedData } from "starknet";
 import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
 import { useAccount } from "./useAccount";
 
-type Variables = Partial<TypedData>;
+export type SignTypedDataVariables = Partial<TypedData>;
 
-type MutationResult = UseMutationResult<Signature, Error, Variables>;
+type MutationResult = UseMutationResult<
+  Signature,
+  Error,
+  SignTypedDataVariables
+>;
 
 /** Arguments for `useSignTypedData` hook. */
 export type UseSignTypedDataProps = Partial<TypedData> &
-  UseMutationProps<Signature, Error, Variables>;
+  UseMutationProps<Signature, Error, SignTypedDataVariables>;
 
 /** Value returned by `useSignTypedData` hook. */
 export type UseSignTypedDataResult = Omit<
   MutationResult,
   "mutate" | "mutateAsync"
 > & {
-  signTypedData: MutationResult["mutate"];
-  signTypedDataAsync: MutationResult["mutateAsync"];
+  signTypedData: (args?: SignTypedDataVariables) => void;
+  signTypedDataAsync: (args?: SignTypedDataVariables) => Promise<Signature>;
 };
 
 export function useSignTypedData({
@@ -50,7 +54,7 @@ export function useSignTypedData({
   });
 
   const signTypedData = useCallback(
-    (args?: Partial<TypedData>) =>
+    (args?: SignTypedDataVariables) =>
       mutate(
         args ?? {
           domain,
@@ -63,7 +67,7 @@ export function useSignTypedData({
   );
 
   const signTypedDataAsync = useCallback(
-    (args?: Partial<TypedData>) =>
+    (args?: SignTypedDataVariables) =>
       mutateAsync(
         args ?? {
           domain,
@@ -114,7 +118,7 @@ function mutateFn({ account }: { account?: AccountInterface }) {
     types,
     message,
     primaryType,
-  }: Variables): Promise<Signature> {
+  }: SignTypedDataVariables): Promise<Signature> {
     if (!account) throw new Error("account is required");
     if (!domain) throw new Error("domain is required");
     if (!types) throw new Error("types is required");
