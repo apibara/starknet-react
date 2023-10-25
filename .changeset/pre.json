@@ -7,5 +7,9 @@
     "create-starknet": "1.3.2",
     "website": "0.1.0"
   },
-  "changesets": ["clean-beans-march"]
+  "changesets": [
+    "clean-beans-march",
+    "thirty-paws-dance",
+    "tidy-trainers-notice"
+  ]
 }

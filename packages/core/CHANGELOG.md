@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 2.0.0-next.1
+
+### Patch Changes
+
+- [#302](https://github.com/apibara/starknet-react/pull/302) [`792a27a`](https://github.com/apibara/starknet-react/commit/792a27a8db625e7a3650d318d99a38337f4ea072) Thanks [@fracek](https://github.com/fracek)! - Add useDeployAccount hook
+
+- [#308](https://github.com/apibara/starknet-react/pull/308) [`ca15368`](https://github.com/apibara/starknet-react/commit/ca15368cfaeb62c99d9b8e1d268030f38553bcc8) Thanks [@fracek](https://github.com/fracek)! - Improve network and account change detection
+
 ## 2.0.0-next.0
 
 ### Major Changes
