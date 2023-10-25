@@ -12,14 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Node version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - uses: pnpm/action-setup@v2.2.2
+          node-version: 18
+      - uses: pnpm/action-setup@v2
         with:
-          version: 7.1.7
+          version: 8
       - name: Install dependencies
-        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
+        run: pnpm install --strict-peer-dependencies --no-frozen-lockfile
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
@@ -29,10 +29,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - name: Build documentation
-      #   run: pnpm web:export
-      # - name: Deploy to GitHub Pages
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./website/out
