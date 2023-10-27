@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.0.0-next.2
+
+### Patch Changes
+
+- [#311](https://github.com/apibara/starknet-react/pull/311) [`6560a2d`](https://github.com/apibara/starknet-react/commit/6560a2d92f93150faef4df360c39b595765ccafd) Thanks [@fracek](https://github.com/fracek)! - Improve network and account change detection
+
 ## 2.0.0-next.1
 
 ### Patch Changes
