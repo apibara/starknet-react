@@ -27,7 +27,7 @@ jobs:
         with:
           version: 8
       - name: Install dependencies
-        run: pnpm install --strict-peer-dependencies --no-frozen-lockfile
+        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Run build
         run: pnpm build
       - name: Run test
