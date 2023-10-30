@@ -36,3 +36,8 @@ export const docsSidebar: NavItemWithChildren[] = [
     })),
   }
 ];
+
+export const mobileSidebar: NavItemWithChildren[] = [
+  ...docsSidebar,
+  ...demoSidebar,
+];
