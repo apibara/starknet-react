@@ -35,6 +35,23 @@ export const Doc = defineDocumentType(() => ({
   },
 }));
 
+export const Hook = defineDocumentType(() => ({
+  name: "Hook",
+  filePathPattern: "hooks/**/*.mdx",
+  contentType: "mdx",
+  computedFields,
+  fields: {
+    title: {
+      required: true,
+      type: "string",
+    },
+    priority: {
+      required: true,
+      type: "number",
+    },
+  },
+}));
+
 export const Demo = defineDocumentType(() => ({
   name: "Demo",
   filePathPattern: "demos/**/*.mdx",
@@ -54,7 +71,7 @@ export const Demo = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Doc, Demo],
+  documentTypes: [Doc, Hook, Demo],
   mdx: {
     remarkPlugins: [
       [
