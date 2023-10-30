@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 2.0.0-next.3
+
+### Patch Changes
+
+- [#314](https://github.com/apibara/starknet-react/pull/314) [`bc0816b`](https://github.com/apibara/starknet-react/commit/bc0816bb3a0aa28c8117fc1cf8b4dd8ec5ee9fa2) Thanks [@fracek](https://github.com/fracek)! - Fix wallet connection when wallet not authorized
+
+- [#314](https://github.com/apibara/starknet-react/pull/314) [`bc0816b`](https://github.com/apibara/starknet-react/commit/bc0816bb3a0aa28c8117fc1cf8b4dd8ec5ee9fa2) Thanks [@fracek](https://github.com/fracek)! - Add hook to detect injected connectors
+
 ## 2.0.0-next.2
 
 ### Patch Changes
