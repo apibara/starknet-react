@@ -14,10 +14,24 @@ export interface InjectedConnectorOptions {
   /** The wallet id. */
   id: string;
   /** Wallet human readable name. */
-  name: string;
+  name?: string;
   /** Wallet icons. */
-  icon: ConnectorIcons;
+  icon?: ConnectorIcons;
 }
+
+// Icon used when the injected wallet is not found and no icon is provided.
+// question-mark-circle from heroicons
+function walletNotFoundIcon(color: string): string {
+  const encoded = Buffer.from(`
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="${color}">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+</svg>
+  `).toString("base64");
+  return `data:image/svg+xml;base64,${encoded}`;
+}
+
+const WALLET_NOT_FOUND_ICON_LIGHT = walletNotFoundIcon("black");
+const WALLET_NOT_FOUND_ICON_DARK = walletNotFoundIcon("white");
 
 export class InjectedConnector extends Connector {
   private _wallet?: StarknetWindowObject;
@@ -33,11 +47,23 @@ export class InjectedConnector extends Connector {
   }
 
   get name(): string {
-    return this._options.name;
+    return this._options.name ?? this._wallet?.name ?? this._options.id;
   }
 
   get icon(): ConnectorIcons {
-    return this._options.icon;
+    let defaultIcon = {
+      dark: WALLET_NOT_FOUND_ICON_DARK,
+      light: WALLET_NOT_FOUND_ICON_LIGHT,
+    };
+
+    if (this._wallet?.icon) {
+      defaultIcon = {
+        dark: this._wallet.icon,
+        light: this._wallet.icon,
+      };
+    }
+
+    return this._options.icon ?? defaultIcon;
   }
 
   available(): boolean {

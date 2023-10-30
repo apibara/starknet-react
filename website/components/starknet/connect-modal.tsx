@@ -27,6 +27,7 @@ export default function ConnectModal() {
                 onClick={() => connect({ connector })}
                 disabled={!connector.available()}
               >
+                <img src={connector.icon.dark} className="w-4 h-4 mr-2" />
                 Connect {connector.name}
               </Button>
             ))}
