@@ -14,7 +14,6 @@ export function argent(): InjectedConnector {
     options: {
       id: "argentX",
       name: "Argent",
-      icon: {},
     },
   });
 }
@@ -24,7 +23,14 @@ export function braavos(): InjectedConnector {
     options: {
       id: "braavos",
       name: "Braavos",
-      icon: {},
+    },
+  });
+}
+
+export function injected({ id }: { id: string }): InjectedConnector {
+  return new InjectedConnector({
+    options: {
+      id,
     },
   });
 }
