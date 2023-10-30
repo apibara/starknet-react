@@ -123,6 +123,8 @@ export class InjectedConnector extends Connector {
     const account = this._wallet.account.address;
     const chainId = await this.chainId();
 
+    this.emit("connect", { account, chainId });
+
     return {
       account,
       chainId,
