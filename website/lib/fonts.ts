@@ -1,12 +1,8 @@
-import { Open_Sans, Overpass_Mono } from "next/font/google";
+import { GeistMono, GeistSans } from "geist/font";
 
-export const sansFont = Open_Sans({
-  subsets: ["latin"],
-  // weight: "400",
-  variable: "--font-sans",
-});
+export type NextFont = {
+  variable: string;
+};
 
-export const monoFont = Overpass_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
+export const sansFont: NextFont = GeistSans;
+export const monoFont: NextFont = GeistMono;
