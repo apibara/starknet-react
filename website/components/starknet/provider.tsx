@@ -8,12 +8,22 @@ import {
   argent,
   braavos,
 } from "@starknet-react/core";
-import { useMemo } from "react";
+import { useInjectedConnectors } from "@/../packages/core/dist";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli, mainnet];
   const providers = [publicProvider()];
-  const connectors = useMemo(() => shuffle([argent(), braavos()]), []);
+  const { connectors } = useInjectedConnectors({
+    // Show these connectors if the user has no connector installed.
+    recommended: [
+      argent(),
+      braavos(),
+    ],
+    // Hide recommended connectors if the user has any connector installed.
+    includeRecommended: "onlyIfNoConnectors",
+    // Randomize the order of the connectors.
+    order: "random"
+  });
 
   return (
     <StarknetConfig
@@ -24,13 +34,4 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
       {children}
     </StarknetConfig>
   );
-}
-
-function shuffle<T>(arr: T[]): T[] {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    // @ts-ignore: not important
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }
