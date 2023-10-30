@@ -90,7 +90,13 @@ export function useAccount({
 
     for (const connector of connectors) {
       if (!connector.available()) continue;
-      const connAccount = await connector.account();
+
+      // If the connector is not authorized, `.account()` will throw.
+      let connAccount;
+      try {
+        connAccount = await connector.account();
+      } catch {}
+
       if (connAccount && connAccount?.address === connectedAccount.address) {
         if (state.isDisconnected && onConnect !== undefined) {
           onConnect({ address: connectedAccount.address, connector });
