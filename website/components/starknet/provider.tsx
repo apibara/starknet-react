@@ -7,8 +7,8 @@ import {
   publicProvider,
   argent,
   braavos,
+  useInjectedConnectors,
 } from "@starknet-react/core";
-import { useInjectedConnectors } from "@/../packages/core/dist";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli, mainnet];

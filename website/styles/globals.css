@@ -90,3 +90,7 @@
   @apply leading-6 font-mono;
   font-size: 15px;
 }
+
+.mdx :where(ul ul, ul ol, ol ul, ol ol) {
+  margin-top: 0;
+}

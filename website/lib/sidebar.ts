@@ -1,8 +1,9 @@
-import { allDemos, allDocs } from "@/.contentlayer/generated";
+import { allDemos, allDocs, allHooks } from "@/.contentlayer/generated";
 
 import type { NavItemWithChildren } from "@/components/sidebar";
 
 const sortedDemos = allDemos.sort((a, b) => b.priority - a.priority);
+const sortedHooks = allHooks.sort((a, b) => b.priority - a.priority);
 
 export const demoSidebar: NavItemWithChildren[] = [
   {
@@ -26,4 +27,12 @@ export const docsSidebar: NavItemWithChildren[] = [
       items: [],
     })),
   },
+  {
+    title: "Hooks",
+    items: sortedHooks.map(({ title, slugAsParams }) => ({
+      title,
+      href: `/hooks/${slugAsParams}`,
+      items: [],
+    })),
+  }
 ];
