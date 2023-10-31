@@ -34,7 +34,7 @@ export const mainnet = {
       http: [],
     },
     public: {
-      http: ["https://json-rpc.starknet-mainnet.public.lavanet.xyz"],
+      http: ["https://rpc.starknet.lava.build"],
     },
   },
 } as const satisfies Chain;
@@ -65,7 +65,7 @@ export const goerli = {
       http: [],
     },
     public: {
-      http: ["https://json-rpc.starknet-testnet.public.lavanet.xyz"],
+      http: ["https://rpc.starknet-testnet.lava.build"],
     },
   },
 } as const satisfies Chain;
