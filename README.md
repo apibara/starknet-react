@@ -17,14 +17,14 @@
 
 ## Documentation
 
-Documentation, including a demos, [is available online](https://starknet-react.com/).
+Documentation, including demos, [is available online](https://starknet-react.com/).
 
 ## Getting Started
 
 1. Add `@starknet-react/chains` and `@starknet-react/core` to your dependencies.
 
 ```shell
-pnpm add @starknet-react/core
+pnpm add @starknet-react/chains @starknet-react/core
 ```
 
 You also need to add `get-starknet-core` and `starknet` to your dependencies.
