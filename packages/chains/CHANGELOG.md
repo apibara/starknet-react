@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.0-next.1
+
+### Patch Changes
+
+- [#318](https://github.com/apibara/starknet-react/pull/318) [`035575f`](https://github.com/apibara/starknet-react/commit/035575fe3a998f38fd2532d61847aeaabad82d9f) Thanks [@fracek](https://github.com/fracek)! - Update public RPC endpoint
+
 ## 0.1.0-next.0
 
 ### Minor Changes
