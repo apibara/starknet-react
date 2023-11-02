@@ -50,7 +50,7 @@ function App() {
   const connectors = [braavos(), argent()];
 
   return (
-    <StarknetConfig>
+    <StarknetConfig chains={chains} providers={providers} connectors={connectors}>
       <YourApp />
     </StarknetConfig>
   )
