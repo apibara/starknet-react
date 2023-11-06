@@ -4,7 +4,7 @@ import { ChainProviderFactory, setDefaultRpcUrl } from "./factory";
 
 /** Arguments for `jsonRpcProvider`. */
 export type JsonRpcProviderArgs = {
-  rpc: (chain: Chain) => { http: string } | null;
+  rpc: (chain: Chain) => { http: string; headers?: object; } | null;
 };
 
 /** Configure the JSON-RPC provider using the provided function. */
@@ -18,6 +18,7 @@ export function jsonRpcProvider({
       chain: setDefaultRpcUrl(chain, config.http),
       rpcUrls: {
         http: [config.http],
+        headers: config.headers
       },
     };
   };

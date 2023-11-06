@@ -332,8 +332,9 @@ function providerForChain(
       if (!nodeUrl) {
         continue;
       }
+      const headers = rpcUrls.headers;
       const chainId = starknetChainId(chain.id);
-      const rpc = new RpcProvider({ nodeUrl, chainId });
+      const rpc = new RpcProvider({ nodeUrl, chainId, headers });
       return { chain, provider: rpc };
     }
   }
