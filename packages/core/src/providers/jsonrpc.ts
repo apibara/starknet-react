@@ -18,7 +18,7 @@ export function jsonRpcProvider({
       chain: setDefaultRpcUrl(chain, config.http),
       rpcUrls: {
         http: [config.http],
-        headers: config.headers
+        ...config.headers && { headers: config.headers }
       },
     };
   };
