@@ -9,11 +9,11 @@ export type LavaProviderArgs = {
 /** Configure the Lava provider using the provided API key. */
 export function lavalProvider({ apiKey }: LavaProviderArgs) {
   return jsonRpcProvider({
-    rpc: chain => {
+    rpc: (chain) => {
       const baseHttpUrl = chain.rpcUrls["lava"]?.http[0];
       if (!baseHttpUrl) return null;
       const nodeUrl = `${baseHttpUrl}/${apiKey}`;
       return { nodeUrl };
-    }
+    },
   });
 }

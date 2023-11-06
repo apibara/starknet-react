@@ -1,10 +1,5 @@
-import { ModeToggle } from "@/components/theme-toggle";
-import React from "react";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return (
-    <div>
-      <ModeToggle />
-    </div>
-  );
+  return redirect("/docs/getting-started");
 }
