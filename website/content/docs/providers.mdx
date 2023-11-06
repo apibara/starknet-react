@@ -24,14 +24,15 @@ of the providers below.
 ### JSON-RPC
 
 This is generic RPC provider. Use it to connect to private endpoints or to
-services not yet supported by Starknet React.
+services not yet supported by Starknet React. The value returned by the `rpc`
+function is passed to the `RpcProvider` constructor.
 
 ```tsx
 import { Chain, jsonRpcProvider } from "@starknet-react/core";
 
 function rpc(chain: Chain) {
   return {
-    http: `https://${chain.network}.example.org`
+    nodeUrl: `https://${chain.network}.example.org`
   }
 }
 
@@ -67,3 +68,4 @@ import { lavaProvider } from "@starknet-react/core";
 
 const provider = lavaProvider({ apiKey });
 ```
+

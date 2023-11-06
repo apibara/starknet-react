@@ -9,11 +9,11 @@ export type AlchemyProviderArgs = {
 /** Configure the Alchemy provider using the provided API key. */
 export function alchemyProvider({ apiKey }: AlchemyProviderArgs) {
   return jsonRpcProvider({
-    rpc: chain => {
+    rpc: (chain) => {
       const baseHttpUrl = chain.rpcUrls["alchemy"]?.http[0];
       if (!baseHttpUrl) return null;
       const nodeUrl = `${baseHttpUrl}/${apiKey}`;
       return { nodeUrl };
-    }
+    },
   });
 }
