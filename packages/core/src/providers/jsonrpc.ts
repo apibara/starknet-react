@@ -11,7 +11,7 @@ export type JsonRpcProviderArgs = {
 /** Configure the JSON-RPC provider using the provided function. */
 export function jsonRpcProvider({
   rpc,
-}: JsonRpcProviderArgs): ChainProviderFactory {
+}: JsonRpcProviderArgs): ChainProviderFactory<RpcProvider> {
   return function (chain) {
     const config = rpc(chain);
     if (!config) return null;

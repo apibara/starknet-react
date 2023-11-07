@@ -1,4 +1,3 @@
-import { ChainProviderFactory } from "./factory";
 import { jsonRpcProvider } from "./jsonrpc";
 
 /** Arguments for `infuraProvider`. */
@@ -8,9 +7,7 @@ export type InfuraProviderArgs = {
 };
 
 /** Configure the Infura provider using the provided API key. */
-export function infuraProvider({
-  apiKey,
-}: InfuraProviderArgs): ChainProviderFactory {
+export function infuraProvider({ apiKey }: InfuraProviderArgs) {
   return jsonRpcProvider({
     rpc: chain => {
       const baseHttpUrl = chain.rpcUrls["infura"]?.http[0];

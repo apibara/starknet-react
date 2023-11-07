@@ -5,18 +5,12 @@ import { jsonRpcProvider } from "./jsonrpc";
 
 function rpc(chain: Chain) {
   return {
-    http: `https://${chain.network}.example.com`,
+    nodeUrl: `https://${chain.network}.example.com`,
   };
 }
 
-describe("publicProvider", () => {
+describe("jsonRpcProvider", () => {
   it("returns a public rpc endpoint", () => {
-    expect(jsonRpcProvider({ rpc })(mainnet)?.rpcUrls).toMatchInlineSnapshot(`
-      {
-        "http": [
-          "https://mainnet.example.com",
-        ],
-      }
-    `);
+    expect(jsonRpcProvider({ rpc })(mainnet)?.nodeUrl).toMatchInlineSnapshot('"https://mainnet.example.com"');
   });
 });
