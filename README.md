@@ -46,11 +46,11 @@ import {
 
 function App() {
   const chains = [goerli];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const connectors = [braavos(), argent()];
 
   return (
-    <StarknetConfig chains={chains} providers={providers} connectors={connectors}>
+    <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
       <YourApp />
     </StarknetConfig>
   )
