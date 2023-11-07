@@ -47,7 +47,7 @@ The next step is to configure the Starknet provider. You need to configure the
 following:
 
  - _chains_: a list of chains supported by your dapp.
- - _providers_: the JSON-RPC provider you want to use. See the
+ - _provider_: the JSON-RPC provider you want to use. See the
    [providers](/docs/providers) page for more information.
  - _connectors_: the wallet connectors supported by your dapp. See
  the [wallets](/docs/wallets) page for more information.
@@ -70,7 +70,7 @@ import {
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [
@@ -86,7 +86,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   return (
     <StarknetConfig
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}
     >
       {children}
