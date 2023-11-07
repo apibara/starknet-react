@@ -24,12 +24,12 @@ yarn add @starknet-react/chains@next @starknet-react/core@next starknet get-star
 
 ## Update `StarknetConfig`
 
-Update the existing `StarknetConfig` by adding the new `chains` and `providers`
+Update the existing `StarknetConfig` by adding the new `chains` and `provider`
 options. You also need to update the `connectors` passed to it.
 
  - `chains`: a list of chains supported by your dapp. The first chain in the
    list is the default chain, used when the user doesn't connect their wallet.
- - `providers`: an RPC provider. See the [providers](/docs/providers) section
+ - `provider`: an RPC provider. See the [providers](/docs/providers) section
    for more information.
  - `connectors`: in v2, basic information about a wallet (like the id and name)
    must be provided. Starknet React provides helpers to initialize connectors

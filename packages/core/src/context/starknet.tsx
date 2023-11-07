@@ -283,7 +283,7 @@ function useStarknetManager({
 export interface StarknetProviderProps {
   /** Chains supported by the app. */
   chains: Chain[];
-  /** Providers supported by the app. */
+  /** Provider to use. */
   provider: ChainProviderFactory;
   /** List of connectors to use. */
   connectors?: Connector[];

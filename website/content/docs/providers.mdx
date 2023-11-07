@@ -35,9 +35,7 @@ function rpc(chain: Chain) {
   }
 }
 
-const providers = [
-  jsonRpcProvider({ rpc })
-];
+const provider = jsonRpcProvider({ rpc });
 ```
 
 ### Alchemy
@@ -47,9 +45,7 @@ Create an Alchemy API key from the dashboard.
 ```ts
 import { alchemyProvider } from "@starknet-react/core";
 
-const providers = [
-  alchemyProvider({ apiKey })
-];
+const provider = alchemyProvider({ apiKey });
 ```
 
 ### Infura
@@ -59,9 +55,7 @@ Create an Infura API key from the dashboard.
 ```ts
 import { infuraProvider } from "@starknet-react/core";
 
-const providers = [
-  infuraProvider({ apiKey })
-];
+const provider = infuraProvider({ apiKey });
 ```
 
 ### Lava
@@ -71,7 +65,5 @@ Create a Lava API key from the dashboard.
 ```ts
 import { lavaProvider } from "@starknet-react/core";
 
-const providers = [
-  lavaProvider({ apiKey })
-];
+const provider = lavaProvider({ apiKey });
 ```
