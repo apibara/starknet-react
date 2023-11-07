@@ -12,7 +12,7 @@ import {
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli, mainnet];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [
@@ -28,7 +28,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   return (
     <StarknetConfig
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}
     >
       {children}

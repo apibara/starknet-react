@@ -47,6 +47,5 @@ export type NativeCurrency = {
 
 export type RpcUrls = {
   http: readonly string[];
-  headers?: object;
   websocket?: readonly string[];
 };

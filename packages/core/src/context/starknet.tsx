@@ -86,14 +86,14 @@ interface StarknetManagerState {
 
 interface UseStarknetManagerProps {
   chains: Chain[];
-  providers: ChainProviderFactory[];
+  provider: ChainProviderFactory;
   connectors?: Connector[];
   autoConnect?: boolean;
 }
 
 function useStarknetManager({
   chains,
-  providers,
+  provider,
   connectors = [],
   autoConnect = false,
 }: UseStarknetManagerProps): StarknetState & { account?: AccountInterface } {
@@ -104,7 +104,7 @@ function useStarknetManager({
 
   const { chain: defaultChain, provider: defaultProvider } = providerForChain(
     initialChain,
-    providers,
+    provider,
   );
 
   // The currently connected connector needs to be accessible from the
@@ -121,14 +121,14 @@ function useStarknetManager({
       if (!chainId) return;
       for (const chain of chains) {
         if (chain.id === chainId) {
-          const { chain: newChain, provider } = providerForChain(
+          const { chain: newChain, provider: newProvider } = providerForChain(
             chain,
-            providers,
+            provider,
           );
           setState((state) => ({
             ...state,
             currentChain: newChain,
-            currentProvider: provider,
+            currentProvider: newProvider,
           }));
           return;
         }
@@ -284,7 +284,7 @@ export interface StarknetProviderProps {
   /** Chains supported by the app. */
   chains: Chain[];
   /** Providers supported by the app. */
-  providers: ChainProviderFactory[];
+  provider: ChainProviderFactory;
   /** List of connectors to use. */
   connectors?: Connector[];
   /** Connect the first available connector on page load. */
@@ -298,7 +298,7 @@ export interface StarknetProviderProps {
 /** Root Starknet context provider. */
 export function StarknetProvider({
   chains,
-  providers,
+  provider,
   connectors,
   autoConnect,
   queryClient,
@@ -306,7 +306,7 @@ export function StarknetProvider({
 }: StarknetProviderProps): JSX.Element {
   const { account, ...state } = useStarknetManager({
     chains,
-    providers,
+    provider,
     connectors,
     autoConnect,
   });
@@ -322,21 +322,11 @@ export function StarknetProvider({
 
 function providerForChain(
   chain: Chain,
-  providers: ChainProviderFactory[],
+  factory: ChainProviderFactory,
 ): { chain: Chain; provider: ProviderInterface } {
-  for (const factory of providers) {
-    const provider = factory(chain);
-    if (provider) {
-      const { chain, rpcUrls } = provider;
-      const nodeUrl = rpcUrls.http[0];
-      if (!nodeUrl) {
-        continue;
-      }
-      const headers = rpcUrls.headers;
-      const chainId = starknetChainId(chain.id);
-      const rpc = new RpcProvider({ nodeUrl, chainId, headers });
-      return { chain, provider: rpc };
-    }
+  const provider = factory(chain);
+  if (provider) {
+    return { chain, provider };
   }
 
   throw new Error(`No provider found for chain ${chain.name}`);

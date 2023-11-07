@@ -15,7 +15,7 @@ import { defaultConnector } from "./devnet";
 
 function StarknetConfig({ children }: { children: React.ReactNode }) {
   const chains = [devnet, mainnet];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const connectors = [defaultConnector];
 
   const queryClient = new QueryClient({
@@ -34,7 +34,7 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
   return (
     <OgStarknetConfig
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}
       queryClient={queryClient}
     >
