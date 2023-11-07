@@ -332,7 +332,7 @@ function providerForChain(
   throw new Error(`No provider found for chain ${chain.name}`);
 }
 
-function starknetChainId(
+export function starknetChainId(
   chainId: bigint,
 ): constants.StarknetChainId | undefined {
   switch (chainId) {
