@@ -16,9 +16,67 @@ export function App() {
 
 ## Options
 
-TODO
+ * `calls?: Call[]`
+   - The list of calls to make in the transaction.
+   - From starknet.js
+
+ * `abis?: Abi[]`
+   - List of contracts abis.
+   - From starknet.js
+
+ * `options?: InvocationsDetails`
+   - Additional invocation options.
+   - From starknet.js
 
 ## Returns
 
-TODO
+ * `write?: ({ calls: Call[], abis: Abi[], options: InvocationDetails }) => void`
+   - Execute the calls.
 
+ * `writeAsync?: ({ calls: Call[], abis: Abi[], options: InvocationDetails }) => Promise<InvokeFunctionResponse>`
+   - Execute the calls.
+   - Returns the RPC response.
+   - From starknet.js
+
+ * `data?: InvokeFunctionResponse`
+   - The result of sending the transaction to the network.
+   - From starknet.js
+
+ * `error?: Error`
+   - From TanStack Query.
+   - The error if the call was not successful.
+
+ * `variables?: { calls: Call[], abis: Abi[], options: InvocationDetails }`
+   - From TanStack Query.
+   - Variables passed to the function invocation.
+
+ * `reset: () => void`
+   - From TanStack Query.
+   - Clean the mutation internal state.
+
+ * `status: "error" | "idle" | "loading" | "success"`
+   - From TanStack Query.
+   - `idle` before sending the transaction.
+   - `loading` while sending the transaction.
+   - `success` if the last invocation was successful.
+   - `error` if there was an error.
+
+ * `isSuccess: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isError: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isLoading: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isIdle: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isPaused: boolean`
+   - From TanStack Query.
+   - True if the invocation has been paused.
