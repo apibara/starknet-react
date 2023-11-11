@@ -1,5 +1,17 @@
 # @starknet-react/core
 
+## 2.0.0-next.6
+
+### Patch Changes
+
+- [#327](https://github.com/apibara/starknet-react/pull/327) [`d33a723`](https://github.com/apibara/starknet-react/commit/d33a723a2ab3b79f020ebd4b65316712f0191b98) Thanks [@fracek](https://github.com/fracek)! - Change provider configuration
+
+## 2.0.0-next.5
+
+### Patch Changes
+
+- [#322](https://github.com/apibara/starknet-react/pull/322) [`244fedf`](https://github.com/apibara/starknet-react/commit/244fedf1a99c82bb7b58cb1de15d3b712c35d2d1) Thanks [@fracek](https://github.com/fracek)! - Remove Buffer usage
+
 ## 2.0.0-next.4
 
 ### Patch Changes

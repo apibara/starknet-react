@@ -1,4 +1,4 @@
-import { ChainProviderFactory, setDefaultRpcUrl } from "./factory";
+import { jsonRpcProvider } from "./jsonrpc";
 
 /** Arguments for `lavaProvider`. */
 export type LavaProviderArgs = {
@@ -7,18 +7,13 @@ export type LavaProviderArgs = {
 };
 
 /** Configure the Lava provider using the provided API key. */
-export function lavalProvider({
-  apiKey,
-}: LavaProviderArgs): ChainProviderFactory {
-  return function (chain) {
-    const baseHttpUrl = chain.rpcUrls["lava"]?.http[0];
-    if (!baseHttpUrl) return null;
-    const httpUrl = `${baseHttpUrl}/${apiKey}`;
-    return {
-      chain: setDefaultRpcUrl(chain, httpUrl),
-      rpcUrls: {
-        http: [httpUrl],
-      },
-    };
-  };
+export function lavalProvider({ apiKey }: LavaProviderArgs) {
+  return jsonRpcProvider({
+    rpc: (chain) => {
+      const baseHttpUrl = chain.rpcUrls["lava"]?.http[0];
+      if (!baseHttpUrl) return null;
+      const nodeUrl = `${baseHttpUrl}/${apiKey}`;
+      return { nodeUrl };
+    },
+  });
 }

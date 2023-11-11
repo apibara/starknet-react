@@ -20,7 +20,7 @@ import {
 
 export default function App({ children }) {
   const chains = [goerli, mainnet];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [
@@ -36,7 +36,7 @@ export default function App({ children }) {
   return (
     <StarknetConfig
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}
     >
       {children}
