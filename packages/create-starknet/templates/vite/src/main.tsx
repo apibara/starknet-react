@@ -7,7 +7,7 @@ import "./globals.css"
 
 function Root({ children }: { children: React.ReactNode }) {
   const chains = [goerli, mainnet, devnet];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [
@@ -21,7 +21,7 @@ function Root({ children }: { children: React.ReactNode }) {
   return (
     <StarknetConfig autoConnect
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}>
       {children}
     </StarknetConfig>
