@@ -96,5 +96,5 @@ export function DocsSidebarNavItems({
         ),
       )}
     </div>
-  ) : null;
+  ) : <></>;
 }
