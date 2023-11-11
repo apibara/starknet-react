@@ -21,7 +21,7 @@ export type NavItemWithChildren = NavItem & {
 export function Sidebar({ items }: { items: NavItemWithChildren[] }) {
   const pathname = usePathname();
 
-  return (items.length &&
+  return (items.length ?
     <div className="w-full">
       {items.map((item, index) => (
         <div key={index} className={cn("pb-4")}>
@@ -33,7 +33,7 @@ export function Sidebar({ items }: { items: NavItemWithChildren[] }) {
           )}
         </div>
       ))}
-    </div>
+    </div> : <></>
   )
 }
 
