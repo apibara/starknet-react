@@ -55,7 +55,6 @@ export default function Component() {
 
   const { data, isError, isLoading, error } = useContractRead({
     functionName: "balanceOf",
-    //Validate: arg account should be a felt typed as (String, Number or BigInt)
     args: [address as string],
     abi: _abi,
     address: testAddress,
@@ -65,7 +64,6 @@ export default function Component() {
   if (isLoading) return <div>Loading ...</div>;
   if (isError || !data) return <div>{error?.message}</div>;
   //@ts-ignore
-  //TO ASK type of data
   return <div>{parseFloat(data.balance.low)}n</div>;
 }
 ```
