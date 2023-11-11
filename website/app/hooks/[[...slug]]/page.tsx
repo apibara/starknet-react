@@ -19,7 +19,6 @@ async function getDocFromParams({ params }: DocPageProps) {
     const redirectTo = allHooks[0]?.slugAsParams;
     return { doc: null, redirectTo };
   }
-
   const doc = allHooks.find((doc) => doc.slugAsParams === slug);
 
   if (!doc) {
@@ -48,8 +47,10 @@ export default async function DocPage({ params }: DocPageProps) {
     }
   }
 
+  const sections = ['Hooks', ...params.slug.slice(0, -1)];
+
   return (
-    <DocContainer title={doc.title} section="Hooks">
+    <DocContainer title={doc.title} sections={sections}>
       <Mdx code={doc.body.code} />
     </DocContainer>
   );

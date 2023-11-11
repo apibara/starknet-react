@@ -1,0 +1,29 @@
+---
+title: useNetwork
+priority: 97
+hookType: default
+
+---
+
+Access the current connected chain or the supported chains.
+
+## Usage
+
+```ts
+import { useNetwork } from "@starknet-react/core"
+
+function Component() {
+  const { chain } = useNetwork()
+  return <span>{chain.name}</span>
+}
+```
+
+## Returns
+
+ * __chain__`: Chain`
+    - The current chain.
+    - Chain from Starknet.js.
+
+ * __chains__`: Chain[]`
+    - List of supported chains.
+    - Chain from Starknet.js.

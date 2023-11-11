@@ -1,0 +1,35 @@
+---
+title: useBlockNumber
+priority: 198
+hookType: query
+
+---
+
+Fetch the latest or pending block number.
+This hook is useful to trigger a refresh on a new block.
+
+## Usage
+
+```ts
+import { useBlock } from "@starknet-react/core";
+import { BlockNumber } from "starknet";
+
+function Component() {
+  const { data, isLoading, isError } = useBlockNumber({
+    blockIdentifier: 'latest' as BlockNumber
+  })
+
+  if (isLoading) return <span>Loading...</span>
+  if (isError || !data) return <span>Error...</span>
+  return <span>Hash: {data.block_hash}</span>
+}
+```
+
+## Options
+ * __blockIdentifier?__`: BlockNumber`
+    - The block number.
+
+## Returns
+ * __data?__`: GetBlockResponse`
+    - The block.
+    - GetBlockResponse from Starknet.js.

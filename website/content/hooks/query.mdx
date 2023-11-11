@@ -1,0 +1,43 @@
+---
+title: Query
+priority: 1
+hookType: doc
+
+---
+
+
+A query hook is a function that allows you to fetch data on the Network or the Provider.
+
+The query hook type provides a set of return values and options that can be used to control and monitor the status of the data fetching operation.
+In addition to common options and returns, each query hook introduces its own unique set of options and returns.
+
+## Options
+ * __refetchInterval?__`: number | false | ((data: TData | undefined, query: Query) => number | false)`
+    - Frequency at which to refetch data.
+ * __enabled?__`: boolean`
+    - If false, disables the query.
+ * __suspense__`: //TODO ADD SUSPEN TYPE`
+    - If true, enable suspense mode.
+ * __retry?__`: boolean | number | (failureCount: number, error: TError) => boolean`
+    - If false, failed queries will not be retried.
+    - If true, failed queries will always be retried.
+    - If set to a number, failed queries will be retried the specified number of times.
+    - If set to a callback, the callback will control whether the query is retried or not.
+ * __retryDelay__`: number | (retryAttempt: number, error: TError) => number`
+    - Specify the delay to apply before retrying the query.
+
+## Returns
+ * __error?__`: TError`
+    - The error if the query was not successful.
+ * __refetch__`: (options: { throwOnError: boolean, cancelRefetch: boolean }) => Promise<UseQueryResult>`
+    - Manually refetch data.
+ * __isSuccess?__`: boolean`
+    - If true, the query was successful.
+ * __isError?__`: boolean`
+    - If true, the query was not successful.
+ * __isIdle?__`: boolean`
+    - If true, the query is not fetching.
+ * __isLoading?__`: boolean`
+    - If true, the query is fetching.
+ * __status__`: "idle" | "loading" | "success" |" error"`
+    - Query status.

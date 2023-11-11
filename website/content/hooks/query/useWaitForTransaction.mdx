@@ -1,0 +1,42 @@
+---
+title: useWaitForTransaction
+priority: 195
+hookType: query
+
+---
+
+Fetches a single transaction receipt.
+This hook keeps a cache of receipts by chain and transaction hash
+so that you can use the hook freely in your application without worrying
+about sending duplicate network requests.
+
+If you need to refresh the transaction receipt data, set `watch: true` in
+the props. The hook will periodically refresh the transaction data in the
+background.
+
+## Usage
+
+```tsx
+import { useWaitForTransaction } from "@starknet-react/core";
+
+export default function Component() {
+    const transaction = "0x1059391b8c4fba9743b531ba371908195ccb5dcf2a9532fac247256fb48912f"
+    const {isLoading, isError, error, data} = useWaitForTransaction({hash: transaction, watch: true})
+
+    if (isLoading) return <div>Loading ...</div>;
+    if (isError || !data) return <div>{error?.message}</div>;
+    return <div>{data.status?.length}</div>
+}
+```
+
+## Options
+
+- __hash__`: string`
+    - The transaction hash.
+- __watch?__`: boolean`
+    - If true, refresh data at every block.
+
+## Returns
+
+- __data__`: GetTransactionReceiptResponse`
+    - GetTransactionReceiptResponse from starknet.js

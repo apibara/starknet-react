@@ -1,0 +1,51 @@
+---
+title: useAccount
+priority: 42
+hookType: default
+---
+
+Hook for accessing the account and its connection status.
+
+
+## Usage
+
+```ts
+import { useAccount } from "@starknet-react/core";
+
+export default function Component() {
+  const { account, address, status } = useAccount();
+
+  if (status === "disconnected") return <p>Disconnected</p>;
+  return <p>Account: {address}</p>;
+}
+```
+
+## Options
+    * __onConnect?__`: (args: { address?: string; connector?: Connector}) => void`
+        - Function to invoke when connected.
+        - Connector from starknet.js
+
+    * __onDisconnect?__ `: () => void`
+        - Function to invoke when disconnected.
+
+## Returns
+    * __account?__`: AccountInterface`
+        - The connected account object.
+        - AccountInterface from Starknet.js
+    * __address?__`: string`
+        - The address of the connected account.
+    * __connector?__`: Connector`
+        - The connected connector.
+        - Connector from starknet.js
+    * __status__`: AccountStatus`
+        - The connection status.
+        - AccountStatus from starknet.js
+    * __isConnecting?__`: boolean`
+        - True if connecting.
+    * __isReconnecting?__`: boolean`
+        - True if reconnecting.
+    * __isConnected?__`: boolean`
+        - True if connected.
+    * __isDisconnected?__`: boolean`
+        - True if disconnected.
+
