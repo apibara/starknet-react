@@ -3,7 +3,7 @@ import { allDemos, allDocs, allHooks } from "@/.contentlayer/generated";
 import type { NavItemWithChildren } from "@/components/sidebar";
 
 const sortedDemos = allDemos.sort((a, b) => b.priority - a.priority);
-const sortedHooks = allHooks.sort((a, b) => b.priority - a.priority);
+const sortedHooks = allHooks.sort((a, b) => b.title > a.title ? -1 : 1);
 
 export const demoSidebar: NavItemWithChildren[] = [
   {

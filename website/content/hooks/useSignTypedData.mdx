@@ -1,0 +1,82 @@
+---
+title: useSignTypedData
+---
+
+Hook to prompt the user to sign data.
+
+## Usage
+
+```ts
+import { useSignTypedData } from "@starknet-react/core";
+
+export function App() {
+  // TODO
+}
+```
+
+## Options
+
+ * `domain: StarkNetDomain`
+   - TypeData's domain.
+
+ * `types: Record<string, StarkNetType[]>`
+   - TypeData's types.
+
+ * `message: Record<string, unkonwn>`
+   - TypeData's message.
+
+ * `primaryType: string`
+   - TypeData's primary type.
+
+## Returns
+
+ * `signTypedData?: ({ domain, types, message, primaryType }) => void`
+   - Request user to sign data.
+
+ * `writeAsync?: ({ domain, types, message, primaryType }) => Promise<Signature>`
+   - Request user to sign data.
+   - Returns the signature.
+   - From starknet.js
+
+ * `data?: Signature`
+   - The signature.
+   - From starknet.js
+
+ * `error?: Error`
+   - From TanStack Query.
+   - The error if the call was not successful.
+
+ * `variables?: { calls: Call[], abis: Abi[], options: InvocationDetails }`
+   - From TanStack Query.
+   - Variables passed to the function invocation.
+
+ * `reset: () => void`
+   - From TanStack Query.
+   - Clean the mutation internal state.
+
+ * `status: "error" | "idle" | "loading" | "success"`
+   - From TanStack Query.
+   - `idle` before sending the transaction.
+   - `loading` while sending the transaction.
+   - `success` if the last invocation was successful.
+   - `error` if there was an error.
+
+ * `isSuccess: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isError: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isLoading: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isIdle: boolean`
+   - From TanStack Query.
+   - Derived from `status`.
+
+ * `isPaused: boolean`
+   - From TanStack Query.
+   - True if the invocation has been paused.

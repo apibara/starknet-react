@@ -1,4 +1,4 @@
-import { ChainProviderFactory, setDefaultRpcUrl } from "./factory";
+import { jsonRpcProvider } from "./jsonrpc";
 
 /** Arguments for `alchemyProvider`. */
 export type AlchemyProviderArgs = {
@@ -7,18 +7,13 @@ export type AlchemyProviderArgs = {
 };
 
 /** Configure the Alchemy provider using the provided API key. */
-export function alchemyProvider({
-  apiKey,
-}: AlchemyProviderArgs): ChainProviderFactory {
-  return function (chain) {
-    const baseHttpUrl = chain.rpcUrls["alchemy"]?.http[0];
-    if (!baseHttpUrl) return null;
-    const httpUrl = `${baseHttpUrl}/${apiKey}`;
-    return {
-      chain: setDefaultRpcUrl(chain, httpUrl),
-      rpcUrls: {
-        http: [httpUrl],
-      },
-    };
-  };
+export function alchemyProvider({ apiKey }: AlchemyProviderArgs) {
+  return jsonRpcProvider({
+    rpc: (chain) => {
+      const baseHttpUrl = chain.rpcUrls["alchemy"]?.http[0];
+      if (!baseHttpUrl) return null;
+      const nodeUrl = `${baseHttpUrl}/${apiKey}`;
+      return { nodeUrl };
+    },
+  });
 }
