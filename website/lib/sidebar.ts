@@ -7,6 +7,7 @@ const sortedHooks = allHooks.sort((a, b) => b.priority - a.priority);
 const defaultHooks = sortedHooks.filter((hook) => hook.hookType == "default");
 const queryHooks = sortedHooks.filter((hook) => hook.hookType == "query");
 const mutationHooks = sortedHooks.filter((hook) => hook.hookType == "mutation");
+const accountHooks = sortedHooks.filter((hook) => hook.hookType == "account");
 
 export const demoSidebar: NavItemWithChildren[] = [
   {
@@ -38,6 +39,15 @@ export const docsSidebar: NavItemWithChildren[] = [
         href: `/hooks/${slugAsParams}`,
         items: [],
       })),
+      {
+        title: "Account",
+        href: "/hooks/account",
+        items: accountHooks.map(({ title, slugAsParams }) => ({
+          title,
+          href: `/hooks/${slugAsParams}`,
+          items: [],
+        })),
+      },
       {
         title: "Query",
         href: "/hooks/query",
