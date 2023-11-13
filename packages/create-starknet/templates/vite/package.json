@@ -9,17 +9,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@starknet-react/core": "^1.0.1",
+    "@starknet-react/chains": "^0.1.0-next.1",
+    "@starknet-react/core": "2.0.0-next.6",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "get-starknet-core": "^3.2.0",
+    "next": "^14.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "starknet": "^5.19.5",
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
-    "eslint": "^8.26.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "8.33.0",
     "eslint-plugin-react": "^7.31.4",
-    "typescript": "^4.9.3",
+    "postcss": "^8.4.31",
+    "typescript": "4.9.5",
     "vite": "^4.1.0",
     "vite-plugin-checker": "^0.5.1"
   }

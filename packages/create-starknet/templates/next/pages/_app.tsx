@@ -11,7 +11,7 @@ import "./globals.css"
 
 export default function App({ Component, pageProps }: AppProps) {
   const chains = [goerli, mainnet, devnet];
-  const providers = [publicProvider()];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [
@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StarknetConfig autoConnect
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors}>
       <Component {...pageProps} />
     </StarknetConfig>
