@@ -1,0 +1,38 @@
+---
+title: useSignTypedData
+priority: 36
+hookType: mutation
+
+---
+
+Hook to disconnect the currently connected wallet.
+
+## Usage
+
+
+```ts
+import { useSignTypedData } from "@starknet-react/core";
+
+export function App() {
+  // TODO
+}
+```
+
+## Options
+    * __domain?__`: StarknetDomain`
+        - .
+        - From starknet.js
+    * __types?__`: Record<string, StarkNetType[]>`
+        - .
+        - From starknet.js
+    * __message?__`: Record<string, unkwown>`
+        - .
+        - From starknet.js
+    * __primaryType__`: string`
+        - .
+
+## Returns
+    * __signTypedData?__`: (args?: Partial<TypedData>) => void`
+        - .
+    * __signTypedDataAsync__`: (args?: Partial<TypedData>) => Promise<Signature>`
+        - .

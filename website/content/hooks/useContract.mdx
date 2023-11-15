@@ -1,24 +1,72 @@
 ---
 title: useContract
+priority: 99
+hookType: default
 ---
 
-Hook to create a `Contract` instance.
+Get a contract.
 
 ## Usage
 
 ```ts
 import { useContract } from "@starknet-react/core";
+const testAddress = "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+const _abi = [
+    {
+        members: [
+            {
+                name: "low",
+                offset: 0,
+                type: "felt",
+            },
+            {
+                name: "high",
+                offset: 1,
+                type: "felt",
+            },
+        ],
+        name: "Uint256",
+        size: 2,
+        type: "struct",
+    },
+    {
+        name: "balanceOf",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "felt",
+            },
+        ],
+        outputs: [
+            {
+                name: "balance",
+                type: "Uint256",
+            },
+        ],
+        stateMutability: "view",
+    },
+];
+export default function Component() {
+    const { contract } = useContract({ abi: _abi, address: testAddress })
 
-export function App() {
-  // TODO
+    return (
+        <div>{contract?.address}</div>
+    )
 }
 ```
 
 ## Options
 
-TODO
+ * __abi__`: Abi`
+    - The contract abi.
+    - Abi from Starknet.js
+
+ * __address__`: string`
+    - The contract address.
 
 ## Returns
 
-TODO
-
+ * __contract?__`: Contract`
+    - The contract.
+    - Contract from Starknet.js.

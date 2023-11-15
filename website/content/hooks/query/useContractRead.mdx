@@ -1,0 +1,96 @@
+---
+title: useContractRead
+priority: 197
+hookType: query
+---
+
+Perform a read-only contract call.
+
+## Usage
+
+```ts
+import { useAccount, useContractRead } from "@starknet-react/core";
+
+const testAddress =
+  "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+const _abi = [
+  {
+    members: [
+      {
+        name: "low",
+        offset: 0,
+        type: "felt",
+      },
+      {
+        name: "high",
+        offset: 1,
+        type: "felt",
+      },
+    ],
+    name: "Uint256",
+    size: 2,
+    type: "struct",
+  },
+  {
+    name: "balanceOf",
+    type: "function",
+    inputs: [
+      {
+        name: "account",
+        type: "felt",
+      },
+    ],
+    outputs: [
+      {
+        name: "balance",
+        type: "Uint256",
+      },
+    ],
+    stateMutability: "view",
+  },
+];
+
+export default function Component() {
+  const { address } = useAccount();
+
+  const { data, isError, isLoading, error } = useContractRead({
+    functionName: "balanceOf",
+    args: [address as string],
+    abi: _abi,
+    address: testAddress,
+    watch: true,
+  });
+
+  if (isLoading) return <div>Loading ...</div>;
+  if (isError || !data) return <div>{error?.message}</div>;
+  //@ts-ignore
+  return <div>{parseFloat(data.balance.low)}n</div>;
+}
+```
+
+## Options
+
+- __functionName__`: string`
+  - The contract's function name.
+- __args__`: string[]`
+  - The contract's arguments array.
+- __blockIdentifier?__`: BlockNumber`
+  - Block identifier used when performing call.
+  - BlockNumber from starknet.js
+- __parseArgs?__`: boolean`
+  - If true, parse arguments before passing to contract.
+- __parseResult?__`: boolean`
+  - If true, parse result after calling contract.
+- __abi__`: Abi`
+  - The target contract's ABI.
+  - Abi from starknet.js
+- __address__`: string`
+  - Which block to fetch.
+- __watch?__`: boolean`
+  - If true, refresh data at every block.
+
+## Returns
+
+- __data?__`: Result`
+  - The contract
+  - Result from starknet.js

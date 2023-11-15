@@ -1,24 +1,41 @@
 ---
 title: useContractFactory
+priority: 98
+hookType: default
+
 ---
 
-Hook to create a `ContractFactory` instance.
+Hook to create a `ContractFactory`.
 
 ## Usage
 
 ```ts
-import { useContractFactory } from "@starknet-react/core";
+ function Component() {
+   const { contractFactory } = useContractFactory({
+     compiledContract: compiledErc20,
+     classHash: erc20ClassHash,
+     abi: compiledErc20.abi,
+   })
 
-export function App() {
-  // TODO
-}
+   return <p>Nothing to see here...</p>
+ }
 ```
 
 ## Options
 
-TODO
+ * __compiledContract__`: CompiledContract`
+    - The compiled contract.
+    - CompiledContract from Starknet.js
+
+ * __classHash__`: string`
+    - The class hash.
+
+ * __abi__`: Abi`
+    - The contract abi.
+    - Abi from Starknet.js
 
 ## Returns
 
-TODO
-
+ * __contractFactory?__`: ContractFactory`
+    - The contract factory.
+    - ContractFactory from Starknet.js.

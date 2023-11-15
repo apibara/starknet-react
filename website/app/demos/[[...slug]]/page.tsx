@@ -49,7 +49,7 @@ export default async function DemoPage({ params }: DemoPageProps) {
   }
 
   return (
-    <DocContainer title={demo.title} section="Demos">
+    <DocContainer title={demo.title} sections={["Demos"]}>
       <Mdx code={demo.body.code} />
     </DocContainer>
   );

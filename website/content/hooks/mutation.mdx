@@ -1,0 +1,40 @@
+---
+title: Mutation
+priority: 2
+hookType: doc
+---
+
+A mutation hook is a function that allows you to perform state-changing operations on the Network. 
+
+The mutation hook type provides a set of return values and options that can be used to control and monitor the status of the mutation.
+In addition to common options and returns, each mutation hook introduces its own unique set of options and returns.
+
+## Options
+
+    * __options?__`: InvocationsDetails`
+        - Additional invocation options.
+        - From starknet.js
+
+## Returns
+
+- **error?**`: Error`
+  - The error if the call was not successful.
+- **variables**`: { calls: Call[], abis: Abi[], options: InvocationDetails }`
+  - Variables passed to the function invocation.
+- **reset**`: () => void`
+  - Clean the mutation internal state.
+- **status**`: "idle" | "loading" | "success" |" error"`
+  - idle before sending the transaction.
+  - loading while sending the transaction.
+  - success if the last invocation was successful.
+  - error if there was an error.
+- **isSuccess?**`: boolean`
+  - Derived from status.
+- **isError?**`: boolean`
+  - Derived from status.
+- **isIdle?**`: boolean`
+  - Derived from status.
+- **isLoading?**`: boolean`
+  - Derived from status.
+- **isPaused?**`: boolean`
+  - If true, the invocation has been paused.

@@ -1,5 +1,8 @@
 ---
 title: useInjectedConnectors
+priority: 97
+hookType: default
+
 ---
 
 Hook for discovering injected connectors.
@@ -44,21 +47,21 @@ export default function App({ children }) {
 
 ## Options
 
- * `recommended?: Connector[]`
+ * __recommended?__`: Connector[]`
    - List of recommended connectors.
 
- * `includeRecommended?: "always" | "onlyIfNoConnectors"`
+ * __includeRecommended?__`: "always" | "onlyIfNoConnectors"`
    - If `"always"`, the hook always returns the recommended connectors.
    - If `"onlyIfNoConnectors"`, the recommended connectors are included only if
      no other connector is installed.
 
- * `order?: "random" | "alphabetical"`
+ * __order?__`: "random" | "alphabetical"`
    - Control the order in which connectors are returned.
    - If `"random"`, connectors are shuffled.
    - If `"alphabetical"`, connectors are alphabetically sorted by their id.
 
 ## Returns
 
- * `connectors: Connector[]`
+ * __connectors__`: Connector[]`
    - Contains the list of injected connectors installed by the user.
    - All connectors are unique and sorted.

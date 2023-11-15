@@ -1,24 +1,24 @@
 ---
 title: useProvider
+priority: 95
+hookType: default
+
 ---
 
-Returns the current Starknet provider.
+Access the current provider, should be inside a StarknetConfig.
 
 ## Usage
 
 ```ts
-import { useProvider } from "@starknet-react/core";
+import { useProvider } from "@starknet-react/core"
 
-export function App() {
-  // TODO
+function Component() {
+    const { provider } = useProvider()
 }
 ```
 
-## Options
-
-TODO
-
 ## Returns
 
-TODO
-
+ * __provider__`: ProviderInterface`
+    - The current provider.
+    - ProviderInterface from Starknet.js.

@@ -1,0 +1,28 @@
+---
+title: useDisconnect
+priority: 40
+hookType: account
+
+---
+
+Hook to disconnect the currently connected wallet.
+
+## Usage
+
+
+```ts
+import { useDisconnect} from "@starknet-react/core"
+
+export default function Component() {
+    const { disconnect } = useDisconnect();
+
+  return <button onClick={() => disconnect()}>Disconnect</button>
+}
+
+```
+
+## Returns
+    * __disconnect?__`:(variables: void, options?: InvocationDetails | undefined) => void`
+        - Disconnect wallet
+    * __disconnectAsync?__`: (variables: void, options?: InvocationDetails) => Promise<void>`
+        - Disconnect wallet
