@@ -56,20 +56,7 @@ export type UseConnectResult = Omit<
 export function useConnect(props: UseConnectProps = {}): UseConnectResult {
   const { connector, connectors, connect: connect_, chain } = useStarknet();
 
-  const {
-    mutate,
-    mutateAsync,
-    data,
-    reset,
-    status,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    variables,
-  } = useMutation({
+  const { mutate, mutateAsync, variables, ...result } = useMutation({
     mutationKey: [{ entity: "connect", chainId: chain.name }],
     mutationFn: connect_,
     ...props,
@@ -91,15 +78,7 @@ export function useConnect(props: UseConnectProps = {}): UseConnectResult {
     pendingConnector: variables?.connector,
     connect,
     connectAsync,
-    data,
-    reset,
-    status,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
     variables,
+    ...result,
   };
 }

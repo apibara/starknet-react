@@ -21,7 +21,7 @@ import { useWaitForTransaction } from "@starknet-react/core";
 
 export default function Component() {
     const transaction = "0x1059391b8c4fba9743b531ba371908195ccb5dcf2a9532fac247256fb48912f"
-    const {isLoading, isError, error, data} = useWaitForTransaction({hash: transaction, watch: true})
+    const { isLoading, isError, error, data } = useWaitForTransaction({hash: transaction, watch: true})
 
     if (isLoading) return <div>Loading ...</div>;
     if (isError || !data) return <div>{error?.message}</div>;

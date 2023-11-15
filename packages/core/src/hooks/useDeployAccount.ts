@@ -58,20 +58,7 @@ export function useDeployAccount({
   ...props
 }: UseDeployAccountProps): UseDeployAccountResult {
   const { account } = useAccount();
-  const {
-    mutate,
-    mutateAsync,
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    reset,
-    status,
-    variables,
-  } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation({
     mutationKey: mutationKey({
       account,
       classHash,
@@ -94,16 +81,7 @@ export function useDeployAccount({
   return {
     deployAccount: mutate,
     deployAccountAsync: mutateAsync,
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    reset,
-    status,
-    variables,
+    ...result,
   };
 }
 

@@ -20,7 +20,7 @@ export function SignMessageDemo() {
 
 function Inner() {
   const { account } = useAccount();
-  const { data, isLoading, signTypedData } = useSignTypedData(exampleData);
+  const { data, isPending, signTypedData } = useSignTypedData(exampleData);
 
   return (
     <Card className="max-w-[400px] mx-auto">
@@ -34,7 +34,7 @@ function Inner() {
           onClick={() => signTypedData()}
           disabled={!account}
         >
-          {isLoading ? (
+          {isPending ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           ) : (
             <PenLine className="h-4 w-4 mr-2" />

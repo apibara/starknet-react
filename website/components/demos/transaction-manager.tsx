@@ -51,7 +51,7 @@ function Inner() {
     address: chain.nativeCurrency.address,
   });
 
-  const { writeAsync, isLoading } = useContractWrite({
+  const { writeAsync, isPending } = useContractWrite({
     calls: address
       ? [contract?.populateTransaction["transfer"]!(address, amount)]
       : [],
@@ -74,7 +74,7 @@ function Inner() {
           className="w-full"
           disabled={!address}
         >
-          {isLoading ? (
+          {isPending ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           ) : (
             <SendHorizonal className="h-4 w-4 mr-2" />
@@ -96,7 +96,7 @@ function Inner() {
 }
 
 function TransactionStatus({ hash }: { hash: string }) {
-  const { data, error, isLoading, isError } = useWaitForTransaction({
+  const { data, error, isPending, isError } = useWaitForTransaction({
     hash,
     watch: true,
     retry: true,
@@ -109,7 +109,7 @@ function TransactionStatus({ hash }: { hash: string }) {
           {hash}
         </p>
         <p className="text-sm font-muted-foreground">
-          {isLoading
+          {isPending
             ? "Loading..."
             : isError
             ? error?.message

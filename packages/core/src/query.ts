@@ -15,20 +15,22 @@ export type UseQueryProps<
   TQueryKey extends QueryKey = QueryKey,
 > = Pick<
   UseQueryOptions_<TQueryFnData, TError, TData, TQueryKey>,
-  "enabled" | "refetchInterval" | "suspense" | "retry" | "retryDelay"
+  "enabled" | "refetchInterval" | "retry" | "retryDelay"
 >;
 
 export type UseQueryResult<TData, TError> = Pick<
   UseQueryResult_<TData, TError>,
-  "data" | "error" | "isSuccess" | "isError" | "refetch"
-> & {
-  /** A derived boolean from the `status` variable. */
-  isIdle: boolean;
-  /** A derived boolean from the `status` variable. */
-  isLoading: boolean;
-  /** Query status. */
-  status: "idle" | "loading" | "success" | "error";
-};
+  | "data"
+  | "error"
+  | "status"
+  | "isSuccess"
+  | "isError"
+  | "isPending"
+  | "fetchStatus"
+  | "isFetching"
+  | "isLoading"
+  | "refetch"
+>;
 
 export function useQuery<
   TQueryFnData = unknown,
@@ -40,24 +42,17 @@ export function useQuery<
 ): UseQueryResult<TData, TError> {
   const base = useQuery_(args);
 
-  // Use the same type/status as wagmi to avoid confusion.
-  const status: UseQueryResult<TData, TError>["status"] =
-    base.status === "loading" && base.fetchStatus === "idle"
-      ? "idle"
-      : base.status;
-
-  const isIdle = status === "idle";
-  const isLoading = status === "loading" && base.fetchStatus === "fetching";
-
   return {
     data: base.data,
     error: base.error,
-    isLoading,
-    isIdle,
+    status: base.status,
     isSuccess: base.isSuccess,
     isError: base.isError,
+    isPending: base.isPending,
+    fetchStatus: base.fetchStatus,
+    isFetching: base.isFetching,
+    isLoading: base.isLoading,
     refetch: base.refetch,
-    status,
   };
 }
 export type UseMutationProps<
@@ -79,16 +74,16 @@ export type UseMutationResult<
   UseMutationResult_<TData, TError, TVariables, TContext>,
   | "data"
   | "error"
+  | "isError"
+  | "isIdle"
+  | "isPending"
+  | "isPaused"
+  | "isSuccess"
   | "reset"
   | "mutate"
   | "mutateAsync"
-  | "variables"
-  | "isSuccess"
-  | "isError"
-  | "isIdle"
-  | "isLoading"
-  | "isPaused"
   | "status"
+  | "variables"
 >;
 
 export function useMutation<
@@ -105,14 +100,14 @@ export function useMutation<
     data: base.data,
     error: base.error,
     reset: base.reset,
-    mutate: base.mutate,
-    mutateAsync: base.mutateAsync,
-    variables: base.variables,
-    isSuccess: base.isSuccess,
     isError: base.isError,
     isIdle: base.isIdle,
-    isLoading: base.isLoading,
+    isPending: base.isPending,
+    isSuccess: base.isSuccess,
     isPaused: base.isPaused,
+    mutate: base.mutate,
+    mutateAsync: base.mutateAsync,
     status: base.status,
+    variables: base.variables,
   };
 }

@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@starknet-react/chains": "workspace:^",
-    "@tanstack/react-query": "^4.35.3",
+    "@tanstack/react-query": "^5.0.1",
     "eventemitter3": "^5.0.1",
     "immutable": "^4.3.4",
     "zod": "^3.22.2"

@@ -22,20 +22,7 @@ export function useDisconnect(
 ): UseDisconnectResult {
   const { disconnect, chain } = useStarknet();
 
-  const {
-    mutate,
-    mutateAsync,
-    data,
-    reset,
-    status,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    variables,
-  } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation({
     mutationKey: [{ entity: "disconnect", chainId: chain.name }],
     mutationFn: disconnect,
     ...props,
@@ -44,15 +31,6 @@ export function useDisconnect(
   return {
     disconnect: mutate,
     disconnectAsync: mutateAsync,
-    data,
-    reset,
-    status,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    variables,
+    ...result,
   };
 }

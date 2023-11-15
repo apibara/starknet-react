@@ -57,20 +57,7 @@ export function useContractWrite({
   ...props
 }: UseContractWriteProps): UseContractWriteResult {
   const { account } = useAccount();
-  const {
-    mutate,
-    mutateAsync,
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    reset,
-    status,
-    variables,
-  } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation({
     mutationKey: mutationKey({ account, calls, abis, options }),
     mutationFn: mutationFn({ account }),
     ...props,
@@ -105,16 +92,7 @@ export function useContractWrite({
   return {
     write,
     writeAsync,
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    reset,
-    status,
-    variables,
+    ...result,
   };
 }
 

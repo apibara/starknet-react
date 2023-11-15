@@ -9,16 +9,22 @@ describe("useBalance", () => {
     it("returns no balance", async () => {
       const { result } = renderHook(() => useBalance({}));
 
+      await waitFor(() => {
+        expect(result.current.status).toEqual("error");
+      });
+
       expect(result.current).toMatchInlineSnapshot(`
         {
           "data": undefined,
-          "error": null,
-          "isError": false,
-          "isIdle": false,
-          "isLoading": true,
+          "error": [Error: address is required],
+          "fetchStatus": "idle",
+          "isError": true,
+          "isFetching": false,
+          "isLoading": false,
+          "isPending": false,
           "isSuccess": false,
           "refetch": [Function],
-          "status": "loading",
+          "status": "error",
         }
       `);
     });
@@ -32,7 +38,7 @@ describe("useBalance", () => {
       );
 
       await waitFor(() => {
-        expect(result.current.status).not.toEqual("loading");
+        expect(result.current.status).toEqual("success");
       });
 
       expect(result.current).toMatchInlineSnapshot(`

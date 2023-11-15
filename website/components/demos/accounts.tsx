@@ -145,7 +145,7 @@ function FundBurnerAccount({ address }: { address?: string }) {
   const { account: mainAccount } = useAccount();
   const { contract: eth } = useNativeCurrency();
 
-  const { writeAsync, isLoading, error } = useContractWrite({
+  const { writeAsync, isPending, error } = useContractWrite({
     calls:
       eth && mainAccount && address
         ? [
@@ -175,9 +175,9 @@ function FundBurnerAccount({ address }: { address?: string }) {
         <Button
           onClick={() => fundAccount()}
           className="w-full"
-          disabled={Boolean(!address || fundedAddress || isLoading)}
+          disabled={Boolean(!address || fundedAddress || isPending)}
         >
-          {isLoading ? (
+          {isPending ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           ) : (
             <ArrowDownToLine className="h-4 w-4 mr-2" />
@@ -201,7 +201,7 @@ function DeployBurnerAccount({
 }: { deployAccountArgs?: DeployAccountVariables }) {
   const { address } = useAccount();
   const [deployTx, setDeployTx] = useAtom(burnerDeployTxAtom);
-  const { deployAccount, data, error, isError, isLoading } =
+  const { deployAccount, data, error, isError, isPending } =
     useDeployAccount(deployAccountArgs);
 
   useEffect(() => {
@@ -230,9 +230,9 @@ function DeployBurnerAccount({
             <Button
               onClick={() => deployAccount({})}
               className="w-full"
-              disabled={Boolean(!address || data || isLoading)}
+              disabled={Boolean(!address || data || isPending)}
             >
-              {isLoading ? (
+              {isPending ? (
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               ) : (
                 <Shield className="h-4 w-4 mr-2" />
@@ -258,7 +258,7 @@ function InitializeBurnerAccount() {
   const burnerAddress = useAtomValue(burnerAddressAtom);
   const { account: walletAccount } = useAccount();
 
-  const { write, data, isLoading, isError, error } = useContractWrite({
+  const { write, data, isPending, isError, error } = useContractWrite({
     calls:
       burnerAddress && walletAccount && eth
         ? [
@@ -291,9 +291,9 @@ function InitializeBurnerAccount() {
         <Button
           onClick={() => write()}
           className="w-full"
-          disabled={Boolean(!walletAccount || !burnerAddress || isLoading)}
+          disabled={Boolean(!walletAccount || !burnerAddress || isPending)}
         >
-          {isLoading ? (
+          {isPending ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           ) : (
             <Lock className="h-4 w-4 mr-2" />
@@ -316,7 +316,7 @@ function WithdrawFunds({ walletAddress }: { walletAddress?: string }) {
   const { contract: eth } = useNativeCurrency();
   const { address } = useAccount();
 
-  const { write, data, isLoading, isError, error } = useContractWrite({
+  const { write, data, isPending, isError, error } = useContractWrite({
     calls:
       eth && address && walletAddress
         ? [
@@ -349,9 +349,9 @@ function WithdrawFunds({ walletAddress }: { walletAddress?: string }) {
           <Button
             onClick={() => write()}
             className="w-full"
-            disabled={Boolean(!address || !walletAddress || isLoading)}
+            disabled={Boolean(!address || !walletAddress || isPending)}
           >
-            {isLoading ? (
+            {isPending ? (
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
             ) : (
               <ArrowUpToLine className="h-4 w-4 mr-2" />

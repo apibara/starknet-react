@@ -4,10 +4,12 @@ priority: 2
 hookType: doc
 ---
 
-A mutation hook is a function that allows you to perform state-changing operations on the Network. 
+A mutation hook is a function that allows you to perform state-changing operations on the Network.
 
 The mutation hook type provides a set of return values and options that can be used to control and monitor the status of the mutation.
 In addition to common options and returns, each mutation hook introduces its own unique set of options and returns.
+
+You can find more details in the [TanStack Query documentation](https://tanstack.com/query/v5/docs/react/reference/useMutation).
 
 ## Options
 
@@ -17,24 +19,25 @@ In addition to common options and returns, each mutation hook introduces its own
 
 ## Returns
 
-- **error?**`: Error`
+- __error?__`: Error`
   - The error if the call was not successful.
-- **variables**`: { calls: Call[], abis: Abi[], options: InvocationDetails }`
+- __variables__
   - Variables passed to the function invocation.
-- **reset**`: () => void`
+- __reset__`: () => void`
   - Clean the mutation internal state.
-- **status**`: "idle" | "loading" | "success" |" error"`
-  - idle before sending the transaction.
-  - loading while sending the transaction.
-  - success if the last invocation was successful.
-  - error if there was an error.
-- **isSuccess?**`: boolean`
-  - Derived from status.
-- **isError?**`: boolean`
-  - Derived from status.
-- **isIdle?**`: boolean`
-  - Derived from status.
-- **isLoading?**`: boolean`
-  - Derived from status.
-- **isPaused?**`: boolean`
+- __status__`: string`
+  - `idle` before sending the transaction.
+  - `pending` while sending the transaction.
+  - `success` if the last invocation was successful.
+  - `error` if there was an error.
+- __isSuccess__`: boolean`
+  - Derived from `status`.
+- __isError__`: boolean`
+  - Derived from `status`.
+- __isIdle__`: boolean`
+  - Derived from `status`.
+- __isPending__`: boolean`
+  - Derived from `status`.
+- __isPaused__`: boolean`
   - If true, the invocation has been paused.
+

@@ -34,20 +34,7 @@ export function useSignTypedData({
 }: UseSignTypedDataProps): UseSignTypedDataResult {
   const { account } = useAccount();
 
-  const {
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    mutate,
-    mutateAsync,
-    reset,
-    status,
-    variables,
-  } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation({
     mutationKey: mutationKey({ domain, types, message, primaryType }),
     mutationFn: mutateFn({ account }),
     ...props,
@@ -80,18 +67,9 @@ export function useSignTypedData({
   );
 
   return {
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isSuccess,
-    isPaused,
-    reset,
     signTypedData,
     signTypedDataAsync,
-    status,
-    variables,
+    ...result,
   };
 }
 
