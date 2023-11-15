@@ -1,9 +1,11 @@
-import { useAccount, useConnectors } from "@starknet-react/core";
+"use client";
+import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { useMemo } from "react";
+import { Button } from "./ui/Button";
 
 function WalletConnected() {
   const { address } = useAccount();
-  const { disconnect } = useConnectors();
+  const { disconnect } = useDisconnect();
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
@@ -13,28 +15,26 @@ function WalletConnected() {
   return (
     <div>
       <span>Connected: {shortenedAddress}</span>
-      <button type="button" onClick={disconnect}>
-        Disconnect
-      </button>
+      <button onClick={() => disconnect()}>Disconnect</button>
     </div>
   );
 }
 
 function ConnectWallet() {
-  const { connectors, connect } = useConnectors();
+  const { connectors, connect } = useConnect();
 
   return (
     <div>
-      <span>Choose a wallet:</span>
+      <span>Choose a wallet: </span>
       {connectors.map((connector) => {
         return (
-          <button
-            type="button"
+          <Button
             key={connector.id}
-            onClick={() => connect(connector)}
+            onClick={() => connect({ connector })}
+            className="gap-x-2 mr-2"
           >
             {connector.id}
-          </button>
+          </Button>
         );
       })}
     </div>

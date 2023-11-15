@@ -1,28 +1,33 @@
-import { StarknetConfig, argent, braavos, publicProvider, useInjectedConnectors } from "@starknet-react/core";
+import {
+  StarknetConfig,
+  argent,
+  braavos,
+  publicProvider,
+  useInjectedConnectors,
+} from "@starknet-react/core";
 import { devnet, goerli, mainnet } from "@starknet-react/chains";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./globals.css"
+import "./globals.css";
 
 function Root({ children }: { children: React.ReactNode }) {
   const chains = [goerli, mainnet, devnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [
-      argent(),
-      braavos(),
-    ],
+    recommended: [argent(), braavos()],
     // Randomize the order of the connectors.
-    order: "random"
+    order: "random",
   });
 
   return (
-    <StarknetConfig autoConnect
+    <StarknetConfig
+      autoConnect
       chains={chains}
       provider={provider}
-      connectors={connectors}>
+      connectors={connectors}
+    >
       {children}
     </StarknetConfig>
   );
