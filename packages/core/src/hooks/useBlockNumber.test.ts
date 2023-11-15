@@ -8,7 +8,7 @@ describe("useBlockNumber", () => {
     const { result } = renderHook(() => useBlockNumber());
 
     await waitFor(() => {
-      expect(result.current.status).not.toEqual("loading");
+      expect(result.current.status).toEqual("success");
     });
 
     const { data, ...rest } = result.current;
@@ -16,9 +16,11 @@ describe("useBlockNumber", () => {
     expect(rest).toMatchInlineSnapshot(`
       {
         "error": null,
+        "fetchStatus": "idle",
         "isError": false,
-        "isIdle": false,
+        "isFetching": false,
         "isLoading": false,
+        "isPending": false,
         "isSuccess": true,
         "refetch": [Function],
         "status": "success",

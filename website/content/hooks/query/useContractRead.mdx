@@ -13,7 +13,7 @@ import { useAccount, useContractRead } from "@starknet-react/core";
 
 const testAddress =
   "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
-const _abi = [
+const abi = [
   {
     members: [
       {
@@ -56,7 +56,7 @@ export default function Component() {
   const { data, isError, isLoading, error } = useContractRead({
     functionName: "balanceOf",
     args: [address as string],
-    abi: _abi,
+    abi,
     address: testAddress,
     watch: true,
   });

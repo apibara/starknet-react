@@ -8,7 +8,7 @@ describe("useBlock", () => {
     const { result } = renderHook(() => useBlock());
 
     await waitFor(() => {
-      expect(result.current.status).not.toEqual("loading");
+      expect(result.current.status).toEqual("success");
     });
 
     const { data, ...rest } = result.current;
@@ -16,9 +16,11 @@ describe("useBlock", () => {
     expect(rest).toMatchInlineSnapshot(`
       {
         "error": null,
+        "fetchStatus": "idle",
         "isError": false,
-        "isIdle": false,
+        "isFetching": false,
         "isLoading": false,
+        "isPending": false,
         "isSuccess": true,
         "refetch": [Function],
         "status": "success",
@@ -39,9 +41,11 @@ describe("useBlock", () => {
       {
         "data": undefined,
         "error": [LibraryError: 24: Block not found],
+        "fetchStatus": "idle",
         "isError": true,
-        "isIdle": false,
+        "isFetching": false,
         "isLoading": false,
+        "isPending": false,
         "isSuccess": false,
         "refetch": [Function],
         "status": "error",

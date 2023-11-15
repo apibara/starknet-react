@@ -9,12 +9,12 @@ Fetch a block.
 ## Usage
 
 
-```ts
+```tsx
 import { useAccount, useBalance } from "@starknet-react/core";
 
 export default function Component() {
     const { address } = useAccount();
-    const {isLoading, isError, error, data} = useBalance({
+    const { isLoading, isError, error, data } = useBalance({
         address,
         watch: true
     })
