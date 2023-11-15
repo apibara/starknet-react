@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.0.0-next.7
+
+### Patch Changes
+
+- [#336](https://github.com/apibara/starknet-react/pull/336) [`8b3ad82`](https://github.com/apibara/starknet-react/commit/8b3ad825c100262aedc47d7da2cb465f9c6ddb44) Thanks [@fracek](https://github.com/fracek)! - Update tanstack query to v5
+
 ## 2.0.0-next.6
 
 ### Patch Changes
