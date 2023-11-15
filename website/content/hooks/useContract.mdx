@@ -50,9 +50,8 @@ const _abi = [
 export default function Component() {
     const { contract } = useContract({ abi: _abi, address: testAddress })
 
-    //BUG: doesnt return anything
     return (
-        <div>{contract?.deployTransactionHash}</div>
+        <div>{contract?.address}</div>
     )
 }
 ```
