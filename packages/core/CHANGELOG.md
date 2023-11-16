@@ -1,5 +1,32 @@
 # @starknet-react/core
 
+## 2.0.0
+
+### Major Changes
+
+- [#299](https://github.com/apibara/starknet-react/pull/299) [`226e4cb`](https://github.com/apibara/starknet-react/commit/226e4cb1d8e9b478dc57d45a98a59a57733572bb) Thanks [@fracek](https://github.com/fracek)! - Split provider and account
+
+### Patch Changes
+
+- [#322](https://github.com/apibara/starknet-react/pull/322) [`244fedf`](https://github.com/apibara/starknet-react/commit/244fedf1a99c82bb7b58cb1de15d3b712c35d2d1) Thanks [@fracek](https://github.com/fracek)! - Remove Buffer usage
+
+- [#327](https://github.com/apibara/starknet-react/pull/327) [`d33a723`](https://github.com/apibara/starknet-react/commit/d33a723a2ab3b79f020ebd4b65316712f0191b98) Thanks [@fracek](https://github.com/fracek)! - Change provider configuration
+
+- [#302](https://github.com/apibara/starknet-react/pull/302) [`792a27a`](https://github.com/apibara/starknet-react/commit/792a27a8db625e7a3650d318d99a38337f4ea072) Thanks [@fracek](https://github.com/fracek)! - Add useDeployAccount hook
+
+- [#308](https://github.com/apibara/starknet-react/pull/308) [`ca15368`](https://github.com/apibara/starknet-react/commit/ca15368cfaeb62c99d9b8e1d268030f38553bcc8) Thanks [@fracek](https://github.com/fracek)! - Improve network and account change detection
+
+- [#314](https://github.com/apibara/starknet-react/pull/314) [`bc0816b`](https://github.com/apibara/starknet-react/commit/bc0816bb3a0aa28c8117fc1cf8b4dd8ec5ee9fa2) Thanks [@fracek](https://github.com/fracek)! - Fix wallet connection when wallet not authorized
+
+- [#336](https://github.com/apibara/starknet-react/pull/336) [`8b3ad82`](https://github.com/apibara/starknet-react/commit/8b3ad825c100262aedc47d7da2cb465f9c6ddb44) Thanks [@fracek](https://github.com/fracek)! - Update tanstack query to v5
+
+- [#314](https://github.com/apibara/starknet-react/pull/314) [`bc0816b`](https://github.com/apibara/starknet-react/commit/bc0816bb3a0aa28c8117fc1cf8b4dd8ec5ee9fa2) Thanks [@fracek](https://github.com/fracek)! - Add hook to detect injected connectors
+
+- [#311](https://github.com/apibara/starknet-react/pull/311) [`6560a2d`](https://github.com/apibara/starknet-react/commit/6560a2d92f93150faef4df360c39b595765ccafd) Thanks [@fracek](https://github.com/fracek)! - Improve network and account change detection
+
+- Updated dependencies [[`226e4cb`](https://github.com/apibara/starknet-react/commit/226e4cb1d8e9b478dc57d45a98a59a57733572bb), [`035575f`](https://github.com/apibara/starknet-react/commit/035575fe3a998f38fd2532d61847aeaabad82d9f)]:
+  - @starknet-react/chains@0.1.0
+
 ## 2.0.0-next.7
 
 ### Patch Changes

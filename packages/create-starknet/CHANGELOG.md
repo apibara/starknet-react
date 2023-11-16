@@ -1,5 +1,15 @@
 # create-starknet
 
+## 2.0.0
+
+### Major Changes
+
+- [#299](https://github.com/apibara/starknet-react/pull/299) [`226e4cb`](https://github.com/apibara/starknet-react/commit/226e4cb1d8e9b478dc57d45a98a59a57733572bb) Thanks [@fracek](https://github.com/fracek)! - Split provider and account
+
+### Patch Changes
+
+- [#338](https://github.com/apibara/starknet-react/pull/338) [`d5f266a`](https://github.com/apibara/starknet-react/commit/d5f266a5378ddb17c70fcced020f5dddca21391a) Thanks [@fracek](https://github.com/fracek)! - Fix npm package
+
 ## 2.0.0-next.1
 
 ### Patch Changes
