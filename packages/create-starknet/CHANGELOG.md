@@ -1,5 +1,11 @@
 # create-starknet
 
+## 2.0.1
+
+### Patch Changes
+
+- [#342](https://github.com/apibara/starknet-react/pull/342) [`ebdc853`](https://github.com/apibara/starknet-react/commit/ebdc8532f4ef31055faef61e317905bbe7a8d07a) Thanks [@fracek](https://github.com/fracek)! - Update starknet-react dependencies
+
 ## 2.0.0
 
 ### Major Changes
