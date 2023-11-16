@@ -6,14 +6,10 @@ import chalk from "chalk";
 import { Command, Option } from "commander";
 import prompts from "prompts";
 
-import {
-  Template,
-  installDependencies,
-  installTemplate,
-} from "./helpers/installation";
-import { PackageManager, getPackageManager } from "./helpers/packageManager";
-import { getPackageNameValidation } from "./helpers/validate";
-import createStarknetPackageJson from "./package.json";
+import createStarknetPackageJson from "../package.json";
+import { Template, installDependencies, installTemplate } from "./installation";
+import { PackageManager, getPackageManager } from "./packageManager";
+import { getPackageNameValidation } from "./validate";
 
 const handleSigTerm = () => process.exit(0);
 

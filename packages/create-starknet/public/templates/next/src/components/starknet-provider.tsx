@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 import { goerli, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
-  publicProvider,
   argent,
   braavos,
+  publicProvider,
   useInjectedConnectors,
 } from "@starknet-react/core";
 

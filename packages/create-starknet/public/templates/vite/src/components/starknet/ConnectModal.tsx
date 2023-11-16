@@ -1,6 +1,6 @@
 "use client";
+import { Connector, useConnect } from "@starknet-react/core";
 import React from "react";
-import { useConnect, Connector } from "@starknet-react/core";
 import { Button } from "../ui/Button";
 import Dialog from "../ui/Dialog";
 

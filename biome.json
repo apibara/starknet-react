@@ -10,6 +10,12 @@
 
       "complexity": {
         "useLiteralKeys": "off"
+      },
+      "a11y": {
+        "useAltText": "off",
+        "noBlankTarget": "off",
+        "useButtonType": "off",
+        "useKeyWithClickEvents": "off"
       }
     }
   },

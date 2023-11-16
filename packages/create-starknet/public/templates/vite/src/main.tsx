@@ -1,3 +1,4 @@
+import { devnet, goerli, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   argent,
@@ -5,7 +6,6 @@ import {
   publicProvider,
   useInjectedConnectors,
 } from "@starknet-react/core";
-import { devnet, goerli, mainnet } from "@starknet-react/chains";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";

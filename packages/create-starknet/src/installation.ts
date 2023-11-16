@@ -16,7 +16,7 @@ export function installTemplate(
     throw new Error("A template should be selected");
   }
 
-  const templatesFolderPath = path.join(__dirname, "../../templates");
+  const templatesFolderPath = path.join(__dirname, "./templates");
 
   const selectedTemplatePath = path.join(templatesFolderPath, selectedTemplate);
 
