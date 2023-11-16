@@ -12,13 +12,13 @@ First, update all dependencies and double check that the installed version of
 
 <CH.Code>
 ```console npm
-npm install @starknet-react/chains@next @starknet-react/core@next starknet get-starknet-core
+npm install @starknet-react/chains @starknet-react/core starknet get-starknet-core
 ```
 ```console pnpm
-pnpm add @starknet-react/chains@next @starknet-react/core@next starknet get-starknet-core
+pnpm add @starknet-react/chains @starknet-react/core starknet get-starknet-core
 ```
 ```console yarn
-yarn add @starknet-react/chains@next @starknet-react/core@next starknet get-starknet-core
+yarn add @starknet-react/chains @starknet-react/core starknet get-starknet-core
 ```
 </CH.Code>
 
@@ -36,23 +36,33 @@ options. You also need to update the `connectors` passed to it.
    for the most popular wallets.
 
 ```tsx components/starknet-provider.tsx
-import { goerli } from "@starknet-react/chains";
+import { goerli, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
+  useInjectedConnectors,
   argent,
   braavos,
 } from "@starknet-react/core";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
-  const chains = [goerli];
-  const provider = publicProvider();
-  const connectors = [argent(), braavos()];
+  const { connectors } = useInjectedConnectors({
+    // Show these connectors if the user has no connector installed.
+    recommended: [
+      argent(),
+      braavos(),
+    ],
+    // Hide recommended connectors if the user has any connector installed.
+    includeRecommended: "onlyIfNoConnectors",
+    // Randomize the order of the connectors.
+    order: "random"
+  });
+
 
   return (
     <StarknetConfig
-      chains={chains}
-      provider={provider}
+      chains={[mainnet, goerli]}
+      provider={publicProvider()}
       connectors={connectors}
     >
       {children}
@@ -60,6 +70,14 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   );
 }
 ```
+
+## Update hooks
+
+You should review the hooks documentation to see what changed. Generally
+speaking:
+
+ - `useContractWrite` and `useSignTypedData` return values changed.
+   Specifically, `isLoading` is now `isPending`.
 
 ## Transaction manager
 
