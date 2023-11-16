@@ -1,6 +1,6 @@
+import React from "react";
 // import { useBlock } from "@starknet-react/core";
 import Header from "./components/Header";
-import React from "react";
 
 function App() {
   return (
