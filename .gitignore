@@ -19,6 +19,16 @@ dist
 .next
 .turbo
 .pnpm-debug.log
+.tamagui
+.expo
 website/generated
 website/out
 website/.contentlayer
+web-build/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+.metro-health-check*
