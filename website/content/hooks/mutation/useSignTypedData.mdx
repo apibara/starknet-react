@@ -7,14 +7,28 @@ hookType: mutation
 
 Hook to disconnect the currently connected wallet.
 
+[Example Json Data](https://gist.github.com/okhaimie-dev/5bd0ee3eab8b2b76d016f5522569820f)
+
 ## Usage
 
 
 ```ts
-import { useSignTypedData } from "@starknet-react/core";
+import { useSignTypedData, useAccount } from "@starknet-react/core";
+import { exampleData } from "./exampleData";
 
 export function App() {
-  // TODO
+  const { account } = useAccount();
+  const { data, isPending, signTypedData } = useSignTypedData(exampleData);
+
+	return (
+		<button
+			className="w-full"
+			onClick={() => signTypedData(exampleData)}
+			disabled={!account}
+		>
+			{isPending ? <p>Loading...</p> : <p>Sign Message</p>}
+		</button>
+	);
 }
 ```
 
