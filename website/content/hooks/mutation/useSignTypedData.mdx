@@ -26,7 +26,7 @@ export function App() {
 			onClick={() => signTypedData(exampleData)}
 			disabled={!account}
 		>
-			{isPending ? <p>Loading...</p> : <p>Sign Message</p>}
+			{isPending ? <p>Waiting for wallet...</p> : <p>Sign Message</p>}
 		</button>
 	);
 }
