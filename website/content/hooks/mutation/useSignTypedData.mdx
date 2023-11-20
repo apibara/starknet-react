@@ -5,16 +5,30 @@ hookType: mutation
 
 ---
 
-Hook to disconnect the currently connected wallet.
+Request user to sign a piece of data.
+
+You can read more about Starknet signatures and the meaning of the arguments [on the Starknet.js documentation](https://www.starknetjs.com/docs/guides/signature/).
 
 ## Usage
 
 
 ```ts
-import { useSignTypedData } from "@starknet-react/core";
+import { useSignTypedData, useAccount } from "@starknet-react/core";
+import { exampleData } from "./exampleData";
 
 export function App() {
-  // TODO
+  const { account } = useAccount();
+  const { data, isPending, signTypedData } = useSignTypedData(exampleData);
+
+	return (
+		<button
+			className="w-full"
+			onClick={() => signTypedData(exampleData)}
+			disabled={!account}
+		>
+			{isPending ? <p>Waiting for wallet...</p> : <p>Sign Message</p>}
+		</button>
+	);
 }
 ```
 

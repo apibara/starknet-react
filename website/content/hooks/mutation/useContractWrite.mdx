@@ -7,12 +7,43 @@ hookType: mutation
 
 Hook to send one or more transaction to Starknet.
 
+<a href="https://github.com/apibara/starknet-react/blob/main/website/lib/erc20.ts" target="_blank">Sample ABI file</a>
+
 ## Usage
 
 ```ts
 import { useContractWrite } from "@starknet-react/core";
+import { erc20ABI } from "./erc20";
+import { useMemo } from "react";
 
 export function App() {
-  // TODO
+  const { address } = useAccount();
+	const { chain } = useNetwork();
+
+	const { contract } = useContract({
+		abi: erc20ABI,
+		address: chain.nativeCurrency.address,
+	});
+
+	const calls = useMemo(() => {
+		if (!address || !contract) return [];
+		return contract.populateTransaction["transfer"]!(address, { low: 1, high: 0 });
+	}, [contract, address]);
+
+	const {
+		writeAsync,
+		data,
+		isPending,
+	} = useContractWrite({
+		calls,
+	});
+
+	return (
+		<>
+			<button onClick={() => writeAsync()}>Transfer</button>
+			<p>status: {isPending && <div>Submitting...</div>}</p>
+			<p>hash: {data?.transaction_hash}</p>
+		</>
+	);
 }
 ```
