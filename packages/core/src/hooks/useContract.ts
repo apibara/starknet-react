@@ -46,10 +46,8 @@ export function useContract({
 }: UseContractArgs): UseContractResult {
   const { provider:currentProvider } = useStarknet();
   
-  console.log("use contract!!")
   const contract = useMemo(() => {
     const provider = providedProvider ? providedProvider : currentProvider;
-    console.log(provider, providedProvider, currentProvider)
     if (abi && address && provider) {
       return new Contract(abi, address, provider);
     }
