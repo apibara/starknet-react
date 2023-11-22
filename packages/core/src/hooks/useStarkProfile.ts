@@ -82,7 +82,7 @@ export type useStarkProfileResult = UseQueryResult<
  * ```tsx
  * function Component() {
  *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
- *   const { data, isLoading, isError } = useStarkName({ address, namingContract: '0x1234', identityContract: '0x5678' })
+ *   const { data, isLoading, isError } = useStarkProfile({ address, namingContract: '0x1234', identityContract: '0x5678' })
  *
  *   if (isLoading) return <span>Loading...</span>
  *   if (isError) return <span>Error fetching profile...</span>

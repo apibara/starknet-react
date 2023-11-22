@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 
-import { useStarkName, useStarkAddress } from "@starknet-react/core";
+import {
+  useStarkName,
+  useStarkAddress,
+  useStarkProfile,
+} from "@starknet-react/core";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useDebounce } from "usehooks-ts";
 
@@ -31,9 +35,10 @@ function Inner() {
     <div className="w-full">
       <div className="max-w-[600px] mx-auto">
         <Tabs defaultValue="address" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="address">Lookup address</TabsTrigger>
             <TabsTrigger value="name">Lookup name</TabsTrigger>
+            <TabsTrigger value="profile">Lookup profile</TabsTrigger>
           </TabsList>
           <TabsContent value="address">
             <Card>
@@ -58,6 +63,19 @@ function Inner() {
               </CardHeader>
               <CardContent>
                 <LookupName />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="profile">
+            <Card>
+              <CardHeader>
+                <CardTitle>Lookup Starknet profile</CardTitle>
+                <CardDescription>
+                  Lookup a Starknet ID profile by its Starknet address.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <LookupProfile />
               </CardContent>
             </Card>
           </TabsContent>
@@ -128,6 +146,54 @@ function LookupName() {
           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
         ) : (
           <p>Name: {data}</p>
+        )}
+      </div>
+      {error ? (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{(error as Error).message}</AlertDescription>
+        </Alert>
+      ) : null}
+    </div>
+  );
+}
+
+function LookupProfile() {
+  const [address, setAddress] = useState<string>("");
+
+  const debounceAddress = useDebounce(address, 500);
+
+  const { data, error, isLoading } = useStarkProfile({
+    address: debounceAddress,
+  });
+
+  console.log("data", data);
+  console.log("error", error);
+
+  return (
+    <div className="space-y-2">
+      <div className="space-y-1">
+        <Label htmlFor="address">Address</Label>
+        <Input
+          id="address"
+          placeholder="0x0508...8775"
+          value={address}
+          onChange={(evt) => setAddress(evt.target.value)}
+        />
+      </div>
+      <div className="space-y-1">
+        {isLoading ? (
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        ) : (
+          <>
+            <p>Name: {data?.name}</p>
+            <p>Discord id: {data?.discord}</p>
+            <p>Twitter id: {data?.twitter}</p>
+            <p>Github id: {data?.github}</p>
+            <p>Proof of personhood verification: {data?.proofOfPersonhood}</p>
+            <p>Profile picture metadata uri : {data?.profilePicture}</p>
+          </>
         )}
       </div>
       {error ? (
