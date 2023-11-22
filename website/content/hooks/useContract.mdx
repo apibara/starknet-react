@@ -51,9 +51,7 @@ const abi = [
     },
 ];
 export default function Component() {
-    const provider = publicProvider()
-
-    const { contract } = useContract({ abi: abi, address: testAddress, provider: provider(devnet) })
+    const { contract } = useContract({ abi: abi, address: testAddress })
     return (
         <div>
             {contract?.address}
