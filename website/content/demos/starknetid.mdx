@@ -61,7 +61,7 @@ function MyComponent() {
   const debounceAddress = useDebounce(address, 500);
 
   const { data, error, isLoading } = useStarkName({
-    address: debounceAddress
+    address: debounceAddress,
   });
 
   return (
@@ -80,6 +80,53 @@ function MyComponent() {
           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
         ) : (
           <p>Name: {data}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+## Lookup Stark profile
+
+Use the `useStarkProfile` hook to lookup the Starknet.ID associated data with a Starknet
+address.
+
+```tsx lookup-stark-profile.tsx
+import { useStarkProfile } from "@starknet-react/core";
+
+function MyComponent() {
+  const [address, setAddress] = useState<string>("");
+
+  const debounceAddress = useDebounce(address, 500);
+
+  const { data, error, isLoading } = useStarkProfile({
+    address: debounceAddress,
+  });
+
+  return (
+    <div className="space-y-2">
+      <div className="space-y-1">
+        <Label htmlFor="address">Address</Label>
+        <Input
+          id="address"
+          placeholder="0x0508...8775"
+          value={address}
+          onChange={(evt) => setAddress(evt.target.value)}
+        />
+      </div>
+      <div className="space-y-1">
+        {isLoading ? (
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        ) : (
+          <>
+            <p>Name: {data?.name}</p>
+            <p>Discord id: {data?.discord}</p>
+            <p>Twitter id: {data?.twitter}</p>
+            <p>Github id: {data?.github}</p>
+            <p>Proof of personhood verification: {data?.proofOfPersonhood}</p>
+            <p>Profile picture metadata uri : {data?.profilePicture}</p>
+          </>
         )}
       </div>
     </div>

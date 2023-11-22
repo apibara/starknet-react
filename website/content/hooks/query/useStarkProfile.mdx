@@ -1,0 +1,49 @@
+---
+title: useStarkProfile
+priority: 196
+hookType: query
+---
+
+Get the Stark profile associated with an address.
+
+## Usage
+
+```tsx
+function Component() {
+  const address =
+    "0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3";
+  const { data, isLoading, isError } = useStarkProfile({ address });
+
+  if (isLoading) return <span>Loading...</span>;
+  if (isError) return <span>Error fetching profile...</span>;
+  return (
+    <>
+      <p>Name: {data?.name}</p>
+      <p>Discord id: {data?.discord}</p>
+      <p>Twitter id: {data?.twitter}</p>
+      <p>Github id: {data?.github}</p>
+      <p>Proof of personhood verification: {data?.proofOfPersonhood}</p>
+      <p>Profile picture metadata : {data?.profilePicture}</p>
+    </>
+  );
+}
+```
+
+## Options
+
+- **address?**`: string`
+  - Account address.
+- **namingContract?**`: string`
+  - Naming contract to use.
+- **identityContract?**`: string`
+  - Identity contract to use.
+
+## Returns
+
+- **data?**`: { name: string, profilePicture: string, twitter: string, github: string, discord: string, proofOfPersonhood: boolean }`
+  - the Stark name.
+  - the metadata uri of the profile picture.
+  - the twitter id.
+  - the github id.
+  - the discord id.
+  - the proof of personhood verification.
