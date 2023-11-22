@@ -16,3 +16,4 @@ export * from "./useSign";
 export * from "./useStarkAddress";
 export * from "./useStarkName";
 export * from "./useWaitForTransaction";
+export * from "./useStarkProfile";
