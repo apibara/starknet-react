@@ -336,7 +336,7 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
     verifier_pfp:
       "0x03cac3228b434259734ee0e4ff445f642206ea11adace7e4f45edd2596748698",
     multicall:
-      "0x6e2b0049610266f5acfb899b2de1a121a0d65e86330ae38b6287e0e4b80a42",
+      "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
   mainnet: {
     naming: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
@@ -348,7 +348,8 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
       "0x0293eb2ba9862f762bd3036586d5755a782bd22e6f5028320f1d0405fd47bff4",
     verifier_pfp:
       "0x070aaa20ec4a46da57c932d9fd89ca5e6bb9ca3188d3df361a32306aff7d59c7",
-    multicall: "", // todo: deploy on mainnet and add address
+    multicall:
+      "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
 };
 
