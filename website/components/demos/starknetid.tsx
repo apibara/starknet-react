@@ -160,16 +160,15 @@ function LookupName() {
 }
 
 function LookupProfile() {
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>(
+    "0x00a00373a00352aa367058555149b573322910d54fcdf3a926e3e56d0dcb4b0c"
+  );
 
   const debounceAddress = useDebounce(address, 500);
 
   const { data, error, isLoading } = useStarkProfile({
     address: debounceAddress,
   });
-
-  console.log("data", data);
-  console.log("error", error);
 
   return (
     <div className="space-y-2">
@@ -188,10 +187,13 @@ function LookupProfile() {
         ) : (
           <>
             <p>Name: {data?.name}</p>
-            <p>Discord id: {data?.discord}</p>
-            <p>Twitter id: {data?.twitter}</p>
-            <p>Github id: {data?.github}</p>
-            <p>Proof of personhood verification: {data?.proofOfPersonhood}</p>
+            <p>Discord id: {data?.discord ?? "-"}</p>
+            <p>Twitter id: {data?.twitter ?? "-"}</p>
+            <p>Github id: {data?.github ?? "-"}</p>
+            <p>
+              Proof of personhood verification:{" "}
+              {data?.proofOfPersonhood ? "true" : "-"}
+            </p>
             <p>Profile picture metadata uri : {data?.profilePicture}</p>
           </>
         )}

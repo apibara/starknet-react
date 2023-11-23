@@ -57,7 +57,9 @@ address.
 import { useStarkAddress } from "@starknet-react/core";
 
 function MyComponent() {
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>(
+    "0x00a00373a00352aa367058555149b573322910d54fcdf3a926e3e56d0dcb4b0c"
+  );
   const debounceAddress = useDebounce(address, 500);
 
   const { data, error, isLoading } = useStarkName({
@@ -96,7 +98,9 @@ address.
 import { useStarkProfile } from "@starknet-react/core";
 
 function MyComponent() {
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>(
+    "0x00a00373a00352aa367058555149b573322910d54fcdf3a926e3e56d0dcb4b0c"
+  );
 
   const debounceAddress = useDebounce(address, 500);
 
