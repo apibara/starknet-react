@@ -171,16 +171,19 @@ function queryFn({
     const data = await multicallContract.call("aggregate", [
       [
         {
+          execution: staticExecution(),
           to: hardcoded(naming),
           selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
           calldata: [hardcoded(address)],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(naming),
           selector: hardcoded(hash.getSelectorFromName("domain_to_token_id")),
           calldata: [arrayReference(0, 0)],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
           calldata: [
@@ -191,6 +194,7 @@ function queryFn({
           ],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
           calldata: [
@@ -201,6 +205,7 @@ function queryFn({
           ],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
           calldata: [
@@ -211,6 +216,7 @@ function queryFn({
           ],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
           calldata: [
@@ -222,6 +228,7 @@ function queryFn({
         },
         // PFP
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
           calldata: [
@@ -232,6 +239,7 @@ function queryFn({
           ],
         },
         {
+          execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
             hash.getSelectorFromName("get_extended_verifier_data")
@@ -245,9 +253,10 @@ function queryFn({
           ],
         },
         {
+          execution: notEqual(6, 0, 0),
           to: reference(6, 0),
           selector: hardcoded(hash.getSelectorFromName("tokenURI")),
-          calldata: [reference(7, 0), reference(7, 1)],
+          calldata: [reference(7, 1), reference(7, 2)],
         },
       ],
     ]);
@@ -261,11 +270,15 @@ function queryFn({
         data[4][0] !== BigInt(0) ? data[4][0].toString() : undefined;
       const proofOfPersonhood = data[5][0] === BigInt(1) ? true : false;
 
-      let profilePicture = "";
-      data[8].shift();
-      data[8].map((elem: any) => {
-        profilePicture += String.fromCharCode(Number(elem));
-      });
+      const profilePicture =
+        data.length === 9
+          ? data[8]
+              .slice(1)
+              .map((val: BigInt) =>
+                shortString.decodeShortString(val.toString())
+              )
+              .join("")
+          : undefined;
 
       return {
         name,
@@ -299,6 +312,18 @@ const arrayReference = (call: number, pos: number) => {
   });
 };
 
+const staticExecution = () => {
+  return new CairoCustomEnum({
+    Static: {},
+  });
+};
+
+const notEqual = (call: number, pos: number, value: number) => {
+  return new CairoCustomEnum({
+    IfNotEqual: cairo.tuple(call, pos, value),
+  });
+};
+
 const StarknetIdcontracts: Record<string, Record<string, string>> = {
   goerli: {
     naming: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
@@ -311,7 +336,7 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
     verifier_pfp:
       "0x03cac3228b434259734ee0e4ff445f642206ea11adace7e4f45edd2596748698",
     multicall:
-      "0x6420d69f38880b5b428ae1a834ea004e0726be4847c40ee23754823717eaf60",
+      "0x6e2b0049610266f5acfb899b2de1a121a0d65e86330ae38b6287e0e4b80a42",
   },
   mainnet: {
     naming: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
@@ -332,6 +357,21 @@ const multicallABI = [
     type: "impl",
     name: "ComposableMulticallImpl",
     interface_name: "composable_multicall::IComposableMulticall",
+  },
+  {
+    type: "enum",
+    name: "composable_multicall::Execution",
+    variants: [
+      { name: "Static", type: "()" },
+      {
+        name: "IfEqual",
+        type: "(core::integer::u32, core::integer::u32, core::felt252)",
+      },
+      {
+        name: "IfNotEqual",
+        type: "(core::integer::u32, core::integer::u32, core::felt252)",
+      },
+    ],
   },
   {
     type: "enum",
@@ -357,6 +397,7 @@ const multicallABI = [
     type: "struct",
     name: "composable_multicall::DynamicCall",
     members: [
+      { name: "execution", type: "composable_multicall::Execution" },
       { name: "to", type: "composable_multicall::DynamicFelt" },
       { name: "selector", type: "composable_multicall::DynamicFelt" },
       {
