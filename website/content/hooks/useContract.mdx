@@ -9,7 +9,9 @@ Get a contract.
 ## Usage
 
 ```ts
+"use client"
 import { useContract } from "@starknet-react/core";
+
 const testAddress = "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
 const abi = [
     {
@@ -48,10 +50,11 @@ const abi = [
     },
 ];
 export default function Component() {
-    const { contract } = useContract({ abi, address: testAddress })
-
+    const { contract } = useContract({ abi: abi, address: testAddress })
     return (
-        <div>{contract?.address}</div>
+        <div>
+            {contract?.address}
+        </div>
     )
 }
 ```
@@ -64,6 +67,10 @@ export default function Component() {
 
  * __address__`: string`
     - The contract address.
+
+ * __provider__`?: ProviderInterface | null`
+    - Override the provider used by the contract.
+    - `ProviderInterface` is from starknet.js.
 
 ## Returns
 

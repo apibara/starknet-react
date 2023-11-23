@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Abi, Contract } from "starknet";
+import { Abi, Contract, ProviderInterface } from "starknet";
 
 import { useStarknet } from "~/context/starknet";
 
@@ -9,6 +9,8 @@ export interface UseContractArgs {
   abi?: Abi;
   /** The contract address. */
   address?: string;
+  /** The provider, by default it will be the current one. */
+  provider?: ProviderInterface | null
 }
 
 /** Value returned from `useContract`. */
@@ -40,15 +42,17 @@ export interface UseContractResult {
 export function useContract({
   abi,
   address,
+  provider: providedProvider
 }: UseContractArgs): UseContractResult {
-  const { provider } = useStarknet();
-
+  const { provider:currentProvider } = useStarknet();
+  
   const contract = useMemo(() => {
+    const provider = providedProvider ? providedProvider : currentProvider;
     if (abi && address && provider) {
       return new Contract(abi, address, provider);
     }
     return undefined;
-  }, [abi, address, provider]);
+  }, [abi, address, providedProvider, currentProvider]);
 
   return { contract };
 }
