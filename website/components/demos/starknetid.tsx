@@ -194,7 +194,8 @@ function LookupProfile() {
               Proof of personhood verification:{" "}
               {data?.proofOfPersonhood ? "true" : "-"}
             </p>
-            <p>Profile picture metadata uri : {data?.profilePicture}</p>
+            <p>Profile picture metadata uri : {data?.profile}</p>
+            <p>Profile picture uri : {data?.profilePicture}</p>
           </>
         )}
       </div>

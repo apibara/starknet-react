@@ -32,7 +32,9 @@ export type StarkProfileArgs = UseQueryProps<
 /** Value returned by `useStarkProfile` hook. */
 type GetStarkprofileResponse = {
   name?: string;
-  /** Profile picture metadata. */
+  /** Metadata url of the NFT set as profile picture. */
+  profile?: string;
+  /** Profile picture url. */
   profilePicture?: string;
   twitter?: string;
   github?: string;
@@ -67,7 +69,8 @@ export type useStarkProfileResult = UseQueryResult<
  *   if (isError) return <span>Error fetching stark profile...</span>
  *   return (
  *      <span>name: {data?.name}</span>
- *      <span>Profile picture metadata uri : {data?.profilePicture}</span>
+ *      <span>Profile picture metadata uri : {data?.profile}</span>
+ *      <span>Profile picture uri : {data?.profilePicture}</span>
  *      <span>Discord id: {data?.discord}</span>
  *      <span>Twitter id: {data?.twitter}</span>
  *      <span>Github id: {data?.github}</span>
@@ -88,7 +91,8 @@ export type useStarkProfileResult = UseQueryResult<
  *   if (isError) return <span>Error fetching profile...</span>
  *   return (
  *      <span>name: {data?.name}</span>
- *      <span>Profile picture metadata uri : {data?.profilePicture}</span>
+ *      <span>Profile picture metadata uri : {data?.profile}</span>
+ *      <span>Profile picture uri : {data?.profilePicture}</span>
  *      <span>Discord id: {data?.discord}</span>
  *      <span>Twitter id: {data?.twitter}</span>
  *      <span>Github id: {data?.github}</span>
@@ -270,7 +274,7 @@ function queryFn({
         data[4][0] !== BigInt(0) ? data[4][0].toString() : undefined;
       const proofOfPersonhood = data[5][0] === BigInt(1) ? true : false;
 
-      const profilePicture =
+      const profile =
         data.length === 9
           ? data[8]
               .slice(1)
@@ -280,6 +284,9 @@ function queryFn({
               .join("")
           : undefined;
 
+      // extract nft_image from profile data
+      const profilePicture = profile ? await fetchImageUrl(profile) : undefined;
+
       return {
         name,
         twitter,
@@ -287,6 +294,7 @@ function queryFn({
         discord,
         proofOfPersonhood,
         profilePicture,
+        profile,
       };
     } else {
       throw new Error("Error while fetching data");
@@ -322,6 +330,28 @@ const notEqual = (call: number, pos: number, value: number) => {
   return new CairoCustomEnum({
     IfNotEqual: cairo.tuple(call, pos, value),
   });
+};
+
+const fetchImageUrl = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    // Check if the "image" key exists and is not null
+    if (data.image) {
+      return data.image;
+    } else {
+      return "Image is not set";
+    }
+  } catch (error) {
+    console.error("There was a problem fetching the image URL:", error);
+    return "Error fetching data";
+  }
 };
 
 const StarknetIdcontracts: Record<string, Record<string, string>> = {
