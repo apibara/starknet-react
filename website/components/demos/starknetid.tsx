@@ -168,6 +168,7 @@ function LookupProfile() {
 
   const { data, error, isLoading } = useStarkProfile({
     address: debounceAddress,
+    identicons: true,
   });
 
   return (
