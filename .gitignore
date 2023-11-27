@@ -4,6 +4,7 @@ node_modules/
 build
 .DS_Store
 *.tgz
+*.pem
 my-app*
 lerna-debug.log
 npm-debug.log*
@@ -32,3 +33,12 @@ web-build/
 *.key
 *.mobileprovision
 .metro-health-check*
+coverage
+out/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+.env*.local
+.env
+*.tsbuildinfo
+next-env.d.ts
