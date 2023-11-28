@@ -7,7 +7,7 @@ export type LavaProviderArgs = {
 };
 
 /** Configure the Lava provider using the provided API key. */
-export function lavalProvider({ apiKey }: LavaProviderArgs) {
+export function lavaProvider({ apiKey }: LavaProviderArgs) {
   return jsonRpcProvider({
     rpc: (chain) => {
       const baseHttpUrl = chain.rpcUrls["lava"]?.http[0];
