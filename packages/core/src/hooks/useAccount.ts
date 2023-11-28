@@ -32,6 +32,8 @@ export type UseAccountResult = {
   address?: string;
   /** The connected connector. */
   connector?: Connector;
+  /** Connector's chain id */
+  chainId?: bigint;
   /** True if connecting. */
   isConnecting?: boolean;
   /** True if reconnecting. */
@@ -104,6 +106,7 @@ export function useAccount({
 
         return setState({
           connector,
+          chainId: await connector.chainId(),
           account: connectedAccount,
           address: connectedAccount.address,
           status: "connected",
@@ -119,6 +122,7 @@ export function useAccount({
     // This can happen if it's an arcade account.
     setState({
       connector: undefined,
+      chainId: undefined,
       account: connectedAccount,
       address: connectedAccount.address,
       status: "connected",
