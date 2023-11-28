@@ -23,8 +23,8 @@ export type StarkProfileArgs = UseQueryProps<
 > & {
   /** Account address. */
   address?: string;
-  /** Get Starknet ID identicons if no profile picture is set */
-  identicons?: boolean;
+  /** Get Starknet ID default pfp url if no profile picture is set */
+  useDefaultPfp?: boolean;
   /** Naming contract to use. */
   namingContract?: string;
   /** Identity contract to use. */
@@ -82,12 +82,12 @@ export type useStarkProfileResult = UseQueryResult<
  * ```
  *
  *  @example
- * This example shows how to get the stark profile of an address enabling identicons and specifying a
+ * This example shows how to get the stark profile of an address disabling useDefaultPfp and specifying a
  * different naming and identity contract addresses
  * ```tsx
  * function Component() {
  *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
- *   const { data, isLoading, isError } = useStarkProfile({ address, identicons: true, namingContract: '0x1234', identityContract: '0x5678' })
+ *   const { data, isLoading, isError } = useStarkProfile({ address, useDefaultPfp: false, namingContract: '0x1234', identityContract: '0x5678' })
  *
  *   if (isLoading) return <span>Loading...</span>
  *   if (isError) return <span>Error fetching profile...</span>
@@ -105,7 +105,7 @@ export type useStarkProfileResult = UseQueryResult<
  */
 export function useStarkProfile({
   address,
-  identicons = false,
+  useDefaultPfp = true,
   namingContract,
   identityContract,
   enabled: enabled_ = true,
@@ -127,7 +127,7 @@ export function useStarkProfile({
     queryKey: queryKey({ address, namingContract, identityContract }),
     queryFn: queryFn({
       address,
-      identicons,
+      useDefaultPfp,
       namingContract,
       provider,
       network: chain.network,
@@ -155,7 +155,7 @@ function queryKey({
 
 function queryFn({
   address,
-  identicons,
+  useDefaultPfp,
   namingContract,
   identityContract,
   provider,
@@ -292,7 +292,7 @@ function queryFn({
       // extract nft_image from profile data
       const profilePicture = profile
         ? await fetchImageUrl(profile)
-        : identicons
+        : useDefaultPfp
         ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
         : undefined;
 
