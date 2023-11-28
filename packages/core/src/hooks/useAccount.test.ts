@@ -90,6 +90,7 @@ describe("useAccount", () => {
             },
           },
           "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
+          "chainId": 1536727068981429685321n,
           "connector": undefined,
           "isConnected": true,
           "isConnecting": false,
