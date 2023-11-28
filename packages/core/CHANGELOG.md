@@ -1,5 +1,13 @@
 # @starknet-react/core
 
+## 2.1.0
+
+### Minor Changes
+
+- [#361](https://github.com/apibara/starknet-react/pull/361) [`df223d0`](https://github.com/apibara/starknet-react/commit/df223d0769ff753f8df81e632fd487c6846b31cc) Thanks [@fracek](https://github.com/fracek)! - Return connector's chainId from useAccount hook
+
+- [#354](https://github.com/apibara/starknet-react/pull/354) [`89e0e8b`](https://github.com/apibara/starknet-react/commit/89e0e8bd30c9c7d8691678d376214e111e365f54) Thanks [@irisdv](https://github.com/irisdv)! - Add useStarkProfile hook
+
 ## 2.0.0
 
 ### Major Changes
