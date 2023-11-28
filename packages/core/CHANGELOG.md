@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.1.1
+
+### Patch Changes
+
+- [#362](https://github.com/apibara/starknet-react/pull/362) [`b492205`](https://github.com/apibara/starknet-react/commit/b4922051770f1bde6b9258677b4751db169c73b8) Thanks [@TeddyNotBear](https://github.com/TeddyNotBear)! - Fix lava provider typo
+
 ## 2.1.0
 
 ### Minor Changes
