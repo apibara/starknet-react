@@ -1,0 +1,27 @@
+---
+title: useExplorer
+priority: 97
+hookType: default
+
+---
+
+Access the current explorer, should be inside a StarknetConfig.
+
+## Usage
+
+```ts
+import { useProvider } from "@starknet-react/core"
+
+function Component() {
+  const explorer = useExplorer()
+
+  return (
+    <p>{explorer.block("0x7f61cd8dedcc1978b36b2dd641b30d0b2c13190ebb356efa83e1981adf8e4ef")}</p>
+  )
+}
+```
+
+## Returns
+
+ * __explorer__`: Explorer`
+    - The current explorer, can be sark compass, starkscan, viewblock, voyager.
