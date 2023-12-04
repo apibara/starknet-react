@@ -66,6 +66,7 @@ import {
   argent,
   braavos,
   useInjectedConnectors,
+  voyager
 } from "@starknet-react/core";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
@@ -86,6 +87,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
       chains={[mainnet, goerli]}
       provider={publicProvider()}
       connectors={connectors}
+      explorer={voyager}
     >
       {children}
     </StarknetConfig>
