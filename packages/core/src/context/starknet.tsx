@@ -20,6 +20,8 @@ import { ConnectorData } from "~/connectors/base";
 import { ConnectorNotFoundError } from "~/errors";
 import { ChainProviderFactory } from "~/providers";
 import { AccountProvider } from "./account";
+import { ExplorerFactory} from "~/explorers/explorer";
+import { StarkcompassExplorer, StarkscanExplorer, ViewblockExplorer, VoyagerExplorer } from "..";
 
 /** State of the Starknet context. */
 export interface StarknetState {
@@ -31,6 +33,8 @@ export interface StarknetState {
   disconnect: () => Promise<void>;
   /** List of registered connectors. */
   connectors: Connector[];
+  /** Current explorer factory. */
+  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
   /** Chains supported by the app. */
   chains: Chain[];
   /** Current chain. */
@@ -87,6 +91,7 @@ interface StarknetManagerState {
 interface UseStarknetManagerProps {
   chains: Chain[];
   provider: ChainProviderFactory;
+  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
   connectors?: Connector[];
   autoConnect?: boolean;
 }
@@ -94,6 +99,7 @@ interface UseStarknetManagerProps {
 function useStarknetManager({
   chains,
   provider,
+  explorer,
   connectors = [],
   autoConnect = false,
 }: UseStarknetManagerProps): StarknetState & { account?: AccountInterface } {
@@ -272,6 +278,7 @@ function useStarknetManager({
     provider: state.currentProvider,
     chain: state.currentChain,
     connector: connectorRef.current,
+    explorer, 
     connect,
     disconnect,
     connectors,
@@ -287,6 +294,8 @@ export interface StarknetProviderProps {
   provider: ChainProviderFactory;
   /** List of connectors to use. */
   connectors?: Connector[];
+  /** Explorer to use. */
+  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
   /** Connect the first available connector on page load. */
   autoConnect?: boolean;
   /** React-query client to use. */
@@ -300,6 +309,7 @@ export function StarknetProvider({
   chains,
   provider,
   connectors,
+  explorer,
   autoConnect,
   queryClient,
   children,
@@ -307,6 +317,7 @@ export function StarknetProvider({
   const { account, ...state } = useStarknetManager({
     chains,
     provider,
+    explorer,
     connectors,
     autoConnect,
   });

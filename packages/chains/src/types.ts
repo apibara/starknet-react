@@ -29,6 +29,11 @@ export type Chain = {
 
   /** Flag for testnet networks */
   testnet?: boolean;
+
+  /** Explorer links*/ 
+  explorers?: {
+    [key: string]: readonly string[];
+  }
 };
 
 export type NativeCurrency = {
