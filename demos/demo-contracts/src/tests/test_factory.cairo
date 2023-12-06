@@ -6,6 +6,9 @@ use debug::PrintTrait;
 use integer::BoundedU64;
 use starknet::testing;
 
+use openzeppelin::presets::Account;
+use openzeppelin::account::interface::{ AccountABIDispatcher, AccountABIDispatcherTrait };
+
 // locals
 use demo_contracts::arcade_counter::contract::ArcadeCounter;
 use demo_contracts::arcade_counter::counter::CounterComponent;
@@ -40,6 +43,15 @@ fn setup_arcade_account() -> ArcadeAccountABIDispatcher {
   ArcadeAccountABIDispatcher { contract_address: arcade_account_address }
 }
 
+fn setup_account() -> AccountABIDispatcher {
+  let account_address = utils::deploy(
+    contract_class_hash: Account::TEST_CLASS_HASH,
+    calldata: array![constants::PUBLIC_KEY]
+  );
+
+  AccountABIDispatcher { contract_address: account_address }
+}
+
 //
 // Tests
 //
@@ -62,6 +74,7 @@ fn test_increment() {
   arcade_counter.increment();
 
   assert(arcade_counter.counter(:master_account).is_one(), 'Invalid counter after');
+  assert(arcade_counter.counter(master_account: constants::OTHER()).is_zero(), 'Invalid other counter after');
 }
 
 #[test]
@@ -84,6 +97,7 @@ fn test_increment_mulitple() {
   arcade_counter.increment();
 
   assert(arcade_counter.counter(:master_account) == 5, 'Invalid counter after');
+  assert(arcade_counter.counter(master_account: constants::OTHER()).is_zero(), 'Invalid other counter after');
 }
 
 #[test]
@@ -101,6 +115,18 @@ fn test_increment_above_limit() {
 
   // increment
   testing::set_contract_address(arcade_account.contract_address);
+  arcade_counter.increment();
+}
+
+#[test]
+#[available_gas(20000000)]
+#[should_panic(expected: ('Caller is not an arcade account', 'ENTRYPOINT_FAILED'))]
+fn test_increment_from_invalid() {
+  let arcade_counter = setup();
+  let account = setup_account();
+
+  // increment
+  testing::set_contract_address(account.contract_address);
   arcade_counter.increment();
 }
 
@@ -126,6 +152,7 @@ fn test_decrement() {
   arcade_counter.decrement();
 
   assert(arcade_counter.counter(:master_account) == counter_init - 1, 'Invalid counter after');
+  assert(arcade_counter.counter(master_account: constants::OTHER()).is_zero(), 'Invalid other counter after');
 }
 
 #[test]
@@ -152,6 +179,7 @@ fn test_decrement_mulitple() {
   arcade_counter.decrement();
 
   assert(arcade_counter.counter(:master_account) == counter_init - 5, 'Invalid counter after');
+  assert(arcade_counter.counter(master_account: constants::OTHER()).is_zero(), 'Invalid other counter after');
 }
 
 #[test]
@@ -166,4 +194,39 @@ fn test_decrement_bellow_limit() {
   // increment
   testing::set_contract_address(arcade_account.contract_address);
   arcade_counter.decrement();
+}
+
+#[test]
+#[available_gas(20000000)]
+#[should_panic(expected: ('Caller is not an arcade account', 'ENTRYPOINT_FAILED'))]
+fn test_decrement_from_invalid() {
+  let arcade_counter = setup();
+  let account = setup_account();
+
+  // increment
+  testing::set_contract_address(account.contract_address);
+  arcade_counter.decrement();
+}
+
+// Counter
+
+#[test]
+#[available_gas(20000000)]
+fn test_counter() {
+  let arcade_counter = setup();
+
+  let master_1 = constants::MASTER();
+  let master_2 = constants::OTHER();
+
+  // counter check
+  arcade_counter.set_counter(master_account: master_1, value: 0x42);
+
+  assert(arcade_counter.counter(master_account: master_1) == 0x42, 'Invalid counter - 1');
+  assert(arcade_counter.counter(master_account: master_2).is_zero(), 'Invalid counter - 2');
+
+  // another counter check
+  arcade_counter.set_counter(master_account: master_2, value: 0xdead);
+
+  assert(arcade_counter.counter(master_account: master_1) == 0x42, 'Invalid counter - 2');
+  assert(arcade_counter.counter(master_account: master_2) == 0xdead, 'Invalid counter - 3');
 }
