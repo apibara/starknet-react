@@ -1,4 +1,4 @@
 mod mocks;
 mod utils;
 mod constants;
-mod test_factory;
+mod test_arcade_counter;
