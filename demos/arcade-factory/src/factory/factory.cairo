@@ -5,9 +5,15 @@ mod FactoryComponent {
   // locals
   use arcade_factory::factory::interface;
 
-  use arcade_factory::account::interface::{ ArcadeAccountABIDispatcher, ArcadeAccountABIDispatcherTrait };
+  use arcade_factory::account::interface::{
+    ARCADE_ACCOUNT_ID,
+    ArcadeAccountABIDispatcher,
+    ArcadeAccountABIDispatcherTrait,
+  };
 
   const CONTRACT_ADDRESS_PREFIX: felt252 = 'STARKNET_CONTRACT_ADDRESS';
+
+  const SUPPORTS_INTERFACE_SELECTOR: felt252 = 0xfe80f537b66d12a00b6d3c072b44afbb716e78dde5c3f0ef116ee93d3e3283;
 
   //
   // Storage
@@ -105,6 +111,16 @@ mod FactoryComponent {
       ref self: ComponentState<TContractState>,
       arcade_account_implementation: starknet::ClassHash
     ) {
+      // check that the new implementation is a valid arcade account
+      let ret_data = starknet::library_call_syscall(
+        class_hash: arcade_account_implementation,
+        function_selector: SUPPORTS_INTERFACE_SELECTOR,
+        calldata: array![ARCADE_ACCOUNT_ID].span()
+      ).unwrap_syscall();
+
+      assert((ret_data.len() == 1) & (*ret_data.at(0) == true.into()), 'Invalid arcade account impl');
+
+      // update implementation
       self._arcade_account_implementation.write(arcade_account_implementation);
     }
   }

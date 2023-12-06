@@ -12,6 +12,8 @@ mod ArcadeAccountMock {
   // locals
   use super::ArcadeAccountMockABI;
 
+  use arcade_factory::account::interface;
+
   //
   // Storage
   //
@@ -48,5 +50,54 @@ mod ArcadeAccountMock {
     fn set_master_account(ref self: ContractState, master_account: starknet::ContractAddress) {
       self._master_account.write(master_account);
     }
+  }
+
+  #[external(v0)]
+  fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
+    return interface_id == interface::ARCADE_ACCOUNT_ID;
+  }
+}
+
+#[starknet::contract]
+mod ValidArcadeAccountMock {
+  // locals
+  use arcade_factory::account::interface;
+
+  //
+  // Storage
+  //
+
+  #[storage]
+  struct Storage { }
+
+  //
+  // ArcadeAccountMockABI
+  //
+
+  #[external(v0)]
+  fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
+    return interface_id == interface::ARCADE_ACCOUNT_ID;
+  }
+}
+
+#[starknet::contract]
+mod InvalidArcadeAccountMock {
+  // locals
+  use arcade_factory::account::interface;
+
+  //
+  // Storage
+  //
+
+  #[storage]
+  struct Storage { }
+
+  //
+  // ArcadeAccountMockABI
+  //
+
+  #[external(v0)]
+  fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
+    return interface_id != interface::ARCADE_ACCOUNT_ID;
   }
 }
