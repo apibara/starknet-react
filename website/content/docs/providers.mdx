@@ -28,7 +28,8 @@ services not yet supported by Starknet React. The value returned by the `rpc`
 function is passed to the `RpcProvider` constructor.
 
 ```tsx
-import { Chain, jsonRpcProvider } from "@starknet-react/core";
+import { jsonRpcProvider } from "@starknet-react/core";
+import { Chain } from "@starknet-react/chains";
 
 function rpc(chain: Chain) {
   return {
