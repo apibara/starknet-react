@@ -1,13 +1,10 @@
-import WalletBar from '@/components/WalletBar';
-import Outer from '@/components/accounts';
-import React from 'react'
+import WalletBar from '@/components/wallet-bar';
 
 const Setup = () => {
   return (
-    <>
-      <WalletBar />
-      <Outer />
-    </>
+    <div>
+      Setup Account
+    </div>
   );
 }
 

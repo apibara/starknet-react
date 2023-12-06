@@ -1,4 +1,4 @@
-import WalletBar from "@/components/WalletBar";
+import WalletBar from "@/components/wallet-bar";
 
 export default function Home() {
   return (
