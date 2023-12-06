@@ -9,10 +9,30 @@ trait ArcadeAccountMockABI<TState> {
 // Using a mock instead of the real impl of the arcade account because of OZ versions conflict
 #[starknet::contract]
 mod ArcadeAccountMock {
+  use openzeppelin::introspection::src5::SRC5Component;
+
   // locals
   use super::ArcadeAccountMockABI;
 
   use arcade_factory::account::interface;
+
+  component!(path: SRC5Component, storage: src5, event: SRC5Event);
+
+  // Components
+
+  #[abi(embed_v0)]
+  impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
+
+  //
+  // Events
+  //
+
+  #[event]
+  #[derive(Drop, starknet::Event)]
+  enum Event {
+    #[flat]
+    SRC5Event: SRC5Component::Event,
+  }
 
   //
   // Storage
@@ -22,6 +42,9 @@ mod ArcadeAccountMock {
   struct Storage {
     _public_key: felt252,
     _master_account: starknet::ContractAddress,
+
+    #[substorage(v0)]
+    src5: SRC5Component::Storage,
   }
 
   //
@@ -51,11 +74,6 @@ mod ArcadeAccountMock {
       self._master_account.write(master_account);
     }
   }
-
-  #[external(v0)]
-  fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
-    return interface_id == interface::ARCADE_ACCOUNT_ID;
-  }
 }
 
 #[starknet::contract]
@@ -71,33 +89,11 @@ mod ValidArcadeAccountMock {
   struct Storage { }
 
   //
-  // ArcadeAccountMockABI
+  // SRC5
   //
 
   #[external(v0)]
   fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
-    return interface_id == interface::ARCADE_ACCOUNT_ID;
-  }
-}
-
-#[starknet::contract]
-mod InvalidArcadeAccountMock {
-  // locals
-  use arcade_factory::account::interface;
-
-  //
-  // Storage
-  //
-
-  #[storage]
-  struct Storage { }
-
-  //
-  // ArcadeAccountMockABI
-  //
-
-  #[external(v0)]
-  fn supports_interface(self: @ContractState, interface_id: felt252) -> bool {
-    return interface_id != interface::ARCADE_ACCOUNT_ID;
+    false
   }
 }
