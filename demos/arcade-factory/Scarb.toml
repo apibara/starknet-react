@@ -1,0 +1,11 @@
+[package]
+name = "arcade_factory"
+version = "0.1.0"
+
+# See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest.html
+
+[dependencies]
+openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git", rev = "7a7be63" }
+# arcade_account = { git = "https://github.com/BibliothecaDAO/arcade-account", rev = "9afeb23" }
+
+[[target.starknet-contract]]

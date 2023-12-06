@@ -42,3 +42,4 @@ out/
 .env
 *.tsbuildinfo
 next-env.d.ts
+demos/arcade-factory/target

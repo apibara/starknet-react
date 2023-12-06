@@ -1,0 +1,2 @@
+[crate_roots]
+arcade_factory = "src"
