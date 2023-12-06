@@ -14,8 +14,6 @@ mod ArcadeAccountMock {
   // locals
   use super::ArcadeAccountMockABI;
 
-  use arcade_factory::account::interface;
-
   component!(path: SRC5Component, storage: src5, event: SRC5Event);
 
   // Components
@@ -78,6 +76,41 @@ mod ArcadeAccountMock {
 
 #[starknet::contract]
 mod ValidArcadeAccountMock {
+  use openzeppelin::introspection::src5::SRC5Component;
+
+  // locals
+
+  component!(path: SRC5Component, storage: src5, event: SRC5Event);
+
+  // Components
+
+  #[abi(embed_v0)]
+  impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
+
+  //
+  // Events
+  //
+
+  #[event]
+  #[derive(Drop, starknet::Event)]
+  enum Event {
+    #[flat]
+    SRC5Event: SRC5Component::Event,
+  }
+
+  //
+  // Storage
+  //
+
+  #[storage]
+  struct Storage {
+    #[substorage(v0)]
+    src5: SRC5Component::Storage,
+  }
+}
+
+#[starknet::contract]
+mod InvalidArcadeAccountMock {
   // locals
   use arcade_factory::account::interface;
 

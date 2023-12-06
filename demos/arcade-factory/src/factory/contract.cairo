@@ -97,7 +97,8 @@ mod ArcadeFactory {
   //
 
   #[external(v0)]
-  fn set_arcade_account_implementation(ref self: ContractState, arcade_account_implementation: starknet::ClassHash) {
+  // method name cannot be too long :/
+  fn set_arcade_account_impl(ref self: ContractState, arcade_account_implementation: starknet::ClassHash) {
     // only owner
     self.ownable.assert_only_owner();
 
