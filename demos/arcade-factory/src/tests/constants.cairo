@@ -1,11 +1,3 @@
-use openzeppelin::token::erc20::dual20::DualCaseERC20;
-
-mod VALID {
-}
-
-mod INVALID {
-}
-
 // addresses
 
 fn OWNER() -> starknet::ContractAddress {
@@ -22,12 +14,6 @@ fn ZERO() -> starknet::ContractAddress {
 
 fn MASTER() -> starknet::ContractAddress {
   starknet::contract_address_const::<'MASTER'>()
-}
-
-// contracts
-
-fn ETHER() -> DualCaseERC20 {
-  DualCaseERC20 { contract_address: starknet::contract_address_const::<1>() }
 }
 
 // misc
