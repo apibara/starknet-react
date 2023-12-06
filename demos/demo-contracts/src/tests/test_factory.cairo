@@ -27,8 +27,6 @@ use super::constants;
 //
 
 fn setup() -> ArcadeCounterABIDispatcher {
-  let owner = constants::OWNER();
-
   let arcade_counter_address = utils::deploy(contract_class_hash: ArcadeCounter::TEST_CLASS_HASH, calldata: array![]);
 
   ArcadeCounterABIDispatcher { contract_address: arcade_counter_address }
