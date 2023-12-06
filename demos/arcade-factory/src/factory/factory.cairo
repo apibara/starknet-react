@@ -97,8 +97,15 @@ mod FactoryComponent {
     +HasComponent<TContractState>,
     +Drop<TContractState>,
   > of InternalTrait<TContractState> {
-    fn initializer(ref self: ComponentState<TContractState>, arcade_account_implementation_: starknet::ClassHash) {
-      self._arcade_account_implementation.write(arcade_account_implementation_);
+    fn initializer(ref self: ComponentState<TContractState>, arcade_account_implementation: starknet::ClassHash) {
+      self._set_arcade_account_implementation(:arcade_account_implementation);
+    }
+
+    fn _set_arcade_account_implementation(
+      ref self: ComponentState<TContractState>,
+      arcade_account_implementation: starknet::ClassHash
+    ) {
+      self._arcade_account_implementation.write(arcade_account_implementation);
     }
   }
 }

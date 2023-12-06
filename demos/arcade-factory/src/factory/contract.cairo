@@ -73,10 +73,10 @@ mod ArcadeFactory {
   fn constructor(
     ref self: ContractState,
     owner: starknet::ContractAddress,
-    arcade_account_implementation_: starknet::ClassHash
+    arcade_account_implementation: starknet::ClassHash
   ) {
     self.ownable.initializer(:owner);
-    self.factory.initializer(:arcade_account_implementation_);
+    self.factory.initializer(:arcade_account_implementation);
   }
 
   //
@@ -90,5 +90,18 @@ mod ArcadeFactory {
 
     // set new impl
     self.upgradeable._upgrade(:new_class_hash);
+  }
+
+  //
+  // Factory
+  //
+
+  #[external(v0)]
+  fn set_arcade_account_implementation(ref self: ContractState, arcade_account_implementation: starknet::ClassHash) {
+    // only owner
+    self.ownable.assert_only_owner();
+
+    // set new impl
+    self.factory._set_arcade_account_implementation(:arcade_account_implementation);
   }
 }
