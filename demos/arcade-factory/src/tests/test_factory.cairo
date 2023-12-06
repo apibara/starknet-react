@@ -10,7 +10,6 @@ use arcade_factory::factory::interface::{ ArcadeFactoryABIDispatcher, ArcadeFact
 
 use super::mocks::arcade_account_mock::{
   ValidArcadeAccountMock,
-  InvalidArcadeAccountMock,
   ArcadeAccountMock,
   ArcadeAccountMockABIDispatcher,
   ArcadeAccountMockABIDispatcherTrait,
@@ -44,13 +43,14 @@ fn setup() -> ArcadeFactoryABIDispatcher {
 
 #[test]
 #[available_gas(20000000)]
-#[should_panic(expected: ('Result::unwrap failed.',))] // cannot have another error message from constructor
+// cannot have another error message from constructor
+#[should_panic(expected: ('Result::unwrap failed.',))]
 fn test_constructor_invalid_arcade_account_implementation() {
   let owner = constants::OWNER();
 
   utils::deploy(
     contract_class_hash: ArcadeFactory::TEST_CLASS_HASH,
-    calldata: array![owner.into(), InvalidArcadeAccountMock::TEST_CLASS_HASH]
+    calldata: array![owner.into(), 'invalid class hash']
   );
 }
 
@@ -129,14 +129,13 @@ fn test_set_arcade_account_implementation() {
 
 #[test]
 #[available_gas(20000000)]
-#[should_panic(expected: ('Invalid arcade account impl', 'ENTRYPOINT_FAILED',))]
+// cannot have another error message until state revert during tx is supported
+#[should_panic(expected: ('CLASS_HASH_NOT_DECLARED', 'ENTRYPOINT_FAILED',))]
 fn test_set_arcade_account_implementation_invalid() {
   let factory = setup();
 
   testing::set_contract_address(constants::OWNER());
-  factory.set_arcade_account_implementation(
-    arcade_account_implementation: InvalidArcadeAccountMock::TEST_CLASS_HASH.try_into().unwrap()
-  );
+  factory.set_arcade_account_implementation(arcade_account_implementation: 'new class hash'.try_into().unwrap());
 }
 
 #[test]

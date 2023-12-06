@@ -111,14 +111,16 @@ mod FactoryComponent {
       ref self: ComponentState<TContractState>,
       arcade_account_implementation: starknet::ClassHash
     ) {
-      // check that the new implementation is a valid arcade account
+      // check that the new implementation is a valid class hash
+      // we cannot check if the implementation register to the arcade account interface
+      // but we can check if the implementation implements the supports_interface method
       let ret_data = starknet::library_call_syscall(
         class_hash: arcade_account_implementation,
         function_selector: SUPPORTS_INTERFACE_SELECTOR,
         calldata: array![ARCADE_ACCOUNT_ID].span()
       ).unwrap_syscall();
 
-      assert((ret_data.len() == 1) & (*ret_data.at(0) == true.into()), 'Invalid arcade account impl');
+      assert(ret_data.len() == 1, 'Invalid arcade account impl');
 
       // update implementation
       self._arcade_account_implementation.write(arcade_account_implementation);
