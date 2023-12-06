@@ -57,6 +57,10 @@ mod CounterComponent {
 
       self._counter.write(master_account, counter_ - 1);
     }
+
+    fn set_counter(ref self: ComponentState<TContractState>, master_account: starknet::ContractAddress, value: u64) {
+      self._counter.write(master_account, value);
+    }
   }
 
   //

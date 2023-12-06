@@ -9,6 +9,8 @@ trait ICounter<TState> {
   fn increment(ref self: TState);
 
   fn decrement(ref self: TState);
+
+  fn set_counter(ref self: TState, master_account: starknet::ContractAddress, value: u64);
 }
 
 //
@@ -22,4 +24,5 @@ trait ArcadeCounterABI<TState> {
 
   fn increment(ref self: TState);
   fn decrement(ref self: TState);
+  fn set_counter(ref self: TState, master_account: starknet::ContractAddress, value: u64);
 }
