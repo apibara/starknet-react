@@ -2,6 +2,9 @@
 mod FactoryComponent {
   use starknet::SyscallResultTrait;
 
+  use openzeppelin::utils::selectors;
+  use openzeppelin::introspection::interface::ISRC5_ID;
+
   // locals
   use arcade_factory::factory::interface;
 
@@ -12,8 +15,6 @@ mod FactoryComponent {
   };
 
   const CONTRACT_ADDRESS_PREFIX: felt252 = 'STARKNET_CONTRACT_ADDRESS';
-
-  const SUPPORTS_INTERFACE_SELECTOR: felt252 = 0xfe80f537b66d12a00b6d3c072b44afbb716e78dde5c3f0ef116ee93d3e3283;
 
   //
   // Storage
@@ -113,14 +114,14 @@ mod FactoryComponent {
     ) {
       // check that the new implementation is a valid class hash
       // we cannot check if the implementation register to the arcade account interface
-      // but we can check if the implementation implements the supports_interface method
+      // but we can check if the implementation supports SRC5
       let ret_data = starknet::library_call_syscall(
         class_hash: arcade_account_implementation,
-        function_selector: SUPPORTS_INTERFACE_SELECTOR,
-        calldata: array![ARCADE_ACCOUNT_ID].span()
+        function_selector: selectors::supports_interface,
+        calldata: array![ISRC5_ID].span()
       ).unwrap_syscall();
 
-      assert(ret_data.len() == 1, 'Invalid arcade account impl');
+      assert((ret_data.len() == 1) & (*ret_data.at(0) == true.into()), 'Invalid arcade account impl');
 
       // update implementation
       self._arcade_account_implementation.write(arcade_account_implementation);
