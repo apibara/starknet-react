@@ -31,6 +31,7 @@ trait IFactory<TState> {
 trait ArcadeFactoryABI<TState> {
   // IFactory
   fn arcade_account_implementation(self: @TState) -> starknet::ClassHash;
+  fn set_arcade_account_implementation(ref self: TState, arcade_account_implementation: starknet::ClassHash);
   fn compute_address(
     self: @TState,
     salt: felt252,
