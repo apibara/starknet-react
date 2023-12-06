@@ -5,6 +5,8 @@ mod FactoryComponent {
   // locals
   use arcade_factory::factory::interface;
 
+  use arcade_factory::account::interface::{ ArcadeAccountABIDispatcher, ArcadeAccountABIDispatcherTrait };
+
   const CONTRACT_ADDRESS_PREFIX: felt252 = 'STARKNET_CONTRACT_ADDRESS';
 
   //
@@ -45,8 +47,7 @@ mod FactoryComponent {
 
       // calldata
       let mut calldata_hash = pedersen::pedersen(0, public_key);
-      let mut calldata_hash = pedersen::pedersen(calldata_hash, master_account.into());
-      calldata_hash = pedersen::pedersen(calldata_hash, 2);
+      calldata_hash = pedersen::pedersen(calldata_hash, 1);
 
       // compute address
       let mut address = pedersen::pedersen(0, CONTRACT_ADDRESS_PREFIX);
@@ -68,7 +69,7 @@ mod FactoryComponent {
       let arcade_account_implementation_ = self._arcade_account_implementation.read();
 
       // calldata
-      let calldata = array![public_key, master_account.into()];
+      let calldata = array![public_key];
 
       let (arcade_contract_address, _) = starknet::syscalls::deploy_syscall(
         class_hash: arcade_account_implementation_,
@@ -76,6 +77,11 @@ mod FactoryComponent {
         calldata: calldata.span(),
         deploy_from_zero: true
       ).unwrap_syscall();
+
+      // setup master account
+      let arcade_account = ArcadeAccountABIDispatcher { contract_address: arcade_contract_address };
+
+      arcade_account.set_master_account(:master_account);
 
       return arcade_contract_address;
     }
