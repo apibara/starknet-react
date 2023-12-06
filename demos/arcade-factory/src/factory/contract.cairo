@@ -28,8 +28,6 @@ mod ArcadeFactory {
   // Factory
   #[abi(embed_v0)]
   impl FactoryImpl = FactoryComponent::FactoryImpl<ContractState>;
-
-  // Factory
   impl FactoryInternalImpl = FactoryComponent::InternalImpl<ContractState>;
 
   //

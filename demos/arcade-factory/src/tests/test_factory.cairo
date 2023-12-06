@@ -26,12 +26,12 @@ use super::constants;
 fn setup() -> ArcadeFactoryABIDispatcher {
   let owner = constants::OWNER();
 
-  let factory_contract_address = utils::deploy(
+  let arcade_factory_address = utils::deploy(
     contract_class_hash: ArcadeFactory::TEST_CLASS_HASH,
     calldata: array![owner.into(), ArcadeAccountMock::TEST_CLASS_HASH]
   );
 
-  ArcadeFactoryABIDispatcher { contract_address: factory_contract_address }
+  ArcadeFactoryABIDispatcher { contract_address: arcade_factory_address }
 }
 
 //
