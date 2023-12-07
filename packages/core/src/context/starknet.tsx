@@ -20,8 +20,7 @@ import { ConnectorData } from "~/connectors/base";
 import { ConnectorNotFoundError } from "~/errors";
 import { ChainProviderFactory } from "~/providers";
 import { AccountProvider } from "./account";
-import { ExplorerFactory} from "~/explorers/explorer";
-import { StarkcompassExplorer, StarkscanExplorer, ViewblockExplorer, VoyagerExplorer } from "..";
+import { Explorer, ExplorerFactory } from "~/explorers/";
 
 /** State of the Starknet context. */
 export interface StarknetState {
@@ -34,7 +33,7 @@ export interface StarknetState {
   /** List of registered connectors. */
   connectors: Connector[];
   /** Current explorer factory. */
-  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
+  explorer?: ExplorerFactory<Explorer>;
   /** Chains supported by the app. */
   chains: Chain[];
   /** Current chain. */
@@ -91,7 +90,7 @@ interface StarknetManagerState {
 interface UseStarknetManagerProps {
   chains: Chain[];
   provider: ChainProviderFactory;
-  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
+  explorer?: ExplorerFactory<Explorer>;
   connectors?: Connector[];
   autoConnect?: boolean;
 }
@@ -227,7 +226,7 @@ function useStarknetManager({
 
     try {
       await connectorRef.current.disconnect();
-    } catch {}
+    } catch { }
     connectorRef.current = undefined;
   }, [
     autoConnect,
@@ -278,7 +277,7 @@ function useStarknetManager({
     provider: state.currentProvider,
     chain: state.currentChain,
     connector: connectorRef.current,
-    explorer, 
+    explorer,
     connect,
     disconnect,
     connectors,
@@ -295,7 +294,7 @@ export interface StarknetProviderProps {
   /** List of connectors to use. */
   connectors?: Connector[];
   /** Explorer to use. */
-  explorer?: ExplorerFactory<StarkcompassExplorer | StarkscanExplorer | ViewblockExplorer | VoyagerExplorer>;
+  explorer?: ExplorerFactory<Explorer>;
   /** Connect the first available connector on page load. */
   autoConnect?: boolean;
   /** React-query client to use. */
