@@ -1,1 +1,0 @@
-export const FUNDING_AMOUNT = 100_000_000_000_000n;
