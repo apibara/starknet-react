@@ -51,7 +51,7 @@ export const Hook = defineDocumentType(() => ({
     },
     hookType: {
       required: true,
-      type: "string" ,
+      type: "string",
     },
   },
 }));

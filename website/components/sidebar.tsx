@@ -21,7 +21,7 @@ export type NavItemWithChildren = NavItem & {
 export function Sidebar({ items }: { items: NavItemWithChildren[] }) {
   const pathname = usePathname();
 
-  return (items.length ?
+  return items.length ? (
     <div className="w-full">
       {items.map((item, index) => (
         <div key={index} className={cn("pb-4")}>
@@ -33,8 +33,10 @@ export function Sidebar({ items }: { items: NavItemWithChildren[] }) {
           )}
         </div>
       ))}
-    </div> : <></>
-  )
+    </div>
+  ) : (
+    <></>
+  );
 }
 
 interface DocsSidebarNavItemsProps {
@@ -61,12 +63,21 @@ export function DocsSidebarNavItems({
             href={item.href}
             className={cn(
               "group flex flex-col items-start w-full rounded-lg border border-transparent px-2 py-1",
-              pathname === item.href ? "text-foreground" : "text-muted-foreground",
+              pathname === item.href
+                ? "text-foreground"
+                : "text-muted-foreground",
             )}
             target={item.external ? "_blank" : ""}
             rel={item.external ? "noreferrer" : ""}
           >
-            <span className={cn("hover:underline", pathname === item.href ? "font-medium" : "")} >{item.title}</span>
+            <span
+              className={cn(
+                "hover:underline",
+                pathname === item.href ? "font-medium" : "",
+              )}
+            >
+              {item.title}
+            </span>
             {item.label && (
               <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
                 {item.label}
@@ -96,5 +107,7 @@ export function DocsSidebarNavItems({
         ),
       )}
     </div>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 }

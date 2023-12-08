@@ -10,7 +10,7 @@ export interface UseContractArgs {
   /** The contract address. */
   address?: string;
   /** The provider, by default it will be the current one. */
-  provider?: ProviderInterface | null
+  provider?: ProviderInterface | null;
 }
 
 /** Value returned from `useContract`. */
@@ -42,10 +42,10 @@ export interface UseContractResult {
 export function useContract({
   abi,
   address,
-  provider: providedProvider
+  provider: providedProvider,
 }: UseContractArgs): UseContractResult {
-  const { provider:currentProvider } = useStarknet();
-  
+  const { provider: currentProvider } = useStarknet();
+
   const contract = useMemo(() => {
     const provider = providedProvider ? providedProvider : currentProvider;
     if (abi && address && provider) {
