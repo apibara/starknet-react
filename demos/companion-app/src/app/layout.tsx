@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { monoFont, sansFont } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { StarknetProvider } from '@/components/starknet-provider'
 import './globals.css'
 
@@ -16,10 +18,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-		<html lang="en">
-			<body className={inter.className}>
-				<StarknetProvider>{children}</StarknetProvider>
-			</body>
-		</html>
-	);
+    <html lang="en">
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          sansFont.variable,
+          monoFont.variable
+        )}
+      >
+        <StarknetProvider>{children}</StarknetProvider>
+      </body>
+    </html>
+  );
 }
