@@ -3,16 +3,18 @@ import { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the VoyagerExplorer class that extends Explorer
 export class VoyagerExplorer implements Explorer {
-  public name= "Voyager"
+  public name = "Voyager";
   private link: string;
 
   constructor(private chain: Chain) {
-    this.link = this.chain.explorers?.["voyager"]?.toString() ?? ""
-      }
+    this.link = this.chain.explorers?.["voyager"]?.toString() ?? "";
+  }
 
-  block(hashOrNumber: {hash?: string, number?: number}): string {
+  block(hashOrNumber: { hash?: string; number?: number }): string {
     if (hashOrNumber.number && hashOrNumber.hash == undefined) {
-      throw new Error("The voyager explorer doesn't support numbers for blocks. Please provide a hash.");
+      throw new Error(
+        "The voyager explorer doesn't support numbers for blocks. Please provide a hash.",
+      );
     }
     return `${this.link}block/${hashOrNumber.hash}`;
   }
@@ -26,7 +28,6 @@ export class VoyagerExplorer implements Explorer {
   }
 
   class(hash: string): string {
-
     return `${this.link}class/${hash}`;
   }
 }

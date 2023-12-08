@@ -1,13 +1,14 @@
 "use client";
 import { ReactNode } from "react";
 
-import { goerli, mainnet } from "@starknet-react/chains";
+import { devnet, goerli, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   argent,
   braavos,
   publicProvider,
   useInjectedConnectors,
+  voyager,
 } from "@starknet-react/core";
 
 export function StarknetProvider({ children }: { children: ReactNode }) {
@@ -22,9 +23,10 @@ export function StarknetProvider({ children }: { children: ReactNode }) {
 
   return (
     <StarknetConfig
-      chains={[mainnet, goerli]}
+      chains={[mainnet]}
       provider={publicProvider()}
       connectors={connectors}
+      explorer={voyager}
     >
       {children}
     </StarknetConfig>

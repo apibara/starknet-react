@@ -226,7 +226,7 @@ function useStarknetManager({
 
     try {
       await connectorRef.current.disconnect();
-    } catch { }
+    } catch {}
     connectorRef.current = undefined;
   }, [
     autoConnect,

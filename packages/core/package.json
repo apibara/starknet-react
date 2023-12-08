@@ -42,7 +42,7 @@
     "starknet": "^5.19.0"
   },
   "dependencies": {
-    "@starknet-react/chains": "workspace:^",
+    "@starknet-react/chains": "file:../chains",
     "@tanstack/react-query": "^5.0.1",
     "eventemitter3": "^5.0.1",
     "immutable": "^4.3.4",

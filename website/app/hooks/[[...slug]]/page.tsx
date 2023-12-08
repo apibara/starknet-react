@@ -47,7 +47,7 @@ export default async function DocPage({ params }: DocPageProps) {
     }
   }
 
-  const sections = ['Hooks', ...params.slug.slice(0, -1)];
+  const sections = ["Hooks", ...params.slug.slice(0, -1)];
 
   return (
     <DocContainer title={doc.title} sections={sections}>
@@ -55,5 +55,3 @@ export default async function DocPage({ params }: DocPageProps) {
     </DocContainer>
   );
 }
-
-

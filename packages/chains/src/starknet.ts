@@ -38,11 +38,11 @@ export const mainnet = {
     },
   },
   explorers: {
-    starkCompass: ['https://www.starkcompass.com/'],
-    starkscan: ['https://starkscan.co/'],
-    viewblock: ['https://viewblock.io/starknet/'],
-    voyager: ['https://voyager.online/'],
-  }
+    starkCompass: ["https://www.starkcompass.com/"],
+    starkscan: ["https://starkscan.co/"],
+    viewblock: ["https://viewblock.io/starknet/"],
+    voyager: ["https://voyager.online/"],
+  },
 } as const satisfies Chain;
 
 export const goerli = {
@@ -75,9 +75,9 @@ export const goerli = {
     },
   },
   explorers: {
-    starkCompass: ['https://www.starkcompass.com/testnet/'],
-    starkscan: ['https://testnet.starkscan.co/'],
-    voyager: ['https://goerli.voyager.online/'],
-    viewblock: ['https://viewblock.io/starknet/'],
+    starkCompass: ["https://www.starkcompass.com/testnet/"],
+    starkscan: ["https://testnet.starkscan.co/"],
+    voyager: ["https://goerli.voyager.online/"],
+    viewblock: ["https://viewblock.io/starknet/"],
   },
 } as const satisfies Chain;
