@@ -22,7 +22,7 @@
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
-    "indentSize": 2,
+    "indentWidth": 2,
     "indentStyle": "space",
     "lineWidth": 80
   },
