@@ -43,6 +43,7 @@
       "pnpm-lock.yaml",
       "contracts/*.json",
       "abi/*.json",
+      ".contentlayer",
       ".next",
       "out",
       "docs",

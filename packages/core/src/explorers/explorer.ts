@@ -1,4 +1,5 @@
 import { Chain } from "@starknet-react/chains";
+
 export interface Explorer {
   // link to a block
   block(hashOrNumber: { hash?: string; number?: number }): string;
@@ -12,4 +13,6 @@ export interface Explorer {
   name: string;
 }
 
-export type ExplorerFactory<T extends Explorer,> = (chain: Chain) => T | null;
+export type ExplorerFactory<T extends Explorer = Explorer> = (
+  chain: Chain,
+) => T | null;
