@@ -24,6 +24,9 @@ export const mainnet = {
     alchemy: {
       http: ["https://starknet-mainnet.g.alchemy.com/v2"],
     },
+    blast: {
+      http: ["https://starknet-mainnet.blastapi.io"],
+    },
     infura: {
       http: ["https://starknet-mainnet.infura.io/v3"],
     },
@@ -38,10 +41,10 @@ export const mainnet = {
     },
   },
   explorers: {
-    starkCompass: ["https://www.starkcompass.com/"],
-    starkscan: ["https://starkscan.co/"],
-    viewblock: ["https://viewblock.io/starknet/"],
-    voyager: ["https://voyager.online/"],
+    starkCompass: ["https://www.starkcompass.com"],
+    starkscan: ["https://starkscan.co"],
+    viewblock: ["https://viewblock.io/starknet"],
+    voyager: ["https://voyager.online"],
   },
 } as const satisfies Chain;
 
@@ -60,6 +63,9 @@ export const goerli = {
   rpcUrls: {
     alchemy: {
       http: ["https://starknet-goerli.g.alchemy.com/v2"],
+    },
+    blast: {
+      http: ["https://starknet-testnet.blastapi.io"],
     },
     infura: {
       http: ["https://starknet-goerli.infura.io/v3"],
