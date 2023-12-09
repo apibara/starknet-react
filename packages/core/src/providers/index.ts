@@ -7,3 +7,4 @@ export * from "./alchemy";
 export * from "./blast";
 export * from "./infura";
 export * from "./lava";
+export * from "./nethermind";
