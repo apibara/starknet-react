@@ -1,4 +1,4 @@
-import { Chain } from "@starknet-react/chains";
+import { goerli, type Chain } from "@starknet-react/chains";
 import { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the ViewblockExplorer class that extends Explorer
@@ -7,30 +7,30 @@ export class ViewblockExplorer implements Explorer {
   private chainParam: string;
   private link: string;
 
-  constructor(private chain: Chain) {
-    this.link = this.chain.explorers?.["viewblock"]?.toString() ?? "";
-    this.chainParam = this.chain.name == "goerli" ? "?network=goerli" : "";
+  constructor(chain: Chain) {
+    this.link = chain.explorers?.["viewblock"]?.toString() ?? "";
+    this.chainParam = chain.id === goerli.id ? "?network=goerli" : "";
   }
 
   block(hashOrNumber: { hash?: string; number?: number }): string {
-    if (hashOrNumber.hash && hashOrNumber.number == undefined) {
+    if (hashOrNumber.hash && hashOrNumber.number === undefined) {
       throw new Error(
         `The viewblock explorer doesnt support hashes for blocks. Please provide a hash.`,
       );
     }
-    return `${this.link}block/${hashOrNumber.number}${this.chainParam}`;
+    return `${this.link}/block/${hashOrNumber.number}${this.chainParam}`;
   }
 
   transaction(hash: string): string {
-    return `${this.link}tx/${hash}${this.chainParam}`;
+    return `${this.link}/tx/${hash}${this.chainParam}`;
   }
 
   contract(address: string): string {
-    return `${this.link}contract/${address}${this.chainParam}`;
+    return `${this.link}/contract/${address}${this.chainParam}`;
   }
 
   class(hash: string): string {
-    return `${this.link}class/${hash}${this.chainParam}`;
+    return `${this.link}/class/${hash}${this.chainParam}`;
   }
 }
 

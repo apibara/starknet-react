@@ -112,10 +112,10 @@ function TransactionStatus({ hash }: { hash: string }) {
           {isPending
             ? "Loading..."
             : isError
-            ? error?.message
-            : data?.status === "REJECTED"
-            ? `${data?.status}`
-            : `${data?.execution_status} - ${data?.finality_status}`}
+              ? error?.message
+              : data?.status === "REJECTED"
+                ? `${data?.status}`
+                : `${data?.execution_status} - ${data?.finality_status}`}
         </p>
       </div>
     </div>

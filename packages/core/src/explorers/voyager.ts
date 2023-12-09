@@ -6,29 +6,29 @@ export class VoyagerExplorer implements Explorer {
   public name = "Voyager";
   private link: string;
 
-  constructor(private chain: Chain) {
-    this.link = this.chain.explorers?.["voyager"]?.toString() ?? "";
+  constructor(chain: Chain) {
+    this.link = chain.explorers?.["voyager"]?.toString() ?? "";
   }
 
   block(hashOrNumber: { hash?: string; number?: number }): string {
-    if (hashOrNumber.number && hashOrNumber.hash == undefined) {
+    if (hashOrNumber.number !== undefined && hashOrNumber.hash === undefined) {
       throw new Error(
         "The voyager explorer doesn't support numbers for blocks. Please provide a hash.",
       );
     }
-    return `${this.link}block/${hashOrNumber.hash}`;
+    return `${this.link}/block/${hashOrNumber.hash}`;
   }
 
   transaction(hash: string): string {
-    return `${this.link}tx/${hash}`;
+    return `${this.link}/tx/${hash}`;
   }
 
   contract(address: string): string {
-    return `${this.link}contract/${address}`;
+    return `${this.link}/contract/${address}`;
   }
 
   class(hash: string): string {
-    return `${this.link}class/${hash}`;
+    return `${this.link}/class/${hash}`;
   }
 }
 

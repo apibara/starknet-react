@@ -87,9 +87,9 @@ export const goerli = {
     },
   },
   explorers: {
-    starkCompass: ["https://www.starkcompass.com/testnet/"],
-    starkscan: ["https://testnet.starkscan.co/"],
-    voyager: ["https://goerli.voyager.online/"],
-    viewblock: ["https://viewblock.io/starknet/"],
+    starkCompass: ["https://www.starkcompass.com/testnet"],
+    starkscan: ["https://testnet.starkscan.co"],
+    voyager: ["https://goerli.voyager.online"],
+    viewblock: ["https://viewblock.io/starknet"],
   },
 } as const satisfies Chain;

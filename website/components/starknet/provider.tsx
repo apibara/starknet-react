@@ -8,9 +8,13 @@ import {
   argent,
   braavos,
   useInjectedConnectors,
+  type ExplorerFactory,
 } from "@starknet-react/core";
 
-export function StarknetProvider({ children }: { children: React.ReactNode }) {
+export function StarknetProvider({
+  children,
+  explorer,
+}: { children: React.ReactNode; explorer?: ExplorerFactory }) {
   const chains = [goerli, mainnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
@@ -23,7 +27,12 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
+    <StarknetConfig
+      chains={chains}
+      provider={provider}
+      connectors={connectors}
+      explorer={explorer}
+    >
       {children}
     </StarknetConfig>
   );
