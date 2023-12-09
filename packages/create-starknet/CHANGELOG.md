@@ -1,5 +1,13 @@
 # create-starknet
 
+## 2.0.2
+
+### Patch Changes
+
+- [#366](https://github.com/apibara/starknet-react/pull/366) [`ff47734b298f7cb684804b2af89833774cc87199`](https://github.com/apibara/starknet-react/commit/ff47734b298f7cb684804b2af89833774cc87199) Thanks [@TeddyNotBear](https://github.com/TeddyNotBear)! - update providers docs
+
+- [#372](https://github.com/apibara/starknet-react/pull/372) [`fbda4b7115da5853744468a9aacfd1bea1480179`](https://github.com/apibara/starknet-react/commit/fbda4b7115da5853744468a9aacfd1bea1480179) Thanks [@fracek](https://github.com/fracek)! - Update starknet-react version
+
 ## 2.0.1
 
 ### Patch Changes
