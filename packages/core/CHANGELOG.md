@@ -1,5 +1,18 @@
 # @starknet-react/core
 
+## 2.1.2
+
+### Patch Changes
+
+- [#366](https://github.com/apibara/starknet-react/pull/366) [`ff47734b298f7cb684804b2af89833774cc87199`](https://github.com/apibara/starknet-react/commit/ff47734b298f7cb684804b2af89833774cc87199) Thanks [@TeddyNotBear](https://github.com/TeddyNotBear)! - update providers docs
+
+- [#371](https://github.com/apibara/starknet-react/pull/371) [`db6236843b1e5dda7f1c8443eefd7812714dfc31`](https://github.com/apibara/starknet-react/commit/db6236843b1e5dda7f1c8443eefd7812714dfc31) Thanks [@fracek](https://github.com/fracek)! - Add useExplorer hook
+
+- [#371](https://github.com/apibara/starknet-react/pull/371) [`e74287b226d17a7ffa648b4ff5cdfd6e31af3072`](https://github.com/apibara/starknet-react/commit/e74287b226d17a7ffa648b4ff5cdfd6e31af3072) Thanks [@fracek](https://github.com/fracek)! - Add support for Blast and Nethermind RPC
+
+- Updated dependencies [[`ff47734b298f7cb684804b2af89833774cc87199`](https://github.com/apibara/starknet-react/commit/ff47734b298f7cb684804b2af89833774cc87199), [`e74287b226d17a7ffa648b4ff5cdfd6e31af3072`](https://github.com/apibara/starknet-react/commit/e74287b226d17a7ffa648b4ff5cdfd6e31af3072)]:
+  - @starknet-react/chains@0.1.1
+
 ## 2.1.1
 
 ### Patch Changes
