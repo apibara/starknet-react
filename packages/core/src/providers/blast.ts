@@ -6,7 +6,6 @@ export type BlastProviderArgs = {
   apiKey: string;
 };
 
-
 /** Configure the Blast provider using the provided API key. */
 export function blastProvider({ apiKey }: BlastProviderArgs) {
   return jsonRpcProvider({

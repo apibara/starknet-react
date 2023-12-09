@@ -8,19 +8,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  constants,
-  AccountInterface,
-  ProviderInterface,
-  RpcProvider,
-} from "starknet";
+import { constants, AccountInterface, ProviderInterface } from "starknet";
 
 import { Connector } from "~/connectors";
 import { ConnectorData } from "~/connectors/base";
 import { ConnectorNotFoundError } from "~/errors";
 import { ChainProviderFactory } from "~/providers";
+import { ExplorerFactory } from "~/explorers/";
 import { AccountProvider } from "./account";
-import { Explorer, ExplorerFactory } from "~/explorers/";
 
 /** State of the Starknet context. */
 export interface StarknetState {
@@ -33,7 +28,7 @@ export interface StarknetState {
   /** List of registered connectors. */
   connectors: Connector[];
   /** Current explorer factory. */
-  explorer?: ExplorerFactory<Explorer>;
+  explorer?: ExplorerFactory;
   /** Chains supported by the app. */
   chains: Chain[];
   /** Current chain. */
@@ -90,7 +85,7 @@ interface StarknetManagerState {
 interface UseStarknetManagerProps {
   chains: Chain[];
   provider: ChainProviderFactory;
-  explorer?: ExplorerFactory<Explorer>;
+  explorer?: ExplorerFactory;
   connectors?: Connector[];
   autoConnect?: boolean;
 }
@@ -294,7 +289,7 @@ export interface StarknetProviderProps {
   /** List of connectors to use. */
   connectors?: Connector[];
   /** Explorer to use. */
-  explorer?: ExplorerFactory<Explorer>;
+  explorer?: ExplorerFactory;
   /** Connect the first available connector on page load. */
   autoConnect?: boolean;
   /** React-query client to use. */
