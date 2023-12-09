@@ -33,6 +33,9 @@ export const mainnet = {
     lava: {
       http: ["https://g.w.lavanet.xyz:443/gateway/strk/rpc-http"],
     },
+    nethermind: {
+      http: ["https://rpc.nethermind.io/mainnet-juno"],
+    },
     default: {
       http: [],
     },
@@ -72,6 +75,9 @@ export const goerli = {
     },
     lava: {
       http: ["https://g.w.lavanet.xyz:443/gateway/strkt/rpc-http"],
+    },
+    nethermind: {
+      http: ["https://rpc.nethermind.io/goerli-juno"],
     },
     default: {
       http: [],
