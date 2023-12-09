@@ -293,8 +293,8 @@ function queryFn({
       const profilePicture = profile
         ? await fetchImageUrl(profile)
         : useDefaultPfp
-        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-        : undefined;
+          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+          : undefined;
 
       return {
         name,

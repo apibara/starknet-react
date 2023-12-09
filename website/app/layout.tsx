@@ -16,31 +16,36 @@ export const metadata: Metadata = {
     template: "%s - Starknet React",
   },
   description: "A collection of React hooks for Starknet",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        sansFont.variable,
-        monoFont.variable,
-      )}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          sansFont.variable,
+          monoFont.variable,
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <JotaiProvider>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1">
-                {children}
-              </div>
+              <div className="flex-1">{children}</div>
             </div>
           </JotaiProvider>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

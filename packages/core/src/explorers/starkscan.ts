@@ -6,24 +6,24 @@ export class StarkscanExplorer implements Explorer {
   public name = "Starkscan";
   private link: string;
 
-  constructor(private chain: Chain) {
-    this.link = this.chain.explorers?.["starkscan"]?.toString() ?? "";
+  constructor(chain: Chain) {
+    this.link = chain.explorers?.["starkscan"]?.toString() ?? "";
   }
 
   block(hashOrNumber: { hash?: string; number?: number }): string {
-    return `${this.link}block/${hashOrNumber.hash ?? hashOrNumber.number}`;
+    return `${this.link}/block/${hashOrNumber.hash ?? hashOrNumber.number}`;
   }
 
   transaction(hash: string): string {
-    return `${this.link}tx/${hash}`;
+    return `${this.link}/tx/${hash}`;
   }
 
   contract(address: string): string {
-    return `${this.link}contract/${address}`;
+    return `${this.link}/contract/${address}`;
   }
 
   class(hash: string): string {
-    return `${this.link}class/${hash}`;
+    return `${this.link}/class/${hash}`;
   }
 }
 
