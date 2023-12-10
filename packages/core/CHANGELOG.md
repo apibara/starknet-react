@@ -1,5 +1,12 @@
 # @starknet-react/core
 
+## 2.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`201df5d1da0335c087da334e9ed4ca332ed95b34`](https://github.com/apibara/starknet-react/commit/201df5d1da0335c087da334e9ed4ca332ed95b34)]:
+  - @starknet-react/chains@0.1.2
+
 ## 2.1.2
 
 ### Patch Changes
