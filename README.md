@@ -36,7 +36,7 @@ pnpm add get-starknet-core starknet
 2. Wrap your app with `StarknetConfig`
 
 ```typescript
-import { goerli } from "@starknet-react/chains";
+import { sepolia } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
@@ -45,7 +45,7 @@ import {
 } from "@starknet-react/core";
 
 function App() {
-  const chains = [goerli];
+  const chains = [sepolia];
   const provider = publicProvider();
   const connectors = [braavos(), argent()];
 
@@ -53,23 +53,22 @@ function App() {
     <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
       <YourApp />
     </StarknetConfig>
-  )
+  );
 }
 ```
 
 3. Access the hooks from your components.
 
 ```typescript
-import { useAccount } from '@starknet-react/core'
+import { useAccount } from "@starknet-react/core";
 
 function YourComponent() {
-  const { address } = useAccount()
+  const { address } = useAccount();
 
-  return <div>gm {address}</div>
+  return <div>gm {address}</div>;
 }
 ```
 
 ## License
 
 This library is licensed under the MIT license.
-

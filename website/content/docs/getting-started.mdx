@@ -59,7 +59,7 @@ of recommended connectors with a dynamic list of injected connectors.
 "use client";
 import React from "react";
 
-import { goerli, mainnet } from "@starknet-react/chains";
+import { sepolia, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
@@ -84,7 +84,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <StarknetConfig
-      chains={[mainnet, goerli]}
+      chains={[mainnet, sepolia]}
       provider={publicProvider()}
       connectors={connectors}
       explorer={voyager}
