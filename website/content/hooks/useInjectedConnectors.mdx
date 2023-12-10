@@ -2,7 +2,6 @@
 title: useInjectedConnectors
 priority: 96
 hookType: default
-
 ---
 
 Hook for discovering injected connectors.
@@ -10,6 +9,7 @@ Hook for discovering injected connectors.
 ## Usage
 
 ```ts
+import { sepolia, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
@@ -19,26 +19,19 @@ import {
 } from "@starknet-react/core";
 
 export default function App({ children }) {
-  const chains = [goerli, mainnet];
+  const chains = [sepolia, mainnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [
-      argent(),
-      braavos(),
-    ],
+    recommended: [argent(), braavos()],
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "onlyIfNoConnectors",
     // Randomize the order of the connectors.
-    order: "random"
+    order: "random",
   });
 
   return (
-    <StarknetConfig
-      chains={chains}
-      provider={provider}
-      connectors={connectors}
-    >
+    <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
       {children}
     </StarknetConfig>
   );
@@ -47,21 +40,23 @@ export default function App({ children }) {
 
 ## Options
 
- * __recommended?__`: Connector[]`
-   - List of recommended connectors.
+- **recommended?**`: Connector[]`
 
- * __includeRecommended?__`: "always" | "onlyIfNoConnectors"`
-   - If `"always"`, the hook always returns the recommended connectors.
-   - If `"onlyIfNoConnectors"`, the recommended connectors are included only if
-     no other connector is installed.
+  - List of recommended connectors.
 
- * __order?__`: "random" | "alphabetical"`
-   - Control the order in which connectors are returned.
-   - If `"random"`, connectors are shuffled.
-   - If `"alphabetical"`, connectors are alphabetically sorted by their id.
+- **includeRecommended?**`: "always" | "onlyIfNoConnectors"`
+
+  - If `"always"`, the hook always returns the recommended connectors.
+  - If `"onlyIfNoConnectors"`, the recommended connectors are included only if
+    no other connector is installed.
+
+- **order?**`: "random" | "alphabetical"`
+  - Control the order in which connectors are returned.
+  - If `"random"`, connectors are shuffled.
+  - If `"alphabetical"`, connectors are alphabetically sorted by their id.
 
 ## Returns
 
- * __connectors__`: Connector[]`
-   - Contains the list of injected connectors installed by the user.
-   - All connectors are unique and sorted.
+- **connectors**`: Connector[]`
+  - Contains the list of injected connectors installed by the user.
+  - All connectors are unique and sorted.
