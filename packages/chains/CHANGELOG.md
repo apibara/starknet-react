@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.2
+
+### Patch Changes
+
+- [#373](https://github.com/apibara/starknet-react/pull/373) [`201df5d1da0335c087da334e9ed4ca332ed95b34`](https://github.com/apibara/starknet-react/commit/201df5d1da0335c087da334e9ed4ca332ed95b34) Thanks [@fracek](https://github.com/fracek)! - Add sepolia testnet
+
 ## 0.1.1
 
 ### Patch Changes
