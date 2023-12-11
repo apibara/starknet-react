@@ -40,7 +40,11 @@ export const mainnet = {
       http: [],
     },
     public: {
-      http: ["https://rpc.starknet.lava.build"],
+      http: [
+        "https://starknet-mainnet.public.blastapi.io/rpc/v0.5",
+        "https://rpc.starknet.lava.build",
+        "https://limited-rpc.nethermind.io/mainnet-juno/v0_5",
+      ],
     },
   },
   explorers: {
@@ -83,7 +87,11 @@ export const goerli = {
       http: [],
     },
     public: {
-      http: ["https://rpc.starknet-testnet.lava.build"],
+      http: [
+        "https://starknet-testnet.public.blastapi.io/rpc/v0.5",
+        "https://rpc.starknet-testnet.lava.build",
+        "https://limited-rpc.nethermind.io/goerli-juno/v0_5",
+      ],
     },
   },
   explorers: {
@@ -111,7 +119,10 @@ export const sepolia = {
       http: [],
     },
     public: {
-      http: ["https://free-rpc.nethermind.io/sepolia-juno"],
+      http: [
+        "https://starknet-sepolia.public.blastapi.io",
+        "https://free-rpc.nethermind.io/sepolia-juno",
+      ],
     },
   },
   explorers: {

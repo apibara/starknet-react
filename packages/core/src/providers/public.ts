@@ -4,7 +4,9 @@ import { jsonRpcProvider } from "./jsonrpc";
 export function publicProvider() {
   return jsonRpcProvider({
     rpc: (chain) => {
-      const nodeUrl = chain.rpcUrls.public.http[0];
+      // Pick random node from the list of public nodes.
+      const rpcs = chain.rpcUrls.public.http;
+      const nodeUrl = rpcs[Math.floor(Math.random() * rpcs.length)];
       if (!nodeUrl) return null;
       return { nodeUrl };
     },
