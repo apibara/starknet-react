@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.3
+
+### Patch Changes
+
+- [#375](https://github.com/apibara/starknet-react/pull/375) [`c8f20af5fa6a2f4ac0dd25f4c167ea611d18615e`](https://github.com/apibara/starknet-react/commit/c8f20af5fa6a2f4ac0dd25f4c167ea611d18615e) Thanks [@fracek](https://github.com/fracek)! - Randomly select between multiple public rpc providers
+
 ## 0.1.2
 
 ### Patch Changes
