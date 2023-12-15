@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.1.5
+
+### Patch Changes
+
+- [#377](https://github.com/apibara/starknet-react/pull/377) [`0720c81e5aabdda1df8e42b2235fe4e76510e158`](https://github.com/apibara/starknet-react/commit/0720c81e5aabdda1df8e42b2235fe4e76510e158) Thanks [@mgavillo](https://github.com/mgavillo)! - Embed wallet icons
+
 ## 2.1.4
 
 ### Patch Changes
