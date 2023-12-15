@@ -1,15 +1,14 @@
-import { Button, H1, SizableText, YStack } from "tamagui";
+import { createStackNavigator } from "@react-navigation/stack";
+import Welcome from "./screens/welcome";
+import SetupScreen from "./screens/setup";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <YStack px="$4" py="$4" justifyContent="space-between" height="50%" my="auto">
-      <YStack space="$4">
-        <H1 textAlign="center">Welcome to the Starknet React PWA Demo</H1>
-        <SizableText>
-          You need to setup an account before you can use this app.
-        </SizableText>
-      </YStack>
-      <Button>Setup Account</Button>
-    </YStack>
+    <Stack.Navigator>
+      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Setup new account" component={SetupScreen} />
+    </Stack.Navigator>
   );
 }
