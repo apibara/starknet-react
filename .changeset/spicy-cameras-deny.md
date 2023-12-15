@@ -1,5 +1,5 @@
 ---
-"@starknet-react/core": major
+"@starknet-react/core": patch
 ---
 
 Embed wallet icons
