@@ -9,7 +9,7 @@ const Setup = ({ searchParams }: Props) => {
   const publicKey = searchParams["pk"];
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-12">
-      <ConnectModal publicKey={publicKey} />
+      <ConnectModal />
       <FundArcadeAccount pk={publicKey} />
     </main>
   );

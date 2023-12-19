@@ -14,11 +14,7 @@ import {
 import { useState } from "react";
 import { WalletConnected } from "./wallet-bar";
 
-interface Props {
-  publicKey: string;
-}
-
-export const ConnectModal = ({ publicKey }: Props) => {
+export const ConnectModal = () => {
   const { connect, connectors } = useConnect();
   const [open, setOpen] = useState(false);
   const { address } = useAccount();
