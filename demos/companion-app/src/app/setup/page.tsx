@@ -1,11 +1,18 @@
-import WalletBar from '@/components/wallet-bar';
+import { ConnectModal } from "@/components/connect-modal";
+import { FundArcadeAccount } from "@/components/fund-arcade-account";
 
-const Setup = () => {
-  return (
-    <div>
-      Setup Account
-    </div>
-  );
+interface Props {
+  searchParams: { [key: string]: string };
 }
+
+const Setup = ({ searchParams }: Props) => {
+  const publicKey = searchParams["pk"];
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen gap-12">
+      <ConnectModal publicKey={publicKey} />
+      <FundArcadeAccount pk={publicKey} />
+    </main>
+  );
+};
 
 export default Setup;
