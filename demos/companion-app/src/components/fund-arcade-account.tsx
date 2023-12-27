@@ -1,28 +1,32 @@
 "use client";
-import { useAccount, useContractWrite } from "@starknet-react/core";
-import { useState } from "react";
-import { CallData, stark, constants, uint256, hash } from "starknet";
+import {
+  useAccount,
+  useContractWrite,
+  useContractRead,
+} from "@starknet-react/core";
+import { useMemo, useState } from "react";
+import { CallData, stark, uint256 } from "starknet";
 import { z } from "zod";
-
+import { abi } from "@/lib/factory";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Label } from "./ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import { bnToHex } from "@/lib/utils";
+import { contractAddress } from "@/lib/constants";
 
 interface Props {
   pk: string;
 }
-const TOKEN_CLASSS_HASH =
-  "0x0278da3cbbc2105fc3ac1206a630357c5a4666020f15fed02c892ac5d856d8ef";
 
 const schema = z.object({
-  initialSupply: z.number().min(0),
+  initialSupply: z.number().min(1),
 });
 
 export const FundArcadeAccount = ({ pk }: Props) => {
-  const { address } = useAccount();
+  const { address, account } = useAccount();
 
   const {
     register,
@@ -35,59 +39,53 @@ export const FundArcadeAccount = ({ pk }: Props) => {
     defaultValues: { initialSupply: 10_000_000_000 },
   });
 
-  const { writeAsync, reset: resetWrite } = useContractWrite({});
+  const salt = useMemo(() => {
+    return stark.randomAddress();
+  }, [account]);
+
+  const { writeAsync, reset: resetWrite, error } = useContractWrite({});
 
   const [deployedToken, setDeployedToken] = useState<
     { address: string; tx: string } | undefined
   >(undefined);
 
   const amount = watch("initialSupply");
-  const salt = stark.randomAddress();
+
+  const { data: tokenAddress } = useContractRead({
+    abi,
+    address: contractAddress,
+    functionName: "compute_address",
+    args: [salt, pk, address as string],
+  });
 
   const deployToken = async (data: z.infer<typeof schema>) => {
     if (!address) return;
 
-    const unique = 0;
-
-    const constructorCalldata = CallData.compile([
-      address,
-      address,
-      uint256.bnToUint256(BigInt(data.initialSupply)),
-    ]);
-
-    const tokenAddress = hash.calculateContractAddressFromHash(
-      salt,
-      TOKEN_CLASSS_HASH,
-      constructorCalldata,
-      unique
-    );
+    const hexAddres = bnToHex(tokenAddress as bigint);
 
     const deploy = {
-      contractAddress: constants.UDC.ADDRESS,
-      entrypoint: constants.UDC.ENTRYPOINT,
-      calldata: [
-        TOKEN_CLASSS_HASH,
-        salt,
-        unique,
-        constructorCalldata.length,
-        ...constructorCalldata,
-      ],
+      contractAddress: contractAddress,
+      entrypoint: "deploy",
+      calldata: [salt, pk, address],
     };
 
     const transfer = {
-      contractAddress: tokenAddress,
+      contractAddress: hexAddres,
       entrypoint: "transfer",
       calldata: CallData.compile([
         address,
-        uint256.bnToUint256(BigInt(amount)),
+        uint256.bnToUint256(BigInt(data.initialSupply)),
       ]),
     };
 
     try {
       const res = await writeAsync({
-        calls: [deploy, transfer],
+        calls: [transfer, deploy],
       });
-      setDeployedToken({ address: tokenAddress, tx: res.transaction_hash });
+      setDeployedToken({
+        address: hexAddres as string,
+        tx: res.transaction_hash,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -114,10 +112,15 @@ export const FundArcadeAccount = ({ pk }: Props) => {
               Submit
             </Button>
 
-            <Button onClick={restart} className="w-[115px]">
+            <Button type="button" onClick={restart} className="w-[115px]">
               Start over
             </Button>
           </div>
+          {errors.initialSupply?.message ? (
+            <div className="p-2 bg-red-500 mt-[10px] text-center">
+              {errors.initialSupply?.message}
+            </div>
+          ) : null}
         </form>
       )}
 
