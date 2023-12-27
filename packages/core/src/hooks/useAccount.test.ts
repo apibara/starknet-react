@@ -73,17 +73,22 @@ describe("useAccount", () => {
         {
           "account": Account {
             "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
-            "cairoVersion": "0",
             "deploySelf": [Function],
             "provider": RpcProvider {
               "blockIdentifier": "pending",
-              "chainId": "0x534e5f474f45524c49",
+              "chainId": undefined,
+              "getBlockHashAndNumber": [Function],
+              "getSimulateTransaction": [Function],
+              "getStateUpdate": [Function],
+              "getTransactionCount": [Function],
               "headers": {
                 "Content-Type": "application/json",
               },
               "nodeUrl": "http://localhost:5050/rpc",
               "responseParser": RPCResponseParser {},
               "retries": 200,
+              "traceBlockTransactions": [Function],
+              "traceTransaction": [Function],
             },
             "signer": Signer {
               "pk": "0xa2866149d7a34fba053b2c8682d98d55",
