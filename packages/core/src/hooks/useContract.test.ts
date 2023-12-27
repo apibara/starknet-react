@@ -206,12 +206,18 @@ describe("useContract", () => {
           "providerOrAccount": RpcProvider {
             "blockIdentifier": "pending",
             "chainId": "0x534e5f474f45524c49",
+            "getBlockHashAndNumber": [Function],
+            "getSimulateTransaction": [Function],
+            "getStateUpdate": [Function],
+            "getTransactionCount": [Function],
             "headers": {
               "Content-Type": "application/json",
             },
             "nodeUrl": "http://localhost:5050/rpc",
             "responseParser": RPCResponseParser {},
             "retries": 200,
+            "traceBlockTransactions": [Function],
+            "traceTransaction": [Function],
           },
           "structs": {
             "Uint256": {
