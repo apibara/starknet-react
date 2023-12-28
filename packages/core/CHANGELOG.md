@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.2.0
+
+### Minor Changes
+
+- [#383](https://github.com/apibara/starknet-react/pull/383) [`28bb07c314f592c2b768006b367371485115bd82`](https://github.com/apibara/starknet-react/commit/28bb07c314f592c2b768006b367371485115bd82) Thanks [@fracek](https://github.com/fracek)! - Add support for Sepolia testnet
+
 ## 2.1.6
 
 ### Patch Changes

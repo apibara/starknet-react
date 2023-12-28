@@ -1,6 +1,6 @@
 {
   "name": "@starknet-react/core",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
