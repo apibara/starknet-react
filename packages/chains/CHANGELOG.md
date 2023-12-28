@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.4
+
+### Patch Changes
+
+- [#385](https://github.com/apibara/starknet-react/pull/385) [`e8bb1c6445bd23322dd2cdc5738771c510906dcc`](https://github.com/apibara/starknet-react/commit/e8bb1c6445bd23322dd2cdc5738771c510906dcc) Thanks [@fracek](https://github.com/fracek)! - Add Reddio RPC
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @starknet-react/core
 
+## 2.1.6
+
+### Patch Changes
+
+- [#385](https://github.com/apibara/starknet-react/pull/385) [`e8bb1c6445bd23322dd2cdc5738771c510906dcc`](https://github.com/apibara/starknet-react/commit/e8bb1c6445bd23322dd2cdc5738771c510906dcc) Thanks [@fracek](https://github.com/fracek)! - Add Reddio RPC
+
+- Updated dependencies [[`e8bb1c6445bd23322dd2cdc5738771c510906dcc`](https://github.com/apibara/starknet-react/commit/e8bb1c6445bd23322dd2cdc5738771c510906dcc)]:
+  - @starknet-react/chains@0.1.4
+
 ## 2.1.5
 
 ### Patch Changes
