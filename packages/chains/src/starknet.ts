@@ -36,6 +36,9 @@ export const mainnet = {
     nethermind: {
       http: ["https://rpc.nethermind.io/mainnet-juno"],
     },
+    reddio: {
+      http: ["https://starknet-mainnet.reddio.com"],
+    },
     default: {
       http: [],
     },
@@ -83,6 +86,9 @@ export const goerli = {
     nethermind: {
       http: ["https://rpc.nethermind.io/goerli-juno"],
     },
+    reddio: {
+      http: ["https://starknet-goerli.reddio.com"],
+    },
     default: {
       http: [],
     },
@@ -115,6 +121,9 @@ export const sepolia = {
   },
   testnet: true,
   rpcUrls: {
+    reddio: {
+      http: ["https://starknet-sepolia.reddio.com"],
+    },
     default: {
       http: [],
     },
