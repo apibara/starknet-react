@@ -1,5 +1,20 @@
 # @starknet-react/core
 
+## 2.2.0
+
+### Minor Changes
+
+- [#383](https://github.com/apibara/starknet-react/pull/383) [`28bb07c314f592c2b768006b367371485115bd82`](https://github.com/apibara/starknet-react/commit/28bb07c314f592c2b768006b367371485115bd82) Thanks [@fracek](https://github.com/fracek)! - Add support for Sepolia testnet
+
+## 2.1.6
+
+### Patch Changes
+
+- [#385](https://github.com/apibara/starknet-react/pull/385) [`e8bb1c6445bd23322dd2cdc5738771c510906dcc`](https://github.com/apibara/starknet-react/commit/e8bb1c6445bd23322dd2cdc5738771c510906dcc) Thanks [@fracek](https://github.com/fracek)! - Add Reddio RPC
+
+- Updated dependencies [[`e8bb1c6445bd23322dd2cdc5738771c510906dcc`](https://github.com/apibara/starknet-react/commit/e8bb1c6445bd23322dd2cdc5738771c510906dcc)]:
+  - @starknet-react/chains@0.1.4
+
 ## 2.1.5
 
 ### Patch Changes

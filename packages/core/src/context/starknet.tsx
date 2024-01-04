@@ -1,4 +1,4 @@
-import { Chain, goerli, mainnet } from "@starknet-react/chains";
+import { Chain, goerli, mainnet, sepolia } from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, {
   createContext,
@@ -345,6 +345,8 @@ export function starknetChainId(
       return constants.StarknetChainId.SN_MAIN;
     case goerli.id:
       return constants.StarknetChainId.SN_GOERLI;
+    case sepolia.id:
+      return constants.StarknetChainId.SN_SEPOLIA;
     default:
       return undefined;
   }
