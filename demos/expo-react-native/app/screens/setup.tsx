@@ -1,50 +1,48 @@
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import { Button, Text, View, Clipboard, TouchableOpacity } from "react-native";
-import { truncateAddress } from "../../utils/functions";
-import { setup_styles } from "../styles/styles";
-import { Platform, ToastAndroid, Alert } from "react-native";
+import { H2, Button, Paragraph, YStack } from "tamagui";
+import { ChevronLeft } from "@tamagui/lucide-icons";
+import { useLink } from "solito/link";
+import { Stack } from "expo-router";
 
-export default function SetupScreen({
-  navigation,
-}: {
-  navigation: NavigationProp<ParamListBase>;
-}) {
-  navigation.setOptions({
-    headerBackTitleVisible: false,
-    headerTintColor: "#008080",
+export default function Screen() {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: "Setup New Account",
+        }}
+      />
+      <SetupScreen />
+    </>
+  );
+}
+
+export function SetupScreen() {
+  const link = useLink({
+    href: "/",
   });
 
   return (
-    <View style={setup_styles.container}>
-      <Text style={setup_styles.title}>Setup New Account</Text>
-      <Text style={setup_styles.address}>
-        {truncateAddress(
-          "0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-        )}
-      </Text>
-      <Text style={setup_styles.instruction}>
-        Visit the page following page with a web browser to setup your account
-      </Text>
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => {
-          Clipboard.setString("https://account.starknet-react.com");
-          if (Platform.OS === "android") {
-            ToastAndroid.show("Url copied!!!", ToastAndroid.SHORT);
-          } else if (Platform.OS === "ios") {
-            Alert.alert("Url copied!!!");
-          }
-        }}
-      >
-        <View style={setup_styles.urlBox}>
-          <Text style={setup_styles.url}>
-            https://account.starknet-react.com
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <View style={setup_styles.buttonContainer}>
-        <Button title="Done" color="#ffffff" />
-      </View>
-    </View>
+    <YStack f={1} jc="flex-start" ai="center" space>
+      <YStack space="$4" bc="$background" p="$12">
+        <H2 ta="center">Setup New Account</H2>
+        <Button
+          backgroundColor="$yellow5Light"
+          color="$orange10Dark"
+          variant="outlined"
+        >
+          account.starknet-react.com
+        </Button>
+        <Paragraph ta="center">
+          Visit the page following page with a web browser to setup your
+          account.
+        </Paragraph>
+        <Button size="$4" backgroundColor="$green5Dark" color="white">
+          Done
+        </Button>
+      </YStack>
+      <Button {...link} icon={ChevronLeft}>
+        Go Home
+      </Button>
+    </YStack>
   );
 }
