@@ -32,7 +32,7 @@ export function HomeScreen() {
           ,{" "}
           <Anchor
             color="$color12"
-            href="https://github.com/tamagui/tamagui"
+            href="https://github.com/apibara/starknet-react/"
             target="_blank"
             rel="noreferrer"
           >
