@@ -1,8 +1,7 @@
 import { H2, Button, Paragraph, YStack } from "tamagui";
 import { ChevronLeft } from "@tamagui/lucide-icons";
-import { Stack } from "expo-router";
+import { Stack, Link } from "expo-router";
 import { Linking } from "react-native";
-import { Link } from "expo-router";
 
 export default function Screen() {
   return (
