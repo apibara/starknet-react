@@ -1,8 +1,8 @@
 import { H2, Button, Paragraph, YStack } from "tamagui";
 import { ChevronLeft } from "@tamagui/lucide-icons";
-import { useLink } from "solito/link";
 import { Stack } from "expo-router";
 import { Linking } from "react-native";
+import { Link } from "expo-router";
 
 export default function Screen() {
   return (
@@ -22,10 +22,6 @@ const handleOpenURL = () => {
 };
 
 export function SetupScreen() {
-  const link = useLink({
-    href: "/",
-  });
-
   return (
     <YStack f={1} jc="center" ai="center" space>
       <YStack space="$4" p="$9">
@@ -47,9 +43,9 @@ export function SetupScreen() {
           Done
         </Button>
       </YStack>
-      <Button {...link} icon={ChevronLeft}>
-        Go Home
-      </Button>
+      <Link href="/" asChild>
+        <Button icon={ChevronLeft}>Go Home</Button>
+      </Link>
     </YStack>
   );
 }

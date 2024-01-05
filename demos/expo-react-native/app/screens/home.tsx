@@ -7,13 +7,9 @@ import {
   XStack,
   YStack,
 } from "tamagui";
-import { useLink } from "solito/link";
+import { Link } from "expo-router";
 
 export function HomeScreen() {
-  const linkProps = useLink({
-    href: "/screens/setup",
-  });
-
   return (
     <YStack f={1} jc="center" ai="center" p="$4" space>
       <YStack space="$4">
@@ -46,9 +42,11 @@ export function HomeScreen() {
       </YStack>
 
       <XStack paddingTop="$5">
-        <Button size="$5" bc="$orange10" color="white" {...linkProps}>
-          Get Started
-        </Button>
+        <Link href="/screens/setup" asChild>
+          <Button size="$5" bc="$orange10" color="white">
+            Get Started
+          </Button>
+        </Link>
       </XStack>
     </YStack>
   );
