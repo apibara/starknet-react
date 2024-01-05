@@ -16,9 +16,9 @@ export function HomeScreen() {
 
   return (
     <YStack f={1} jc="center" ai="center" p="$4" space>
-      <YStack space="$4" bc="$background">
+      <YStack space="$4">
         <H1 ta="center">Starknet React Expo Demo.</H1>
-        <Paragraph ta="center">
+        <Paragraph ta="center" fontSize="$5">
           Proving an easy way to communicate with your arcade account.
         </Paragraph>
 
@@ -29,6 +29,7 @@ export function HomeScreen() {
             color="$color12"
             href="https://github.com/apibara/starknet-react/"
             target="_blank"
+            fontSize="$5"
           >
             @apibara
           </Anchor>
@@ -45,12 +46,7 @@ export function HomeScreen() {
       </YStack>
 
       <XStack paddingTop="$5">
-        <Button
-          size="$5"
-          backgroundColor="$orange10"
-          color="white"
-          {...linkProps}
-        >
+        <Button size="$5" bc="$orange10" color="white" {...linkProps}>
           Get Started
         </Button>
       </XStack>
