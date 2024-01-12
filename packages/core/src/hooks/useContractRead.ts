@@ -15,6 +15,8 @@ import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
+const DEFAULT_FETCH_INTERVAL = 5_000;
+
 type ContractReadArgs = {
   /** The contract's function name. */
   functionName: string;
@@ -58,6 +60,7 @@ export function useContractRead({
   blockIdentifier = BlockTag.latest,
   parseArgs,
   parseResult,
+  refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
   ...props
@@ -75,6 +78,12 @@ export function useContractRead({
     [enabled_, contract, functionName, args],
   );
 
+  const refetchInterval =
+    refetchInterval_ ??
+    (blockIdentifier === BlockTag.pending && watch
+      ? DEFAULT_FETCH_INTERVAL
+      : undefined);
+
   useInvalidateOnBlock({
     enabled: Boolean(enabled && watch),
     queryKey: queryKey_,
@@ -90,6 +99,7 @@ export function useContractRead({
       parseArgs,
       parseResult,
     }),
+    refetchInterval,
     ...props,
   });
 }
