@@ -121,6 +121,21 @@ export const sepolia = {
   },
   testnet: true,
   rpcUrls: {
+    // alchemy: {
+    //   http: [],
+    // },
+    blast: {
+      http: ["https://starknet-sepolia.blastapi.io"],
+    },
+    infura: {
+      http: ["https://starknet-sepolia.infura.io/v3"],
+    },
+    // lava: {
+    //   http: [],
+    // },
+    nethermind: {
+      http: ["https://rpc.nethermind.io/sepolia-juno"],
+    },
     reddio: {
       http: ["https://starknet-sepolia.reddio.com"],
     },
