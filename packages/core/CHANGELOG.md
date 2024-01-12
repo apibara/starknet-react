@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.2.2
+
+### Patch Changes
+
+- [#390](https://github.com/apibara/starknet-react/pull/390) [`3f7bf39b7ab4ff3fd5e1190f56de46aad1bea72e`](https://github.com/apibara/starknet-react/commit/3f7bf39b7ab4ff3fd5e1190f56de46aad1bea72e) Thanks [@fracek](https://github.com/fracek)! - Refresh pending contract call
+
 ## 2.2.1
 
 ### Patch Changes
