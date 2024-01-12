@@ -4,7 +4,8 @@ priority: 197
 hookType: query
 ---
 
-Perform a read-only contract call.
+Perform a read-only contract call. If the specified block identifier
+is pending, the hook will periodically refetch data automatically.
 
 ## Usage
 
@@ -70,27 +71,27 @@ export default function Component() {
 
 ## Options
 
-- __functionName__`: string`
+- **functionName**`: string`
   - The contract's function name.
-- __args__`: string[]`
+- **args**`: string[]`
   - The contract's arguments array.
-- __blockIdentifier?__`: BlockNumber`
+- **blockIdentifier?**`: BlockNumber`
   - Block identifier used when performing call.
   - BlockNumber from starknet.js
-- __parseArgs?__`: boolean`
+- **parseArgs?**`: boolean`
   - If true, parse arguments before passing to contract.
-- __parseResult?__`: boolean`
+- **parseResult?**`: boolean`
   - If true, parse result after calling contract.
-- __abi__`: Abi`
+- **abi**`: Abi`
   - The target contract's ABI.
   - Abi from starknet.js
-- __address__`: string`
+- **address**`: string`
   - Which block to fetch.
-- __watch?__`: boolean`
+- **watch?**`: boolean`
   - If true, refresh data at every block.
 
 ## Returns
 
-- __data?__`: Result`
+- **data?**`: Result`
   - The contract
   - Result from starknet.js

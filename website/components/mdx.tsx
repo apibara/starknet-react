@@ -10,6 +10,7 @@ import { SendTransactionDemo } from "@/components/demos/send-transaction";
 import { ExplorersDemo } from "@/components/demos/explorers";
 import { SignMessageDemo } from "@/components/demos/sign-message";
 import { TokenBalanceDemo } from "@/components/demos/balance";
+import { ContractReadDemo } from "@/components/demos/contract-read";
 import { StarknetIDDemo } from "@/components/demos/starknetid";
 import { TransactionManagerDemo } from "@/components/demos/transaction-manager";
 import { DemoContainer } from "@/components/demo-container";
@@ -24,6 +25,7 @@ const components = {
   ExplorersDemo,
   StarknetIDDemo,
   TokenBalanceDemo,
+  ContractReadDemo,
   TransactionManagerDemo,
   DemoContainer,
 
