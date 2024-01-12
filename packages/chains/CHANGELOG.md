@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.5
+
+### Patch Changes
+
+- [#388](https://github.com/apibara/starknet-react/pull/388) [`9750b16062c4646608b6e7d46fd64f709c324eb3`](https://github.com/apibara/starknet-react/commit/9750b16062c4646608b6e7d46fd64f709c324eb3) Thanks [@fracek](https://github.com/fracek)! - Update sepolia providers
+
 ## 0.1.4
 
 ### Patch Changes
