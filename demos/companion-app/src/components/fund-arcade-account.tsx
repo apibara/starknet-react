@@ -3,7 +3,9 @@ import {
   useAccount,
   useContractWrite,
   useContractRead,
+  useNetwork,
 } from "@starknet-react/core";
+
 import { useMemo, useState } from "react";
 import { CallData, stark, uint256 } from "starknet";
 import { z } from "zod";
@@ -15,45 +17,41 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { bnToHex } from "@/lib/utils";
-import { contractAddress } from "@/lib/constants";
+import { deployerAddress } from "@/lib/constants";
 
 interface Props {
   pk: string;
 }
 
 const schema = z.object({
-  initialSupply: z.number().min(1),
+  initialSupply: z.number().min(0),
 });
-
 export const FundArcadeAccount = ({ pk }: Props) => {
   const { address, account } = useAccount();
+  const { chain } = useNetwork();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset: resetForm,
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: { initialSupply: 10_000_000_000 },
+    defaultValues: { initialSupply: 0.0001 },
   });
 
   const salt = useMemo(() => {
     return stark.randomAddress();
   }, [account]);
-
   const { writeAsync, reset: resetWrite, error } = useContractWrite({});
 
   const [deployedToken, setDeployedToken] = useState<
     { address: string; tx: string } | undefined
   >(undefined);
 
-  const amount = watch("initialSupply");
-
-  const { data: tokenAddress } = useContractRead({
+  const { data: arcadeAccountAddress } = useContractRead({
     abi,
-    address: contractAddress,
+    address: deployerAddress,
     functionName: "compute_address",
     args: [salt, pk, address as string],
   });
@@ -61,20 +59,24 @@ export const FundArcadeAccount = ({ pk }: Props) => {
   const deployToken = async (data: z.infer<typeof schema>) => {
     if (!address) return;
 
-    const hexAddres = bnToHex(tokenAddress as bigint);
+    const hexAddres = bnToHex(arcadeAccountAddress as bigint);
 
     const deploy = {
-      contractAddress: contractAddress,
+      contractAddress: deployerAddress,
       entrypoint: "deploy",
       calldata: [salt, pk, address],
     };
 
     const transfer = {
-      contractAddress: hexAddres,
+      contractAddress: chain.nativeCurrency.address,
       entrypoint: "transfer",
       calldata: CallData.compile([
         address,
-        uint256.bnToUint256(BigInt(data.initialSupply)),
+        uint256.bnToUint256(
+          BigInt(
+            data.initialSupply * Math.pow(10, chain.nativeCurrency.decimals)
+          )
+        ),
       ]),
     };
 
@@ -90,22 +92,22 @@ export const FundArcadeAccount = ({ pk }: Props) => {
       console.log(err);
     }
   };
-
   const restart = () => {
     resetWrite();
     resetForm();
     setDeployedToken(undefined);
   };
+
   return (
     <>
       {address && (
         <form onSubmit={handleSubmit(deployToken)}>
-          <Label>Fund amount:</Label>
-          <div className="flex flex-row gap-4">
+          <Label className="px-[10px]">Fund amount:</Label>
+          <div className="flex flex-row gap-4 px-[10px]">
             <Input
-              placeholder="10,000,000,000.00"
+              placeholder="0.0001"
               type="number"
-              defaultValue={amount}
+              step="any"
               {...register("initialSupply", { valueAsNumber: true })}
             />
             <Button className="w-[115px]" type="submit">
@@ -125,10 +127,15 @@ export const FundArcadeAccount = ({ pk }: Props) => {
       )}
 
       {deployedToken && (
-        <Card>
-          <CardContent>
-            <div>Token Deployed</div>
-            <div>Token Address: {deployedToken.address}</div>
+        <Card className="max-w-[500px] w-full bg-transparent border-none">
+          <CardContent className="px-[10px]">
+            <div className="flex text-md w-full break-all flex-col gap-2">
+              <div className="items-center text-xl flex text-center justify-center">
+                Token Deployed!
+              </div>
+              <div>Token address:</div>
+              <div>{deployedToken.address}</div>
+            </div>
           </CardContent>
         </Card>
       )}

@@ -7,9 +7,17 @@ interface Props {
 
 const Setup = ({ searchParams }: Props) => {
   const publicKey = searchParams["pk"];
+
+  if (!publicKey) {
+    return (
+      <div className="text-2xl w-full justify-center  mx-auto my-0 items-center text-center p-2 bg-red-500">
+        Invalid url
+      </div>
+    );
+  }
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen  ">
-      <div className="w-[500px] h-[500px] rounded-md bg-slate-400 gap-[30px] flex items-center justify-center flex-col">
+    <main className="flex flex-col items-center  justify-center min-h-screen  ">
+      <div className="w-full h-[500px] max-w-[500px] rounded-md bg-slate-400 gap-[30px] flex justify-center items-center flex-col">
         <ConnectModal />
         <FundArcadeAccount pk={publicKey} />
       </div>
