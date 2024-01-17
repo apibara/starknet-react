@@ -71,7 +71,7 @@ export const FundArcadeAccount = ({ pk }: Props) => {
       contractAddress: chain.nativeCurrency.address,
       entrypoint: "transfer",
       calldata: CallData.compile([
-        address,
+        hexAddres,
         uint256.bnToUint256(
           BigInt(
             data.initialSupply * Math.pow(10, chain.nativeCurrency.decimals)
@@ -92,6 +92,7 @@ export const FundArcadeAccount = ({ pk }: Props) => {
       console.log(err);
     }
   };
+
   const restart = () => {
     resetWrite();
     resetForm();
