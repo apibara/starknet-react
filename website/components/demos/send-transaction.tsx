@@ -59,7 +59,7 @@ function Inner() {
 
   const {
     data: receipt,
-    isPending,
+    isLoading,
     isError,
     error,
   } = useWaitForTransaction({
@@ -79,7 +79,7 @@ function Inner() {
       );
     }
 
-    if (isPending) {
+    if (isLoading) {
       return (
         <>
           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -112,7 +112,7 @@ function Inner() {
         Send Transactions
       </>
     );
-  }, [isSubmitting, isPending, receipt]);
+  }, [isSubmitting, isLoading, receipt]);
 
   const action = () => (receipt ? reset() : write());
 
@@ -143,7 +143,7 @@ function Inner() {
         <Button
           className="w-full"
           onClick={action}
-          disabled={!address || isSubmitting || isPending}
+          disabled={!address || isSubmitting || isLoading}
         >
           {buttonContent}
         </Button>
