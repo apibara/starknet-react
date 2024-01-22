@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.2.3
+
+### Patch Changes
+
+- [#392](https://github.com/apibara/starknet-react/pull/392) [`1aeb04e93a8da5729707f17524623d7acd699c9d`](https://github.com/apibara/starknet-react/commit/1aeb04e93a8da5729707f17524623d7acd699c9d) Thanks [@fracek](https://github.com/fracek)! - Fix package.json types/main order
+
 ## 2.2.2
 
 ### Patch Changes
