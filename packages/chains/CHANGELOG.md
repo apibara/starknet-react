@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.6
+
+### Patch Changes
+
+- [#394](https://github.com/apibara/starknet-react/pull/394) [`ff3f7b64dd9f362cf704b4c17eed140b4d63760d`](https://github.com/apibara/starknet-react/commit/ff3f7b64dd9f362cf704b4c17eed140b4d63760d) Thanks [@EvolveArt](https://github.com/EvolveArt)! - fix sepolia network info
+
 ## 0.1.5
 
 ### Patch Changes
