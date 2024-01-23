@@ -110,7 +110,7 @@ export const goerli = {
 
 export const sepolia = {
   id: BigInt("0x534e5f5345504f4c4941"),
-  network: "goerli",
+  network: "sepolia",
   name: "Starknet Sepolia Testnet",
   nativeCurrency: {
     address:
@@ -151,5 +151,6 @@ export const sepolia = {
   },
   explorers: {
     starkscan: ["https://sepolia.starkscan.co"],
+    voyager: ["https://sepolia.voyager.online"],
   },
 } as const satisfies Chain;
