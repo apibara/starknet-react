@@ -120,7 +120,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   return useQuery({
@@ -188,7 +188,7 @@ function queryFn({
         {
           execution: staticExecution(),
           to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("domain_to_token_id")),
+          selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
           calldata: [arrayReference(0, 0)],
         },
         {
@@ -251,7 +251,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data"),
+            hash.getSelectorFromName("get_extended_verifier_data")
           ),
           calldata: [
             reference(1, 0),
@@ -284,7 +284,7 @@ function queryFn({
           ? data[8]
               .slice(1)
               .map((val: BigInt) =>
-                shortString.decodeShortString(val.toString()),
+                shortString.decodeShortString(val.toString())
               )
               .join("")
           : undefined;
@@ -293,8 +293,8 @@ function queryFn({
       const profilePicture = profile
         ? await fetchImageUrl(profile)
         : useDefaultPfp
-          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-          : undefined;
+        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+        : undefined;
 
       return {
         name,
@@ -374,6 +374,19 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
       "0x03528caf090179e337931ee669a5b0214041e1bae30d460ff07d2cea2c7a9106",
     verifier_pfp:
       "0x03cac3228b434259734ee0e4ff445f642206ea11adace7e4f45edd2596748698",
+    multicall:
+      "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
+  },
+  sepolia: {
+    naming: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
+    identity:
+      "0x718d9172f6e36183abeeff1a0db76a1851cef4ed9b9c13896da79ef4bfcb4d0",
+    verifier:
+      "0x041a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
+    verifier_pop:
+      "0x00f80f68443becd0e0a4a08ff5734e36dd8028507333e4a0ec034dcfdf1b793e",
+    verifier_pfp:
+      "0x070c035557d6fed57eed2ed7fa861616b487f8a95439347b805639ca076f29f0",
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
