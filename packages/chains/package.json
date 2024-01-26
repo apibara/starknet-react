@@ -32,7 +32,8 @@
     "l2"
   ],
   "devDependencies": {
-    "rimraf": "^4.1.2",
-    "tsup": "^7.2.0"
+    "rimraf": "^4.4.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
   }
 }
