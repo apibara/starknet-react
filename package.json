@@ -14,19 +14,19 @@
     "release": "pnpm build && pnpm changeset publish"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@babel/plugin-syntax-flow": "^7.22.5",
-    "@babel/plugin-transform-react-jsx": "^7.22.15",
-    "@biomejs/biome": "^1.2.2",
+    "@babel/core": "^7.23.9",
+    "@babel/plugin-syntax-flow": "^7.23.3",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@biomejs/biome": "^1.5.3",
     "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.2",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
-    "@types/react": "^18.2.22",
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
+    "@types/react": "^18.2.48",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "starknet": "^5.27.0",
-    "turbo": "^1.10.14",
+    "turbo": "^1.11.3",
     "typescript": "^5.3.3"
   },
   "engines": {

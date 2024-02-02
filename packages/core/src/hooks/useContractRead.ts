@@ -1,13 +1,18 @@
 import { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
-  Abi,
   ArgsOrCalldata,
   BlockNumber,
   BlockTag,
   Contract,
   Result,
 } from "starknet";
+import type {
+  Abi,
+  ExtractAbiFunctionNames,
+  FunctionArgs,
+  FunctionRet,
+} from "abi-wan-kanabi/kanabi";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
@@ -17,11 +22,15 @@ import { useNetwork } from "./useNetwork";
 
 const DEFAULT_FETCH_INTERVAL = 5_000;
 
-type ContractReadArgs = {
+type ContractReadArgs<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TArgs extends FunctionArgs<TAbi, TFunctionName>,
+> = {
   /** The contract's function name. */
-  functionName: string;
+  functionName: TFunctionName;
   /** Read arguments. */
-  args?: ArgsOrCalldata;
+  args?: TArgs;
   /** Block identifier used when performing call. */
   blockIdentifier?: BlockNumber;
   /** Parse arguments before passing to contract. */
@@ -31,18 +40,29 @@ type ContractReadArgs = {
 };
 
 /** Options for `useContractRead`. */
-export type UseContractReadProps = ContractReadArgs &
-  UseQueryProps<Result, Error, Result, ReturnType<typeof queryKey>> & {
-    /** The target contract's ABI. */
-    abi?: Abi;
-    /** The target contract's address. */
-    address?: string;
-    /** Refresh data at every block. */
-    watch?: boolean;
-  };
+export type UseContractReadProps<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TArgs extends FunctionArgs<TAbi, TFunctionName>,
+> = ContractReadArgs<
+  TAbi,
+  TFunctionName,
+  TArgs
+> & /* UseQueryProps<Result, Error, Result, ReturnType<typeof queryKey>> & */ {
+  /** The target contract's ABI. */
+  abi?: TAbi;
+  /** The target contract's address. */
+  address?: string;
+  /** Refresh data at every block. */
+  watch?: boolean;
+};
 
 /** Value returned from `useContractRead`. */
-export type UseContractReadResult = UseQueryResult<Result, Error>;
+export type UseContractReadResult<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TRet extends FunctionRet<TAbi, TFunctionName>,
+> = UseQueryResult<TRet, Error>;
 
 /**
  * Hook to perform a read-only contract call.
@@ -52,7 +72,12 @@ export type UseContractReadResult = UseQueryResult<Result, Error>;
  * The hook only performs a call if the target `abi`, `address`,
  * `functionName`, and `args` are not undefined.
  */
-export function useContractRead({
+export function useContractRead<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TArgs extends FunctionArgs<TAbi, TFunctionName>,
+  TRet extends FunctionRet<TAbi, TFunctionName>,
+>({
   abi,
   address,
   functionName,
@@ -60,23 +85,38 @@ export function useContractRead({
   blockIdentifier = BlockTag.latest,
   parseArgs,
   parseResult,
-  refetchInterval: refetchInterval_,
+  // refetchInterval: refetchInterval_,
   watch = false,
-  enabled: enabled_ = true,
+  // enabled: enabled_ = true,
   ...props
-}: UseContractReadProps): UseContractReadResult {
+}: UseContractReadProps<TAbi, TFunctionName, TArgs>): UseContractReadResult<
+  TAbi,
+  TFunctionName,
+  TRet
+> {
   const { chain } = useNetwork();
   const { contract } = useContract({ abi, address });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, contract, functionName, args, blockIdentifier }),
+    () =>
+      queryKey<TAbi, TFunctionName, TArgs>({
+        chain,
+        contract,
+        functionName,
+        args,
+        blockIdentifier,
+      }),
     [chain, contract, functionName, args, blockIdentifier],
   );
 
+  /*
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && functionName && args),
-    [enabled_, contract, functionName, args],
+    [enabled_, contract, functionName, args]
   );
+  */
+  const enabled = true;
+  const refetchInterval_ = undefined;
 
   const refetchInterval =
     refetchInterval_ ??
@@ -91,7 +131,7 @@ export function useContractRead({
 
   return useQuery({
     queryKey: queryKey_,
-    queryFn: queryFn({
+    queryFn: queryFn<TAbi, TFunctionName, TArgs>({
       contract,
       functionName,
       args,
@@ -104,13 +144,21 @@ export function useContractRead({
   });
 }
 
-function queryKey({
+function queryKey<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TArgs extends FunctionArgs<TAbi, TFunctionName>,
+>({
   chain,
   contract,
   functionName,
   args,
   blockIdentifier,
-}: { chain?: Chain; contract?: Contract } & ContractReadArgs) {
+}: { chain?: Chain; contract?: Contract } & ContractReadArgs<
+  TAbi,
+  TFunctionName,
+  TArgs
+>) {
   return [
     {
       entity: "readContract",
@@ -123,21 +171,25 @@ function queryKey({
   ] as const;
 }
 
-function queryFn({
+function queryFn<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
+  TArgs extends FunctionArgs<TAbi, TFunctionName>,
+>({
   contract,
   functionName,
   args,
   blockIdentifier,
   parseArgs,
   parseResult,
-}: { contract?: Contract } & ContractReadArgs) {
+}: { contract?: Contract } & ContractReadArgs<TAbi, TFunctionName, TArgs>) {
   return async function () {
     if (!contract) throw new Error("contract is required");
     if (contract.functions[functionName] === undefined) {
       throw new Error(`function ${functionName} not found in contract`);
     }
 
-    return contract.call(functionName, args, {
+    return contract.call(functionName, args as unknown as ArgsOrCalldata, {
       parseRequest: parseArgs,
       parseResponse: parseResult,
       blockIdentifier,

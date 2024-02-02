@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { BlockTag } from "starknet";
+import { Abi, BlockTag } from "starknet";
 import { useContractRead, useNetwork } from "@starknet-react/core";
 
 import { StarknetProvider } from "@/components/starknet/provider";
@@ -28,17 +28,32 @@ function ContractRead() {
         name: "symbol",
         outputs: [
           {
-            name: "symbol",
             type: "felt",
           },
         ],
-        stateMutability: "view",
+        state_mutability: "view",
         type: "function",
       },
-    ],
-    functionName: "symbol",
+      {
+        name: "balanceOf",
+        inputs: [
+          {
+            name: "address",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::felt252",
+          },
+        ],
+        state_mutability: "view",
+        type: "function",
+      },
+    ] as const satisfies Abi,
+    functionName: "balanceOf",
     address: chain.nativeCurrency.address,
-    args: [],
+    args: chain.nativeCurrency.address,
     watch: true,
     blockIdentifier:
       blockIdentifier === "latest" ? BlockTag.latest : BlockTag.pending,
