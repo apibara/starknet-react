@@ -46,7 +46,7 @@ export const mainnet = {
       http: [
         "https://starknet-mainnet.public.blastapi.io/rpc/v0.5",
         "https://rpc.starknet.lava.build",
-        "https://limited-rpc.nethermind.io/mainnet-juno/v0_5",
+        "https://free-rpc.nethermind.io/mainnet-juno/v0_5",
       ],
     },
   },
@@ -96,7 +96,7 @@ export const goerli = {
       http: [
         "https://starknet-testnet.public.blastapi.io/rpc/v0.5",
         "https://rpc.starknet-testnet.lava.build",
-        "https://limited-rpc.nethermind.io/goerli-juno/v0_5",
+        "https://free-rpc.nethermind.io/goerli-juno/v0_5",
       ],
     },
   },
