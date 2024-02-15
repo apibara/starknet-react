@@ -1,5 +1,11 @@
 # @starknet-react/chains
 
+## 0.1.7
+
+### Patch Changes
+
+- [#399](https://github.com/apibara/starknet-react/pull/399) [`b82f6398db8244a812914ecb5e25c196e8a1b8b7`](https://github.com/apibara/starknet-react/commit/b82f6398db8244a812914ecb5e25c196e8a1b8b7) Thanks [@fracek](https://github.com/fracek)! - Update public nethermind rpc url
+
 ## 0.1.6
 
 ### Patch Changes
