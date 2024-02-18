@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@starknet-react/core':
-        specifier: ^2.2.5
+        specifier: workspace:^
         version: link:packages/core
       get-starknet:
         specifier: ^3.0.1
