@@ -33,7 +33,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@starknet-react/core": "workspace:^",
+    "@starknet-react/core": "^2.2.5",
     "get-starknet": "^3.0.1"
   }
 }

@@ -39,7 +39,7 @@ export interface StarknetState {
   error?: Error;
 }
 
-const StarknetContext = createContext<StarknetState | undefined>(undefined);
+export const StarknetContext = createContext<StarknetState | undefined>(undefined);
 
 /**
  * Returns the current Starknet context state.

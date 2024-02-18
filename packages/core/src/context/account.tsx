@@ -11,6 +11,8 @@ export function useStarknetAccount() {
   return { account };
 }
 
+export { StarknetContext } from "./starknet";
+
 export function AccountProvider({
   account,
   children,
