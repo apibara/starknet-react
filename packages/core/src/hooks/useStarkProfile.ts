@@ -188,7 +188,10 @@ function queryFn({
         {
           execution: staticExecution(),
           to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
+          selector:
+            network === "mainnet"
+              ? hardcoded(hash.getSelectorFromName("domain_to_token_id"))
+              : hardcoded(hash.getSelectorFromName("domain_to_id")),
           calldata: [arrayReference(0, 0)],
         },
         {
