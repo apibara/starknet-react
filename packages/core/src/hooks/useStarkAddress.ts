@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-import { CallData, Provider, ProviderInterface, RawArgs } from "starknet";
+import {
+  CallData,
+  Provider,
+  ProviderInterface,
+  RawArgs,
+  starknetId,
+} from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
@@ -84,8 +90,11 @@ function queryFn({
 
     const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
+    const encodedDomain = decodeDomain(name);
     const calldata: RawArgs =
-      network === "mainnet" ? { domain: [name] } : { domain: [name], hint: [] };
+      network === "mainnet"
+        ? { domain: encodedDomain }
+        : { domain: encodedDomain, hint: [] };
     const result = await p.callContract({
       contractAddress: namingContract as string,
       entrypoint: "domain_to_address",
@@ -105,4 +114,13 @@ const StarknetIdNamingContract: Record<string, string> = {
   goerli: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
   sepolia: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
+};
+
+const decodeDomain = (domain: string): string[] => {
+  if (!domain) return ["0"];
+
+  const encoded = [];
+  for (const subdomain of domain.replace(".stark", "").split("."))
+    encoded.push(starknetId.useEncoded(subdomain).toString(10));
+  return encoded;
 };
