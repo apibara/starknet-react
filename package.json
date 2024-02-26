@@ -29,11 +29,13 @@
     "turbo": "^1.10.14",
     "typescript": "^4.9.5"
   },
-  "engines": {
-    "node": ">=18"
-  },
   "dependencies": {
     "@starknet-react/core": "workspace:^",
     "get-starknet": "^3.0.1"
-  }
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "packageManager": "pnpm@8.5.1"
 }
