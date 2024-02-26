@@ -3,6 +3,7 @@ import { Provider, ProviderInterface } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
+import { useNetwork } from "./useNetwork";
 
 /** Arguments for `useStarkName` hook. */
 export type StarkNameArgs = UseQueryProps<
@@ -65,10 +66,15 @@ export function useStarkName({
   ...props
 }: StarkNameArgs): StarkNameResult {
   const { provider } = useProvider();
+  const { chain } = useNetwork();
+  contract =
+    chain.network === "sepolia"
+      ? "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2"
+      : contract;
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   return useQuery({
@@ -82,7 +88,10 @@ export function useStarkName({
 function queryKey({
   address,
   contract,
-}: { address?: string; contract?: string }) {
+}: {
+  address?: string;
+  contract?: string;
+}) {
   return [{ entity: "starkName", address, contract }] as const;
 }
 
