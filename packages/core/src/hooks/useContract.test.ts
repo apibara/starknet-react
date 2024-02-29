@@ -192,6 +192,7 @@ describe("useContract", () => {
           "callStatic": {
             "name": [Function],
           },
+          "deployTransactionHash": undefined,
           "estimateFee": {
             "name": [Function],
           },
