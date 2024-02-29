@@ -40,7 +40,8 @@ describe("useBlock", () => {
     expect(result.current).toMatchInlineSnapshot(`
       {
         "data": undefined,
-        "error": [Error: fetch failed],
+        "error": [LibraryError: RPC: starknet_getBlockWithTxHashes with params {"block_id":{"block_number":999999}}
+       24: Block not found: undefined],
         "fetchStatus": "idle",
         "isError": true,
         "isFetching": false,
