@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.3.0
+
+### Minor Changes
+
+- [#403](https://github.com/apibara/starknet-react/pull/403) [`1384143`](https://github.com/apibara/starknet-react/commit/138414312e3805369363932d11c558c1f2136440) Thanks [@irisdv](https://github.com/irisdv)! - fix starknetid hooks & add sepolia support to starknetid hooks
+
 ## 2.2.5
 
 ### Patch Changes
