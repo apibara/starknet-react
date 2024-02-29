@@ -73,6 +73,7 @@ describe("useAccount", () => {
         {
           "account": Account {
             "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
+            "cairoVersion": undefined,
             "deploySelf": [Function],
             "provider": RpcProvider {
               "blockIdentifier": "pending",
