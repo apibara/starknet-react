@@ -137,7 +137,9 @@ function queryFn({
       symbolPromise,
     ]);
 
-    const formatted = (balanceOf / BigInt(10 ** decimals)).toString();
+    const formatted = (
+      Number(balanceOf * 10_000n / BigInt(10 ** decimals)) / 10_000
+    ).toString();
 
     return {
       value: balanceOf,
