@@ -1,0 +1,17 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vocs dev",
+    "build": "vocs build",
+    "preview": "vocs preview"
+  },
+  "devDependencies": {
+    "@starknet-react/typescript-config": "workspace:*",
+    "@starknet-react/chains": "workspace:*",
+    "@starknet-react/core": "workspace:*",
+    "vocs": "1.0.0-alpha.42"
+  }
+}

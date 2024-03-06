@@ -7,7 +7,6 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-
       "complexity": {
         "useLiteralKeys": "off"
       },
@@ -32,13 +31,10 @@
       "semicolons": "always"
     }
   },
-  "organizeImports": {
-    "enabled": true
-  },
   "files": {
     "ignore": [
-      "**/node_modules",
-      "**/dist",
+      "node_modules",
+      "dist",
       "CHANGELOG.md",
       "pnpm-lock.yaml",
       "contracts/*.json",
