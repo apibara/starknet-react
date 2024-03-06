@@ -15,7 +15,7 @@ yarn add @starknet-react/chains
 Simply import any chain you want to use.
 
 ```ts
-import { mainnet } from '@apibara-starknet/chains`
+import { mainnet } from '@starknet-react/chains`
 ```
 
 ## Contributing
