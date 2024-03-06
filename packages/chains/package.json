@@ -1,6 +1,6 @@
 {
   "name": "@starknet-react/chains",
-  "version": "0.1.7",
+  "version": "3.0.0-beta.1",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -12,11 +12,6 @@
       "default": "./dist/index.js"
     }
   },
-  "files": [
-    "dist",
-    "src",
-    "README.md"
-  ],
   "scripts": {
     "build": "tsup",
     "clean": "rimraf dist",
@@ -24,6 +19,11 @@
     "lint:fix": "pnpm lint --apply",
     "format": "biome format . --write"
   },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
   "repository": "apibara/starknet-react",
   "homepage": "https://apibara.github.io/starknet-react/",
   "keywords": [
@@ -32,7 +32,8 @@
     "l2"
   ],
   "devDependencies": {
+    "@starknet-react/typescript-config": "workspace:*",
     "rimraf": "^4.1.2",
-    "tsup": "^7.2.0"
+    "tsup": "^8.0.2"
   }
 }
