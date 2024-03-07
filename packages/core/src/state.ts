@@ -17,10 +17,12 @@ export type CreateStateArgs = {
   providerFactory: ChainProviderFactory;
 };
 
-export type State = {
+export type Store = {
   chainId: bigint;
   chains: Chain[];
 };
+
+export type State = ReturnType<typeof createState>;
 
 export function createState({ chains, providerFactory }: CreateStateArgs) {
   if (chains.length === 0) {
@@ -44,13 +46,13 @@ export function createState({ chains, providerFactory }: CreateStateArgs) {
     return provider;
   }
 
-  const store = createStore<State>((set) => {
+  const store = createStore<Store>((set) => {
     const chainId = chains[0].id;
 
     return {
       chainId,
       chains,
-    } satisfies State;
+    } satisfies Store;
   });
 
   return {
