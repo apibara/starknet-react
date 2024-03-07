@@ -1,6 +1,7 @@
+import { describe, expect, it } from "vitest";
+
 import { Chain, mainnet } from "@starknet-react/chains";
 
-import { describe, expect, it } from "vitest";
 import { jsonRpcProvider } from "./jsonrpc";
 
 function rpc(chain: Chain) {
@@ -10,8 +11,9 @@ function rpc(chain: Chain) {
 }
 
 describe("jsonRpcProvider", () => {
-  it("returns a public rpc endpoint", () => {
-    expect(jsonRpcProvider({ rpc })(mainnet)?.nodeUrl).toMatchInlineSnapshot(
+  it("returns a Starknet RpcProvider", () => {
+    const provider = jsonRpcProvider({ rpc })(mainnet);
+    expect(provider?.channel.nodeUrl).toMatchInlineSnapshot(
       '"https://mainnet.example.com"',
     );
   });
