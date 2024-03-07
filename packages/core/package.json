@@ -51,7 +51,8 @@
     "@tanstack/react-query": "^5.25.0",
     "eventemitter3": "^5.0.1",
     "immutable": "^4.3.4",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "repository": "apibara/starknet-react",
   "homepage": "https://starknet-react.com",
