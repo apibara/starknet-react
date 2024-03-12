@@ -1,11 +1,5 @@
 import { useMemo } from "react";
-import {
-  CallData,
-  Provider,
-  ProviderInterface,
-  RawArgs,
-  starknetId,
-} from "starknet";
+import { CallData, Provider, ProviderInterface, starknetId } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
@@ -91,14 +85,10 @@ function queryFn({
     const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
     const encodedDomain = decodeDomain(name);
-    const calldata: RawArgs =
-      network === "mainnet"
-        ? { domain: encodedDomain }
-        : { domain: encodedDomain, hint: [] };
     const result = await p.callContract({
       contractAddress: namingContract as string,
       entrypoint: "domain_to_address",
-      calldata: CallData.compile(calldata),
+      calldata: CallData.compile({ domain: encodedDomain, hint: [] }),
     });
 
     // StarknetID returns 0x0 if no name is found, but that can be dangerous
