@@ -54,7 +54,7 @@ function mergeConnectors(
   }: Required<Pick<UseInjectedConnectorsProps, "includeRecommended" | "order">>,
 ): Connector[] {
   const injectedIds = new Set(injected.map((connector) => connector.id));
-  const allConnectors = injected;
+  const allConnectors = [...injected];
   const shouldAddRecommended =
     includeRecommended === "always" ||
     (includeRecommended === "onlyIfNoConnectors" && injected.length === 0);
