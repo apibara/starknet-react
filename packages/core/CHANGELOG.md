@@ -1,5 +1,15 @@
 # @starknet-react/core
 
+## 2.4.0
+
+### Minor Changes
+
+- [#410](https://github.com/apibara/starknet-react/pull/410) [`61eda85`](https://github.com/apibara/starknet-react/commit/61eda85fdfb2f1ca7eb3eb32bfa718b28578afba) Thanks [@irisdv](https://github.com/irisdv)! - update starknetid hooks to work with latest version of starknetid contracts
+
+### Patch Changes
+
+- [#408](https://github.com/apibara/starknet-react/pull/408) [`2df5559`](https://github.com/apibara/starknet-react/commit/2df5559dd5636366eb1fac19215aef1d4ae93823) Thanks [@notV4l](https://github.com/notV4l)! - add formatUnits from viem in useBalance
+
 ## 2.3.0
 
 ### Minor Changes
