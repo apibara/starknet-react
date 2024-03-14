@@ -378,15 +378,16 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
   sepolia: {
-    naming: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
+    naming:
+      "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7",
     identity:
-      "0x718d9172f6e36183abeeff1a0db76a1851cef4ed9b9c13896da79ef4bfcb4d0",
+      "0x070DF8B4F5cb2879f8592849fA8f3134da39d25326B8558cc9C8FE8D47EA3A90",
     verifier:
-      "0x041a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
+      "0x0182EcE8173C216A395f4828e1523541b7e3600bf190CB252E1a1A0cE219d184",
     verifier_pop:
-      "0x00f80f68443becd0e0a4a08ff5734e36dd8028507333e4a0ec034dcfdf1b793e",
+      "0x0023FE3b845ed5665a9eb3792bbB17347B490EE4090f855C1298d03BB5F49B49",
     verifier_pfp:
-      "0x070c035557d6fed57eed2ed7fa861616b487f8a95439347b805639ca076f29f0",
+      "0x058061bb6bdc501eE215172c9f87d557C1E0f466dC498cA81b18f998Bf1362b2",
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },

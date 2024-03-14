@@ -69,7 +69,7 @@ export function useStarkName({
   const { chain } = useNetwork();
   contract =
     chain.network === "sepolia"
-      ? "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2"
+      ? "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7"
       : contract;
 
   const enabled = useMemo(
