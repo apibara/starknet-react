@@ -44,6 +44,14 @@ function ContractRead() {
       blockIdentifier === "latest" ? BlockTag.latest : BlockTag.pending,
   });
 
+  // Cast bigint into string to avoid "TypeError: Do not know how to serialize a BigInt"
+  // See https://github.com/GoogleChromeLabs/jsbi/issues/30#issuecomment-521460510
+  const callResult = JSON.stringify(data, (_key, value) =>
+    typeof value === 'bigint'
+        ? value.toString()
+        : value
+  );
+
   return (
     <Card className="max-w-[400px] mx-auto">
       <CardHeader>
@@ -74,7 +82,7 @@ function ContractRead() {
         </div>
         <div className="space-y-1">
           <Label>Call result</Label>
-          <p>{JSON.stringify(data)}</p>
+          <p>{callResult}</p>
         </div>
         <div className="space-y-1">
           <Button onClick={() => refetch()}>Refetch data</Button>
