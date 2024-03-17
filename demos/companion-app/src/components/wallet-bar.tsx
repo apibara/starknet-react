@@ -3,7 +3,7 @@ import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 
-function WalletConnected() {
+export const WalletConnected = () => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
 
@@ -13,12 +13,17 @@ function WalletConnected() {
   }, [address]);
 
   return (
-    <div>
+    <div className="flex justify-center items-center gap-4">
       <span>Connected: {shortenedAddress}</span>
-      <button onClick={() => disconnect()}>Disconnect</button>
+      <button
+        className="bg-gray-500 px-4 py-2 rounded-md "
+        onClick={() => disconnect()}
+      >
+        Disconnect
+      </button>
     </div>
   );
-}
+};
 
 function ConnectWallet() {
   const { connectors, connect } = useConnect();
