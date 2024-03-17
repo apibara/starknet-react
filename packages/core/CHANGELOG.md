@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.5.0
+
+### Minor Changes
+
+- [#415](https://github.com/apibara/starknet-react/pull/415) [`458b75a`](https://github.com/apibara/starknet-react/commit/458b75a8618498dfb7a2dabaebc792b63f51082a) Thanks [@irisdv](https://github.com/irisdv)! - Update starknetid Sepolia contract addresses
+
 ## 2.4.0
 
 ### Minor Changes
