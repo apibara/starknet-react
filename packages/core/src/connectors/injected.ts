@@ -52,6 +52,7 @@ export class InjectedConnector extends Connector {
   }
 
   get icon(): ConnectorIcons {
+    /*
     let defaultIcon = {
       dark:
         this._wallet?.icon ||
@@ -64,6 +65,8 @@ export class InjectedConnector extends Connector {
     };
 
     return this._options.icon ?? defaultIcon;
+    */
+    throw new Error("TODO");
   }
 
   available(): boolean {
@@ -72,6 +75,7 @@ export class InjectedConnector extends Connector {
   }
 
   async chainId(): Promise<bigint> {
+    /*
     this.ensureWallet();
 
     if (!this._wallet) {
@@ -81,13 +85,18 @@ export class InjectedConnector extends Connector {
     const chainIdHex = await this._wallet.provider.getChainId();
     const chainId = BigInt(chainIdHex);
     return chainId;
+    */
+    throw new Error("TODO");
   }
 
   async ready(): Promise<boolean> {
+    /*
     this.ensureWallet();
 
     if (!this._wallet) return false;
     return await this._wallet.isPreauthorized();
+    */
+    throw new Error("TODO");
   }
 
   async connect(): Promise<ConnectorData> {
@@ -97,6 +106,17 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
+    try {
+      console.log(this._wallet.version);
+      const response = await this._wallet.request({
+        type: "wallet_getPermissions",
+      });
+
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+    /*
     let accounts;
     try {
       accounts = await this._wallet.enable({ starknetVersion: "v5" });
@@ -129,9 +149,12 @@ export class InjectedConnector extends Connector {
       account,
       chainId,
     };
+    */
+    throw new Error("TODO");
   }
 
   async disconnect(): Promise<void> {
+    /*
     this.ensureWallet();
 
     if (!this.available()) {
@@ -143,9 +166,12 @@ export class InjectedConnector extends Connector {
     }
 
     this.emit("disconnect");
+    */
+    throw new Error("TODO");
   }
 
   async account(): Promise<AccountInterface> {
+    /*
     this.ensureWallet();
 
     if (!this._wallet || !this._wallet.account) {
@@ -153,6 +179,8 @@ export class InjectedConnector extends Connector {
     }
 
     return this._wallet.account;
+    */
+    throw new Error("TODO");
   }
 
   private ensureWallet() {

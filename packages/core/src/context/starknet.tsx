@@ -169,6 +169,7 @@ function useStarknetManager({
       }
 
       try {
+        console.log("calling connector.connect");
         const { chainId } = await connector.connect();
         const account = await connector.account();
 

@@ -1,0 +1,22 @@
+{
+  "name": "@starknet-react/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vocs dev",
+    "build": "vocs build",
+    "preview": "vocs preview",
+    "lint": "biome check .",
+    "lint:fix": "pnpm lint --apply",
+    "format": "biome format . --write"
+  },
+  "dependencies": {
+    "@starknet-react/chains": "workspace:*",
+    "@starknet-react/core": "workspace:*",
+    "starknet": "6",
+    "vocs": "1.0.0-alpha.43"
+  },
+  "devDependencies": {
+    "@starknet-react/typescript-config": "workspace:*"
+  }
+}
