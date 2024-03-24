@@ -5,7 +5,7 @@ import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
 /** Arguments for `useBlockNumber`. */
 export type UseBlockNumberProps = UseQueryProps<
-  number,
+  number | undefined,
   Error,
   number,
   ReturnType<typeof queryKey>
@@ -15,7 +15,7 @@ export type UseBlockNumberProps = UseQueryProps<
 };
 
 /** Value returned from `useBlockNumber`. */
-export type UseBlockNumberResult = UseQueryResult<number, Error>;
+export type UseBlockNumberResult = UseQueryResult<number | undefined, Error>;
 
 /**
  * Hook for fetching the current block number.
@@ -74,9 +74,15 @@ function queryKey({ blockIdentifier }: { blockIdentifier: BlockNumber }) {
 function queryFn({
   provider,
   blockIdentifier,
-}: { provider: ProviderInterface; blockIdentifier: BlockNumber }) {
+}: {
+  provider: ProviderInterface;
+  blockIdentifier: BlockNumber;
+}) {
   return async function () {
     const block = await provider.getBlock(blockIdentifier);
-    return block.block_number;
+    if (block.status !== "PENDING") {
+      return block.block_number;
+    }
+    return undefined;
   };
 }
