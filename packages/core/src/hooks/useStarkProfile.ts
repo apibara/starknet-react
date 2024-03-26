@@ -29,6 +29,8 @@ export type StarkProfileArgs = UseQueryProps<
   namingContract?: string;
   /** Identity contract to use. */
   identityContract?: string;
+  /** ChainID to use.*/
+  chainId?: bigint;
 };
 
 /** Value returned by `useStarkProfile` hook. */
@@ -109,6 +111,7 @@ export function useStarkProfile({
   namingContract,
   identityContract,
   enabled: enabled_ = true,
+  chainId,
   ...props
 }: StarkProfileArgs): useStarkProfileResult {
   const { provider } = useProvider();
@@ -124,7 +127,7 @@ export function useStarkProfile({
   );
 
   return useQuery({
-    queryKey: queryKey({ address, namingContract, identityContract }),
+    queryKey: queryKey({ address, namingContract, identityContract, chainId }),
     queryFn: queryFn({
       address,
       useDefaultPfp,
@@ -133,6 +136,7 @@ export function useStarkProfile({
       network: chain.network,
       identityContract,
       multicallContract,
+      chainId
     }),
     enabled,
     ...props,
@@ -143,13 +147,15 @@ function queryKey({
   address,
   namingContract,
   identityContract,
+  chainId,
 }: {
   address?: string;
   namingContract?: string;
   identityContract?: string;
+  chainId?: bigint;
 }) {
   return [
-    { entity: "starkprofile", address, namingContract, identityContract },
+    { entity: "starkprofile", address, namingContract, identityContract, chainId },
   ] as const;
 }
 
@@ -161,6 +167,7 @@ function queryFn({
   provider,
   network,
   multicallContract,
+  chainId
 }: StarkProfileArgs & { provider: ProviderInterface } & { network?: string } & {
   multicallContract?: ContractInterface;
 }) {
@@ -175,7 +182,7 @@ function queryFn({
 
     // get decoded starkname
     const p = new Provider(provider);
-    const name = await p.getStarkName(address, naming);
+    const name = await p.getStarkName(chainId || address, naming);
 
     const data = await multicallContract.call("aggregate", [
       [
