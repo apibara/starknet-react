@@ -16,6 +16,8 @@ export type StarkNameArgs = UseQueryProps<
   address?: string;
   /** Naming contract to use . */
   contract?: string;
+  /** ChainID to use.*/
+  chainId?: bigint;
 };
 
 /** Value returned by `useStarkName` hook. */
@@ -63,6 +65,7 @@ export function useStarkName({
   address,
   contract,
   enabled: enabled_ = true,
+  chainId,
   ...props
 }: StarkNameArgs): StarkNameResult {
   const { provider } = useProvider();
@@ -78,8 +81,8 @@ export function useStarkName({
   );
 
   return useQuery({
-    queryKey: queryKey({ address, contract }),
-    queryFn: queryFn({ address, contract, provider }),
+    queryKey: queryKey({ address, contract, chainId }),
+    queryFn: queryFn({ address, contract, provider, chainId }),
     enabled,
     ...props,
   });
@@ -91,6 +94,7 @@ function queryKey({
 }: {
   address?: string;
   contract?: string;
+  chainId?: bigint;
 }) {
   return [{ entity: "starkName", address, contract }] as const;
 }
@@ -99,11 +103,12 @@ function queryFn({
   address,
   contract,
   provider,
+  chainId
 }: StarkNameArgs & { provider: ProviderInterface }) {
   return async function () {
-    if (!address) throw new Error("address is required");
+    if (!address && !chainId) throw new Error("address is required");
 
     const p = new Provider(provider);
-    return await p.getStarkName(address, contract);
+    return await p.getStarkName(address || chainId!, contract);
   };
 }
