@@ -65,15 +65,18 @@ export function useStarkName({
   address,
   contract,
   enabled: enabled_ = true,
-  chainId,
+  chainId: chainId_,
   ...props
 }: StarkNameArgs): StarkNameResult {
-  const { provider } = useProvider();
   const { chain } = useNetwork();
-  contract =
-    chain.network === "sepolia"
-      ? "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7"
-      : contract;
+  const chainId = chainId_ ?? chain.id;
+  const { provider } = useProvider({chainId});
+  // contract =
+  //   chain.network === "sepolia"
+  //     ? "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7"
+  //     : contract;
+    
+      contract = chainId.toString() || contract
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
@@ -91,12 +94,13 @@ export function useStarkName({
 function queryKey({
   address,
   contract,
+  chainId
 }: {
   address?: string;
   contract?: string;
   chainId?: bigint;
 }) {
-  return [{ entity: "starkName", address, contract }] as const;
+  return [{ entity: "starkName", address, contract, chainId }] as const;
 }
 
 function queryFn({
@@ -106,9 +110,9 @@ function queryFn({
   chainId
 }: StarkNameArgs & { provider: ProviderInterface }) {
   return async function () {
-    if (!address && !chainId) throw new Error("address is required");
+    if (!address) throw new Error("address is required");
 
     const p = new Provider(provider);
-    return await p.getStarkName(address || chainId!, contract);
+    return await p.getStarkName(address, contract);
   };
 }
