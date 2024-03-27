@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { mainnet } from "@starknet-react/chains";
 
 export function StarknetIDDemo() {
   return (
@@ -92,6 +93,7 @@ function LookupAddress() {
 
   const { data, error, isLoading } = useStarkAddress({
     name: debouncedStarknetId,
+    chainId: mainnet.id
   });
 
   return (
