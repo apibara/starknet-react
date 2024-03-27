@@ -8,6 +8,7 @@ import {
   hash,
   shortString,
 } from "starknet";
+import { mainnet, sepolia, goerli } from "@starknet-react/chains";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
@@ -29,6 +30,8 @@ export type StarkProfileArgs = UseQueryProps<
   namingContract?: string;
   /** Identity contract to use. */
   identityContract?: string;
+  /** ChainID to use.*/
+  chainId?: bigint;
 };
 
 /** Value returned by `useStarkProfile` hook. */
@@ -109,13 +112,21 @@ export function useStarkProfile({
   namingContract,
   identityContract,
   enabled: enabled_ = true,
+  chainId: chainId_,
   ...props
 }: StarkProfileArgs): useStarkProfileResult {
-  const { provider } = useProvider();
   const { chain } = useNetwork();
+  const chainId = chainId_ ?? chain.id;
+  const { provider } = useProvider({ chainId });
+
   const { contract: multicallContract } = useContract({
     abi: multicallABI,
-    address: (StarknetIdcontracts[chain.network] as any)["multicall"],
+    address: (
+      StarknetIdcontracts[
+        // (mainnet.id.toString(), sepolia.id.toString(), goerli.id.toString())
+        chainId.toString()
+      ] as any
+    )["multicall"],
   });
 
   const enabled = useMemo(
@@ -124,15 +135,15 @@ export function useStarkProfile({
   );
 
   return useQuery({
-    queryKey: queryKey({ address, namingContract, identityContract }),
+    queryKey: queryKey({ address, namingContract, identityContract, chainId }),
     queryFn: queryFn({
       address,
       useDefaultPfp,
       namingContract,
       provider,
-      network: chain.network,
       identityContract,
       multicallContract,
+      chainId,
     }),
     enabled,
     ...props,
@@ -143,13 +154,21 @@ function queryKey({
   address,
   namingContract,
   identityContract,
+  chainId,
 }: {
   address?: string;
   namingContract?: string;
   identityContract?: string;
+  chainId?: bigint;
 }) {
   return [
-    { entity: "starkprofile", address, namingContract, identityContract },
+    {
+      entity: "starkprofile",
+      address,
+      namingContract,
+      identityContract,
+      chainId,
+    },
   ] as const;
 }
 
@@ -159,17 +178,18 @@ function queryFn({
   namingContract,
   identityContract,
   provider,
-  network,
   multicallContract,
-}: StarkProfileArgs & { provider: ProviderInterface } & { network?: string } & {
+  chainId,
+}: StarkProfileArgs & { provider: ProviderInterface } & {
   multicallContract?: ContractInterface;
 }) {
   return async function () {
     if (!address) throw new Error("address is required");
     if (!multicallContract) throw new Error("multicallContract is required");
-    if (!network) throw new Error("network is required");
 
-    const contracts = StarknetIdcontracts[network] as Record<string, string>;
+    const contracts = StarknetIdcontracts[
+      (mainnet.id.toString(), sepolia.id.toString(), goerli.id.toString())
+    ] as Record<string, string>;
     const identity = identityContract ?? (contracts["identity"] as string);
     const naming = namingContract ?? (contracts["naming"] as string);
 
