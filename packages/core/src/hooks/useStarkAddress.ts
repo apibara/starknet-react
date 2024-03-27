@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { CallData, Provider, ProviderInterface, starknetId } from "starknet";
+import { mainnet, sepolia, goerli } from "@starknet-react/chains";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
@@ -46,17 +47,18 @@ export function useStarkAddress({
   name,
   contract,
   enabled: enabled_ = true,
-  chainId,
+  chainId: chainId_,
   ...props
 }: UseStarkAddressProps): UseStarkAddressResult {
-  const { provider } = useProvider();
   const { chain } = useNetwork();
+  const chainId = chainId_ ?? chain.id;
+  const { provider } = useProvider({chainId});
 
   const enabled = useMemo(() => Boolean(enabled_ && name), [enabled_, name]);
 
   return useQuery({
-    queryKey: queryKey({ name, contract, network: chain.network, chainId }),
-    queryFn: queryFn({ name, contract, provider, network: chain.network, chainId }),
+    queryKey: queryKey({ name, contract, chainId }),
+    queryFn: queryFn({ name, contract, provider, chainId }),
     enabled,
     ...props,
   });
@@ -65,36 +67,31 @@ export function useStarkAddress({
 function queryKey({
   name,
   contract,
-  network,
   chainId,
 }: {
   name?: string;
   contract?: string;
-  network?: string;
   chainId?: bigint
 }) {
-  return [{ entity: "addressFromStarkName", name, contract, network, chainId }] as const;
+  return [{ entity: "addressFromStarkName", name, contract, chainId }] as const;
 }
 
 function queryFn({
   name,
   contract,
   provider,
-  network,
   chainId
-}: UseStarkAddressProps & { provider: ProviderInterface } & {
-  network: string;
-}) {
+}: UseStarkAddressProps & { provider: ProviderInterface } ) {
   return async function () {
     if (!name) throw new Error("name is required");
 
-    const namingContract = contract ?? StarknetIdNamingContract[network];
+    const namingContract = contract ?? StarknetIdNamingContract[mainnet.id.toString(), sepolia.id.toString(), goerli.id.toString()];
     const p = new Provider(provider);
     const encodedDomain = decodeDomain(name);
     const result = await p.callContract({
       contractAddress: namingContract as string,
       entrypoint: "domain_to_address",
-      calldata: CallData.compile({ domain: encodedDomain, hint: [], chainId:{chainId} }),
+      calldata: CallData.compile({ domain: encodedDomain, hint: []}),
     });
 
     // StarknetID returns 0x0 if no name is found, but that can be dangerous
