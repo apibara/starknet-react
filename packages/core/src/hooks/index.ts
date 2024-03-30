@@ -18,3 +18,4 @@ export * from "./useStarkAddress";
 export * from "./useStarkName";
 export * from "./useWaitForTransaction";
 export * from "./useStarkProfile";
+export * from "./useEstimateFees";
