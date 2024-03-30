@@ -1,0 +1,53 @@
+---
+title: useEstimateFees
+priority: 194
+hookType: query
+---
+
+Perform fee estimation for smart contract calls. Estimation then later can be used to specify the `maxFee` for the actual contract call.
+
+## Usage
+
+```ts
+import { useAccount, useContract, useEstimateFees } from "@starknet-react/core";
+
+export default function Component() {
+  const { address } = useAccount();
+
+  const { contract } = useContract({
+		abi: erc20ABI,
+		address: chain.nativeCurrency.address,
+	});
+
+	const calls = useMemo(() => {
+		if (!address || !contract) return [];
+		return contract.populateTransaction["transfer"]!(address, { low: 1, high: 0 });
+	}, [contract, address]);
+
+  const { data, isError, isLoading, error } = useEstimateFees({
+    calls,
+    watch: true,
+  });
+
+  if (isLoading) return <div>Loading ...</div>;
+  if (isError || !data) return <div>{error?.message}</div>;
+
+  return <div>Suggested Max Fee: {data.suggestedMaxFee}</div>;
+}
+```
+
+## Options
+
+- **calls**`: string`
+  - The contract calls to estimate fees for.
+- **options**`: string`
+  - Estimation options.
+  - EstimateFeeDetails from starknet.js
+- **watch?**`: boolean`
+  - If true, refresh data at every block.
+
+## Returns
+
+- **data?**`: EstimateFeeResponse`
+  - Estimated fees for the contract calls.
+  - EstimateFeeResponse from starknet.js
