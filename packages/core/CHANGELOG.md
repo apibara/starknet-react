@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.6.0
+
+### Minor Changes
+
+- [#422](https://github.com/apibara/starknet-react/pull/422) [`78b124d`](https://github.com/apibara/starknet-react/commit/78b124deb4a21a23908b52c38a9dd60d86a1dd22) Thanks [@ugur-eren](https://github.com/ugur-eren)! - Add useEstimateFees hook to estimate smart contract calls fees
+
 ## 2.5.0
 
 ### Minor Changes
