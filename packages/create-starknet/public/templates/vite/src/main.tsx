@@ -1,4 +1,4 @@
-import { devnet, goerli, mainnet } from "@starknet-react/chains";
+import { mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   argent,
@@ -12,7 +12,7 @@ import App from "./App";
 import "./globals.css";
 
 function Root({ children }: { children: React.ReactNode }) {
-  const chains = [goerli, mainnet, devnet];
+  const chains = [mainnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
