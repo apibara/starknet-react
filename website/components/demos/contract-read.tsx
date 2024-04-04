@@ -47,9 +47,7 @@ function ContractRead() {
   // Cast bigint into string to avoid "TypeError: Do not know how to serialize a BigInt"
   // See https://github.com/GoogleChromeLabs/jsbi/issues/30#issuecomment-521460510
   const callResult = JSON.stringify(data, (_key, value) =>
-    typeof value === 'bigint'
-        ? value.toString()
-        : value
+    typeof value === "bigint" ? value.toString() : value,
   );
 
   return (
