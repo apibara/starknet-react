@@ -120,7 +120,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   return useQuery({
@@ -251,7 +251,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
+            hash.getSelectorFromName("get_extended_verifier_data"),
           ),
           calldata: [
             reference(1, 0),
@@ -284,7 +284,7 @@ function queryFn({
           ? data[8]
               .slice(1)
               .map((val: BigInt) =>
-                shortString.decodeShortString(val.toString())
+                shortString.decodeShortString(val.toString()),
               )
               .join("")
           : undefined;

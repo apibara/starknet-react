@@ -20,7 +20,12 @@ type EstimateFeesArgs = {
 
 /** Options for `useEstimateFees`. */
 export type UseEstimateFeesProps = EstimateFeesArgs &
-  UseQueryProps<EstimateFeeResponse, Error, EstimateFeeResponse, ReturnType<typeof queryKey>> & {
+  UseQueryProps<
+    EstimateFeeResponse,
+    Error,
+    EstimateFeeResponse,
+    ReturnType<typeof queryKey>
+  > & {
     /** Refresh data at every block. */
     watch?: boolean;
   };
@@ -46,14 +51,11 @@ export function useEstimateFees({
 
   const queryKey_ = useMemo(
     () => queryKey({ calls, options }),
-    [calls, options]
+    [calls, options],
   );
 
-  const enabled = useMemo(
-    () => Boolean(enabled_ && calls),
-    [enabled_, calls],
-  );
-  
+  const enabled = useMemo(() => Boolean(enabled_ && calls), [enabled_, calls]);
+
   useInvalidateOnBlock({
     enabled: Boolean(enabled && watch),
     queryKey: queryKey_,
@@ -70,10 +72,7 @@ export function useEstimateFees({
   });
 }
 
-function queryKey({
-  calls,
-  options,
-}: EstimateFeesArgs) {
+function queryKey({ calls, options }: EstimateFeesArgs) {
   return [
     {
       entity: "estimateInvokeFee",
@@ -83,7 +82,11 @@ function queryKey({
   ] as const;
 }
 
-function queryFn({ account, calls, options }: { account?: AccountInterface } & EstimateFeesArgs) {
+function queryFn({
+  account,
+  calls,
+  options,
+}: { account?: AccountInterface } & EstimateFeesArgs) {
   return async function () {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
