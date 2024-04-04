@@ -1,5 +1,11 @@
 # create-starknet
 
+## 2.1.1
+
+### Patch Changes
+
+- [#425](https://github.com/apibara/starknet-react/pull/425) [`076bf45`](https://github.com/apibara/starknet-react/commit/076bf4583561798b0d906f004bc25e1a7ab35127) Thanks [@fracek](https://github.com/fracek)! - Update template to not use goerli
+
 ## 2.1.0
 
 ### Minor Changes
