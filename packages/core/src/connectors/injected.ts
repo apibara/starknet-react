@@ -110,12 +110,9 @@ export class InjectedConnector extends Connector {
       throw new UserRejectedRequestError();
     }
 
-    this._wallet.on(
-      "accountsChanged",
-      async (accounts: string[] | string) => {
-        await this.onAccountsChanged(accounts);
-      },
-    );
+    this._wallet.on("accountsChanged", async (accounts: string[] | string) => {
+      await this.onAccountsChanged(accounts);
+    });
 
     this._wallet.on("networkChanged", (network?: string) => {
       this.onNetworkChanged(network);
