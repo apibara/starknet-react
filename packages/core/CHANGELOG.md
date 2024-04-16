@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.6.1
+
+### Patch Changes
+
+- [#429](https://github.com/apibara/starknet-react/pull/429) [`d6e3b95`](https://github.com/apibara/starknet-react/commit/d6e3b95eca2a348cf7acca9d3486d9b0813ab2c1) Thanks [@fracek](https://github.com/fracek)! - Add option to useBalance to override block identifier
+
 ## 2.6.0
 
 ### Minor Changes
