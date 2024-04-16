@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 
+import { BlockTag } from "starknet";
 import { useBalance, useNetwork } from "@starknet-react/core";
 import { AlertCircle } from "lucide-react";
 import { useState } from "react";
@@ -20,6 +21,7 @@ function TokenBalance() {
   const { data, error, isLoading } = useBalance({
     address,
     watch: false,
+    blockIdentifier: BlockTag.pending,
   });
 
   return (
