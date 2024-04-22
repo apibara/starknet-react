@@ -84,7 +84,7 @@ function queryFn({
 
     const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
-    const encodedDomain = decodeDomain(name);
+    const encodedDomain = encodeDomain(name);
     const result = await p.callContract({
       contractAddress: namingContract as string,
       entrypoint: "domain_to_address",
@@ -106,7 +106,7 @@ const StarknetIdNamingContract: Record<string, string> = {
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };
 
-const decodeDomain = (domain: string): string[] => {
+const encodeDomain = (domain: string): string[] => {
   if (!domain) return ["0"];
 
   const encoded = [];
