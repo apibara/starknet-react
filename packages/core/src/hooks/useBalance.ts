@@ -11,7 +11,6 @@ import { z } from "zod";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
-import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
@@ -45,6 +44,7 @@ export function useBalance({
   enabled: enabled_ = true,
   ...props
 }: UseBalanceProps) {
+  /*
   const { chain } = useNetwork();
   const { contract } = useContract({
     abi: balanceABIFragment,
@@ -71,6 +71,8 @@ export function useBalance({
     queryFn: queryFn({ chain, contract, token, address }),
     ...props,
   });
+  */
+  throw new Error("useBalance is not implemented");
 }
 
 function queryKey({
@@ -106,7 +108,7 @@ function queryFn({
   address?: string;
   contract?: ContractInterface;
 }) {
-  return async function () {
+  return async () => {
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 

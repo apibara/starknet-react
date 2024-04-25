@@ -13,7 +13,7 @@ export type JsonRpcProviderArgs = {
 export function jsonRpcProvider({
   rpc,
 }: JsonRpcProviderArgs): ChainProviderFactory<RpcProvider> {
-  return function (chain) {
+  return (chain) => {
     const config = rpc(chain);
     if (!config) return null;
     const chainId = starknetChainId(chain.id);

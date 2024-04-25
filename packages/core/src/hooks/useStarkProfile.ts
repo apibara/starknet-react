@@ -10,9 +10,9 @@ import {
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
-import { useProvider } from "./useProvider";
 import { useContract } from "./useContract";
 import { useNetwork } from "./useNetwork";
+import { useProvider } from "./useProvider";
 
 /** Arguments for `useStarkProfile` hook. */
 export type StarkProfileArgs = UseQueryProps<
@@ -120,7 +120,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   return useQuery({
@@ -164,7 +164,7 @@ function queryFn({
 }: StarkProfileArgs & { provider: ProviderInterface } & { network?: string } & {
   multicallContract?: ContractInterface;
 }) {
-  return async function () {
+  return async () => {
     if (!address) throw new Error("address is required");
     if (!multicallContract) throw new Error("multicallContract is required");
     if (!network) throw new Error("network is required");
@@ -254,7 +254,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
+            hash.getSelectorFromName("get_extended_verifier_data"),
           ),
           calldata: [
             reference(1, 0),
@@ -286,8 +286,8 @@ function queryFn({
         data.length === 9
           ? data[8]
               .slice(1)
-              .map((val: BigInt) =>
-                shortString.decodeShortString(val.toString())
+              .map((val: bigint) =>
+                shortString.decodeShortString(val.toString()),
               )
               .join("")
           : undefined;
@@ -296,8 +296,8 @@ function queryFn({
       const profilePicture = profile
         ? await fetchImageUrl(profile)
         : useDefaultPfp
-        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-        : undefined;
+          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+          : undefined;
 
       return {
         name,

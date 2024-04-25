@@ -13,8 +13,8 @@ import { constants, AccountInterface, ProviderInterface } from "starknet";
 import { Connector } from "~/connectors";
 import { ConnectorData } from "~/connectors/base";
 import { ConnectorNotFoundError } from "~/errors";
-import { ChainProviderFactory } from "~/providers";
 import { ExplorerFactory } from "~/explorers/";
+import { ChainProviderFactory } from "~/providers";
 import { AccountProvider } from "./account";
 
 /** State of the Starknet context. */

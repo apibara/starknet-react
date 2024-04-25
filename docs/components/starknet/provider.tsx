@@ -1,11 +1,11 @@
 import { goerli, mainnet, sepolia } from "@starknet-react/chains";
 import {
+  type ExplorerFactory,
   StarknetConfig,
-  publicProvider,
   argent,
   braavos,
+  publicProvider,
   useInjectedConnectors,
-  type ExplorerFactory,
 } from "@starknet-react/core";
 
 export function StarknetProvider({

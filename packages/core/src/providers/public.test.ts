@@ -5,7 +5,7 @@ import { publicProvider } from "./public";
 
 describe("publicProvider", () => {
   it("returns a public rpc endpoint", () => {
-    expect(publicProvider()(devnet)?.nodeUrl).toMatchInlineSnapshot(
+    expect(publicProvider()(devnet)?.channel.nodeUrl).toMatchInlineSnapshot(
       '"http://localhost:5050/rpc"',
     );
   });

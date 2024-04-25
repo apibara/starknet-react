@@ -115,7 +115,7 @@ function mutationFn({
 }: {
   account?: AccountInterface;
 }) {
-  return async function ({ calls, abis, options }: ContractWriteVariables) {
+  return async ({ calls, abis, options }: ContractWriteVariables) => {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
     return await account?.execute(calls, abis, options);

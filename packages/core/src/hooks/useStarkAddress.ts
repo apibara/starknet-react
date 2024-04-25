@@ -8,8 +8,8 @@ import {
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
-import { useProvider } from "./useProvider";
 import { useNetwork } from "./useNetwork";
+import { useProvider } from "./useProvider";
 
 export type UseStarkAddressProps = UseQueryProps<
   string,
@@ -85,7 +85,7 @@ function queryFn({
 }: UseStarkAddressProps & { provider: ProviderInterface } & {
   network: string;
 }) {
-  return async function () {
+  return async () => {
     if (!name) throw new Error("name is required");
 
     const namingContract = contract ?? StarknetIdNamingContract[network];

@@ -99,7 +99,7 @@ function mutationFn({
   contractAddress,
   options,
 }: { account?: AccountInterface } & Partial<DeployAccountVariables>) {
-  return async function () {
+  return async () => {
     if (!account) throw new Error("account is required");
     if (!classHash) throw new Error("classHash is required");
     return await account.deployAccount(

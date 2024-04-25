@@ -15,6 +15,7 @@
   "scripts": {
     "build": "tsup",
     "clean": "rimraf dist",
+    "test": "vitest",
     "lint": "biome check .",
     "lint:fix": "pnpm lint --apply",
     "format": "biome format . --write"
@@ -32,17 +33,23 @@
     "l2"
   ],
   "peerDependencies": {
-    "get-starknet-core": "^4.0.0-next.2",
+    "get-starknet-core": "^4.0.0-next.5",
     "react": "^18.0",
-    "starknet": "^6.2.0"
+    "starknet": "^6.8.0"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.4",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^24.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^4.1.2",
     "starknet": "^6.2.0",
-    "tsup": "^8.0.2"
+    "tsup": "^8.0.2",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.5.2"
   },
   "dependencies": {
     "@starknet-react/chains": "workspace:^",

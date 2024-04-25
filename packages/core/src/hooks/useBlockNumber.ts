@@ -78,7 +78,7 @@ function queryFn({
   provider: ProviderInterface;
   blockIdentifier: BlockNumber;
 }) {
-  return async function () {
+  return async () => {
     const block = await provider.getBlock(blockIdentifier);
     if (block.status !== "PENDING") {
       return block.block_number;

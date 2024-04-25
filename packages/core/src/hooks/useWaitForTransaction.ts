@@ -77,7 +77,7 @@ function queryFn({
   provider: ProviderInterface;
   hash?: string;
 }) {
-  return async function () {
+  return async () => {
     if (!hash) throw new Error("hash is required");
 
     return await provider.getTransactionReceipt(hash);
