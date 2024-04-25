@@ -1,5 +1,5 @@
 import { goerli, mainnet, sepolia } from "@starknet-react/chains";
-import { StarknetWindowObject } from "get-starknet-core";
+import { StarknetWindowObject } from "starknet-types";
 import { AccountInterface } from "starknet";
 import {
   ConnectorNotConnectedError,
