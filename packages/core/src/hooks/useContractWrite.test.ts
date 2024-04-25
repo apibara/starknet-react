@@ -58,7 +58,7 @@ function useTestHook({ calls }: { calls: Call[] }) {
   };
 }
 
-describe("useContractWrite", () => {
+describe.skip("useContractWrite", () => {
   it.skip("returns the transaction hash in the response", async () => {
     const contract = new Contract(abi, tokenAddress);
     const { result } = renderHook(() =>

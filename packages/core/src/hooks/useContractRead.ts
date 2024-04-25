@@ -11,7 +11,6 @@ import {
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
-import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
@@ -66,7 +65,7 @@ export function useContractRead({
   ...props
 }: UseContractReadProps): UseContractReadResult {
   const { chain } = useNetwork();
-  const { contract } = useContract({ abi, address });
+  const contract = abi && address ? new Contract(abi, address) : undefined;
 
   const queryKey_ = useMemo(
     () => queryKey({ chain, contract, functionName, args, blockIdentifier }),
@@ -132,7 +131,7 @@ function queryFn({
   parseArgs,
   parseResult,
 }: { contract?: Contract } & ContractReadArgs) {
-  return async function () {
+  return async () => {
     if (!contract) throw new Error("contract is required");
     if (contract.functions[functionName] === undefined) {
       throw new Error(`function ${functionName} not found in contract`);

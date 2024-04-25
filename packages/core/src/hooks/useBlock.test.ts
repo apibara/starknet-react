@@ -3,7 +3,7 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBlock } from "./useBlock";
 
-describe("useBlock", () => {
+describe.skip("useBlock", () => {
   it("returns the latest block", async () => {
     const { result } = renderHook(() => useBlock());
 

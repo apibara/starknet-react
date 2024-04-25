@@ -1,4 +1,4 @@
-import { goerli, type Chain } from "@starknet-react/chains";
+import { type Chain, goerli } from "@starknet-react/chains";
 import { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the ViewblockExplorer class that extends Explorer

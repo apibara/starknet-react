@@ -11,8 +11,8 @@ function rpc(chain: Chain) {
 
 describe("jsonRpcProvider", () => {
   it("returns a public rpc endpoint", () => {
-    expect(jsonRpcProvider({ rpc })(mainnet)?.nodeUrl).toMatchInlineSnapshot(
-      '"https://mainnet.example.com"',
-    );
+    expect(
+      jsonRpcProvider({ rpc })(mainnet)?.channel.nodeUrl,
+    ).toMatchInlineSnapshot('"https://mainnet.example.com"');
   });
 });

@@ -11,9 +11,9 @@ import {
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
-import { useProvider } from "./useProvider";
 import { useContract } from "./useContract";
 import { useNetwork } from "./useNetwork";
+import { useProvider } from "./useProvider";
 
 /** Arguments for `useStarkProfile` hook. */
 export type StarkProfileArgs = UseQueryProps<
@@ -167,7 +167,7 @@ function queryFn({
 }: StarkProfileArgs & { provider: ProviderInterface } & { network?: string } & {
   multicallContract?: ContractInterface;
 }) {
-  return async function () {
+  return async () => {
     if (!address) throw new Error("address is required");
     if (!multicallContract) throw new Error("multicallContract is required");
     if (!network) throw new Error("network is required");
@@ -176,18 +176,105 @@ function queryFn({
     const identity = identityContract ?? (contracts["identity"] as string);
     const naming = namingContract ?? (contracts["naming"] as string);
 
-    const { initialCalldata, fallbackCalldata } = getStarkProfileCalldata(
-      address,
-      naming,
-      identity,
-      contracts,
-    );
-    const data = await executeMulticallWithFallback(
-      multicallContract,
-      "aggregate",
-      initialCalldata,
-      fallbackCalldata,
-    );
+    // get decoded starkname
+    const p = new Provider(provider);
+    const name = await p.getStarkName(address, naming);
+
+    const data = await multicallContract.call("aggregate", [
+      [
+        {
+          execution: staticExecution(),
+          to: hardcoded(naming),
+          selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
+          calldata: [hardcoded(address)],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(naming),
+          selector:
+            network === "mainnet"
+              ? hardcoded(hash.getSelectorFromName("domain_to_token_id"))
+              : hardcoded(hash.getSelectorFromName("domain_to_id")),
+          calldata: [arrayReference(0, 0)],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("twitter")),
+            hardcoded(contracts["verifier"] as string),
+            hardcoded("0"),
+          ],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("github")),
+            hardcoded(contracts["verifier"] as string),
+            hardcoded("0"),
+          ],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("discord")),
+            hardcoded(contracts["verifier"] as string),
+            hardcoded("0"),
+          ],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("proof_of_personhood")),
+            hardcoded(contracts["verifier_pop"] as string),
+            hardcoded("0"),
+          ],
+        },
+        // PFP
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("nft_pp_contract")),
+            hardcoded(contracts["verifier_pfp"] as string),
+            hardcoded("0"),
+          ],
+        },
+        {
+          execution: staticExecution(),
+          to: hardcoded(identity),
+          selector: hardcoded(
+            hash.getSelectorFromName("get_extended_verifier_data"),
+          ),
+          calldata: [
+            reference(1, 0),
+            hardcoded(shortString.encodeShortString("nft_pp_id")),
+            hardcoded("2"),
+            hardcoded(contracts["verifier_pfp"] as string),
+            hardcoded("0"),
+          ],
+        },
+        {
+          execution: notEqual(6, 0, 0),
+          to: reference(6, 0),
+          selector: hardcoded(hash.getSelectorFromName("tokenURI")),
+          calldata: [reference(7, 1), reference(7, 2)],
+        },
+      ],
+    ]);
 
     if (Array.isArray(data)) {
       const name =
@@ -218,8 +305,8 @@ function queryFn({
           ? JSON.parse(atob(profile.split(",")[1].slice(0, -1))).image
           : await fetchImageUrl(profile)
         : useDefaultPfp
-        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-        : undefined;
+          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+          : undefined;
 
       return {
         name,

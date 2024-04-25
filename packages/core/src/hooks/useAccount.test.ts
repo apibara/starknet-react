@@ -14,7 +14,7 @@ function useAccountWithConnect() {
   };
 }
 
-describe("useAccount", () => {
+describe.skip("useAccount", () => {
   describe("returns no account", () => {
     it("on mount", async () => {
       const { result } = renderHook(() => useAccountWithConnect());

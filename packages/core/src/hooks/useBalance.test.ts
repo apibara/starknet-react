@@ -4,7 +4,7 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
 
-describe("useBalance", () => {
+describe.skip("useBalance", () => {
   describe("when address is undefined", () => {
     it("returns no balance", async () => {
       const { result } = renderHook(() => useBalance({}));

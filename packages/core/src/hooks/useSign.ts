@@ -91,12 +91,12 @@ function mutationKey({
 }
 
 function mutateFn({ account }: { account?: AccountInterface }) {
-  return function ({
+  return ({
     domain,
     types,
     message,
     primaryType,
-  }: SignTypedDataVariables): Promise<Signature> {
+  }: SignTypedDataVariables): Promise<Signature> => {
     if (!account) throw new Error("account is required");
     if (!domain) throw new Error("domain is required");
     if (!types) throw new Error("types is required");

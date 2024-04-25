@@ -53,7 +53,5 @@ function queryFn({
   provider: ProviderInterface;
   blockIdentifier: BlockNumber;
 }) {
-  return async function () {
-    return await provider.getBlock(blockIdentifier);
-  };
+  return async () => await provider.getBlock(blockIdentifier);
 }
