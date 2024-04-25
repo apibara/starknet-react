@@ -72,6 +72,9 @@ importers:
       get-starknet-core:
         specifier: ^4.0.0-next.5
         version: 4.0.0-next.5
+      starknet-types:
+        specifier: ^0.7.2
+        version: 0.7.2
       zod:
         specifier: ^3.22.4
         version: 3.22.4
