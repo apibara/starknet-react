@@ -186,7 +186,7 @@ export class InjectedConnector extends Connector {
 
   private ensureWallet() {
     const installed = getAvailableWallets(globalThis);
-    const wallet = installed.filter((w) => w.id === this._options.id)[0];
+    const [wallet] = installed.filter((w) => w.id === this._options.id);
     if (wallet) {
       this._wallet = wallet;
     }
