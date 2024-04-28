@@ -1,20 +1,20 @@
 import { tokenAddress } from "./../../test/devnet";
-import { test_abi } from "../../test/test-abi";
+import { testAbi } from "../../test/test-abi";
 import { assertType, describe, it } from "vitest";
 import { UseContractReadProps, useContractRead } from "./useContractRead";
 import { FunctionRet } from "abi-wan-kanabi/dist/kanabi";
 
-type TAbi = typeof test_abi;
+type TAbi = typeof testAbi;
 
-const common_props = {
-  abi: test_abi,
+const commonProps = {
+  abi: testAbi,
   address: tokenAddress,
 } as const;
 
 describe("Types test for useContractRead.ts", () => {
   it("correct function name for given abi", () => {
     const props = {
-      ...common_props,
+      ...commonProps,
       functionName: "fn_felt",
       args: 1234,
     } as const;
@@ -23,7 +23,7 @@ describe("Types test for useContractRead.ts", () => {
 
   it("wrong function name for given abi", () => {
     const props = {
-      ...common_props,
+      ...commonProps,
       functionName: "some_random_function",
       args: 1234,
     } as const;
@@ -34,7 +34,7 @@ describe("Types test for useContractRead.ts", () => {
 
   it("correct arguments of function for given abi", () => {
     const props = {
-      ...common_props,
+      ...commonProps,
       functionName: "fn_felt",
       args: "some_bignumberish_value",
     } as const;
@@ -44,7 +44,7 @@ describe("Types test for useContractRead.ts", () => {
 
   it("wrong arguments of function for given abi", () => {
     const props = {
-      ...common_props,
+      ...commonProps,
       functionName: "fn_felt",
       args: false,
     } as const;
@@ -55,7 +55,7 @@ describe("Types test for useContractRead.ts", () => {
 
   it("correct data with correct arguments & function for given abi", () => {
     const props = {
-      ...common_props,
+      ...commonProps,
       functionName: "fn_felt",
       args: "some_bignumberish_value",
     } as const;

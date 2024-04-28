@@ -1,4 +1,4 @@
-export const test_abi = [
+export const testAbi = [
   {
     type: "impl",
     name: "ExampleContract",
