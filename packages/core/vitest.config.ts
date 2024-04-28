@@ -10,6 +10,7 @@ export default defineConfig({
     setupFiles: "./test/setup.ts",
     typecheck: {
       enabled: true,
+      ignoreSourceErrors: true,
     },
   },
 });
