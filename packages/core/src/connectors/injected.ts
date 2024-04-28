@@ -81,11 +81,15 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    const chainIdHex = await this._wallet.request({
-      type: "wallet_requestChainId",
-    });
-    const chainId = BigInt(chainIdHex);
-    return chainId;
+    try {
+      const chainIdHex = await this._wallet.request({
+        type: "wallet_requestChainId",
+      });
+      const chainId = BigInt(chainIdHex);
+      return chainId;
+    } catch {
+      throw new ConnectorNotFoundError();
+    }
   }
 
   async ready(): Promise<boolean> {
@@ -181,6 +185,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
+    // wallet_requestAccounts should be used with silent_mode: true when the API works again
     return temp.account as AccountInterface;
   }
 
