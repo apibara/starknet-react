@@ -91,6 +91,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.2.1
         version: 4.2.1(vite@5.1.5)
+      abi-wan-kanabi:
+        specifier: ^2.2.2
+        version: 2.2.2
       jsdom:
         specifier: ^24.0.0
         version: 24.0.0
@@ -2186,8 +2189,8 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /abi-wan-kanabi@2.2.1:
-    resolution: {integrity: sha512-W3RNuu2tG10W4AY63uq89JX/MsZSOxvpmsitQ3pbdVn3e8RxXR2oegN0QmGpgfyT0KlPdreydHsqq/u+2Pt2PQ==}
+  /abi-wan-kanabi@2.2.2:
+    resolution: {integrity: sha512-sTCv2HyNIj1x2WFUoc9oL8ZT9liosrL+GoqEGZJK1kDND096CfA7lwx06vLxLWMocQ41FQXO3oliwoh/UZHYdQ==}
     hasBin: true
     dependencies:
       ansicolors: 0.3.2
@@ -6112,7 +6115,7 @@ packages:
       '@noble/curves': 1.3.0
       '@scure/base': 1.1.5
       '@scure/starknet': 1.0.0
-      abi-wan-kanabi: 2.2.1
+      abi-wan-kanabi: 2.2.2
       fetch-cookie: 3.0.1
       isomorphic-fetch: 3.0.0
       lossless-json: 4.0.1
