@@ -120,7 +120,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   return useQuery({
@@ -251,7 +251,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data"),
+            hash.getSelectorFromName("get_extended_verifier_data")
           ),
           calldata: [
             reference(1, 0),
@@ -284,7 +284,7 @@ function queryFn({
           ? data[8]
               .slice(1)
               .map((val: BigInt) =>
-                shortString.decodeShortString(val.toString()),
+                shortString.decodeShortString(val.toString())
               )
               .join("")
           : undefined;
@@ -343,7 +343,7 @@ const notEqual = (call: number, pos: number, value: number) => {
 
 const fetchImageUrl = async (url: string): Promise<string> => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(parseImageUrl(url));
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -353,7 +353,7 @@ const fetchImageUrl = async (url: string): Promise<string> => {
 
     // Check if the "image" key exists and is not null
     if (data.image) {
-      return data.image;
+      return parseImageUrl(data.image);
     } else {
       return "Image is not set";
     }
@@ -361,6 +361,12 @@ const fetchImageUrl = async (url: string): Promise<string> => {
     console.error("There was a problem fetching the image URL:", error);
     return "Error fetching data";
   }
+};
+
+const parseImageUrl = (url: string): string => {
+  return url.startsWith("ipfs://")
+    ? url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+    : url;
 };
 
 const StarknetIdcontracts: Record<string, Record<string, string>> = {
