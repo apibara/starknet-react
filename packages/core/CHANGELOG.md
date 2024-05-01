@@ -1,5 +1,17 @@
 # @starknet-react/core
 
+## 2.7.0
+
+### Minor Changes
+
+- [#427](https://github.com/apibara/starknet-react/pull/427) [`03715dc`](https://github.com/apibara/starknet-react/commit/03715dc75deff5be0511aad18463a1ff29745532) Thanks [@irisdv](https://github.com/irisdv)! - fix: useStarkProfile to work with base64 tokenURI
+
+### Patch Changes
+
+- [#436](https://github.com/apibara/starknet-react/pull/436) [`0c272b8`](https://github.com/apibara/starknet-react/commit/0c272b8ea0a9f65d117d87e19a8d2e86dfe9cc7f) Thanks [@fracek](https://github.com/fracek)! - useStarkProfile to work with base64 tokenURI
+
+- [#436](https://github.com/apibara/starknet-react/pull/436) [`0c272b8`](https://github.com/apibara/starknet-react/commit/0c272b8ea0a9f65d117d87e19a8d2e86dfe9cc7f) Thanks [@fracek](https://github.com/fracek)! - useStarkProfile to work with IPFS token URI
+
 ## 2.6.1
 
 ### Patch Changes
