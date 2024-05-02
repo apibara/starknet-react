@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import {
   CairoCustomEnum,
   ContractInterface,
-  Provider,
   ProviderInterface,
+  RawArgsArray,
   cairo,
   hash,
   shortString,
+  starknetId,
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
@@ -113,6 +114,8 @@ export function useStarkProfile({
 }: StarkProfileArgs): useStarkProfileResult {
   const { provider } = useProvider();
   const { chain } = useNetwork();
+  if (!StarknetIdcontracts[chain.network])
+    throw new Error("Network not supported");
   const { contract: multicallContract } = useContract({
     abi: multicallABI,
     address: (StarknetIdcontracts[chain.network] as any)["multicall"],
@@ -173,104 +176,24 @@ function queryFn({
     const identity = identityContract ?? (contracts["identity"] as string);
     const naming = namingContract ?? (contracts["naming"] as string);
 
-    // get decoded starkname
-    const p = new Provider(provider);
-    const name = await p.getStarkName(address, naming);
-
-    const data = await multicallContract.call("aggregate", [
-      [
-        {
-          execution: staticExecution(),
-          to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
-          calldata: [hardcoded(address)],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
-          calldata: [arrayReference(0, 0)],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("twitter")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("github")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("discord")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("proof_of_personhood")),
-            hardcoded(contracts["verifier_pop"] as string),
-            hardcoded("0"),
-          ],
-        },
-        // PFP
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("nft_pp_contract")),
-            hardcoded(contracts["verifier_pfp"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
-          ),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("nft_pp_id")),
-            hardcoded("2"),
-            hardcoded(contracts["verifier_pfp"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: notEqual(6, 0, 0),
-          to: reference(6, 0),
-          selector: hardcoded(hash.getSelectorFromName("tokenURI")),
-          calldata: [reference(7, 1), reference(7, 2)],
-        },
-      ],
-    ]);
+    const { initialCalldata, fallbackCalldata } = getStarkProfileCalldata(
+      address,
+      naming,
+      identity,
+      contracts
+    );
+    const data = await executeMulticallWithFallback(
+      multicallContract,
+      "aggregate",
+      initialCalldata,
+      fallbackCalldata
+    );
 
     if (Array.isArray(data)) {
+      const name =
+        data[0][0] !== BigInt(0)
+          ? starknetId.useDecoded(data[0].slice(1))
+          : undefined;
       const twitter =
         data[2][0] !== BigInt(0) ? data[2][0].toString() : undefined;
       const github =
@@ -412,6 +335,140 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
+};
+
+const executeMulticallWithFallback = async (
+  contract: ContractInterface,
+  functionName: string,
+  initialCalldata: RawArgsArray,
+  fallbackCalldata: RawArgsArray
+) => {
+  try {
+    // Attempt the initial call with the new hint parameter
+    return await contract.call(functionName, [initialCalldata]);
+  } catch (initialError) {
+    // If the initial call fails, try with the fallback calldata without the hint parameter
+    try {
+      return await contract.call(functionName, [fallbackCalldata]);
+    } catch (fallbackError) {
+      throw fallbackError; // Re-throw to handle outside
+    }
+  }
+};
+
+const getStarkProfileCalldata = (
+  address: string,
+  namingContract: string,
+  identityContract: string,
+  contracts: Record<string, string>
+): {
+  initialCalldata: RawArgsArray;
+  fallbackCalldata: RawArgsArray;
+} => {
+  let initialCalldata: RawArgsArray = [];
+  let fallbackCalldata: RawArgsArray = [];
+
+  initialCalldata.push({
+    execution: staticExecution(),
+    to: hardcoded(namingContract),
+    selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
+    calldata: [hardcoded(address), hardcoded("0")],
+  });
+  fallbackCalldata.push({
+    execution: staticExecution(),
+    to: hardcoded(namingContract),
+    selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
+    calldata: [hardcoded(address)],
+  });
+
+  const calls = [
+    {
+      execution: staticExecution(),
+      to: hardcoded(namingContract),
+      selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
+      calldata: [arrayReference(0, 0)],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("twitter")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("github")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("discord")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("proof_of_personhood")),
+        hardcoded(contracts["verifier_pop"] as string),
+        hardcoded("0"),
+      ],
+    },
+    // PFP
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("nft_pp_contract")),
+        hardcoded(contracts["verifier_pfp"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(
+        hash.getSelectorFromName("get_extended_verifier_data")
+      ),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("nft_pp_id")),
+        hardcoded("2"),
+        hardcoded(contracts["verifier_pfp"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: notEqual(6, 0, 0),
+      to: reference(6, 0),
+      selector: hardcoded(hash.getSelectorFromName("tokenURI")),
+      calldata: [reference(7, 1), reference(7, 2)],
+    },
+  ];
+  initialCalldata.push(...calls);
+  fallbackCalldata.push(...calls);
+
+  return { initialCalldata, fallbackCalldata };
 };
 
 const multicallABI = [
