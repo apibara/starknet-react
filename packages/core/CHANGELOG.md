@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.8.0
+
+### Minor Changes
+
+- [#431](https://github.com/apibara/starknet-react/pull/431) [`89cbfe0`](https://github.com/apibara/starknet-react/commit/89cbfe0c71f8d6fd6ce75090cddb173c1d7b9f27) Thanks [@irisdv](https://github.com/irisdv)! - Fix starknetID hooks to work with latest version of StarknetID contracts
+
 ## 2.7.0
 
 ### Minor Changes
