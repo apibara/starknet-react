@@ -1,4 +1,4 @@
-import { goerli, mainnet, sepolia } from "@starknet-react/chains";
+import { mainnet, sepolia } from "@starknet-react/chains";
 import {
   type ExplorerFactory,
   StarknetConfig,
@@ -15,7 +15,7 @@ export function StarknetProvider({
   children: React.ReactNode;
   explorer?: ExplorerFactory;
 }) {
-  const chains = [sepolia, goerli, mainnet];
+  const chains = [sepolia, mainnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
