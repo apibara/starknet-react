@@ -75,27 +75,30 @@ export class InjectedConnector extends Connector {
   }
 
   async chainId(): Promise<bigint> {
-    /*
     this.ensureWallet();
 
     if (!this._wallet) {
       throw new ConnectorNotConnectedError();
     }
 
-    const chainIdHex = await this._wallet.provider.getChainId();
-    const chainId = BigInt(chainIdHex);
-    return chainId;
-    */
-    throw new Error("TODO");
+    try {
+      const chainIdHex = await this._wallet.request({
+        type: "wallet_requestChainId",
+      });
+      const chainId = BigInt(chainIdHex);
+      return chainId;
+    } catch {
+      throw new ConnectorNotFoundError();
+    }
   }
 
   async ready(): Promise<boolean> {
-    /*
-    this.ensureWallet();
+    /* this.ensureWallet();
 
     if (!this._wallet) return false;
     return await this._wallet.isPreauthorized();
     */
+
     throw new Error("TODO");
   }
 
@@ -116,21 +119,21 @@ export class InjectedConnector extends Connector {
     } catch (err) {
       console.error(err);
     }
-    /*
+
     let accounts;
     try {
-      accounts = await this._wallet.enable({ starknetVersion: "v5" });
+      accounts = await this._wallet.request({ type: "wallet_requestAccounts" });
     } catch {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError();
     }
 
-    if (!this._wallet.isConnected || !accounts) {
+    if (/*!this._wallet.isConnected || */ !accounts) {
       // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError();
     }
 
-    this._wallet.on("accountsChanged", async (accounts: string[] | string) => {
+    this._wallet.on("accountsChanged", async (accounts?: string[]) => {
       await this.onAccountsChanged(accounts);
     });
 
@@ -140,17 +143,15 @@ export class InjectedConnector extends Connector {
 
     await this.onAccountsChanged(accounts);
 
-    const account = this._wallet.account.address;
-    const chainId = await this.chainId();
+    const [account] = accounts;
 
+    const chainId = await this.chainId();
     this.emit("connect", { account, chainId });
 
     return {
       account,
       chainId,
     };
-    */
-    throw new Error("TODO");
   }
 
   async disconnect(): Promise<void> {
@@ -171,39 +172,43 @@ export class InjectedConnector extends Connector {
   }
 
   async account(): Promise<AccountInterface> {
-    /*
     this.ensureWallet();
 
-    if (!this._wallet || !this._wallet.account) {
+    if (!this._wallet) {
       throw new ConnectorNotConnectedError();
     }
 
-    return this._wallet.account;
-    */
-    throw new Error("TODO");
+    // Temporary workaround since StarknetWindowObject type isn't correct
+    const temp = this._wallet as any;
+
+    if (!temp.account) {
+      throw new ConnectorNotConnectedError();
+    }
+
+    // wallet_requestAccounts should be used with silent_mode: true when the API works again
+    return temp.account as AccountInterface;
   }
 
   private ensureWallet() {
     const installed = getAvailableWallets(globalThis);
-    const wallet = installed.filter((w) => w.id === this._options.id)[0];
+    const [wallet] = installed.filter((w) => w.id === this._options.id);
     if (wallet) {
       this._wallet = wallet;
     }
   }
 
-  private async onAccountsChanged(accounts: string[] | string): Promise<void> {
-    let account;
-    if (typeof accounts === "string") {
-      account = accounts;
-    } else {
-      account = accounts[0];
-    }
-
-    if (account) {
-      const chainId = await this.chainId();
-      this.emit("change", { account, chainId });
-    } else {
+  private async onAccountsChanged(accounts?: string[]): Promise<void> {
+    if (!accounts) {
       this.emit("disconnect");
+    } else {
+      const [account] = accounts;
+
+      if (account) {
+        const chainId = await this.chainId();
+        this.emit("change", { account, chainId });
+      } else {
+        this.emit("disconnect");
+      }
     }
   }
 
@@ -250,7 +255,7 @@ function getAvailableWallets(obj: Record<string, any>): StarknetWindowObject[] {
         }
       }
       return wallets;
-    }, {}),
+    }, {})
   );
 }
 
