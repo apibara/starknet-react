@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import { useContractRead, useNetwork } from "@starknet-react/core";
+import { useNetwork, useReadContract } from "@starknet-react/core";
 import { BlockTag } from "starknet";
 
 import { DemoContainer } from "../starknet";
@@ -10,7 +10,7 @@ export function ContractRead() {
   const [blockIdentifier, setBlockIdentifier] = useState("latest");
   const { chain } = useNetwork();
 
-  const { data, refetch, fetchStatus, status, error } = useContractRead({
+  const { data, refetch, fetchStatus, status, error } = useReadContract({
     abi: [
       {
         inputs: [],

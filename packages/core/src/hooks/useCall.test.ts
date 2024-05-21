@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { accounts, tokenAddress } from "../../test/devnet";
 import { renderHook, waitFor } from "../../test/react";
 
-import { useReadContract } from "./useReadContract";
+import { useCall } from "./useCall";
 
 const abi = [
   {
@@ -41,10 +41,10 @@ const abi = [
   },
 ];
 
-describe("useReadContract", () => {
+describe("useCall", () => {
   it.skip("returns the contract read result", async () => {
     const { result } = renderHook(() =>
-      useReadContract({
+      useCall({
         functionName: "balanceOf",
         args: [accounts.goerli[0].address],
         abi,
