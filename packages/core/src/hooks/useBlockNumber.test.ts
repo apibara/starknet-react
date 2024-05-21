@@ -3,7 +3,7 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBlockNumber } from "./useBlockNumber";
 
-describe.skip("useBlockNumber", () => {
+describe("useBlockNumber", () => {
   it("returns the current block number", async () => {
     const { result } = renderHook(() => useBlockNumber());
 

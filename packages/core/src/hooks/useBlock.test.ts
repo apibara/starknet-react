@@ -3,7 +3,7 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBlock } from "./useBlock";
 
-describe.skip("useBlock", () => {
+describe("useBlock", () => {
   it("returns the latest block", async () => {
     const { result } = renderHook(() => useBlock());
 
@@ -40,8 +40,13 @@ describe.skip("useBlock", () => {
     expect(result.current).toMatchInlineSnapshot(`
       {
         "data": undefined,
-        "error": [LibraryError: RPC: starknet_getBlockWithTxHashes with params {"block_id":{"block_number":999999}}
-       24: Block not found: undefined],
+        "error": [LibraryError: RPC: starknet_getBlockWithTxHashes with params {
+        "block_id": {
+          "block_number": 999999
+        }
+      }
+       
+              24: Block not found: undefined],
         "fetchStatus": "idle",
         "isError": true,
         "isFetching": false,
