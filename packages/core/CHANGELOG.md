@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.8.1
+
+### Patch Changes
+
+- [#437](https://github.com/apibara/starknet-react/pull/437) [`1ab99de`](https://github.com/apibara/starknet-react/commit/1ab99de7b07d75af26e0804f0a2a26903eac1c9f) Thanks [@ugur-eren](https://github.com/ugur-eren)! - Move the default query client to outside of the Provider component
+
 ## 2.8.0
 
 ### Minor Changes
