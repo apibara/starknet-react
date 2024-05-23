@@ -1,26 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { accounts, tokenAddress } from "../../test/devnet";
 import { renderHook, waitFor } from "../../test/react";
-
 import { useCall } from "./useCall";
 
 const abi = [
   {
+    name: "core::integer::u256",
+    type: "struct",
     members: [
       {
         name: "low",
-        offset: 0,
-        type: "felt",
+        type: "core::integer::u128",
       },
       {
         name: "high",
-        offset: 1,
-        type: "felt",
+        type: "core::integer::u128",
       },
     ],
-    name: "Uint256",
-    size: 2,
-    type: "struct",
   },
   {
     name: "balanceOf",
@@ -28,21 +24,20 @@ const abi = [
     inputs: [
       {
         name: "account",
-        type: "felt",
+        type: "core::starknet::contract_address::ContractAddress",
       },
     ],
     outputs: [
       {
-        name: "balance",
-        type: "Uint256",
+        type: "core::integer::u256",
       },
     ],
-    stateMutability: "view",
+    state_mutability: "view",
   },
-];
+] as const;
 
 describe("useCall", () => {
-  it.skip("returns the contract read result", async () => {
+  it("returns the call result", async () => {
     const { result } = renderHook(() =>
       useCall({
         functionName: "balanceOf",
