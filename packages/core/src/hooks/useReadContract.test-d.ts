@@ -16,7 +16,7 @@ describe("Types test for useReadContract.ts", () => {
     const props = {
       ...commonProps,
       functionName: "fn_felt",
-      args: 1234,
+      args: [1234],
     } as const;
     assertType<UseReadContractProps<TAbi, "fn_felt">>(props);
   });
@@ -25,7 +25,7 @@ describe("Types test for useReadContract.ts", () => {
     const props = {
       ...commonProps,
       functionName: "some_random_function",
-      args: 1234,
+      args: [1234],
     } as const;
 
     // @ts-expect-error
@@ -36,7 +36,7 @@ describe("Types test for useReadContract.ts", () => {
     const props = {
       ...commonProps,
       functionName: "fn_felt",
-      args: "some_bignumberish_value",
+      args: ["some_bignumberish_value"],
     } as const;
 
     assertType<UseReadContractProps<TAbi, "fn_felt">>(props);
@@ -46,7 +46,7 @@ describe("Types test for useReadContract.ts", () => {
     const props = {
       ...commonProps,
       functionName: "fn_felt",
-      args: false,
+      args: [false],
     } as const;
 
     // @ts-expect-error
@@ -57,7 +57,7 @@ describe("Types test for useReadContract.ts", () => {
     const props = {
       ...commonProps,
       functionName: "fn_felt",
-      args: "some_bignumberish_value",
+      args: ["some_bignumberish_value"],
     } as const;
 
     const { data } = useReadContract(props);

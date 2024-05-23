@@ -42,7 +42,7 @@ describe("useReadContract", () => {
     const { result } = renderHook(() =>
       useReadContract({
         functionName: "balanceOf",
-        args: accounts.goerli[0].address,
+        args: [accounts.goerli[0].address],
         abi,
         address: tokenAddress,
         watch: true,
