@@ -10,25 +10,30 @@ import {
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
 const DEFAULT_FETCH_INTERVAL = 5_000;
 
-type ReadContractArgs = {
+type CallArgs = {
   /** The contract's function name. */
   functionName: string;
   /** Read arguments. */
   args?: ArgsOrCalldata;
   /** Block identifier used when performing call. */
   blockIdentifier?: BlockNumber;
+  /** Parse arguments before passing to contract. @default true */
+  parseArgs?: boolean;
+  /** Parse result after calling contract. @default true */
+  parseResult?: boolean;
 };
 
-export type ContractReadQueryKey = typeof queryKey;
+export type CallQueryKey = typeof queryKey;
 
 /** Options for `useCall`. */
-export type UseCallProps = ReadContractArgs &
-  UseQueryProps<Result, Error, Result, ReturnType<ContractReadQueryKey>> & {
+export type UseCallProps = CallArgs &
+  UseQueryProps<Result, Error, Result, ReturnType<CallQueryKey>> & {
     /** The target contract's ABI. */
     abi?: Abi;
     /** The target contract's address. */
@@ -58,10 +63,12 @@ export function useCall({
   refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
+  parseArgs,
+  parseResult,
   ...props
 }: UseCallProps): UseCallResult {
   const { chain } = useNetwork();
-  const contract = abi && address ? new Contract(abi, address) : undefined;
+  const { contract } = useContract({ abi, address });
 
   const queryKey_ = useMemo(
     () => queryKey({ chain, contract, functionName, args, blockIdentifier }),
@@ -91,6 +98,8 @@ export function useCall({
       functionName,
       args,
       blockIdentifier,
+      parseArgs,
+      parseResult,
     }),
     refetchInterval,
     ...props,
@@ -103,7 +112,7 @@ function queryKey({
   functionName,
   args,
   blockIdentifier,
-}: { chain?: Chain; contract?: Contract } & ReadContractArgs) {
+}: { chain?: Chain; contract?: Contract } & CallArgs) {
   return [
     {
       entity: "readContract",
@@ -121,7 +130,9 @@ function queryFn({
   functionName,
   args,
   blockIdentifier,
-}: { contract?: Contract } & ReadContractArgs) {
+  parseArgs = true,
+  parseResult = true,
+}: { contract?: Contract } & CallArgs) {
   return async () => {
     if (!contract) throw new Error("contract is required");
     if (contract.functions[functionName] === undefined) {
@@ -129,8 +140,8 @@ function queryFn({
     }
 
     return contract.call(functionName, args, {
-      parseRequest: true,
-      parseResponse: true,
+      parseRequest: parseArgs,
+      parseResponse: parseResult,
       blockIdentifier,
     });
   };

@@ -9,7 +9,7 @@ import {
   FunctionRet,
 } from "abi-wan-kanabi/dist/kanabi";
 
-import { ContractReadQueryKey, UseCallProps, useCall } from "./useCall";
+import { CallQueryKey, UseCallProps, useCall } from "./useCall";
 
 type ReadContractArgs = {
   /** The contract's function name. */
@@ -34,7 +34,7 @@ export type UseReadContractProps<
     Result<TAbi, TFunctionName>,
     Error,
     Result<TAbi, TFunctionName>,
-    ReturnType<ContractReadQueryKey>
+    ReturnType<CallQueryKey>
   > & {
     /** The target contract's ABI.
      *
@@ -90,8 +90,20 @@ export function useReadContract<
   TAbi extends Abi,
   TFunctionName extends ExtractAbiFunctionNames<TAbi>
 >(props: UseReadContractProps<TAbi, TFunctionName>) {
-  return useCall(props as UseCallProps) as UseReadContractResult<
-    TAbi,
-    TFunctionName
-  >;
+  const { args, ...rest } = props;
+
+  // Note: Currently, "starknet.js" requires arguments to be passed as an array.
+  // This hook, enhanced by "abi-wan-kanabi", offers stricter type safety for functionName,
+  // args, and the returned data.
+  //
+  // If a function takes a single argument,
+  // "abi-wan-kanabi" expects it as a standalone value, not an array.
+  // To comply with "starknet.js" requirements, if args is not already an array,
+  // we wrap it in an array before passing it on. This ensures compatibility
+  // while maintaining the type safety provided by "abi-wan-kanabi".
+
+  return useCall({
+    args: typeof args !== "object" ? [args] : args,
+    ...rest,
+  } as UseCallProps) as UseReadContractResult<TAbi, TFunctionName>;
 }
