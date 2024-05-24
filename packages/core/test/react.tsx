@@ -3,19 +3,26 @@ import { QueryClient } from "@tanstack/react-query";
 import {
   RenderHookOptions,
   RenderOptions,
+  RenderResult,
   render,
   renderHook,
 } from "@testing-library/react";
 import React from "react";
 
 import { StarknetConfig as OgStarknetConfig } from "../src/context";
-import { publicProvider } from "../src/providers";
+import { jsonRpcProvider } from "../src/providers";
 
 import { defaultConnector } from "./devnet";
 
+function rpc() {
+  return {
+    nodeUrl: devnet.rpcUrls.public.http[0],
+  };
+}
+
 function StarknetConfig({ children }: { children: React.ReactNode }) {
   const chains = [devnet, mainnet];
-  const provider = publicProvider();
+  const provider = jsonRpcProvider({ rpc });
   const connectors = [defaultConnector];
 
   const queryClient = new QueryClient({
@@ -23,11 +30,6 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
       queries: {
         retry: false,
       },
-    },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => {},
     },
   });
 
@@ -45,16 +47,21 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
 
 function customRender(
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
-) {
+  options?: Omit<RenderOptions, "wrapper">
+): RenderResult {
   return render(ui, { wrapper: StarknetConfig, ...options });
 }
 
-function customRenderHook<Result, Props>(
-  render: (initialProps: Props) => Result,
-  options?: Omit<RenderHookOptions<Props>, "wrapper">,
+function customRenderHook<RenderResult, Props>(
+  render: (initialProps: Props) => RenderResult,
+  options: Omit<RenderHookOptions<Props>, "wrapper"> = {}
 ) {
-  return renderHook(render, { wrapper: StarknetConfig, ...options });
+  const { hydrate, ...rest } = options;
+  return renderHook(render, {
+    wrapper: StarknetConfig,
+    hydrate: hydrate as false | undefined,
+    ...rest,
+  });
 }
 
 export * from "@testing-library/react";
