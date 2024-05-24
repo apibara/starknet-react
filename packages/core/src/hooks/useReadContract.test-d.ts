@@ -56,11 +56,11 @@ describe("Types test for useReadContract.ts", () => {
   it("correct data with correct arguments & function for given abi", () => {
     const props = {
       ...commonProps,
-      functionName: "fn_felt",
-      args: ["some_bignumberish_value"],
+      functionName: "fn_out_simple_array",
+      args: [],
     } as const;
 
     const { data } = useReadContract(props);
-    assertType<FunctionRet<TAbi, "fn_felt">>(data);
+    assertType<FunctionRet<TAbi, "fn_out_simple_array"> | undefined>(data);
   });
 });
