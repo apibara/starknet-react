@@ -14,7 +14,7 @@ function useAccountWithConnect() {
   };
 }
 
-describe.skip("useAccount", () => {
+describe("useAccount", () => {
   describe("returns no account", () => {
     it("on mount", async () => {
       const { result } = renderHook(() => useAccountWithConnect());
@@ -72,31 +72,33 @@ describe.skip("useAccount", () => {
       }).toMatchInlineSnapshot(`
         {
           "account": Account {
-            "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
+            "address": "0x78662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
             "cairoVersion": undefined,
-            "deploySelf": [Function],
-            "provider": RpcProvider {
+            "channel": RpcChannel2 {
               "blockIdentifier": "pending",
               "chainId": undefined,
-              "getBlockHashAndNumber": [Function],
-              "getSimulateTransaction": [Function],
-              "getStateUpdate": [Function],
-              "getTransactionCount": [Function],
               "headers": {
                 "Content-Type": "application/json",
               },
               "nodeUrl": "http://localhost:5050/rpc",
-              "responseParser": RPCResponseParser {},
+              "requestId": 0,
               "retries": 200,
-              "traceBlockTransactions": [Function],
-              "traceTransaction": [Function],
+              "specVersion": undefined,
+              "transactionRetryIntervalFallback": undefined,
+              "waitMode": false,
+            },
+            "deploySelf": [Function],
+            "getStateUpdate": [Function],
+            "responseParser": RPCResponseParser {
+              "margin": undefined,
             },
             "signer": Signer {
-              "pk": "0xa2866149d7a34fba053b2c8682d98d55",
+              "pk": "0xe1406455b7d66b1690803be066cbe5e",
             },
+            "transactionVersion": "0x2",
           },
-          "address": "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
-          "chainId": 1536727068981429685321n,
+          "address": "0x78662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
+          "chainId": 393402133025997798000961n,
           "connector": undefined,
           "isConnected": true,
           "isConnecting": false,
