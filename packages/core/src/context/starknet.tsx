@@ -1,4 +1,4 @@
-import { Chain, goerli, mainnet, sepolia } from "@starknet-react/chains";
+import { Chain, mainnet, sepolia } from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, {
   createContext,
@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { constants, AccountInterface, ProviderInterface } from "starknet";
+import { AccountInterface, ProviderInterface, constants } from "starknet";
 
 import { Connector } from "~/connectors";
 import { ConnectorData } from "~/connectors/base";
@@ -68,7 +68,7 @@ export function useStarknet(): StarknetState {
   const state = useContext(StarknetContext);
   if (!state) {
     throw new Error(
-      "useStarknet must be used within a StarknetProvider or StarknetConfig",
+      "useStarknet must be used within a StarknetProvider or StarknetConfig"
     );
   }
   return state;
@@ -104,7 +104,7 @@ function useStarknetManager({
 
   const { chain: defaultChain, provider: defaultProvider } = providerForChain(
     initialChain,
-    provider,
+    provider
   );
 
   // The currently connected connector needs to be accessible from the
@@ -123,7 +123,7 @@ function useStarknetManager({
         if (chain.id === chainId) {
           const { chain: newChain, provider: newProvider } = providerForChain(
             chain,
-            provider,
+            provider
           );
           setState((state) => ({
             ...state,
@@ -134,7 +134,7 @@ function useStarknetManager({
         }
       }
     },
-    [setState, chains],
+    [setState, chains]
   );
 
   const handleConnectorChange = useCallback(
@@ -144,14 +144,16 @@ function useStarknetManager({
       }
 
       if (account && connectorRef.current) {
-        const account = await connectorRef.current.account();
+        const account = await connectorRef.current.account(
+          state.currentProvider
+        );
         setState((state) => ({
           ...state,
           currentAccount: account,
         }));
       }
     },
-    [updateChainAndProvider, setState, connectorRef],
+    [updateChainAndProvider, setState, connectorRef, state.currentProvider]
   );
 
   const connect = useCallback(
@@ -166,9 +168,8 @@ function useStarknetManager({
       }
 
       try {
-        console.log("calling connector.connect");
         const { chainId } = await connector.connect();
-        const account = await connector.account();
+        const account = await connector.account(state.currentProvider);
 
         if (account.address !== state.currentAccount?.address) {
           connectorRef.current = connector;
@@ -200,9 +201,10 @@ function useStarknetManager({
       setState,
       connectorRef,
       state.currentAccount,
+      state.currentProvider,
       handleConnectorChange,
       updateChainAndProvider,
-    ],
+    ]
   );
 
   const disconnect = useCallback(async () => {
@@ -242,7 +244,7 @@ function useStarknetManager({
       }
 
       const lastConnectedConnector = connectors.find(
-        (connector) => connector.id === lastConnectedConnectorId,
+        (connector) => connector.id === lastConnectedConnectorId
       );
       if (lastConnectedConnector === undefined) {
         return;
@@ -328,7 +330,7 @@ export function StarknetProvider({
 
 function providerForChain(
   chain: Chain,
-  factory: ChainProviderFactory,
+  factory: ChainProviderFactory
 ): { chain: Chain; provider: ProviderInterface } {
   const provider = factory(chain);
   if (provider) {
@@ -339,13 +341,11 @@ function providerForChain(
 }
 
 export function starknetChainId(
-  chainId: bigint,
+  chainId: bigint
 ): constants.StarknetChainId | undefined {
   switch (chainId) {
     case mainnet.id:
       return constants.StarknetChainId.SN_MAIN;
-    case goerli.id:
-      return constants.StarknetChainId.SN_GOERLI;
     case sepolia.id:
       return constants.StarknetChainId.SN_SEPOLIA;
     default:

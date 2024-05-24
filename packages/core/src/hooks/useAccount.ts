@@ -5,6 +5,7 @@ import { Connector } from "~/connectors";
 import { useStarknetAccount } from "~/context/account";
 
 import { useConnect } from "./useConnect";
+import { useProvider } from "./useProvider";
 
 /** Arguments for `useAccount` hook. */
 export type UseAccountProps = {
@@ -72,6 +73,7 @@ export function useAccount({
 }: UseAccountProps = {}): UseAccountResult {
   const { account: connectedAccount } = useStarknetAccount();
   const { connectors } = useConnect();
+  const { provider } = useProvider();
   const [state, setState] = useState<UseAccountResult>({
     status: "disconnected",
   });
@@ -96,7 +98,7 @@ export function useAccount({
       // If the connector is not authorized, `.account()` will throw.
       let connAccount;
       try {
-        connAccount = await connector.account();
+        connAccount = await connector.account(provider);
       } catch {}
 
       if (connAccount && connAccount?.address === connectedAccount.address) {
