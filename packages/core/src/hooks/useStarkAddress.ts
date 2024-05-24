@@ -101,8 +101,7 @@ function queryFn({
 }
 
 const StarknetIdNamingContract: Record<string, string> = {
-  goerli: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
-  sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
+  sepolia: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };
 

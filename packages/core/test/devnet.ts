@@ -45,7 +45,7 @@ function makeAccount({
 }
 
 export const accounts = {
-  goerli: [makeAccount(devnetAccounts[1]), makeAccount(devnetAccounts[3])],
+  sepolia: [makeAccount(devnetAccounts[1]), makeAccount(devnetAccounts[3])],
   mainnet: [makeAccount(devnetAccounts[0]), makeAccount(devnetAccounts[2])],
 };
 
@@ -54,6 +54,5 @@ export const defaultConnector = new MockConnector({
   options: {
     id: "mock",
     name: "Mock Connector",
-    icon: {},
   },
 });

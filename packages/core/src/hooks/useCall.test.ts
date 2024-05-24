@@ -41,7 +41,7 @@ describe("useCall", () => {
     const { result } = renderHook(() =>
       useCall({
         functionName: "balanceOf",
-        args: [accounts.goerli[0].address],
+        args: [accounts.sepolia[0].address],
         abi,
         address: tokenAddress,
         watch: true,

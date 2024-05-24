@@ -34,7 +34,7 @@ describe.skip("useBalance", () => {
     // Some issue with the RPC provider.
     it.skip("returns the balance", async () => {
       const { result } = renderHook(() =>
-        useBalance({ address: accounts.goerli[0].address })
+        useBalance({ address: accounts.sepolia[0].address })
       );
 
       await waitFor(() => {
