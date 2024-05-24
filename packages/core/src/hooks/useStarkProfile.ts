@@ -120,7 +120,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   return useQuery({
@@ -254,7 +254,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data"),
+            hash.getSelectorFromName("get_extended_verifier_data")
           ),
           calldata: [
             reference(1, 0),
@@ -287,7 +287,7 @@ function queryFn({
           ? data[8]
               .slice(1)
               .map((val: bigint) =>
-                shortString.decodeShortString(val.toString()),
+                shortString.decodeShortString(val.toString())
               )
               .join("")
           : undefined;
@@ -296,8 +296,8 @@ function queryFn({
       const profilePicture = profile
         ? await fetchImageUrl(profile)
         : useDefaultPfp
-          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-          : undefined;
+        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+        : undefined;
 
       return {
         name,
@@ -367,19 +367,6 @@ const fetchImageUrl = async (url: string): Promise<string> => {
 };
 
 const StarknetIdcontracts: Record<string, Record<string, string>> = {
-  goerli: {
-    naming: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
-    identity:
-      "0x783a9097b26eae0586373b2ce0ed3529ddc44069d1e0fbc4f66d42b69d6850d",
-    verifier:
-      "0x019e5204152a72891bf8cd0bed8f03593fdb29ceacd14fca587be5d9fcf87c0e",
-    verifier_pop:
-      "0x03528caf090179e337931ee669a5b0214041e1bae30d460ff07d2cea2c7a9106",
-    verifier_pfp:
-      "0x03cac3228b434259734ee0e4ff445f642206ea11adace7e4f45edd2596748698",
-    multicall:
-      "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
-  },
   sepolia: {
     naming: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
     identity:

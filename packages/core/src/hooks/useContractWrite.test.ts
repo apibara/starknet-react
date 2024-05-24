@@ -64,12 +64,12 @@ describe.skip("useContractWrite", () => {
     const { result } = renderHook(() =>
       useTestHook({
         calls: [
-          contract.populateTransaction.transfer(accounts.goerli[0].address, {
+          contract.populateTransaction.transfer(accounts.sepolia[0].address, {
             low: 1,
             high: 0,
           }),
         ],
-      }),
+      })
     );
 
     await act(async () => {
