@@ -207,18 +207,21 @@ describe("useContract", () => {
           "providerOrAccount": RpcProvider2 {
             "channel": RpcChannel2 {
               "blockIdentifier": "pending",
-              "chainId": "0x534e5f474f45524c49",
+              "chainId": "0x534e5f5345504f4c4941",
               "headers": {
                 "Content-Type": "application/json",
               },
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,
-              "speckVersion": undefined,
+              "specVersion": undefined,
+              "transactionRetryIntervalFallback": undefined,
               "waitMode": false,
             },
             "getStateUpdate": [Function],
-            "responseParser": RPCResponseParser {},
+            "responseParser": RPCResponseParser {
+              "margin": undefined,
+            },
           },
           "structs": {
             "Uint256": {
