@@ -17,3 +17,4 @@ export * from "./useSign";
 // export * from "./useStarkName";
 export * from "./useWaitForTransaction";
 // export * from "./useStarkProfile";
+export * from "./useWalletRequest";
