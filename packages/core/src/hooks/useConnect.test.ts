@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "../../test/react";
 
 import { useConnect } from "./useConnect";
 
-describe.skip("useConnect", () => {
+describe("useConnect", () => {
   it("connects the specified connector", async () => {
     const { result } = renderHook(() => useConnect());
 

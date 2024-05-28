@@ -13,7 +13,7 @@
   "dependencies": {
     "@starknet-react/chains": "workspace:*",
     "@starknet-react/core": "workspace:*",
-    "starknet": "6",
+    "starknet": "6.9.0",
     "vocs": "1.0.0-alpha.43"
   },
   "devDependencies": {
