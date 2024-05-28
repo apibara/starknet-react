@@ -140,6 +140,7 @@ export function useAccount({
     onConnect,
     onDisconnect,
     state.isDisconnected,
+    provider,
   ]);
 
   useEffect(() => {

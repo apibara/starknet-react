@@ -105,7 +105,9 @@ export class InjectedConnector extends Connector {
 
     if (!permissions?.includes(Permission.Accounts)) {
       return false;
-    } else return true;
+    } else {
+      return true;
+    }
   }
 
   async account(
@@ -117,8 +119,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    const account = new WalletAccount(provider, this._wallet);
-    return account;
+    return new WalletAccount(provider, this._wallet);
   }
 
   async connect(): Promise<ConnectorData> {
@@ -132,7 +133,6 @@ export class InjectedConnector extends Connector {
     try {
       accounts = await this.request({
         type: "wallet_requestAccounts",
-        params: { silent_mode: true },
       });
     } catch {
       throw new UserRejectedRequestError();
