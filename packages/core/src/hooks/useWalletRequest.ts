@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { RpcMessage, RpcTypeToMessageMap } from "starknet-types";
+import { Connector } from "~/connectors/base";
 import { useStarknet } from "~/context/starknet";
 import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
-import { Connector } from "..";
 
 /** Message types for connector request call. */
 type MessageTypes = RpcMessage["type"];
