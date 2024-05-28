@@ -5,29 +5,30 @@ import { useStarknet } from "~/context/starknet";
 import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
 
 /** Message types for connector request call. */
-type MessageTypes = RpcMessage["type"];
+export type RequestMessageTypes = RpcMessage["type"];
 
 /** Result type of request call. */
-type RequestResult<T extends MessageTypes> = RpcTypeToMessageMap[T]["result"];
+export type RequestResult<T extends RequestMessageTypes> =
+  RpcTypeToMessageMap[T]["result"];
 
 /** Args type of request call. */
-type RequestArgs<T extends MessageTypes> = Partial<{
+export type RequestArgs<T extends RequestMessageTypes> = Partial<{
   type: T;
   params: RpcTypeToMessageMap[T]["params"];
 }>;
 
-type MutationResult<T extends MessageTypes> = UseMutationResult<
+type MutationResult<T extends RequestMessageTypes> = UseMutationResult<
   RpcTypeToMessageMap[T]["result"],
   Error,
   RequestArgs<T>
 >;
 
 /** Arguments for `useWalletRequest` hook. */
-export type UseWalletRequestProps<T extends MessageTypes> = RequestArgs<T> &
-  UseMutationProps<RequestResult<T>, Error, RequestArgs<T>>;
+export type UseWalletRequestProps<T extends RequestMessageTypes> =
+  RequestArgs<T> & UseMutationProps<RequestResult<T>, Error, RequestArgs<T>>;
 
 /** Value returned from `useWalletRequest`. */
-export type UseWalletRequestResult<T extends MessageTypes> = Omit<
+export type UseWalletRequestResult<T extends RequestMessageTypes> = Omit<
   MutationResult<T>,
   "mutate" | "mutateAsync"
 > & {
@@ -35,7 +36,7 @@ export type UseWalletRequestResult<T extends MessageTypes> = Omit<
   requestAsync: (args?: RequestArgs<T>) => Promise<RequestResult<T>>;
 };
 
-export function useWalletRequest<T extends MessageTypes>(
+export function useWalletRequest<T extends RequestMessageTypes>(
   props: UseWalletRequestProps<T>
 ): UseWalletRequestResult<T> {
   const { connector } = useStarknet();
@@ -65,11 +66,14 @@ export function useWalletRequest<T extends MessageTypes>(
   };
 }
 
-function mutationKey<T extends MessageTypes>({ type, params }: RequestArgs<T>) {
+function mutationKey<T extends RequestMessageTypes>({
+  type,
+  params,
+}: RequestArgs<T>) {
   return [{ entity: "walletRequest", type, params }] as const;
 }
 
-function mutationFn<T extends MessageTypes>({
+function mutationFn<T extends RequestMessageTypes>({
   connector,
 }: {
   connector?: Connector;
