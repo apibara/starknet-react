@@ -1,4 +1,3 @@
-import { Abi } from "starknet";
 import { describe, expect, it } from "vitest";
 import { tokenAddress } from "../../test/devnet";
 import { renderHook } from "../../test/react";
@@ -19,17 +18,14 @@ describe("useContract", () => {
               "members": [
                 {
                   "name": "low",
-                  "offset": 0,
                   "type": "felt",
                 },
                 {
                   "name": "high",
-                  "offset": 1,
                   "type": "felt",
                 },
               ],
               "name": "Uint256",
-              "size": 2,
               "type": "struct",
             },
             {
@@ -48,7 +44,6 @@ describe("useContract", () => {
                 },
               ],
               "name": "constructor",
-              "outputs": [],
               "type": "constructor",
             },
             {
@@ -56,11 +51,10 @@ describe("useContract", () => {
               "name": "name",
               "outputs": [
                 {
-                  "name": "name",
                   "type": "felt",
                 },
               ],
-              "stateMutability": "view",
+              "state_mutability": "view",
               "type": "function",
             },
           ],
@@ -71,17 +65,14 @@ describe("useContract", () => {
                 "members": [
                   {
                     "name": "low",
-                    "offset": 0,
                     "type": "felt",
                   },
                   {
                     "name": "high",
-                    "offset": 1,
                     "type": "felt",
                   },
                 ],
                 "name": "Uint256",
-                "size": 2,
                 "type": "struct",
               },
               {
@@ -100,7 +91,6 @@ describe("useContract", () => {
                   },
                 ],
                 "name": "constructor",
-                "outputs": [],
                 "type": "constructor",
               },
               {
@@ -108,11 +98,10 @@ describe("useContract", () => {
                 "name": "name",
                 "outputs": [
                   {
-                    "name": "name",
                     "type": "felt",
                   },
                 ],
-                "stateMutability": "view",
+                "state_mutability": "view",
                 "type": "function",
               },
             ],
@@ -123,17 +112,14 @@ describe("useContract", () => {
                   "members": [
                     {
                       "name": "low",
-                      "offset": 0,
                       "type": "felt",
                     },
                     {
                       "name": "high",
-                      "offset": 1,
                       "type": "felt",
                     },
                   ],
                   "name": "Uint256",
-                  "size": 2,
                   "type": "struct",
                 },
                 {
@@ -152,7 +138,6 @@ describe("useContract", () => {
                     },
                   ],
                   "name": "constructor",
-                  "outputs": [],
                   "type": "constructor",
                 },
                 {
@@ -160,11 +145,10 @@ describe("useContract", () => {
                   "name": "name",
                   "outputs": [
                     {
-                      "name": "name",
                       "type": "felt",
                     },
                   ],
-                  "stateMutability": "view",
+                  "state_mutability": "view",
                   "type": "function",
                 },
               ],
@@ -174,17 +158,14 @@ describe("useContract", () => {
                 "members": [
                   {
                     "name": "low",
-                    "offset": 0,
                     "type": "felt",
                   },
                   {
                     "name": "high",
-                    "offset": 1,
                     "type": "felt",
                   },
                 ],
                 "name": "Uint256",
-                "size": 2,
                 "type": "struct",
               },
             },
@@ -228,17 +209,14 @@ describe("useContract", () => {
               "members": [
                 {
                   "name": "low",
-                  "offset": 0,
                   "type": "felt",
                 },
                 {
                   "name": "high",
-                  "offset": 1,
                   "type": "felt",
                 },
               ],
               "name": "Uint256",
-              "size": 2,
               "type": "struct",
             },
           },
@@ -273,17 +251,14 @@ const abi = [
     members: [
       {
         name: "low",
-        offset: 0,
         type: "felt",
       },
       {
         name: "high",
-        offset: 1,
         type: "felt",
       },
     ],
     name: "Uint256",
-    size: 2,
     type: "struct",
   },
   {
@@ -302,7 +277,6 @@ const abi = [
       },
     ],
     name: "constructor",
-    outputs: [],
     type: "constructor",
   },
   {
@@ -310,11 +284,10 @@ const abi = [
     name: "name",
     outputs: [
       {
-        name: "name",
         type: "felt",
       },
     ],
-    stateMutability: "view",
+    state_mutability: "view",
     type: "function",
   },
-] satisfies Abi;
+] as const;
