@@ -3,6 +3,7 @@ export * from "./useBalance";
 export * from "./useBlock";
 export * from "./useBlockNumber";
 export * from "./useConnect";
+export * from "./useContract";
 export * from "./useContractFactory";
 export * from "./useDeployAccount";
 export * from "./useDisconnect";
