@@ -10,7 +10,7 @@ import {
 
 type UseSendTransactionArgs = {
   /** List of smart contract calls to execute. */
-  calls: Call[];
+  calls?: Call[];
 };
 
 export type UseSendTransactionProps = UseSendTransactionArgs &
@@ -23,9 +23,9 @@ export type UseSendTransactionResult = Omit<
   UseWalletRequestResult<"wallet_addInvokeTransaction">,
   "request" | "requestAsync"
 > & {
-  send: (calls?: Call[]) => void;
+  send: (args?: Call[]) => void;
   sendAsync: (
-    calls?: Call[]
+    args?: Call[]
   ) => Promise<RequestResult<"wallet_addInvokeTransaction">>;
 };
 
@@ -37,31 +37,35 @@ export function useSendTransaction(
   const { request, requestAsync, ...result } = useWalletRequest({
     type: "wallet_addInvokeTransaction",
     params: {
-      calls: transformCalls(calls),
+      calls: transformCalls(calls ?? []),
     },
     ...rest,
   });
 
-  const send = (calls?: Call[]) => {
-    return request(
-      calls
-        ? {
-            params: { calls: transformCalls(calls) },
-            type: "wallet_addInvokeTransaction",
-          }
-        : undefined
-    );
+  const send = (args?: Call[]) => {
+    const _calls = args ?? calls;
+
+    if (!_calls) {
+      throw new Error("Calls are required");
+    }
+
+    return request({
+      params: { calls: transformCalls(_calls) },
+      type: "wallet_addInvokeTransaction",
+    });
   };
 
-  const sendAsync = (calls?: Call[]) => {
-    return requestAsync(
-      calls
-        ? {
-            params: { calls: transformCalls(calls) },
-            type: "wallet_addInvokeTransaction",
-          }
-        : undefined
-    );
+  const sendAsync = (args?: Call[]) => {
+    const _calls = args ?? calls;
+
+    if (!_calls) {
+      throw new Error("Calls are required");
+    }
+
+    return requestAsync({
+      params: { calls: transformCalls(_calls) },
+      type: "wallet_addInvokeTransaction",
+    });
   };
 
   return {
