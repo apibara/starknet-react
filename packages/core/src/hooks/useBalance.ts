@@ -1,18 +1,10 @@
 import { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
-import {
-  BlockNumber,
-  BlockTag,
-  CallData,
-  ContractInterface,
-  num,
-  shortString,
-  uint256,
-} from "starknet";
-import { z } from "zod";
+import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
+import { StarknetTypedContract, useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
@@ -43,16 +35,18 @@ export type UseBalanceProps = UseQueryProps<
 
 export type UseBalanceResult = UseQueryResult<Balance, Error>;
 
+type TAbi = typeof balanceABIFragment;
+type Contract = StarknetTypedContract<TAbi>;
+
 export function useBalance({
   token,
   address,
-  blockIdentifier = BlockTag.latest,
   refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
+  blockIdentifier = BlockTag.latest,
   ...props
 }: UseBalanceProps) {
-  /*
   const { chain } = useNetwork();
   const { contract } = useContract({
     abi: balanceABIFragment,
@@ -61,12 +55,12 @@ export function useBalance({
 
   const queryKey_ = useMemo(
     () => queryKey({ chain, contract, token, address, blockIdentifier }),
-    [chain, contract, token, address, blockIdentifier],
+    [chain, contract, token, address, blockIdentifier]
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && address),
-    [enabled_, contract, address],
+    [enabled_, contract, address]
   );
 
   const refetchInterval =
@@ -84,11 +78,8 @@ export function useBalance({
     enabled,
     queryKey: queryKey_,
     queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
-    refetchInterval,
     ...props,
   });
-  */
-  throw new Error("useBalance is not implemented");
 }
 
 function queryKey({
@@ -99,7 +90,7 @@ function queryKey({
   blockIdentifier,
 }: {
   chain: Chain;
-  contract?: ContractInterface;
+  contract?: Contract;
   token?: string;
   address?: string;
   blockIdentifier?: BlockNumber;
@@ -126,89 +117,56 @@ function queryFn({
   chain: Chain;
   token?: string;
   address?: string;
-  contract?: ContractInterface;
+  contract?: Contract;
   blockIdentifier?: BlockNumber;
 }) {
   return async () => {
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 
-    const callArgs = { blockIdentifier };
+    let options: CallOptions = {
+      blockIdentifier,
+    };
 
-    let symbolPromise = Promise.resolve(chain.nativeCurrency.symbol);
+    let symbol = chain.nativeCurrency.symbol;
     if (token) {
-      symbolPromise = contract.call("symbol", [], callArgs).then((result) => {
-        const s = symbolSchema.parse(result).symbol;
-        return shortString.decodeShortString(num.toHex(s));
-      });
+      let symbol_ = await contract.symbol(options);
+      symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
-    let decimalsPromise = Promise.resolve(chain.nativeCurrency.decimals);
+    let decimals = chain.nativeCurrency.decimals;
     if (token) {
-      decimalsPromise = contract
-        .call("decimals", [], callArgs)
-        .then((result) => {
-          return Number(decimalsSchema.parse(result).decimals);
-        });
+      let decimals_ = await contract.decimals(options);
+      decimals = Number(decimals_);
     }
 
-    const balanceOfPromise = contract
-      .call("balanceOf", CallData.compile({ address }), callArgs)
-      .then((result) => {
-        return uint256.uint256ToBN(balanceSchema.parse(result).balance);
-      });
-
-    const [balanceOf, decimals, symbol] = await Promise.all([
-      balanceOfPromise,
-      decimalsPromise,
-      symbolPromise,
-    ]);
+    let balanceOf = (await contract.balanceOf(address, options)) as bigint;
 
     const formatted = formatUnits(balanceOf, decimals);
 
-    return {
+    return Promise.resolve({
       value: balanceOf,
-      decimals,
-      symbol,
-      formatted,
-    };
+      decimals: decimals,
+      symbol: symbol,
+      formatted: formatted,
+    });
   };
 }
 
-const uint256Schema = z.object({
-  low: z.bigint(),
-  high: z.bigint(),
-});
-
-const balanceSchema = z.object({
-  balance: uint256Schema,
-});
-
-const decimalsSchema = z.object({
-  decimals: z.bigint(),
-});
-
-const symbolSchema = z.object({
-  symbol: z.bigint(),
-});
-
 const balanceABIFragment = [
   {
+    name: "core::integer::u256",
+    type: "struct",
     members: [
       {
         name: "low",
-        offset: 0,
-        type: "felt",
+        type: "core::integer::u128",
       },
       {
         name: "high",
-        offset: 1,
-        type: "felt",
+        type: "core::integer::u128",
       },
     ],
-    name: "Uint256",
-    size: 2,
-    type: "struct",
   },
   {
     name: "balanceOf",
@@ -216,91 +174,36 @@ const balanceABIFragment = [
     inputs: [
       {
         name: "account",
-        type: "felt",
+        type: "core::starknet::contract_address::ContractAddress",
       },
     ],
     outputs: [
       {
-        name: "balance",
-        type: "Uint256",
+        type: "core::integer::u256",
       },
     ],
-    stateMutability: "view",
+    state_mutability: "view",
   },
   {
-    inputs: [],
     name: "symbol",
+    type: "function",
+    inputs: [],
     outputs: [
       {
-        name: "symbol",
-        type: "felt",
+        type: "core::felt252",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    state_mutability: "view",
   },
   {
-    inputs: [],
     name: "decimals",
+    type: "function",
+    inputs: [],
     outputs: [
       {
-        name: "decimals",
-        type: "felt",
+        type: "core::integer::u8",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    state_mutability: "view",
   },
-];
-
-/*
-MIT License
-
-Copyright (c) 2023-present weth, LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-https://github.com/wevm/viem/blob/main/src/utils/unit/formatUnits.ts
-*/
-
-/**
- *  Divides a number by a given exponent of base 10 (10exponent), and formats it into a string representation of the number..
- *
- * - Docs: https://viem.sh/docs/utilities/formatUnits
- *
- * formatUnits(420000000000n, 9)
- * // '420'
- */
-function formatUnits(value: bigint, decimals: number) {
-  let display = value.toString();
-
-  const negative = display.startsWith("-");
-  if (negative) display = display.slice(1);
-
-  display = display.padStart(decimals, "0");
-
-  let [integer, fraction] = [
-    display.slice(0, display.length - decimals),
-    display.slice(display.length - decimals),
-  ];
-  fraction = fraction.replace(/(0+)$/, "");
-  return `${negative ? "-" : ""}${integer || "0"}${
-    fraction ? `.${fraction}` : ""
-  }`;
-}
+] as const;

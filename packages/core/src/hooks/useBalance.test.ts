@@ -4,9 +4,9 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
 
-describe.skip("useBalance", () => {
+describe("useBalance", () => {
   describe("when address is undefined", () => {
-    it("returns no balance", async () => {
+    it.skip("returns no balance", async () => {
       const { result } = renderHook(() => useBalance({}));
 
       await waitFor(() => {
@@ -31,18 +31,16 @@ describe.skip("useBalance", () => {
   });
 
   describe("when address is defined", () => {
-    // Some issue with the RPC provider.
     it.skip("returns the balance", async () => {
       const { result } = renderHook(() =>
-        useBalance({ address: accounts.sepolia[0].address })
+        useBalance({
+          address: accounts.sepolia[0].address,
+        })
       );
 
       await waitFor(() => {
-        expect(result.current.status).toEqual("success");
+        expect(result.current.data).toBeDefined();
       });
-
-      expect(result.current).toMatchInlineSnapshot(`
-      `);
     });
   });
 });

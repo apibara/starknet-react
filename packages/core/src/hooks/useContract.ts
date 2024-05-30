@@ -1,27 +1,48 @@
-import { Abi, TypedContract } from "abi-wan-kanabi";
+import { Abi } from "abi-wan-kanabi";
 import {
+  ContractFunctions,
+  ContractFunctionsPopulateTransaction,
+  ExtractAbiFunction,
   ExtractAbiFunctionNames,
-  FunctionArgs,
+  ExtractArgs,
   FunctionRet,
 } from "abi-wan-kanabi/dist/kanabi";
 import { useMemo } from "react";
-import { CallOptions, Contract, ProviderInterface } from "starknet";
+import { Call, CallOptions, Contract, ProviderInterface } from "starknet";
 
 import { useStarknet } from "~/context/starknet";
 
 // did this because "Omit" wont work directly over an abstract class
-type _Contract = {
-  [K in keyof Contract]: Contract[K];
+type Contract_ = {
+  [K in keyof Contract as K extends "populate" | "populateTransaction" | "call"
+    ? never
+    : K]: Contract[K];
 };
 
-export type StarknetTypedContract<TAbi extends Abi> = TypedContract<TAbi> &
-  Omit<_Contract, "populate" | "populateTransaction" | "call"> & {
-    call<TFunctionName extends ExtractAbiFunctionNames<TAbi>>(
-      method: TFunctionName,
-      args?: FunctionArgs<TAbi, TFunctionName>,
-      options?: CallOptions
-    ): Promise<FunctionRet<TAbi, TFunctionName>>;
-  };
+type ArgsArray_<
+  TAbi extends Abi,
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+> = ExtractArgs<TAbi, ExtractAbiFunction<TAbi, TFunctionName>>;
+
+// with reference to 'abi-wan-kanabi' but with args accepting only array type
+type TypedContractActions_<TAbi extends Abi> = {
+  call<TFunctionName extends ExtractAbiFunctionNames<TAbi>>(
+    method: TFunctionName,
+    args?: ArgsArray_<TAbi, TFunctionName>,
+    options?: CallOptions
+  ): Promise<FunctionRet<TAbi, TFunctionName>>;
+  populate<TFunctionName extends ExtractAbiFunctionNames<TAbi>>(
+    method: TFunctionName,
+    args?: ArgsArray_<TAbi, TFunctionName>
+  ): Call;
+  populateTransaction: ContractFunctionsPopulateTransaction<TAbi>;
+};
+
+type TypedContract_<TAbi extends Abi> = TypedContractActions_<TAbi> &
+  ContractFunctions<TAbi>;
+
+export type StarknetTypedContract<TAbi extends Abi> = TypedContract_<TAbi> &
+  Contract_;
 
 /** Arguments for `useContract`. */
 export interface UseContractArgs<TAbi extends Abi> {
@@ -91,7 +112,9 @@ export function useContract<TAbi extends Abi>({
   const contract = useMemo(() => {
     const provider = providedProvider ? providedProvider : currentProvider;
     if (abi && address && provider) {
-      return new Contract(abi, address, provider).typedv2(abi);
+      return new Contract(abi, address, provider).typedv2(
+        abi
+      ) as StarknetTypedContract<TAbi>;
     }
     return undefined;
   }, [abi, address, providedProvider, currentProvider]);
