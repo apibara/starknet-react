@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { accounts } from "../../test/devnet";
-import { renderHook, waitFor } from "../../test/react";
+import { act, renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
+import { sepolia } from "@starknet-react/chains";
 
 describe("useBalance", () => {
   describe("when address is undefined", () => {
@@ -31,7 +32,7 @@ describe("useBalance", () => {
   });
 
   describe("when address is defined", () => {
-    it.skip("returns the balance", async () => {
+    it("returns the balance", async () => {
       const { result } = renderHook(() =>
         useBalance({
           address: accounts.sepolia[0].address,
@@ -39,7 +40,21 @@ describe("useBalance", () => {
       );
 
       await waitFor(() => {
-        expect(result.current.data).toBeDefined();
+        const { data, ...rest } = result.current;
+        expect(data).toBeDefined();
+        expect(rest).toMatchInlineSnapshot(`
+          {
+            "error": null,
+            "fetchStatus": "idle",
+            "isError": false,
+            "isFetching": false,
+            "isLoading": false,
+            "isPending": false,
+            "isSuccess": true,
+            "refetch": [Function],
+            "status": "success",
+          }
+        `);
       });
     });
   });
