@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import {
   CairoCustomEnum,
-  ContractInterface,
+  Provider,
   ProviderInterface,
   RawArgsArray,
   cairo,
@@ -11,14 +11,14 @@ import {
 } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
-import { useContract } from "./useContract";
+import { StarknetTypedContract, useContract } from "./useContract";
 import { useNetwork } from "./useNetwork";
 import { useProvider } from "./useProvider";
 
 /** Arguments for `useStarkProfile` hook. */
 export type StarkProfileArgs = UseQueryProps<
   GetStarkprofileResponse,
-  unknown,
+  Error,
   GetStarkprofileResponse,
   ReturnType<typeof queryKey>
 > & {
@@ -34,7 +34,7 @@ export type StarkProfileArgs = UseQueryProps<
 
 /** Value returned by `useStarkProfile` hook. */
 type GetStarkprofileResponse = {
-  name?: string;
+  name: string;
   /** Metadata url of the NFT set as profile picture. */
   profile?: string;
   /** Profile picture url. */
@@ -42,12 +42,14 @@ type GetStarkprofileResponse = {
   twitter?: string;
   github?: string;
   discord?: string;
-  proofOfPersonhood?: boolean;
+  proofOfPersonhood: boolean;
 };
-export type useStarkProfileResult = UseQueryResult<
+export type UseStarkProfileResult = UseQueryResult<
   GetStarkprofileResponse,
-  unknown
+  Error
 >;
+
+type Contract = StarknetTypedContract<typeof multicallABI>;
 
 /**
  * Hook for fetching Stark profile for address.
@@ -110,15 +112,16 @@ export function useStarkProfile({
   namingContract,
   identityContract,
   enabled: enabled_ = true,
+
   ...props
-}: StarkProfileArgs): useStarkProfileResult {
+}: StarkProfileArgs): UseStarkProfileResult {
   const { provider } = useProvider();
   const { chain } = useNetwork();
   if (!StarknetIdcontracts[chain.network])
     throw new Error("Network not supported");
   const { contract: multicallContract } = useContract({
     abi: multicallABI,
-    address: (StarknetIdcontracts[chain.network] as any)["multicall"],
+    address: StarknetIdcontracts[chain.network]["multicall"],
   });
 
   const enabled = useMemo(
@@ -126,8 +129,16 @@ export function useStarkProfile({
     [enabled_, address]
   );
 
+  const { refetchInterval, ...rest } = props;
+
   return useQuery({
-    queryKey: queryKey({ address, namingContract, identityContract }),
+    queryKey: queryKey({
+      address,
+      namingContract,
+      identityContract,
+      network: chain.network,
+      useDefaultPfp,
+    }),
     queryFn: queryFn({
       address,
       useDefaultPfp,
@@ -138,7 +149,8 @@ export function useStarkProfile({
       multicallContract,
     }),
     enabled,
-    ...props,
+    refetchInterval,
+    ...rest,
   });
 }
 
@@ -146,13 +158,24 @@ function queryKey({
   address,
   namingContract,
   identityContract,
+  network,
+  useDefaultPfp,
 }: {
   address?: string;
   namingContract?: string;
   identityContract?: string;
+  network?: string;
+  useDefaultPfp?: boolean;
 }) {
   return [
-    { entity: "starkprofile", address, namingContract, identityContract },
+    {
+      entity: "starkprofile",
+      address,
+      namingContract,
+      identityContract,
+      network,
+      useDefaultPfp,
+    },
   ] as const;
 }
 
@@ -164,17 +187,19 @@ function queryFn({
   provider,
   network,
   multicallContract,
-}: StarkProfileArgs & { provider: ProviderInterface } & { network?: string } & {
-  multicallContract?: ContractInterface;
+}: StarkProfileArgs & {
+  provider: ProviderInterface;
+  multicallContract?: Contract;
+  network?: string;
 }) {
   return async () => {
     if (!address) throw new Error("address is required");
     if (!multicallContract) throw new Error("multicallContract is required");
     if (!network) throw new Error("network is required");
 
-    const contracts = StarknetIdcontracts[network] as Record<string, string>;
-    const identity = identityContract ?? (contracts["identity"] as string);
-    const naming = namingContract ?? (contracts["naming"] as string);
+    const contracts = StarknetIdcontracts[network];
+    const identity = identityContract ?? contracts["identity"];
+    const naming = namingContract ?? contracts["naming"];
 
     // get decoded starkname
     const p = new Provider(provider);
@@ -293,9 +318,7 @@ function queryFn({
         data.length === 9
           ? data[8]
               .slice(1)
-              .map((val: bigint) =>
-                shortString.decodeShortString(val.toString())
-              )
+              .map((val) => shortString.decodeShortString(val.toString()))
               .join("")
           : undefined;
 
@@ -308,7 +331,7 @@ function queryFn({
         ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
         : undefined;
 
-      return {
+      const res: GetStarkprofileResponse = {
         name,
         twitter,
         github,
@@ -317,6 +340,8 @@ function queryFn({
         profilePicture,
         profile,
       };
+
+      return res;
     } else {
       throw new Error("Error while fetching data");
     }
@@ -375,13 +400,18 @@ const fetchImageUrl = async (url: string): Promise<string> => {
   }
 };
 
-const parseImageUrl = (url: string): string => {
-  return url.startsWith("ipfs://")
-    ? url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
-    : url;
+type StarknetIdContractTypes = {
+  [network: string]: {
+    naming: string;
+    identity: string;
+    verifier: string;
+    verifier_pop: string;
+    verifier_pfp: string;
+    multicall: string;
+  };
 };
 
-const StarknetIdcontracts: Record<string, Record<string, string>> = {
+const StarknetIdcontracts: StarknetIdContractTypes = {
   sepolia: {
     naming: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
     identity: "0x3697660a0981d734780731949ecb2b4a38d6a58fc41629ed611e8defda",
@@ -392,7 +422,7 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
     verifier_pfp:
       "0x9e7bdb8dabd02ea8cfc23b1d1c5278e46490f193f87516ed5ff2dfec02",
     multicall:
-      "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
+      "0x07a9013697371ce40d0306b4c810c6a4db9bfda119dd9ae1e8701c8e288d734b",
   },
   mainnet: {
     naming: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
@@ -545,15 +575,18 @@ const getStarkProfileCalldata = (
 
 const multicallABI = [
   {
-    type: "impl",
     name: "ComposableMulticallImpl",
+    type: "impl",
     interface_name: "composable_multicall::IComposableMulticall",
   },
   {
-    type: "enum",
     name: "composable_multicall::Execution",
+    type: "enum",
     variants: [
-      { name: "Static", type: "()" },
+      {
+        name: "Static",
+        type: "()",
+      },
       {
         name: "IfEqual",
         type: "(core::integer::u32, core::integer::u32, core::felt252)",
@@ -565,19 +598,31 @@ const multicallABI = [
     ],
   },
   {
-    type: "enum",
     name: "composable_multicall::DynamicFelt",
+    type: "enum",
     variants: [
-      { name: "Hardcoded", type: "core::felt252" },
-      { name: "Reference", type: "(core::integer::u32, core::integer::u32)" },
+      {
+        name: "Hardcoded",
+        type: "core::felt252",
+      },
+      {
+        name: "Reference",
+        type: "(core::integer::u32, core::integer::u32)",
+      },
     ],
   },
   {
-    type: "enum",
     name: "composable_multicall::DynamicCalldata",
+    type: "enum",
     variants: [
-      { name: "Hardcoded", type: "core::felt252" },
-      { name: "Reference", type: "(core::integer::u32, core::integer::u32)" },
+      {
+        name: "Hardcoded",
+        type: "core::felt252",
+      },
+      {
+        name: "Reference",
+        type: "(core::integer::u32, core::integer::u32)",
+      },
       {
         name: "ArrayReference",
         type: "(core::integer::u32, core::integer::u32)",
@@ -585,12 +630,21 @@ const multicallABI = [
     ],
   },
   {
-    type: "struct",
     name: "composable_multicall::DynamicCall",
+    type: "struct",
     members: [
-      { name: "execution", type: "composable_multicall::Execution" },
-      { name: "to", type: "composable_multicall::DynamicFelt" },
-      { name: "selector", type: "composable_multicall::DynamicFelt" },
+      {
+        name: "execution",
+        type: "composable_multicall::Execution",
+      },
+      {
+        name: "to",
+        type: "composable_multicall::DynamicFelt",
+      },
+      {
+        name: "selector",
+        type: "composable_multicall::DynamicFelt",
+      },
       {
         name: "calldata",
         type: "core::array::Array::<composable_multicall::DynamicCalldata>",
@@ -598,19 +652,22 @@ const multicallABI = [
     ],
   },
   {
-    type: "struct",
     name: "core::array::Span::<core::felt252>",
+    type: "struct",
     members: [
-      { name: "snapshot", type: "@core::array::Array::<core::felt252>" },
+      {
+        name: "snapshot",
+        type: "@core::array::Array::<core::felt252>",
+      },
     ],
   },
   {
-    type: "interface",
     name: "composable_multicall::IComposableMulticall",
+    type: "interface",
     items: [
       {
-        type: "function",
         name: "aggregate",
+        type: "function",
         inputs: [
           {
             name: "calls",
@@ -618,16 +675,18 @@ const multicallABI = [
           },
         ],
         outputs: [
-          { type: "core::array::Array::<core::array::Span::<core::felt252>>" },
+          {
+            type: "core::array::Array::<core::array::Span::<core::felt252>>",
+          },
         ],
         state_mutability: "view",
       },
     ],
   },
   {
-    type: "event",
-    name: "composable_multicall::contract::ComposableMulticall::Event",
     kind: "enum",
+    name: "composable_multicall::contract::ComposableMulticall::Event",
+    type: "event",
     variants: [],
   },
-];
+] as const;

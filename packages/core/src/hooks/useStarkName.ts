@@ -14,7 +14,7 @@ import { useProvider } from "./useProvider";
 /** Arguments for `useStarkName` hook. */
 export type StarkNameArgs = UseQueryProps<
   string,
-  unknown,
+  Error,
   string,
   ReturnType<typeof queryKey>
 > & {
@@ -25,7 +25,7 @@ export type StarkNameArgs = UseQueryProps<
 };
 
 /** Value returned by `useStarkName` hook. */
-export type StarkNameResult = UseQueryResult<string, unknown>;
+export type StarkNameResult = UseQueryResult<string, Error>;
 
 /**
  * Hook for fetching Stark name for address.
@@ -76,7 +76,7 @@ export function useStarkName({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   return useQuery({
@@ -103,68 +103,18 @@ function queryFn({
   address,
   contract,
   provider,
-}: StarkNameArgs & { provider: ProviderInterface }) {
+  network,
+}: StarkNameArgs & { provider: ProviderInterface; network: string }) {
   return async () => {
     if (!address) throw new Error("address is required");
 
     const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
-    try {
-      // remove fallback when starknetid naming contract is updated on mainnet
-      const calldata: Call = {
-        contractAddress: namingContract as string,
-        entrypoint: "address_to_domain",
-        calldata: CallData.compile({
-          address: address,
-          hint: [],
-        }),
-      };
-      const fallbackCalldata: Call = {
-        contractAddress: namingContract as string,
-        entrypoint: "address_to_domain",
-        calldata: CallData.compile({
-          address: address,
-        }),
-      };
-      const hexDomain = await executeWithFallback(
-        p,
-        calldata,
-        fallbackCalldata,
-      );
-      const decimalDomain = hexDomain.result
-        .map((element) => BigInt(element))
-        .slice(1);
-      const stringDomain = starknetId.useDecoded(decimalDomain);
-      if (!stringDomain) {
-        throw new Error("Could not get stark name");
-      }
-      return stringDomain;
-    } catch (e) {
-      throw new Error("Could not get stark name");
-    }
+    return await p.getStarkName(address, namingContract);
   };
 }
 
-const executeWithFallback = async (
-  provider: ProviderInterface,
-  initialCall: Call,
-  fallbackCall: Call,
-) => {
-  try {
-    // Attempt the initial call with the hint parameter
-    return await provider.callContract(initialCall);
-  } catch (initialError) {
-    // If the initial call fails, try with the fallback calldata without the hint parameter
-    try {
-      return await provider.callContract(fallbackCall);
-    } catch (fallbackError) {
-      throw fallbackError; // Re-throw to handle outside
-    }
-  }
-};
-
 const StarknetIdNamingContract: Record<string, string> = {
-  goerli: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
   sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };

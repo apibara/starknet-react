@@ -51,7 +51,7 @@ export function useEstimateFees({
 
   const queryKey_ = useMemo(
     () => queryKey({ calls, options }),
-    [calls, options],
+    [calls, options]
   );
 
   const enabled = useMemo(() => Boolean(enabled_ && calls), [enabled_, calls]);
@@ -62,7 +62,6 @@ export function useEstimateFees({
   });
 
   return useQuery({
-    enabled,
     queryKey: queryKey_,
     queryFn: queryFn({
       account,

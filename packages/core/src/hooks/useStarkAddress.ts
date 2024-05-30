@@ -76,10 +76,8 @@ function queryFn({
   contract,
   provider,
   network,
-}: UseStarkAddressProps & { provider: ProviderInterface } & {
-  network: string;
-}) {
-  return async () => {
+}: UseStarkAddressProps & { provider: ProviderInterface; network: string }) {
+  return async function () {
     if (!name) throw new Error("name is required");
 
     const namingContract = contract ?? StarknetIdNamingContract[network];
@@ -93,15 +91,14 @@ function queryFn({
 
     // StarknetID returns 0x0 if no name is found, but that can be dangerous
     // since we can't expect the user to know that 0x0 is not a valid address.
-    if (BigInt(result.result[0] as string) === BigInt(0))
-      throw new Error("Address not found");
+    if (BigInt(result[0]) === BigInt(0)) throw new Error("Address not found");
 
-    return result.result[0] as string;
+    return result[0];
   };
 }
 
 const StarknetIdNamingContract: Record<string, string> = {
-  sepolia: "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2",
+  sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };
 
