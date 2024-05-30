@@ -1,17 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { accounts } from "../../test/devnet";
-import { act, renderHook, waitFor } from "../../test/react";
+import { renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
-import { sepolia } from "@starknet-react/chains";
 
 describe("useBalance", () => {
   describe("when address is undefined", () => {
-    it.skip("returns no balance", async () => {
+    it("returns no balance", async () => {
       const { result } = renderHook(() => useBalance({}));
 
       await waitFor(() => {
-        expect(result.current.status).toEqual("pending");
+        expect(result.current.fetchStatus).toEqual("idle");
       });
 
       expect(result.current).toMatchInlineSnapshot(`
