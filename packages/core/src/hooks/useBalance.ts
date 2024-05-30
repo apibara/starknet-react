@@ -1,16 +1,10 @@
 import { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
-import {
-  CallData,
-  ContractInterface,
-  num,
-  shortString,
-  uint256,
-} from "starknet";
-import { z } from "zod";
+import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
+import { StarknetTypedContract, useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 
@@ -33,18 +27,23 @@ export type UseBalanceProps = UseQueryProps<
   address?: string;
   /** Whether to watch for changes. */
   watch?: boolean;
+  /** Block identifier used when performing call. */
+  blockIdentifier?: BlockNumber;
 };
 
 export type UseBalanceResult = UseQueryResult<Balance, Error>;
+
+type TAbi = typeof balanceABIFragment;
+type Contract = StarknetTypedContract<TAbi>;
 
 export function useBalance({
   token,
   address,
   watch = false,
   enabled: enabled_ = true,
+  blockIdentifier = BlockTag.latest,
   ...props
 }: UseBalanceProps) {
-  /*
   const { chain } = useNetwork();
   const { contract } = useContract({
     abi: balanceABIFragment,
@@ -52,13 +51,13 @@ export function useBalance({
   });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, contract, token, address }),
-    [chain, contract, token, address],
+    () => queryKey({ chain, contract, token, address, blockIdentifier }),
+    [chain, contract, token, address, blockIdentifier]
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && address),
-    [enabled_, contract, address],
+    [enabled_, contract, address]
   );
 
   useInvalidateOnBlock({
@@ -68,11 +67,9 @@ export function useBalance({
 
   return useQuery({
     queryKey: queryKey_,
-    queryFn: queryFn({ chain, contract, token, address }),
+    queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
     ...props,
   });
-  */
-  throw new Error("useBalance is not implemented");
 }
 
 function queryKey({
@@ -80,11 +77,13 @@ function queryKey({
   contract,
   token,
   address,
+  blockIdentifier,
 }: {
   chain: Chain;
-  contract?: ContractInterface;
+  contract?: Contract;
   token?: string;
   address?: string;
+  blockIdentifier?: BlockNumber;
 }) {
   return [
     {
@@ -93,6 +92,7 @@ function queryKey({
       contract,
       token,
       address,
+      blockIdentifier,
     },
   ] as const;
 }
@@ -102,88 +102,61 @@ function queryFn({
   token,
   address,
   contract,
+  blockIdentifier,
 }: {
   chain: Chain;
   token?: string;
   address?: string;
-  contract?: ContractInterface;
+  contract?: Contract;
+  blockIdentifier?: BlockNumber;
 }) {
   return async () => {
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 
-    let symbolPromise = Promise.resolve(chain.nativeCurrency.symbol);
+    let options: CallOptions = {
+      blockIdentifier,
+    };
+
+    let symbol = chain.nativeCurrency.symbol;
     if (token) {
-      symbolPromise = contract.call("symbol", []).then((result) => {
-        const s = symbolSchema.parse(result).symbol;
-        return shortString.decodeShortString(num.toHex(s));
-      });
+      let symbol_ = await contract.symbol(options);
+      symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
-    let decimalsPromise = Promise.resolve(chain.nativeCurrency.decimals);
+    let decimals = chain.nativeCurrency.decimals;
     if (token) {
-      decimalsPromise = contract.call("decimals", []).then((result) => {
-        return Number(decimalsSchema.parse(result).decimals);
-      });
+      let decimals_ = await contract.decimals(options);
+      decimals = Number(decimals_);
     }
 
-    const balanceOfPromise = contract
-      .call("balanceOf", CallData.compile({ address }))
-      .then((result) => {
-        return uint256.uint256ToBN(balanceSchema.parse(result).balance);
-      });
-
-    const [balanceOf, decimals, symbol] = await Promise.all([
-      balanceOfPromise,
-      decimalsPromise,
-      symbolPromise,
-    ]);
+    let balanceOf = (await contract.balanceOf(address, options)) as bigint;
 
     const formatted = (Number(balanceOf) / 10 ** decimals).toString();
 
-    return {
+    return Promise.resolve({
       value: balanceOf,
-      decimals,
-      symbol,
-      formatted,
-    };
+      decimals: decimals,
+      symbol: symbol,
+      formatted: formatted,
+    });
   };
 }
 
-const uint256Schema = z.object({
-  low: z.bigint(),
-  high: z.bigint(),
-});
-
-const balanceSchema = z.object({
-  balance: uint256Schema,
-});
-
-const decimalsSchema = z.object({
-  decimals: z.bigint(),
-});
-
-const symbolSchema = z.object({
-  symbol: z.bigint(),
-});
-
 const balanceABIFragment = [
   {
+    name: "core::integer::u256",
+    type: "struct",
     members: [
       {
         name: "low",
-        offset: 0,
-        type: "felt",
+        type: "core::integer::u128",
       },
       {
         name: "high",
-        offset: 1,
-        type: "felt",
+        type: "core::integer::u128",
       },
     ],
-    name: "Uint256",
-    size: 2,
-    type: "struct",
   },
   {
     name: "balanceOf",
@@ -191,39 +164,36 @@ const balanceABIFragment = [
     inputs: [
       {
         name: "account",
-        type: "felt",
+        type: "core::starknet::contract_address::ContractAddress",
       },
     ],
     outputs: [
       {
-        name: "balance",
-        type: "Uint256",
+        type: "core::integer::u256",
       },
     ],
-    stateMutability: "view",
+    state_mutability: "view",
   },
   {
-    inputs: [],
     name: "symbol",
+    type: "function",
+    inputs: [],
     outputs: [
       {
-        name: "symbol",
-        type: "felt",
+        type: "core::felt252",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    state_mutability: "view",
   },
   {
-    inputs: [],
     name: "decimals",
+    type: "function",
+    inputs: [],
     outputs: [
       {
-        name: "decimals",
-        type: "felt",
+        type: "core::integer::u8",
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    state_mutability: "view",
   },
-];
+] as const;
