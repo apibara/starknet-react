@@ -7,8 +7,8 @@ import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 
-/** Arguments for the `useWaitForTransaction` hook. */
-export type UseWaitForTransactionProps = UseQueryProps<
+/** Arguments for the `useTransactionReceipt` hook. */
+export type UseTransactionReceiptProps = UseQueryProps<
   GetTransactionReceiptResponse,
   Error,
   GetTransactionReceiptResponse,
@@ -20,7 +20,7 @@ export type UseWaitForTransactionProps = UseQueryProps<
   watch?: boolean;
 };
 
-export type UseWaitForTransactionResult = UseQueryResult<
+export type UseTransactionReceiptResult = UseQueryResult<
   GetTransactionReceiptResponse,
   Error
 >;
@@ -39,12 +39,12 @@ export type UseWaitForTransactionResult = UseQueryResult<
  * background.
  *
  */
-export function useWaitForTransaction({
+export function useTransactionReceipt({
   hash,
   watch,
   enabled: enabled_ = true,
   ...props
-}: UseWaitForTransactionProps): UseWaitForTransactionResult {
+}: UseTransactionReceiptProps): UseTransactionReceiptResult {
   const { provider, chain } = useStarknet();
 
   const queryKey_ = useMemo(() => queryKey({ chain, hash }), [chain, hash]);
