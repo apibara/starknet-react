@@ -168,6 +168,6 @@ const executeWithFallback = async (
 
 const StarknetIdNamingContract: Record<string, string> = {
   goerli: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
-  sepolia: "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7",
+  sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
   mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };
