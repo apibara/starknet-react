@@ -37,7 +37,7 @@ type TAbi = typeof balanceABIFragment;
 type Contract = StarknetTypedContract<TAbi>;
 
 export function useBalance({
-  token,
+  token: token_,
   address,
   watch = false,
   enabled: enabled_ = true,
@@ -45,14 +45,16 @@ export function useBalance({
   ...props
 }: UseBalanceProps) {
   const { chain } = useNetwork();
+  const token = token_ ?? chain.nativeCurrency.address;
+
   const { contract } = useContract({
     abi: balanceABIFragment,
-    address: token ?? chain.nativeCurrency.address,
+    address: token,
   });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, contract, token, address, blockIdentifier }),
-    [chain, contract, token, address, blockIdentifier]
+    () => queryKey({ chain, token, address, blockIdentifier }),
+    [chain, token, address, blockIdentifier]
   );
 
   const enabled = useMemo(
@@ -68,19 +70,18 @@ export function useBalance({
   return useQuery({
     queryKey: queryKey_,
     queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
+    enabled,
     ...props,
   });
 }
 
 function queryKey({
   chain,
-  contract,
   token,
   address,
   blockIdentifier,
 }: {
   chain: Chain;
-  contract?: Contract;
   token?: string;
   address?: string;
   blockIdentifier?: BlockNumber;
@@ -89,7 +90,6 @@ function queryKey({
     {
       entity: "balance",
       chainId: chain?.name,
-      contract,
       token,
       address,
       blockIdentifier,
@@ -118,28 +118,30 @@ function queryFn({
       blockIdentifier,
     };
 
+    const isNativeCurrency = token === chain.nativeCurrency.address;
+
     let symbol = chain.nativeCurrency.symbol;
-    if (token) {
+    if (!isNativeCurrency) {
       let symbol_ = await contract.symbol(options);
       symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
     let decimals = chain.nativeCurrency.decimals;
-    if (token) {
+    if (!isNativeCurrency) {
       let decimals_ = await contract.decimals(options);
       decimals = Number(decimals_);
     }
 
-    let balanceOf = (await contract.balanceOf(address, options)) as bigint;
+    const balanceOf = (await contract.balanceOf(address, options)) as bigint;
 
     const formatted = (Number(balanceOf) / 10 ** decimals).toString();
 
-    return Promise.resolve({
+    return {
       value: balanceOf,
       decimals: decimals,
       symbol: symbol,
       formatted: formatted,
-    });
+    };
   };
 }
 
