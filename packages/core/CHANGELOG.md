@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.8.2
+
+### Patch Changes
+
+- [#446](https://github.com/apibara/starknet-react/pull/446) [`c2335bb`](https://github.com/apibara/starknet-react/commit/c2335bb148f2d729a44246949fedd2159583fdf5) Thanks [@irisdv](https://github.com/irisdv)! - Update StarknetId sepolia contracts
+
 ## 2.8.1
 
 ### Patch Changes
