@@ -77,7 +77,7 @@ function queryFn({
   provider,
   network,
 }: UseStarkAddressProps & { provider: ProviderInterface; network: string }) {
-  return async function () {
+  return async () => {
     if (!name) throw new Error("name is required");
 
     const namingContract = contract ?? StarknetIdNamingContract[network];

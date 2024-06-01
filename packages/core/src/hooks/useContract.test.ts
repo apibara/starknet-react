@@ -7,7 +7,7 @@ import { useContract } from "./useContract";
 describe("useContract", () => {
   it("returns a contract", async () => {
     const { result } = renderHook(() =>
-      useContract({ abi, address: tokenAddress })
+      useContract({ abi, address: tokenAddress }),
     );
 
     expect(result.current).toMatchInlineSnapshot(`

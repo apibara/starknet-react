@@ -70,7 +70,7 @@ export function useStarkName({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   return useQuery({

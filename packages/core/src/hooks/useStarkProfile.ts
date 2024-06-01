@@ -122,7 +122,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   const { refetchInterval, ...rest } = props;
@@ -278,7 +278,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
+            hash.getSelectorFromName("get_extended_verifier_data"),
           ),
           calldata: [
             reference(1, 0),
@@ -318,8 +318,8 @@ function queryFn({
       const profilePicture = profile
         ? await fetchImageUrl(profile)
         : useDefaultPfp
-        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-        : undefined;
+          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+          : undefined;
 
       const res: GetStarkprofileResponse = {
         name,
@@ -332,9 +332,9 @@ function queryFn({
       };
 
       return res;
-    } else {
-      throw new Error("Error while fetching data");
     }
+
+    throw new Error("Error while fetching data");
   };
 }
 
@@ -381,9 +381,9 @@ const fetchImageUrl = async (url: string): Promise<string> => {
     // Check if the "image" key exists and is not null
     if (data.image) {
       return data.image;
-    } else {
-      return "Image is not set";
     }
+
+    return "Image is not set";
   } catch (error) {
     console.error("There was a problem fetching the image URL:", error);
     return "Error fetching data";

@@ -29,5 +29,5 @@ export function useInvalidateOnBlock({
       queryClient.invalidateQueries({ queryKey }, { cancelRefetch: false });
       return setPrevBlockNumber(blockNumber);
     }
-  }, [blockNumber, prevBlockNumber]);
+  }, [blockNumber, prevBlockNumber, queryKey, queryClient]);
 }

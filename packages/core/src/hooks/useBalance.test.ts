@@ -35,7 +35,7 @@ describe("useBalance", () => {
       const { result } = renderHook(() =>
         useBalance({
           address: accounts.sepolia[0].address,
-        })
+        }),
       );
 
       await waitFor(() => {

@@ -78,7 +78,7 @@ export class MockConnector extends Connector {
   switchChain(chainId: bigint): void {
     this._chainId = chainId;
     this._accountIndex = 0;
-    let account;
+    let account: string | undefined;
     if (this._options.unifiedSwitchAccountAndChain) {
       account = this._account.address;
     }
@@ -104,7 +104,7 @@ export class MockConnector extends Connector {
   }
 
   get icon(): ConnectorIcons {
-    let deafultIcon = {
+    const deafultIcon = {
       dark:
         walletIcons[this.id as keyof typeof walletIcons] ||
         WALLET_NOT_FOUND_ICON_DARK,
@@ -132,7 +132,9 @@ export class MockConnector extends Connector {
     });
     if (!permissions?.includes(Permission.Accounts)) {
       return false;
-    } else return true;
+    }
+
+    return true;
   }
 
   async connect(): Promise<ConnectorData> {
@@ -142,14 +144,14 @@ export class MockConnector extends Connector {
 
     this._connected = true;
 
-    let accounts = await this.request({
+    const accounts = await this.request({
       type: "wallet_requestAccounts",
       params: { silent_mode: true },
     });
 
     const chainId = await this.chainId();
 
-    let [account] = accounts;
+    const [account] = accounts;
 
     return { account, chainId };
   }
@@ -161,7 +163,7 @@ export class MockConnector extends Connector {
   }
 
   async request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>
+    call: RequestFnCall<T>,
   ): Promise<RpcTypeToMessageMap[T]["result"]> {
     const { type, params } = call;
 
@@ -173,7 +175,7 @@ export class MockConnector extends Connector {
         return this._chainId.toString();
       case "wallet_getPermissions":
         if (this._connected) return [Permission.Accounts];
-        else return [];
+        return [];
       case "wallet_requestAccounts":
         return [this._account.address];
       default:
@@ -182,7 +184,7 @@ export class MockConnector extends Connector {
   }
 
   async account(
-    provider: ProviderOptions | ProviderInterface
+    provider: ProviderOptions | ProviderInterface,
   ): Promise<AccountInterface> {
     if (!this.available()) {
       throw new ConnectorNotFoundError();
@@ -196,7 +198,7 @@ export class MockConnector extends Connector {
   }
 
   private get _account(): AccountInterface {
-    let account;
+    let account: AccountInterface | undefined;
     if (this._chainId === mainnet.id) {
       account = this._accounts.mainnet[this._accountIndex];
     } else {
