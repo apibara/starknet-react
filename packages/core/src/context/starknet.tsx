@@ -17,6 +17,8 @@ import { ChainProviderFactory } from "~/providers";
 import { ExplorerFactory } from "~/explorers/";
 import { AccountProvider } from "./account";
 
+const defaultQueryClient = new QueryClient();
+
 /** State of the Starknet context. */
 export interface StarknetState {
   /** Connected connector. */
@@ -320,7 +322,7 @@ export function StarknetProvider({
   });
 
   return (
-    <QueryClientProvider client={queryClient ?? new QueryClient()}>
+    <QueryClientProvider client={queryClient ?? defaultQueryClient}>
       <StarknetContext.Provider value={state}>
         <AccountProvider account={account}>{children}</AccountProvider>
       </StarknetContext.Provider>

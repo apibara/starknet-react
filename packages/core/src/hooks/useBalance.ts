@@ -1,6 +1,8 @@
 import { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
+  BlockNumber,
+  BlockTag,
   CallData,
   ContractInterface,
   num,
@@ -14,6 +16,8 @@ import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
+
+const DEFAULT_FETCH_INTERVAL = 5_000;
 
 export type Balance = {
   decimals: number;
@@ -34,6 +38,8 @@ export type UseBalanceProps = UseQueryProps<
   address?: string;
   /** Whether to watch for changes. */
   watch?: boolean;
+  /** Block identifier used when performing call. */
+  blockIdentifier?: BlockNumber;
 };
 
 export type UseBalanceResult = UseQueryResult<Balance, Error>;
@@ -41,6 +47,8 @@ export type UseBalanceResult = UseQueryResult<Balance, Error>;
 export function useBalance({
   token,
   address,
+  blockIdentifier = BlockTag.latest,
+  refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
   ...props
@@ -52,14 +60,20 @@ export function useBalance({
   });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, contract, token, address }),
-    [chain, contract, token, address],
+    () => queryKey({ chain, contract, token, address, blockIdentifier }),
+    [chain, contract, token, address, blockIdentifier],
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && address),
     [enabled_, contract, address],
   );
+
+  const refetchInterval =
+    refetchInterval_ ??
+    (blockIdentifier === BlockTag.pending && watch
+      ? DEFAULT_FETCH_INTERVAL
+      : undefined);
 
   useInvalidateOnBlock({
     enabled: Boolean(enabled && watch),
@@ -68,7 +82,8 @@ export function useBalance({
 
   return useQuery({
     queryKey: queryKey_,
-    queryFn: queryFn({ chain, contract, token, address }),
+    queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
+    refetchInterval,
     ...props,
   });
 }
@@ -78,11 +93,13 @@ function queryKey({
   contract,
   token,
   address,
+  blockIdentifier,
 }: {
   chain: Chain;
   contract?: ContractInterface;
   token?: string;
   address?: string;
+  blockIdentifier?: BlockNumber;
 }) {
   return [
     {
@@ -91,6 +108,7 @@ function queryKey({
       contract,
       token,
       address,
+      blockIdentifier,
     },
   ] as const;
 }
@@ -100,19 +118,23 @@ function queryFn({
   token,
   address,
   contract,
+  blockIdentifier,
 }: {
   chain: Chain;
   token?: string;
   address?: string;
   contract?: ContractInterface;
+  blockIdentifier?: BlockNumber;
 }) {
   return async function () {
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 
+    const callArgs = { blockIdentifier };
+
     let symbolPromise = Promise.resolve(chain.nativeCurrency.symbol);
     if (token) {
-      symbolPromise = contract.call("symbol", []).then((result) => {
+      symbolPromise = contract.call("symbol", [], callArgs).then((result) => {
         const s = symbolSchema.parse(result).symbol;
         return shortString.decodeShortString(num.toHex(s));
       });
@@ -120,13 +142,15 @@ function queryFn({
 
     let decimalsPromise = Promise.resolve(chain.nativeCurrency.decimals);
     if (token) {
-      decimalsPromise = contract.call("decimals", []).then((result) => {
-        return Number(decimalsSchema.parse(result).decimals);
-      });
+      decimalsPromise = contract
+        .call("decimals", [], callArgs)
+        .then((result) => {
+          return Number(decimalsSchema.parse(result).decimals);
+        });
     }
 
     const balanceOfPromise = contract
-      .call("balanceOf", CallData.compile({ address }))
+      .call("balanceOf", CallData.compile({ address }), callArgs)
       .then((result) => {
         return uint256.uint256ToBN(balanceSchema.parse(result).balance);
       });
@@ -226,7 +250,6 @@ const balanceABIFragment = [
   },
 ];
 
-
 /*
 MIT License
 
@@ -262,18 +285,19 @@ https://github.com/wevm/viem/blob/main/src/utils/unit/formatUnits.ts
  * // '420'
  */
 function formatUnits(value: bigint, decimals: number) {
-  let display = value.toString()
+  let display = value.toString();
 
-  const negative = display.startsWith('-')
-  if (negative) display = display.slice(1)
+  const negative = display.startsWith("-");
+  if (negative) display = display.slice(1);
 
-  display = display.padStart(decimals, '0')
+  display = display.padStart(decimals, "0");
 
   let [integer, fraction] = [
     display.slice(0, display.length - decimals),
     display.slice(display.length - decimals),
-  ]
-  fraction = fraction.replace(/(0+)$/, '')
-  return `${negative ? '-' : ''}${integer || '0'}${fraction ? `.${fraction}` : ''
-    }`
+  ];
+  fraction = fraction.replace(/(0+)$/, "");
+  return `${negative ? "-" : ""}${integer || "0"}${
+    fraction ? `.${fraction}` : ""
+  }`;
 }

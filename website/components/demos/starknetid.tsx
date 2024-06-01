@@ -163,7 +163,7 @@ function LookupName() {
 
 function LookupProfile() {
   const [address, setAddress] = useState<string>(
-    "0x01FE253BFf450209C148A4b381416837e33e244463553916B982101909111103"
+    "0x01FE253BFf450209C148A4b381416837e33e244463553916B982101909111103",
   );
 
   const debounceAddress = useDebounce(address, 500);

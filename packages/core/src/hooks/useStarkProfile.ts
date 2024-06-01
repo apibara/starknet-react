@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import {
   CairoCustomEnum,
   ContractInterface,
-  Provider,
   ProviderInterface,
+  RawArgsArray,
   cairo,
   hash,
   shortString,
+  starknetId,
 } from "starknet";
 import { mainnet, sepolia, goerli } from "@starknet-react/chains";
 
@@ -119,6 +120,9 @@ export function useStarkProfile({
   const chainId = chainId_ ?? chain.id;
   const { provider } = useProvider({ chainId });
 
+=======
+  if (!StarknetIdcontracts[chain.network])
+    throw new Error("Network not supported");
   const { contract: multicallContract } = useContract({
     abi: multicallABI,
     address: (
@@ -193,104 +197,24 @@ function queryFn({
     const identity = identityContract ?? (contracts["identity"] as string);
     const naming = namingContract ?? (contracts["naming"] as string);
 
-    // get decoded starkname
-    const p = new Provider(provider);
-    const name = await p.getStarkName(address, naming);
-
-    const data = await multicallContract.call("aggregate", [
-      [
-        {
-          execution: staticExecution(),
-          to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
-          calldata: [hardcoded(address)],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(naming),
-          selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
-          calldata: [arrayReference(0, 0)],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("twitter")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("github")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("discord")),
-            hardcoded(contracts["verifier"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("proof_of_personhood")),
-            hardcoded(contracts["verifier_pop"] as string),
-            hardcoded("0"),
-          ],
-        },
-        // PFP
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("nft_pp_contract")),
-            hardcoded(contracts["verifier_pfp"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: staticExecution(),
-          to: hardcoded(identity),
-          selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
-          ),
-          calldata: [
-            reference(1, 0),
-            hardcoded(shortString.encodeShortString("nft_pp_id")),
-            hardcoded("2"),
-            hardcoded(contracts["verifier_pfp"] as string),
-            hardcoded("0"),
-          ],
-        },
-        {
-          execution: notEqual(6, 0, 0),
-          to: reference(6, 0),
-          selector: hardcoded(hash.getSelectorFromName("tokenURI")),
-          calldata: [reference(7, 1), reference(7, 2)],
-        },
-      ],
-    ]);
+    const { initialCalldata, fallbackCalldata } = getStarkProfileCalldata(
+      address,
+      naming,
+      identity,
+      contracts
+    );
+    const data = await executeMulticallWithFallback(
+      multicallContract,
+      "aggregate",
+      initialCalldata,
+      fallbackCalldata
+    );
 
     if (Array.isArray(data)) {
+      const name =
+        data[0][0] !== BigInt(0)
+          ? starknetId.useDecoded(data[0].slice(1))
+          : undefined;
       const twitter =
         data[2][0] !== BigInt(0) ? data[2][0].toString() : undefined;
       const github =
@@ -311,7 +235,9 @@ function queryFn({
 
       // extract nft_image from profile data
       const profilePicture = profile
-        ? await fetchImageUrl(profile)
+        ? profile.includes("base64")
+          ? JSON.parse(atob(profile.split(",")[1].slice(0, -1))).image
+          : await fetchImageUrl(profile)
         : useDefaultPfp
         ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
         : undefined;
@@ -363,7 +289,7 @@ const notEqual = (call: number, pos: number, value: number) => {
 
 const fetchImageUrl = async (url: string): Promise<string> => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(parseImageUrl(url));
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -373,7 +299,7 @@ const fetchImageUrl = async (url: string): Promise<string> => {
 
     // Check if the "image" key exists and is not null
     if (data.image) {
-      return data.image;
+      return parseImageUrl(data.image);
     } else {
       return "Image is not set";
     }
@@ -381,6 +307,12 @@ const fetchImageUrl = async (url: string): Promise<string> => {
     console.error("There was a problem fetching the image URL:", error);
     return "Error fetching data";
   }
+};
+
+const parseImageUrl = (url: string): string => {
+  return url.startsWith("ipfs://")
+    ? url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+    : url;
 };
 
 const StarknetIdcontracts: Record<string, Record<string, string>> = {
@@ -398,16 +330,14 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
   sepolia: {
-    naming:
-      "0x0707f09bc576bd7cfee59694846291047e965f4184fe13dac62c56759b3b6fa7",
-    identity:
-      "0x070DF8B4F5cb2879f8592849fA8f3134da39d25326B8558cc9C8FE8D47EA3A90",
+    naming: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
+    identity: "0x3697660a0981d734780731949ecb2b4a38d6a58fc41629ed611e8defda",
     verifier:
-      "0x0182EcE8173C216A395f4828e1523541b7e3600bf190CB252E1a1A0cE219d184",
+      "0x60B94fEDe525f815AE5E8377A463e121C787cCCf3a36358Aa9B18c12c4D566",
     verifier_pop:
-      "0x0023FE3b845ed5665a9eb3792bbB17347B490EE4090f855C1298d03BB5F49B49",
+      "0x15ae88ae054caa74090b89025c1595683f12edf7a4ed2ad0274de3e1d4a",
     verifier_pfp:
-      "0x058061bb6bdc501eE215172c9f87d557C1E0f466dC498cA81b18f998Bf1362b2",
+      "0x9e7bdb8dabd02ea8cfc23b1d1c5278e46490f193f87516ed5ff2dfec02",
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
@@ -424,6 +354,140 @@ const StarknetIdcontracts: Record<string, Record<string, string>> = {
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
+};
+
+const executeMulticallWithFallback = async (
+  contract: ContractInterface,
+  functionName: string,
+  initialCalldata: RawArgsArray,
+  fallbackCalldata: RawArgsArray
+) => {
+  try {
+    // Attempt the initial call with the new hint parameter
+    return await contract.call(functionName, [initialCalldata]);
+  } catch (initialError) {
+    // If the initial call fails, try with the fallback calldata without the hint parameter
+    try {
+      return await contract.call(functionName, [fallbackCalldata]);
+    } catch (fallbackError) {
+      throw fallbackError; // Re-throw to handle outside
+    }
+  }
+};
+
+const getStarkProfileCalldata = (
+  address: string,
+  namingContract: string,
+  identityContract: string,
+  contracts: Record<string, string>
+): {
+  initialCalldata: RawArgsArray;
+  fallbackCalldata: RawArgsArray;
+} => {
+  let initialCalldata: RawArgsArray = [];
+  let fallbackCalldata: RawArgsArray = [];
+
+  initialCalldata.push({
+    execution: staticExecution(),
+    to: hardcoded(namingContract),
+    selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
+    calldata: [hardcoded(address), hardcoded("0")],
+  });
+  fallbackCalldata.push({
+    execution: staticExecution(),
+    to: hardcoded(namingContract),
+    selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
+    calldata: [hardcoded(address)],
+  });
+
+  const calls = [
+    {
+      execution: staticExecution(),
+      to: hardcoded(namingContract),
+      selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
+      calldata: [arrayReference(0, 0)],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("twitter")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("github")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("discord")),
+        hardcoded(contracts["verifier"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("proof_of_personhood")),
+        hardcoded(contracts["verifier_pop"] as string),
+        hardcoded("0"),
+      ],
+    },
+    // PFP
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(hash.getSelectorFromName("get_verifier_data")),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("nft_pp_contract")),
+        hardcoded(contracts["verifier_pfp"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: staticExecution(),
+      to: hardcoded(identityContract),
+      selector: hardcoded(
+        hash.getSelectorFromName("get_extended_verifier_data")
+      ),
+      calldata: [
+        reference(1, 0),
+        hardcoded(shortString.encodeShortString("nft_pp_id")),
+        hardcoded("2"),
+        hardcoded(contracts["verifier_pfp"] as string),
+        hardcoded("0"),
+      ],
+    },
+    {
+      execution: notEqual(6, 0, 0),
+      to: reference(6, 0),
+      selector: hardcoded(hash.getSelectorFromName("tokenURI")),
+      calldata: [reference(7, 1), reference(7, 2)],
+    },
+  ];
+  initialCalldata.push(...calls);
+  fallbackCalldata.push(...calls);
+
+  return { initialCalldata, fallbackCalldata };
 };
 
 const multicallABI = [

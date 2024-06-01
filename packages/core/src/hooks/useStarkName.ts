@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-import { Provider, ProviderInterface } from "starknet";
+import {
+  Call,
+  CallData,
+  Provider,
+  ProviderInterface,
+  starknetId,
+} from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
 import { useProvider } from "./useProvider";
@@ -69,6 +75,7 @@ export function useStarkName({
   ...props
 }: StarkNameArgs): StarkNameResult {
   const { chain } = useNetwork();
+
   const chainId = chainId_ ?? chain.id;
   const { provider } = useProvider({chainId});
   // contract =
@@ -86,6 +93,10 @@ export function useStarkName({
   return useQuery({
     queryKey: queryKey({ address, contract, chainId }),
     queryFn: queryFn({ address, contract, provider, chainId }),
+=======
+    queryKey: queryKey({ address, contract, network: chain.network }),
+    queryFn: queryFn({ address, contract, provider, network: chain.network }),
+
     enabled,
     ...props,
   });
@@ -101,6 +112,14 @@ function queryKey({
   chainId?: bigint;
 }) {
   return [{ entity: "starkName", address, contract, chainId }] as const;
+=======
+  network,
+}: {
+  address?: string;
+  contract?: string;
+  network?: string;
+}) {
+  return [{ entity: "starkName", address, contract, network }] as const;
 }
 
 function queryFn({
@@ -109,10 +128,72 @@ function queryFn({
   provider,
   chainId
 }: StarkNameArgs & { provider: ProviderInterface }) {
+=======
+  network,
+}: StarkNameArgs & { provider: ProviderInterface } & {
+  network: string;
+}) {
   return async function () {
     if (!address) throw new Error("address is required");
 
+    const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
-    return await p.getStarkName(address, contract);
+    try {
+      // remove fallback when starknetid naming contract is updated on mainnet
+      const calldata: Call = {
+        contractAddress: namingContract as string,
+        entrypoint: "address_to_domain",
+        calldata: CallData.compile({
+          address: address,
+          hint: [],
+        }),
+      };
+      const fallbackCalldata: Call = {
+        contractAddress: namingContract as string,
+        entrypoint: "address_to_domain",
+        calldata: CallData.compile({
+          address: address,
+        }),
+      };
+      const hexDomain = await executeWithFallback(
+        p,
+        calldata,
+        fallbackCalldata
+      );
+      const decimalDomain = hexDomain.result
+        .map((element) => BigInt(element))
+        .slice(1);
+      const stringDomain = starknetId.useDecoded(decimalDomain);
+      if (!stringDomain) {
+        throw new Error("Could not get stark name");
+      }
+      return stringDomain;
+    } catch (e) {
+      throw new Error("Could not get stark name");
+    }
   };
 }
+
+const executeWithFallback = async (
+  provider: ProviderInterface,
+  initialCall: Call,
+  fallbackCall: Call
+) => {
+  try {
+    // Attempt the initial call with the hint parameter
+    return await provider.callContract(initialCall);
+  } catch (initialError) {
+    // If the initial call fails, try with the fallback calldata without the hint parameter
+    try {
+      return await provider.callContract(fallbackCall);
+    } catch (fallbackError) {
+      throw fallbackError; // Re-throw to handle outside
+    }
+  }
+};
+
+const StarknetIdNamingContract: Record<string, string> = {
+  goerli: "0x3bab268e932d2cecd1946f100ae67ce3dff9fd234119ea2f6da57d16d29fce",
+  sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
+  mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
+};

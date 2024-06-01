@@ -1,5 +1,47 @@
 # @starknet-react/core
 
+## 2.8.2
+
+### Patch Changes
+
+- [#446](https://github.com/apibara/starknet-react/pull/446) [`c2335bb`](https://github.com/apibara/starknet-react/commit/c2335bb148f2d729a44246949fedd2159583fdf5) Thanks [@irisdv](https://github.com/irisdv)! - Update StarknetId sepolia contracts
+
+## 2.8.1
+
+### Patch Changes
+
+- [#437](https://github.com/apibara/starknet-react/pull/437) [`1ab99de`](https://github.com/apibara/starknet-react/commit/1ab99de7b07d75af26e0804f0a2a26903eac1c9f) Thanks [@ugur-eren](https://github.com/ugur-eren)! - Move the default query client to outside of the Provider component
+
+## 2.8.0
+
+### Minor Changes
+
+- [#431](https://github.com/apibara/starknet-react/pull/431) [`89cbfe0`](https://github.com/apibara/starknet-react/commit/89cbfe0c71f8d6fd6ce75090cddb173c1d7b9f27) Thanks [@irisdv](https://github.com/irisdv)! - Fix starknetID hooks to work with latest version of StarknetID contracts
+
+## 2.7.0
+
+### Minor Changes
+
+- [#427](https://github.com/apibara/starknet-react/pull/427) [`03715dc`](https://github.com/apibara/starknet-react/commit/03715dc75deff5be0511aad18463a1ff29745532) Thanks [@irisdv](https://github.com/irisdv)! - fix: useStarkProfile to work with base64 tokenURI
+
+### Patch Changes
+
+- [#436](https://github.com/apibara/starknet-react/pull/436) [`0c272b8`](https://github.com/apibara/starknet-react/commit/0c272b8ea0a9f65d117d87e19a8d2e86dfe9cc7f) Thanks [@fracek](https://github.com/fracek)! - useStarkProfile to work with base64 tokenURI
+
+- [#436](https://github.com/apibara/starknet-react/pull/436) [`0c272b8`](https://github.com/apibara/starknet-react/commit/0c272b8ea0a9f65d117d87e19a8d2e86dfe9cc7f) Thanks [@fracek](https://github.com/fracek)! - useStarkProfile to work with IPFS token URI
+
+## 2.6.1
+
+### Patch Changes
+
+- [#429](https://github.com/apibara/starknet-react/pull/429) [`d6e3b95`](https://github.com/apibara/starknet-react/commit/d6e3b95eca2a348cf7acca9d3486d9b0813ab2c1) Thanks [@fracek](https://github.com/fracek)! - Add option to useBalance to override block identifier
+
+## 2.6.0
+
+### Minor Changes
+
+- [#422](https://github.com/apibara/starknet-react/pull/422) [`78b124d`](https://github.com/apibara/starknet-react/commit/78b124deb4a21a23908b52c38a9dd60d86a1dd22) Thanks [@ugur-eren](https://github.com/ugur-eren)! - Add useEstimateFees hook to estimate smart contract calls fees
+
 ## 2.5.0
 
 ### Minor Changes

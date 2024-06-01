@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAccount, useSignTypedData } from "@starknet-react/core";
+import { useAccount, useNetwork, useSignTypedData } from "@starknet-react/core";
 import { Loader2, PenLine } from "lucide-react";
 
 import { StarknetProvider } from "@/components/starknet/provider";
@@ -20,7 +20,9 @@ export function SignMessageDemo() {
 
 function Inner() {
   const { account } = useAccount();
-  const { data, isPending, signTypedData } = useSignTypedData(exampleData);
+  const { chain } = useNetwork();
+  const payload = exampleData(`0x${chain.id.toString(16)}`);
+  const { data, isPending, signTypedData } = useSignTypedData(payload);
 
   return (
     <Card className="max-w-[400px] mx-auto">
@@ -54,7 +56,7 @@ function Inner() {
   );
 }
 
-const exampleData = {
+const exampleData = (chainId: string) => ({
   types: {
     StarkNetDomain: [
       { name: "name", type: "felt" },
@@ -75,7 +77,7 @@ const exampleData = {
   domain: {
     name: "Starknet Mail",
     version: "1",
-    chainId: 1,
+    chainId,
   },
   message: {
     from: {
@@ -88,4 +90,4 @@ const exampleData = {
     },
     contents: "Hello, Bob!",
   },
-};
+});
