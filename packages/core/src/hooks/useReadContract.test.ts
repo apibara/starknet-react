@@ -46,7 +46,7 @@ describe("useReadContract", () => {
         abi,
         address: tokenAddress,
         watch: true,
-      })
+      }),
     );
 
     await waitFor(() => {

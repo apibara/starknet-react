@@ -29,7 +29,7 @@ export function useInjectedConnectors({
     const wallets = scanObjectForWallets(window);
     const connectors = wallets.map((wallet) => injected({ id: wallet.id }));
     setInjectedConnectors(connectors);
-  }, [setInjectedConnectors]);
+  }, []);
 
   useEffect(() => {
     refreshConnectors();

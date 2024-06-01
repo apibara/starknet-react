@@ -8,7 +8,7 @@ import { useProvider } from "./useProvider";
 /** Arguments for `useStarkName` hook. */
 export type StarkNameArgs = UseQueryProps<
   string,
-  unknown,
+  Error,
   string,
   ReturnType<typeof queryKey>
 > & {
@@ -19,7 +19,7 @@ export type StarkNameArgs = UseQueryProps<
 };
 
 /** Value returned by `useStarkName` hook. */
-export type StarkNameResult = UseQueryResult<string, unknown>;
+export type StarkNameResult = UseQueryResult<string, Error>;
 
 /**
  * Hook for fetching Stark name for address.
@@ -67,10 +67,6 @@ export function useStarkName({
 }: StarkNameArgs): StarkNameResult {
   const { provider } = useProvider();
   const { chain } = useNetwork();
-  contract =
-    chain.network === "sepolia"
-      ? "0x5847d20f9757de24395a7b3b47303684003753858737bf288716855dfb0aaf2"
-      : contract;
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
@@ -78,8 +74,8 @@ export function useStarkName({
   );
 
   return useQuery({
-    queryKey: queryKey({ address, contract }),
-    queryFn: queryFn({ address, contract, provider }),
+    queryKey: queryKey({ address, contract, network: chain.network }),
+    queryFn: queryFn({ address, contract, provider, network: chain.network }),
     enabled,
     ...props,
   });
@@ -88,22 +84,31 @@ export function useStarkName({
 function queryKey({
   address,
   contract,
+  network,
 }: {
   address?: string;
   contract?: string;
+  network?: string;
 }) {
-  return [{ entity: "starkName", address, contract }] as const;
+  return [{ entity: "starkName", address, contract, network }] as const;
 }
 
 function queryFn({
   address,
   contract,
   provider,
-}: StarkNameArgs & { provider: ProviderInterface }) {
+  network,
+}: StarkNameArgs & { provider: ProviderInterface; network: string }) {
   return async () => {
     if (!address) throw new Error("address is required");
 
+    const namingContract = contract ?? StarknetIdNamingContract[network];
     const p = new Provider(provider);
-    return await p.getStarkName(address, contract);
+    return await p.getStarkName(address, namingContract);
   };
 }
+
+const StarknetIdNamingContract: Record<string, string> = {
+  sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
+  mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
+};

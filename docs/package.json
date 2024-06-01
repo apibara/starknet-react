@@ -6,9 +6,10 @@
     "dev": "vocs dev",
     "build": "vocs build",
     "preview": "vocs preview",
-    "lint": "biome check .",
-    "lint:fix": "pnpm lint --apply",
-    "format": "biome format . --write"
+    "lint": "biome lint components",
+    "lint:fix": "biome lint components --apply",
+    "format:check": "biome format components",
+    "format": "biome format components --write"
   },
   "dependencies": {
     "@starknet-react/chains": "workspace:*",

@@ -32,6 +32,9 @@
     "lint:fix": {
       "dependsOn": ["^build"]
     },
+    "format:check": {
+      "dependsOn": ["^build"]
+    },
     "format": {
       "dependsOn": ["^build"]
     },

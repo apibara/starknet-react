@@ -12,7 +12,7 @@ describe("StarknetProvider", () => {
 
     expect(result.current.chain.name).toEqual("Starknet Devnet");
     expect(await result.current.provider.getChainId()).toEqual(
-      `0x${devnet.id.toString(16)}`
+      `0x${devnet.id.toString(16)}`,
     );
   });
 
@@ -40,7 +40,7 @@ describe("StarknetProvider", () => {
     });
 
     const account = await result.current.connector?.account(
-      result.current.provider
+      result.current.provider,
     );
     expect(account?.address).toEqual(accounts.sepolia[0].address);
 
@@ -49,7 +49,7 @@ describe("StarknetProvider", () => {
     });
 
     const account2 = await result.current.connector?.account(
-      result.current.provider
+      result.current.provider,
     );
     expect(account2?.address).toEqual(accounts.sepolia[1].address);
   });
@@ -65,7 +65,7 @@ describe("StarknetProvider", () => {
     });
 
     const account = await result.current.connector?.account(
-      result.current.provider
+      result.current.provider,
     );
     expect(account?.address).toEqual(accounts.sepolia[0].address);
     expect(await result.current.connector?.chainId()).toEqual(devnet.id);
@@ -76,7 +76,7 @@ describe("StarknetProvider", () => {
     });
 
     const account2 = await result.current.connector?.account(
-      result.current.provider
+      result.current.provider,
     );
     expect(account2?.address).toEqual(accounts.mainnet[0].address);
     expect(await result.current.connector?.chainId()).toEqual(mainnet.id);

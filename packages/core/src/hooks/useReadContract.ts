@@ -11,13 +11,13 @@ import { CallQueryKey, UseCallProps, useCall } from "./useCall";
 
 type Result<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
 > = FunctionRet<TAbi, TFunctionName>;
 
 /** Options for `useReadContract`. */
 export type UseReadContractProps<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
 > = UseQueryProps<
   Result<TAbi, TFunctionName>,
   Error,
@@ -63,7 +63,7 @@ export type UseReadContractProps<
 /** Value returned from `useReadContract`. */
 export type UseReadContractResult<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
 > = UseQueryResult<Result<TAbi, TFunctionName>, Error>;
 
 /**
@@ -78,7 +78,7 @@ export type UseReadContractResult<
  */
 export function useReadContract<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
 >(props: UseReadContractProps<TAbi, TFunctionName>) {
   return useCall(props as UseCallProps) as UseReadContractResult<
     TAbi,

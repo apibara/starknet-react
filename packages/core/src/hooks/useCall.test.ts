@@ -45,7 +45,7 @@ describe("useCall", () => {
         abi,
         address: tokenAddress,
         watch: true,
-      })
+      }),
     );
 
     await waitFor(() => {

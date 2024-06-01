@@ -71,13 +71,20 @@ export function useCall({
   const { contract } = useContract({ abi, address });
 
   const queryKey_ = useMemo(
-    () => queryKey({ chain, contract, functionName, args, blockIdentifier }),
-    [chain, contract, functionName, args, blockIdentifier]
+    () =>
+      queryKey({
+        chain,
+        contract: contract as Contract,
+        functionName,
+        args,
+        blockIdentifier,
+      }),
+    [chain, contract, functionName, args, blockIdentifier],
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && functionName && args),
-    [enabled_, contract, functionName, args]
+    [enabled_, contract, functionName, args],
   );
 
   const refetchInterval =
@@ -94,7 +101,7 @@ export function useCall({
   return useQuery({
     queryKey: queryKey_,
     queryFn: queryFn({
-      contract,
+      contract: contract as Contract,
       functionName,
       args,
       blockIdentifier,

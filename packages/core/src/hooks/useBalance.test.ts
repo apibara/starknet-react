@@ -4,45 +4,57 @@ import { renderHook, waitFor } from "../../test/react";
 
 import { useBalance } from "./useBalance";
 
-describe.skip("useBalance", () => {
+describe("useBalance", () => {
   describe("when address is undefined", () => {
     it("returns no balance", async () => {
       const { result } = renderHook(() => useBalance({}));
 
       await waitFor(() => {
-        expect(result.current.status).toEqual("error");
+        expect(result.current.fetchStatus).toEqual("idle");
       });
 
       expect(result.current).toMatchInlineSnapshot(`
         {
           "data": undefined,
-          "error": [Error: address is required],
+          "error": null,
           "fetchStatus": "idle",
-          "isError": true,
+          "isError": false,
           "isFetching": false,
           "isLoading": false,
-          "isPending": false,
+          "isPending": true,
           "isSuccess": false,
           "refetch": [Function],
-          "status": "error",
+          "status": "pending",
         }
       `);
     });
   });
 
   describe("when address is defined", () => {
-    // Some issue with the RPC provider.
-    it.skip("returns the balance", async () => {
+    it("returns the balance", async () => {
       const { result } = renderHook(() =>
-        useBalance({ address: accounts.sepolia[0].address })
+        useBalance({
+          address: accounts.sepolia[0].address,
+        }),
       );
 
       await waitFor(() => {
-        expect(result.current.status).toEqual("success");
+        const { data, ...rest } = result.current;
+        expect(data).toBeDefined();
+        expect(rest).toMatchInlineSnapshot(`
+          {
+            "error": null,
+            "fetchStatus": "idle",
+            "isError": false,
+            "isFetching": false,
+            "isLoading": false,
+            "isPending": false,
+            "isSuccess": true,
+            "refetch": [Function],
+            "status": "success",
+          }
+        `);
       });
-
-      expect(result.current).toMatchInlineSnapshot(`
-      `);
     });
   });
 });

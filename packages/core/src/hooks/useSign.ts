@@ -1,107 +1,86 @@
-import { useCallback } from "react";
-import { AccountInterface, Signature, TypedData } from "starknet";
+import { TypedData } from "starknet-types";
 
-import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
-import { useAccount } from "./useAccount";
+import {
+  RequestArgs,
+  RequestResult,
+  UseWalletRequestProps,
+  UseWalletRequestResult,
+  useWalletRequest,
+} from "./useWalletRequest";
 
 export type SignTypedDataVariables = Partial<TypedData>;
 
-type MutationResult = UseMutationResult<
-  Signature,
-  Error,
-  SignTypedDataVariables
->;
+export type UseSignTypedDataProps = SignTypedDataVariables &
+  Omit<
+    UseWalletRequestProps<"wallet_signTypedData">,
+    keyof RequestArgs<"wallet_signTypedData">
+  >;
 
-/** Arguments for `useSignTypedData` hook. */
-export type UseSignTypedDataProps = Partial<TypedData> &
-  UseMutationProps<Signature, Error, SignTypedDataVariables>;
-
-/** Value returned by `useSignTypedData` hook. */
 export type UseSignTypedDataResult = Omit<
-  MutationResult,
-  "mutate" | "mutateAsync"
+  UseWalletRequestResult<"wallet_signTypedData">,
+  "request" | "requestAsync"
 > & {
   signTypedData: (args?: SignTypedDataVariables) => void;
-  signTypedDataAsync: (args?: SignTypedDataVariables) => Promise<Signature>;
+  signTypedDataAsync: (
+    args?: SignTypedDataVariables,
+  ) => Promise<RequestResult<"wallet_signTypedData">>;
 };
 
-export function useSignTypedData({
-  domain,
-  types,
-  message,
-  primaryType,
-  ...props
-}: UseSignTypedDataProps): UseSignTypedDataResult {
-  const { account } = useAccount();
+export function useSignTypedData(
+  props: UseSignTypedDataProps,
+): UseSignTypedDataResult {
+  const { domain, types, message, primaryType, ...rest } = props;
 
-  const { mutate, mutateAsync, ...result } = useMutation({
-    mutationKey: mutationKey({ domain, types, message, primaryType }),
-    mutationFn: mutateFn({ account }),
-    ...props,
+  let params: TypedData | undefined;
+
+  if (domain && types && message && primaryType) {
+    params = {
+      domain,
+      types,
+      message,
+      primaryType,
+    };
+  }
+
+  const { request, requestAsync, ...result } = useWalletRequest({
+    type: "wallet_signTypedData",
+    params: params,
+    ...rest,
   });
 
-  const signTypedData = useCallback(
-    (args?: SignTypedDataVariables) =>
-      mutate(
-        args ?? {
-          domain,
-          types,
-          message,
-          primaryType,
-        },
-      ),
-    [mutate, domain, types, message, primaryType],
-  );
+  const signTypedData = (args?: SignTypedDataVariables) => {
+    const params_ = args ?? params;
 
-  const signTypedDataAsync = useCallback(
-    (args?: SignTypedDataVariables) =>
-      mutateAsync(
-        args ?? {
-          domain,
-          types,
-          message,
-          primaryType,
-        },
-      ),
-    [mutateAsync, domain, types, message, primaryType],
-  );
+    if (!params_) throw new Error("typedData is required");
+    if (!params_.domain) throw new Error("domain is required");
+    if (!params_.types) throw new Error("types is required");
+    if (!params_.message) throw new Error("message is required");
+    if (!params_.primaryType) throw new Error("primaryType is required");
+
+    return request({
+      params: params_ as TypedData,
+      type: "wallet_signTypedData",
+    });
+  };
+
+  const signTypedDataAsync = (args?: SignTypedDataVariables) => {
+    const params_ = args ?? params;
+
+    if (!params_) throw new Error("typedData is required");
+    if (!params_.domain) throw new Error("domain is required");
+    if (!params_.types) throw new Error("types is required");
+    if (!params_.message) throw new Error("message is required");
+    if (!params_.primaryType) throw new Error("primaryType is required");
+
+    return requestAsync({
+      params: params_ as TypedData,
+      type: "wallet_signTypedData",
+    });
+  };
 
   return {
     signTypedData,
     signTypedDataAsync,
     ...result,
-  };
-}
-
-function mutationKey({
-  domain,
-  types,
-  message,
-  primaryType,
-}: Partial<TypedData>) {
-  return [
-    {
-      entity: "signTypedData",
-      domain,
-      types,
-      message,
-      primaryType,
-    },
-  ] as const;
-}
-
-function mutateFn({ account }: { account?: AccountInterface }) {
-  return ({
-    domain,
-    types,
-    message,
-    primaryType,
-  }: SignTypedDataVariables): Promise<Signature> => {
-    if (!account) throw new Error("account is required");
-    if (!domain) throw new Error("domain is required");
-    if (!types) throw new Error("types is required");
-    if (!message) throw new Error("message is required");
-    if (!primaryType) throw new Error("primaryType is required");
-    return account.signMessage({ domain, types, message, primaryType });
   };
 }

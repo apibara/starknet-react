@@ -46,12 +46,12 @@ export abstract class Connector extends EventEmitter<ConnectorEvents> {
   abstract disconnect(): Promise<void>;
   /** Get current account. */
   abstract account(
-    provider: ProviderOptions | ProviderInterface
+    provider: ProviderOptions | ProviderInterface,
   ): Promise<AccountInterface>;
   /** Get current chain id. */
   abstract chainId(): Promise<bigint>;
   /** Create request call to wallet */
   abstract request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>
+    call: RequestFnCall<T>,
   ): Promise<RpcTypeToMessageMap[T]["result"]>;
 }

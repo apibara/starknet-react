@@ -30,6 +30,10 @@ jobs:
           version: 8
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
+      - name: Run check format
+        run: pnpm format:check
+      - name: Run lint
+        run: pnpm lint
       - name: Run build
         run: pnpm build
       - name: Run test
