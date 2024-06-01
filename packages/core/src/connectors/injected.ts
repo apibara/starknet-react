@@ -62,7 +62,7 @@ export class InjectedConnector extends Connector {
   }
 
   get icon(): ConnectorIcons {
-    let deafultIcon = {
+    const deafultIcon = {
       dark:
         walletIcons[this.id as keyof typeof walletIcons] ||
         WALLET_NOT_FOUND_ICON_DARK,
@@ -103,15 +103,11 @@ export class InjectedConnector extends Connector {
       type: "wallet_getPermissions",
     });
 
-    if (!permissions?.includes(Permission.Accounts)) {
-      return false;
-    } else {
-      return true;
-    }
+    return permissions?.includes(Permission.Accounts);
   }
 
   async account(
-    provider: ProviderOptions | ProviderInterface
+    provider: ProviderOptions | ProviderInterface,
   ): Promise<AccountInterface> {
     this.ensureWallet();
 
@@ -174,7 +170,7 @@ export class InjectedConnector extends Connector {
   }
 
   async request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>
+    call: RequestFnCall<T>,
   ): Promise<RpcTypeToMessageMap[T]["result"]> {
     this.ensureWallet();
 
@@ -182,17 +178,15 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    let result;
     try {
-      result = await this._wallet.request(call);
+      return await this._wallet.request(call);
     } catch {
       throw new UserRejectedRequestError();
     }
-
-    return result;
   }
 
   private ensureWallet() {
+    // biome-ignore lint/suspicious/noExplicitAny: any
     const global_object: Record<string, any> = globalThis;
 
     const wallet: StarknetWindowObject =

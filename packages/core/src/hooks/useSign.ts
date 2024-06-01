@@ -22,12 +22,12 @@ export type UseSignTypedDataResult = Omit<
 > & {
   signTypedData: (args?: SignTypedDataVariables) => void;
   signTypedDataAsync: (
-    args?: SignTypedDataVariables
+    args?: SignTypedDataVariables,
   ) => Promise<RequestResult<"wallet_signTypedData">>;
 };
 
 export function useSignTypedData(
-  props: UseSignTypedDataProps
+  props: UseSignTypedDataProps,
 ): UseSignTypedDataResult {
   const { domain, types, message, primaryType, ...rest } = props;
 

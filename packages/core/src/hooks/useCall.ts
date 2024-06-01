@@ -79,12 +79,12 @@ export function useCall({
         args,
         blockIdentifier,
       }),
-    [chain, contract, functionName, args, blockIdentifier]
+    [chain, contract, functionName, args, blockIdentifier],
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && functionName && args),
-    [enabled_, contract, functionName, args]
+    [enabled_, contract, functionName, args],
   );
 
   const refetchInterval =

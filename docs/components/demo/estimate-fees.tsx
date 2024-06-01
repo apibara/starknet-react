@@ -66,9 +66,7 @@ const abi = [
 
 const formatAmount = (
   unformattedAmount: bigint | unknown,
-  decimals: number
+  decimals: number,
 ) => {
-  return (
-    Number(BigInt(unformattedAmount?.toString() || 0)) / Math.pow(10, decimals)
-  );
+  return Number(BigInt(unformattedAmount?.toString() || 0)) / 10 ** decimals;
 };

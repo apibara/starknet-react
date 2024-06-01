@@ -25,12 +25,12 @@ export type UseSendTransactionResult = Omit<
 > & {
   send: (args?: Call[]) => void;
   sendAsync: (
-    args?: Call[]
+    args?: Call[],
   ) => Promise<RequestResult<"wallet_addInvokeTransaction">>;
 };
 
 export function useSendTransaction(
-  props: UseSendTransactionProps
+  props: UseSendTransactionProps,
 ): UseSendTransactionResult {
   const { calls, ...rest } = props;
 
@@ -82,6 +82,6 @@ function transformCalls(calls: Call[]) {
         contract_address: call.contractAddress,
         entry_point: call.entrypoint,
         calldata: call.calldata,
-      } as RequestCall)
+      }) as RequestCall,
   );
 }

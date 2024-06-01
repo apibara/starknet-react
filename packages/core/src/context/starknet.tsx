@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AccountInterface, ProviderInterface, constants } from "starknet";
+import { constants, AccountInterface, ProviderInterface } from "starknet";
 
 import { Connector } from "~/connectors";
 import { ConnectorData } from "~/connectors/base";
@@ -71,7 +71,7 @@ export function useStarknet(): StarknetState {
   const state = useContext(StarknetContext);
   if (!state) {
     throw new Error(
-      "useStarknet must be used within a StarknetProvider or StarknetConfig"
+      "useStarknet must be used within a StarknetProvider or StarknetConfig",
     );
   }
   return state;
@@ -107,7 +107,7 @@ function useStarknetManager({
 
   const { chain: defaultChain, provider: defaultProvider } = providerForChain(
     initialChain,
-    provider
+    provider,
   );
 
   // The currently connected connector needs to be accessible from the
@@ -126,7 +126,7 @@ function useStarknetManager({
         if (chain.id === chainId) {
           const { chain: newChain, provider: newProvider } = providerForChain(
             chain,
-            provider
+            provider,
           );
           setState((state) => ({
             ...state,
@@ -137,7 +137,7 @@ function useStarknetManager({
         }
       }
     },
-    [setState, chains]
+    [chains, provider],
   );
 
   const handleConnectorChange = useCallback(
@@ -148,7 +148,7 @@ function useStarknetManager({
 
       if (account && connectorRef.current) {
         const account = await connectorRef.current.account(
-          state.currentProvider
+          state.currentProvider,
         );
         setState((state) => ({
           ...state,
@@ -156,7 +156,7 @@ function useStarknetManager({
         }));
       }
     },
-    [updateChainAndProvider, setState, connectorRef, state.currentProvider]
+    [updateChainAndProvider, state.currentProvider],
   );
 
   const connect = useCallback(
@@ -201,13 +201,11 @@ function useStarknetManager({
     },
     [
       autoConnect,
-      setState,
-      connectorRef,
       state.currentAccount,
       state.currentProvider,
       handleConnectorChange,
       updateChainAndProvider,
-    ]
+    ],
   );
 
   const disconnect = useCallback(async () => {
@@ -229,15 +227,11 @@ function useStarknetManager({
       await connectorRef.current.disconnect();
     } catch {}
     connectorRef.current = undefined;
-  }, [
-    autoConnect,
-    setState,
-    connectorRef,
-    handleConnectorChange,
-    defaultProvider,
-    defaultChain,
-  ]);
+  }, [autoConnect, handleConnectorChange, defaultProvider, defaultChain]);
 
+  // Dependencies intentionally omitted since we only want
+  // this executed once.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: want to execute only once
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
       const lastConnectedConnectorId =
@@ -247,7 +241,7 @@ function useStarknetManager({
       }
 
       const lastConnectedConnector = connectors.find(
-        (connector) => connector.id === lastConnectedConnectorId
+        (connector) => connector.id === lastConnectedConnectorId,
       );
       if (lastConnectedConnector === undefined) {
         return;
@@ -268,9 +262,6 @@ function useStarknetManager({
     if (autoConnect && !connectorRef.current) {
       tryAutoConnect(withMobileConnector(connectors));
     }
-    // Dependencies intentionally omitted since we only want
-    // this executed once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
@@ -333,7 +324,7 @@ export function StarknetProvider({
 
 function providerForChain(
   chain: Chain,
-  factory: ChainProviderFactory
+  factory: ChainProviderFactory,
 ): { chain: Chain; provider: ProviderInterface } {
   const provider = factory(chain);
   if (provider) {
@@ -344,7 +335,7 @@ function providerForChain(
 }
 
 export function starknetChainId(
-  chainId: bigint
+  chainId: bigint,
 ): constants.StarknetChainId | undefined {
   switch (chainId) {
     case mainnet.id:

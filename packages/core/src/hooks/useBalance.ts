@@ -57,12 +57,12 @@ export function useBalance({
 
   const queryKey_ = useMemo(
     () => queryKey({ chain, token, address, blockIdentifier }),
-    [chain, token, address, blockIdentifier]
+    [chain, token, address, blockIdentifier],
   );
 
   const enabled = useMemo(
     () => Boolean(enabled_ && contract && address),
-    [enabled_, contract, address]
+    [enabled_, contract, address],
   );
 
   const refetchInterval =
@@ -124,7 +124,7 @@ function queryFn({
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 
-    let options: CallOptions = {
+    const options: CallOptions = {
       blockIdentifier,
     };
 
@@ -132,13 +132,13 @@ function queryFn({
 
     let symbol = chain.nativeCurrency.symbol;
     if (!isNativeCurrency) {
-      let symbol_ = await contract.symbol(options);
+      const symbol_ = await contract.symbol(options);
       symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
     let decimals = chain.nativeCurrency.decimals;
     if (!isNativeCurrency) {
-      let decimals_ = await contract.decimals(options);
+      const decimals_ = await contract.decimals(options);
       decimals = Number(decimals_);
     }
 

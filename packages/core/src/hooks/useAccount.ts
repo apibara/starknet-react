@@ -96,7 +96,7 @@ export function useAccount({
       if (!connector.available()) continue;
 
       // If the connector is not authorized, `.account()` will throw.
-      let connAccount;
+      let connAccount: AccountInterface | undefined;
       try {
         connAccount = await connector.account(provider);
       } catch {}
@@ -134,7 +134,6 @@ export function useAccount({
       isReconnecting: false,
     });
   }, [
-    setState,
     connectedAccount,
     connectors,
     onConnect,

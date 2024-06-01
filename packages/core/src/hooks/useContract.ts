@@ -21,7 +21,7 @@ type Contract_ = {
 
 type ArgsArray_<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNames<TAbi>
+  TFunctionName extends ExtractAbiFunctionNames<TAbi>,
 > = ExtractArgs<TAbi, ExtractAbiFunction<TAbi, TFunctionName>>;
 
 // with reference to 'abi-wan-kanabi' but with args accepting only array type
@@ -29,11 +29,11 @@ type TypedContractActions_<TAbi extends Abi> = {
   call<TFunctionName extends ExtractAbiFunctionNames<TAbi>>(
     method: TFunctionName,
     args?: ArgsArray_<TAbi, TFunctionName>,
-    options?: CallOptions
+    options?: CallOptions,
   ): Promise<FunctionRet<TAbi, TFunctionName>>;
   populate<TFunctionName extends ExtractAbiFunctionNames<TAbi>>(
     method: TFunctionName,
-    args?: ArgsArray_<TAbi, TFunctionName>
+    args?: ArgsArray_<TAbi, TFunctionName>,
   ): Call;
   populateTransaction: ContractFunctionsPopulateTransaction<TAbi>;
 };
@@ -113,7 +113,7 @@ export function useContract<TAbi extends Abi>({
     const provider = providedProvider ? providedProvider : currentProvider;
     if (abi && address && provider) {
       return new Contract(abi, address, provider).typedv2(
-        abi
+        abi,
       ) as StarknetTypedContract<TAbi>;
     }
     return undefined;

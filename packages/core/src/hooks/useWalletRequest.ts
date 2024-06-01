@@ -37,7 +37,7 @@ export type UseWalletRequestResult<T extends RequestMessageTypes> = Omit<
 };
 
 export function useWalletRequest<T extends RequestMessageTypes>(
-  props: UseWalletRequestProps<T>
+  props: UseWalletRequestProps<T>,
 ): UseWalletRequestResult<T> {
   const { connector } = useStarknet();
 
@@ -51,12 +51,12 @@ export function useWalletRequest<T extends RequestMessageTypes>(
 
   const request = useCallback(
     (args?: RequestArgs<T>) => mutate(args ?? { type, params }),
-    [mutate, type, params]
+    [mutate, type, params],
   );
 
   const requestAsync = useCallback(
     (args?: RequestArgs<T>) => mutateAsync(args ?? { type, params }),
-    [mutateAsync, type, params]
+    [mutateAsync, type, params],
   );
 
   return {

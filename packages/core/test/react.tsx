@@ -47,14 +47,14 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
 
 function customRender(
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ): RenderResult {
   return render(ui, { wrapper: StarknetConfig, ...options });
 }
 
 function customRenderHook<RenderResult, Props>(
   render: (initialProps: Props) => RenderResult,
-  options: Omit<RenderHookOptions<Props>, "wrapper"> = {}
+  options: Omit<RenderHookOptions<Props>, "wrapper"> = {},
 ) {
   const { hydrate, ...rest } = options;
   return renderHook(render, {

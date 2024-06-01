@@ -10,6 +10,7 @@
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
     "format": "turbo run format --parallel",
+    "format:check": "turbo run format:check --parallel",
     "clean": "turbo run clean --parallel",
     "release": "pnpm build && pnpm changeset publish"
   },

@@ -15,8 +15,9 @@
   "scripts": {
     "build": "tsup",
     "clean": "rimraf dist",
-    "lint": "biome check .",
+    "lint": "biome check src",
     "lint:fix": "pnpm lint --apply",
+    "format:check": "biome format .",
     "format": "biome format . --write"
   },
   "files": [
