@@ -8,21 +8,22 @@ import {
   useWalletRequest,
 } from "./useWalletRequest";
 
-export type DeclareContractVariables = Partial<AddDeclareTransactionParameters>;
+export type UseDeclareContractArgs = AddDeclareTransactionParameters;
 
-export type UseDeclareContractProps = DeclareContractVariables &
-  Omit<
-    UseWalletRequestProps<"wallet_addDeclareTransaction">,
-    keyof RequestArgs<"wallet_addDeclareTransaction">
-  >;
+export type UseDeclareContractProps = Omit<
+  UseWalletRequestProps<"wallet_addDeclareTransaction">,
+  keyof RequestArgs<"wallet_addDeclareTransaction">
+> & {
+  params?: UseDeclareContractArgs;
+};
 
 export type UseDeclareContractResult = Omit<
   UseWalletRequestResult<"wallet_addDeclareTransaction">,
   "request" | "requestAsync"
 > & {
-  declare: (args?: DeclareContractVariables) => void;
+  declare: (args?: UseDeclareContractArgs) => void;
   declareAsync: (
-    args?: DeclareContractVariables,
+    args?: UseDeclareContractArgs,
   ) => Promise<RequestResult<"wallet_addDeclareTransaction">>;
 };
 
@@ -33,17 +34,7 @@ export type UseDeclareContractResult = Omit<
 export function useDeclareContract(
   props: UseDeclareContractProps,
 ): UseDeclareContractResult {
-  const { class_hash, compiled_class_hash, contract_class, ...rest } = props;
-
-  let params: AddDeclareTransactionParameters | undefined;
-
-  if (compiled_class_hash && contract_class) {
-    params = {
-      class_hash,
-      compiled_class_hash,
-      contract_class,
-    };
-  }
+  const { params, ...rest } = props;
 
   const { request, requestAsync, ...result } = useWalletRequest({
     type: "wallet_addDeclareTransaction",
@@ -51,34 +42,26 @@ export function useDeclareContract(
     ...rest,
   });
 
-  const declare = (args?: DeclareContractVariables) => {
-    const params_ = args ?? params;
-
-    if (!params_)
-      throw new Error("declare transaction parameters are required");
-    if (!params_.compiled_class_hash)
-      throw new Error("compiled class hash is required");
-    if (!params_.contract_class) throw new Error("contract class is required");
-
-    return request({
-      params: params_ as AddDeclareTransactionParameters,
-      type: "wallet_addDeclareTransaction",
-    });
+  const declare = (args?: UseDeclareContractArgs) => {
+    return request(
+      args
+        ? {
+            params: args,
+            type: "wallet_addDeclareTransaction",
+          }
+        : undefined,
+    );
   };
 
-  const declareAsync = (args?: DeclareContractVariables) => {
-    const params_ = args ?? params;
-
-    if (!params_)
-      throw new Error("declare transaction parameters are required");
-    if (!params_.compiled_class_hash)
-      throw new Error("compiled class hash is required");
-    if (!params_.contract_class) throw new Error("contract class is required");
-
-    return requestAsync({
-      params: params_ as AddDeclareTransactionParameters,
-      type: "wallet_addDeclareTransaction",
-    });
+  const declareAsync = (args?: UseDeclareContractArgs) => {
+    return requestAsync(
+      args
+        ? {
+            params: args,
+            type: "wallet_addDeclareTransaction",
+          }
+        : undefined,
+    );
   };
 
   return {
