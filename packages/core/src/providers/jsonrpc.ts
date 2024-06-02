@@ -1,7 +1,7 @@
 import { Chain } from "@starknet-react/chains";
 import { RpcProvider, RpcProviderOptions } from "starknet";
 
-import { starknetChainId } from "~/context";
+import { starknetChainId } from "../context";
 import { ChainProviderFactory } from "./factory";
 
 /** Arguments for `jsonRpcProvider`. */

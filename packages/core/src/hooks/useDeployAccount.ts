@@ -5,7 +5,8 @@ import {
   InvocationsDetails,
   RawArgs,
 } from "starknet";
-import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
+
+import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
 import { useAccount } from "./useAccount";
 

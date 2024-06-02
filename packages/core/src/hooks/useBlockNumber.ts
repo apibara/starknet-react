@@ -1,7 +1,7 @@
 import { BlockNumber, BlockTag, ProviderInterface } from "starknet";
 
-import { useStarknet } from "~/context/starknet";
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { useStarknet } from "../context/starknet";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 /** Arguments for `useBlockNumber`. */
 export type UseBlockNumberProps = UseQueryProps<

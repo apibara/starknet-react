@@ -1,6 +1,6 @@
 import { ProviderInterface } from "starknet";
 
-import { useStarknet } from "~/context/starknet";
+import { useStarknet } from "../context/starknet";
 
 /** Value returned from `useProvider`. */
 export interface UseProviderResult {

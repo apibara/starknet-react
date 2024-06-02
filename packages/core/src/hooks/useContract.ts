@@ -10,7 +10,7 @@ import {
 import { useMemo } from "react";
 import { Call, CallOptions, Contract, ProviderInterface } from "starknet";
 
-import { useStarknet } from "~/context/starknet";
+import { useStarknet } from "../context/starknet";
 
 // did this because "Omit" wont work directly over an abstract class
 type Contract_ = {
