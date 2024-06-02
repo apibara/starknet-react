@@ -8,21 +8,22 @@ import {
   useWalletRequest,
 } from "./useWalletRequest";
 
-export type SwitchChainVariables = Partial<SwitchStarknetChainParameters>;
+export type UseSwitchChainArgs = SwitchStarknetChainParameters;
 
-export type SwitchChainProps = SwitchChainVariables &
-  Omit<
-    UseWalletRequestProps<"wallet_switchStarknetChain">,
-    keyof RequestArgs<"wallet_switchStarknetChain">
-  >;
+export type UseSwitchChainProps = Omit<
+  UseWalletRequestProps<"wallet_switchStarknetChain">,
+  keyof RequestArgs<"wallet_switchStarknetChain">
+> & {
+  params?: UseSwitchChainArgs;
+};
 
-export type SwitchChainResult = Omit<
+export type UseSwitchChainResult = Omit<
   UseWalletRequestResult<"wallet_switchStarknetChain">,
   "request" | "requestAsync"
 > & {
-  switchChain: (args?: SwitchChainVariables) => void;
+  switchChain: (args?: UseSwitchChainArgs) => void;
   switchChainAsync: (
-    args?: SwitchChainVariables,
+    args?: UseSwitchChainArgs,
   ) => Promise<RequestResult<"wallet_switchStarknetChain">>;
 };
 
@@ -30,14 +31,10 @@ export type SwitchChainResult = Omit<
  * Hook to change the current network of the wallet.
  *
  */
-export function useSwitchChain(props: SwitchChainProps): SwitchChainResult {
-  const { chainId, ...rest } = props;
-
-  let params: SwitchStarknetChainParameters | undefined;
-
-  if (chainId) {
-    params = { chainId };
-  }
+export function useSwitchChain(
+  props: UseSwitchChainProps,
+): UseSwitchChainResult {
+  const { params, ...rest } = props;
 
   const { request, requestAsync, ...result } = useWalletRequest({
     type: "wallet_switchStarknetChain",
@@ -45,26 +42,26 @@ export function useSwitchChain(props: SwitchChainProps): SwitchChainResult {
     ...rest,
   });
 
-  const switchChain = (args?: SwitchChainVariables) => {
-    const params_ = args ?? params;
-
-    if (!params_ || !params_.chainId) throw new Error("chainId is required");
-
-    return request({
-      params: params_ as SwitchStarknetChainParameters,
-      type: "wallet_switchStarknetChain",
-    });
+  const switchChain = (args?: UseSwitchChainArgs) => {
+    return request(
+      args
+        ? {
+            params: args,
+            type: "wallet_switchStarknetChain",
+          }
+        : undefined,
+    );
   };
 
-  const switchChainAsync = (args?: SwitchChainVariables) => {
-    const params_ = args ?? params;
-
-    if (!params_ || !params_.chainId) throw new Error("chainId is required");
-
-    return requestAsync({
-      params: params_ as SwitchStarknetChainParameters,
-      type: "wallet_switchStarknetChain",
-    });
+  const switchChainAsync = (args?: UseSwitchChainArgs) => {
+    return requestAsync(
+      args
+        ? {
+            params: args,
+            type: "wallet_switchStarknetChain",
+          }
+        : undefined,
+    );
   };
 
   return {
