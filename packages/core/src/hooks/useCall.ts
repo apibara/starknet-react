@@ -9,7 +9,7 @@ import {
   Result,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 import { useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";

@@ -1,6 +1,5 @@
-import { useStarknet } from "~/context/starknet";
-
-import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
+import { useStarknet } from "../context/starknet";
+import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
 type MutationResult = UseMutationResult<void, unknown, void>;
 

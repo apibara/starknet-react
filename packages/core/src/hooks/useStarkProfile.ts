@@ -8,7 +8,8 @@ import {
   shortString,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+
 import { StarknetTypedContract, useContract } from "./useContract";
 import { useNetwork } from "./useNetwork";
 import { useProvider } from "./useProvider";
@@ -42,6 +43,7 @@ type GetStarkprofileResponse = {
   discord?: string;
   proofOfPersonhood: boolean;
 };
+
 export type UseStarkProfileResult = UseQueryResult<
   GetStarkprofileResponse,
   Error

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { AccountInterface } from "starknet";
 
-import { Connector } from "~/connectors";
-import { useStarknetAccount } from "~/context/account";
+import { Connector } from "../connectors";
+import { useStarknetAccount } from "../context/account";
 
 import { useConnect } from "./useConnect";
 import { useProvider } from "./useProvider";

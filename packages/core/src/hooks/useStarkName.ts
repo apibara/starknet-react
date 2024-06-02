@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { Provider, ProviderInterface } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+
 import { useNetwork } from "./useNetwork";
 import { useProvider } from "./useProvider";
 
