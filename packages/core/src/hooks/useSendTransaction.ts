@@ -1,8 +1,5 @@
 import { Call } from "starknet";
-import {
-  AddInvokeTransactionParameters,
-  Call as RequestCall,
-} from "starknet-types";
+import { Call as RequestCall } from "starknet-types";
 import {
   RequestArgs,
   RequestResult,
@@ -37,13 +34,7 @@ export function useSendTransaction(
 ): UseSendTransactionResult {
   const { calls, ...rest } = props;
 
-  let params: AddInvokeTransactionParameters | undefined;
-
-  if (calls) {
-    params = {
-      calls: transformCalls(calls),
-    };
-  }
+  const params = calls ? { calls: transformCalls(calls) } : undefined;
 
   const { request, requestAsync, ...result } = useWalletRequest({
     type: "wallet_addInvokeTransaction",
