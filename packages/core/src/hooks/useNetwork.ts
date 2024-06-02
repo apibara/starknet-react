@@ -1,5 +1,6 @@
 import { Chain } from "@starknet-react/chains";
-import { useStarknet } from "~/context/starknet";
+
+import { useStarknet } from "../context/starknet";
 
 /** Value returned from `useNetwork`. */
 export type UseNetworkResult = {

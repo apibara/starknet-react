@@ -2,7 +2,7 @@ import { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { StarknetTypedContract, useContract } from "./useContract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";

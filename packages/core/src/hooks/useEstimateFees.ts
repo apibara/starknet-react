@@ -6,7 +6,7 @@ import {
   EstimateFeeResponse,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "~/query";
+import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { useAccount } from "./useAccount";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";

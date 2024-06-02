@@ -10,11 +10,12 @@ import React, {
 } from "react";
 import { constants, AccountInterface, ProviderInterface } from "starknet";
 
-import { Connector } from "~/connectors";
-import { ConnectorData } from "~/connectors/base";
-import { ConnectorNotFoundError } from "~/errors";
-import { ExplorerFactory } from "~/explorers/";
-import { ChainProviderFactory } from "~/providers";
+import { Connector } from "../connectors";
+import { ConnectorData } from "../connectors/base";
+import { ConnectorNotFoundError } from "../errors";
+import { ExplorerFactory } from "../explorers/";
+import { ChainProviderFactory } from "../providers";
+
 import { AccountProvider } from "./account";
 import { withMobileConnector } from "~/connectors/mobile";
 

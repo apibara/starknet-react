@@ -6,7 +6,9 @@ import {
   FunctionRet,
 } from "abi-wan-kanabi/dist/kanabi";
 import { BlockNumber } from "starknet";
-import { UseQueryProps, UseQueryResult } from "~/query";
+
+import { UseQueryProps, UseQueryResult } from "../query";
+
 import { CallQueryKey, UseCallProps, useCall } from "./useCall";
 
 type Result<

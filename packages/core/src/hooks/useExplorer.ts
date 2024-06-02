@@ -1,5 +1,5 @@
-import { useStarknet } from "~/context/starknet";
-import { Explorer } from "~/explorers";
+import { useStarknet } from "../context/starknet";
+import { Explorer } from "../explorers";
 
 export function useExplorer(): Explorer {
   const { explorer, chain } = useStarknet();

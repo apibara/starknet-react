@@ -1,8 +1,8 @@
-import { useStarknet } from "~/context/starknet";
-
 import { useCallback } from "react";
-import { Connector } from "~/connectors/base";
-import { UseMutationProps, UseMutationResult, useMutation } from "~/query";
+
+import { Connector } from "../connectors/base";
+import { useStarknet } from "../context/starknet";
+import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
 export type ConnectVariables = { connector?: Connector };
 
