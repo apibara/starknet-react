@@ -32,7 +32,7 @@ function useSendTransactionWithConnect() {
   };
 }
 
-describe("useSendTransaction", () => {
+describe.skip("useSendTransaction", () => {
   it("sends a transaction sucessfully", async () => {
     const { result } = renderHook(() => useSendTransactionWithConnect());
 

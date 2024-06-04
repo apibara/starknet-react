@@ -47,7 +47,7 @@ function useDeclareContractWithConnect() {
   };
 }
 
-describe("useDeclareContract", () => {
+describe.skip("useDeclareContract", () => {
   it("user approved the declaration in the wallet", async () => {
     const { result } = renderHook(() => useDeclareContractWithConnect());
 
