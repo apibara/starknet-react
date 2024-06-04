@@ -8,8 +8,8 @@ import {
 import {
   AddDeclareTransactionParameters,
   AddInvokeTransactionParameters,
-  Permission,
   Call as RequestCall,
+  Permission,
   RequestFnCall,
   RpcMessage,
   RpcTypeToMessageMap,
