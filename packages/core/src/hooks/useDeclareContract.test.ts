@@ -47,7 +47,7 @@ function useDeclareContractWithConnect() {
   };
 }
 
-describe("useSignTypedData", () => {
+describe("useDeclareContract", () => {
   it("user approved the declaration in the wallet", async () => {
     const { result } = renderHook(() => useDeclareContractWithConnect());
 
@@ -62,7 +62,7 @@ describe("useSignTypedData", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.declare.data).toBeTruthy();
+      expect(result.current.declare.isSuccess).toBeTruthy();
     });
   });
 

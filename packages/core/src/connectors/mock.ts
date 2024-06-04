@@ -1,13 +1,20 @@
 import { devnet, mainnet } from "@starknet-react/chains";
-import { AccountInterface, ProviderInterface, ProviderOptions } from "starknet";
 import {
-  AddDeclareTransactionResult,
-  AddInvokeTransactionResult,
+  AccountInterface,
+  Call,
+  ProviderInterface,
+  ProviderOptions,
+} from "starknet";
+import {
+  AddDeclareTransactionParameters,
+  AddInvokeTransactionParameters,
   Permission,
+  Call as RequestCall,
   RequestFnCall,
   RpcMessage,
   RpcTypeToMessageMap,
-  Signature,
+  SwitchStarknetChainParameters,
+  TypedData,
 } from "starknet-types";
 import {
   ConnectorNotConnectedError,
@@ -31,7 +38,7 @@ export type MockConnectorOptions = {
   unifiedSwitchAccountAndChain?: boolean;
   /** Emit change account event when switching chain. */
   emitChangeAccountOnChainSwitch?: boolean;
-  /** Reject request signing */
+  /** Reject request calls */
   rejectRequest?: boolean;
 };
 
@@ -45,7 +52,7 @@ export class MockConnector extends Connector {
   private _accountIndex = 0;
   private _connected = false;
   private _chainId: bigint = devnet.id;
-  _options: MockConnectorOptions;
+  public _options: MockConnectorOptions;
 
   constructor({
     accounts,
@@ -165,22 +172,49 @@ export class MockConnector extends Connector {
         return [this._account.address];
       case "wallet_addStarknetChain":
         return true;
-      case "wallet_switchStarknetChain":
+      case "wallet_switchStarknetChain": {
+        if (!params) throw new Error("Params are missing");
+
+        const { chainId } = params as SwitchStarknetChainParameters;
+
+        this.switchChain(BigInt(chainId));
+
         return true;
-      case "wallet_addDeclareTransaction":
-        // TODO
-        return {
-          class_hash: "",
-          transaction_hash: "",
-        } satisfies AddDeclareTransactionResult;
-      case "wallet_addInvokeTransaction":
-        // TODO
-        return {
-          transaction_hash: "",
-        } satisfies AddInvokeTransactionResult;
-      case "wallet_signTypedData":
-        // TODO
-        return [""] satisfies Signature;
+      }
+      case "wallet_addDeclareTransaction": {
+        if (!params) throw new Error("Params are missing");
+
+        const { compiled_class_hash, contract_class, class_hash } =
+          params as AddDeclareTransactionParameters;
+
+        return await this._account.declare({
+          compiledClassHash: compiled_class_hash,
+          contract: {
+            ...contract_class,
+            abi: JSON.parse(contract_class.abi),
+          },
+          classHash: class_hash,
+        });
+      }
+      case "wallet_addInvokeTransaction": {
+        if (!params) throw new Error("Params are missing");
+
+        const { calls } = params as AddInvokeTransactionParameters;
+
+        return await this._account.execute(transformCalls(calls));
+      }
+      case "wallet_signTypedData": {
+        if (!params) throw new Error("Params are missing");
+
+        const { domain, message, primaryType, types } = params as TypedData;
+
+        return (await this._account.signMessage({
+          domain,
+          message,
+          primaryType,
+          types,
+        })) as string[];
+      }
       default:
         throw new Error("Unknown request type");
     }
@@ -214,4 +248,15 @@ export class MockConnector extends Connector {
 
     return account;
   }
+}
+
+function transformCalls(calls: RequestCall[]) {
+  return calls.map(
+    (call) =>
+      ({
+        contractAddress: call.contract_address,
+        entrypoint: call.entry_point,
+        calldata: call.calldata,
+      }) as Call,
+  );
 }
