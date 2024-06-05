@@ -50,10 +50,6 @@ describe.skip("useEstimateFees", () => {
   it("estimate fails if account is not connected", async () => {
     const { result } = renderHook(() => useEstimateFeesWithConnect());
 
-    await act(async () => {
-      result.current.disconnect.disconnect();
-    });
-
     await waitFor(() => {
       expect(result.current.estimateFees.isError).toBeTruthy();
     });
