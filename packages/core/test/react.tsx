@@ -12,6 +12,7 @@ import React from "react";
 import { StarknetConfig as OgStarknetConfig } from "../src/context";
 import { jsonRpcProvider } from "../src/providers";
 
+import { MockConnectorOptions } from "../src";
 import { defaultConnector } from "./devnet";
 
 function rpc() {
@@ -20,10 +21,21 @@ function rpc() {
   };
 }
 
-function StarknetConfig({ children }: { children: React.ReactNode }) {
+function StarknetConfig({
+  children,
+  connectorOptions,
+}: {
+  children: React.ReactNode;
+  connectorOptions?: Partial<MockConnectorOptions>;
+}) {
   const chains = [devnet, mainnet];
   const provider = jsonRpcProvider({ rpc });
   const connectors = [defaultConnector];
+
+  defaultConnector.options = {
+    ...defaultConnector.options,
+    ...connectorOptions,
+  };
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -47,20 +59,36 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
 
 function customRender(
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
+  options: Omit<RenderOptions, "wrapper"> & {
+    connectorOptions?: Partial<MockConnectorOptions>;
+  } = {},
 ): RenderResult {
-  return render(ui, { wrapper: StarknetConfig, ...options });
+  const { connectorOptions, ...renderOptions } = options;
+  return render(ui, {
+    wrapper: ({ children }) => (
+      <StarknetConfig connectorOptions={connectorOptions}>
+        {children}
+      </StarknetConfig>
+    ),
+    ...renderOptions,
+  });
 }
 
 function customRenderHook<RenderResult, Props>(
   render: (initialProps: Props) => RenderResult,
-  options: Omit<RenderHookOptions<Props>, "wrapper"> = {},
+  options: Omit<RenderHookOptions<Props>, "wrapper"> & {
+    connectorOptions?: Partial<MockConnectorOptions>;
+  } = {},
 ) {
-  const { hydrate, ...rest } = options;
+  const { connectorOptions, hydrate, ...renderOptions } = options;
   return renderHook(render, {
-    wrapper: StarknetConfig,
+    wrapper: ({ children }) => (
+      <StarknetConfig connectorOptions={connectorOptions}>
+        {children}
+      </StarknetConfig>
+    ),
     hydrate: hydrate as false | undefined,
-    ...rest,
+    ...renderOptions,
   });
 }
 
