@@ -46,7 +46,7 @@ const walletIcons = {
 
 export class InjectedConnector extends Connector {
   private _wallet?: StarknetWindowObject;
-  private _options: InjectedConnectorOptions;
+  private readonly _options: InjectedConnectorOptions;
 
   constructor({ options }: { options: InjectedConnectorOptions }) {
     super();
@@ -58,10 +58,12 @@ export class InjectedConnector extends Connector {
   }
 
   get name(): string {
+    this.ensureWallet();
     return this._options.name ?? this._wallet?.name ?? this._options.id;
   }
 
   get icon(): ConnectorIcons {
+    this.ensureWallet();
     const deafultIcon = {
       dark:
         walletIcons[this.id as keyof typeof walletIcons] ||
@@ -80,8 +82,9 @@ export class InjectedConnector extends Connector {
 
   async chainId(): Promise<bigint> {
     this.ensureWallet();
+    const locked = await this.isLocked();
 
-    if (!this._wallet) {
+    if (!this._wallet || locked) {
       throw new ConnectorNotConnectedError();
     }
 
@@ -107,11 +110,12 @@ export class InjectedConnector extends Connector {
   }
 
   async account(
-    provider: ProviderOptions | ProviderInterface,
+    provider: ProviderOptions | ProviderInterface
   ): Promise<AccountInterface> {
     this.ensureWallet();
+    const locked = await this.isLocked();
 
-    if (!this._wallet) {
+    if (locked || !this._wallet) {
       throw new ConnectorNotConnectedError();
     }
 
@@ -170,7 +174,7 @@ export class InjectedConnector extends Connector {
   }
 
   async request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>,
+    call: RequestFnCall<T>
   ): Promise<RpcTypeToMessageMap[T]["result"]> {
     this.ensureWallet();
 
@@ -183,6 +187,15 @@ export class InjectedConnector extends Connector {
     } catch {
       throw new UserRejectedRequestError();
     }
+  }
+
+  private async isLocked() {
+    const accounts = await this.request({
+      type: "wallet_requestAccounts",
+      params: { silent_mode: true },
+    });
+
+    return accounts.length === 0;
   }
 
   private ensureWallet() {
