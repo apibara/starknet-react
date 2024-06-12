@@ -32,8 +32,8 @@ function StarknetConfig({
   const provider = jsonRpcProvider({ rpc });
   const connectors = [defaultConnector];
 
-  defaultConnector._options = {
-    ...defaultConnector._options,
+  defaultConnector.options = {
+    ...defaultConnector.options,
     ...connectorOptions,
   };
 

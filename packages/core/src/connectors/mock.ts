@@ -52,7 +52,7 @@ export class MockConnector extends Connector {
   private _accountIndex = 0;
   private _connected = false;
   private _chainId: bigint = devnet.id;
-  public _options: MockConnectorOptions;
+  public options: MockConnectorOptions;
 
   constructor({
     accounts,
@@ -68,20 +68,20 @@ export class MockConnector extends Connector {
     }
 
     this._accounts = accounts;
-    this._options = options;
+    this.options = options;
   }
 
   switchChain(chainId: bigint): void {
     this._chainId = chainId;
     this._accountIndex = 0;
     let account: string | undefined;
-    if (this._options.unifiedSwitchAccountAndChain) {
+    if (this.options.unifiedSwitchAccountAndChain) {
       account = this._account.address;
     }
 
     this.emit("change", { chainId, account });
 
-    if (this._options.emitChangeAccountOnChainSwitch ?? true) {
+    if (this.options.emitChangeAccountOnChainSwitch ?? true) {
       this.switchAccount(this._accountIndex);
     }
   }
@@ -92,19 +92,19 @@ export class MockConnector extends Connector {
   }
 
   get id(): string {
-    return this._options.id;
+    return this.options.id;
   }
 
   get name(): string {
-    return this._options.name;
+    return this.options.name;
   }
 
   get icon(): ConnectorIcons {
-    return this._options.icon ?? "";
+    return this.options.icon ?? "";
   }
 
   available(): boolean {
-    return this._options.available ?? true;
+    return this.options.available ?? true;
   }
 
   async chainId(): Promise<bigint> {
@@ -125,7 +125,7 @@ export class MockConnector extends Connector {
   }
 
   async connect(): Promise<ConnectorData> {
-    if (this._options.failConnect) {
+    if (this.options.failConnect) {
       throw new UserRejectedRequestError();
     }
 
@@ -158,7 +158,7 @@ export class MockConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
-    if (this._options.rejectRequest) {
+    if (this.options.rejectRequest) {
       throw new UserRejectedRequestError();
     }
 
