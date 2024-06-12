@@ -4,7 +4,7 @@ export function argent(): InjectedConnector {
   return new InjectedConnector({
     options: {
       id: "argentX",
-      name: "Argent",
+      name: "Argent X",
     },
   });
 }
