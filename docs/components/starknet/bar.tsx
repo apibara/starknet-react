@@ -15,7 +15,7 @@ function ConnectedWallet({ account }: { account: AccountInterface }) {
 }
 
 function ConnectWallet() {
-  const { connect, connectors } = useConnect();
+  const { connect, connectors, status } = useConnect();
 
   return (
     <div className="flex flex-row justify-start space-x-2">
@@ -23,7 +23,8 @@ function ConnectWallet() {
         <button
           key={connector.id}
           onClick={() => connect({ connector })}
-          className="bg-red-500 rounded px-2 py-1 text-white"
+          className="bg-red-500 rounded px-2 py-1 text-white disabled:bg-gray-500"
+          disabled={status === "pending"}
         >
           {connector.name}
         </button>
