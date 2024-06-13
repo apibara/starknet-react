@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@starknet-react/chains": "0.1.7",
+    "@starknet-react/core": "0.1.7",
+    "@starknet-react/typescript-config": "0.0.0"
+  },
+  "changesets": []
+}
