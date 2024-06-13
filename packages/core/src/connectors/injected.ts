@@ -110,7 +110,7 @@ export class InjectedConnector extends Connector {
   }
 
   async account(
-    provider: ProviderOptions | ProviderInterface
+    provider: ProviderOptions | ProviderInterface,
   ): Promise<AccountInterface> {
     this.ensureWallet();
     const locked = await this.isLocked();
@@ -174,7 +174,7 @@ export class InjectedConnector extends Connector {
   }
 
   async request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>
+    call: RequestFnCall<T>,
   ): Promise<RpcTypeToMessageMap[T]["result"]> {
     this.ensureWallet();
 
