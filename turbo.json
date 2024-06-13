@@ -1,7 +1,7 @@
 {
   "$schema": "https://turborepo.org/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": [
@@ -11,11 +11,8 @@
         "tsconfig.json"
       ],
       "outputs": [
-        "dist/**",
-        ".next/**",
-         "!.next/cache/**"
-      ],
-      "outputMode": "new-only"
+        "dist/**"
+      ]
     },
     "dev": {
       "dependsOn": ["^build"]
@@ -27,16 +24,12 @@
       "dependsOn": ["^build"]
     },
     "lint": {
-      "dependsOn": ["^build"]
     },
     "lint:fix": {
-      "dependsOn": ["^build"]
     },
     "format:check": {
-      "dependsOn": ["^build"]
     },
     "format": {
-      "dependsOn": ["^build"]
     },
     "clean": {
       "dependsOn": []
