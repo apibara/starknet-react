@@ -1,4 +1,4 @@
-import { Chain } from "@starknet-react/chains";
+import { Address, Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
@@ -24,9 +24,9 @@ export type UseBalanceProps = UseQueryProps<
   ReturnType<typeof queryKey>
 > & {
   /** The contract's address. Defaults to the native currency. */
-  token?: string;
+  token?: Address;
   /** The address to fetch balance for. */
-  address?: string;
+  address?: Address;
   /** Whether to watch for changes. */
   watch?: boolean;
   /** Block identifier used when performing call. */

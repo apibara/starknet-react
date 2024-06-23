@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import {
   Abi,
   ExtractAbiFunction,
@@ -51,7 +52,7 @@ export type UseReadContractProps<
    */
   abi?: TAbi;
   /** The target contract's address. */
-  address?: string;
+  address?: Address;
   /** Refresh data at every block. */
   watch?: boolean;
   /** The contract's function name. */

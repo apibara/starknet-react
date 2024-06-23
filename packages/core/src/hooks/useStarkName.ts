@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
   Call,
@@ -20,9 +21,9 @@ export type StarkNameArgs = UseQueryProps<
   ReturnType<typeof queryKey>
 > & {
   /** Account address. */
-  address?: string;
+  address?: Address;
   /** Naming contract to use . */
-  contract?: string;
+  contract?: Address;
 };
 
 /** Value returned by `useStarkName` hook. */
