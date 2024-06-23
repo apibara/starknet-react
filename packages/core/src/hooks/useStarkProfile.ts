@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
   CairoCustomEnum,
@@ -22,7 +23,7 @@ export type StarkProfileArgs = UseQueryProps<
   ReturnType<typeof queryKey>
 > & {
   /** Account address. */
-  address?: string;
+  address?: Address;
   /** Get Starknet ID default pfp url if no profile picture is set */
   useDefaultPfp?: boolean;
   /** Naming contract to use. */
@@ -394,12 +395,12 @@ const fetchImageUrl = async (url: string): Promise<string> => {
 
 type StarknetIdContractTypes = {
   [network: string]: {
-    naming: string;
-    identity: string;
-    verifier: string;
-    verifier_pop: string;
-    verifier_pfp: string;
-    multicall: string;
+    naming: Address;
+    identity: Address;
+    verifier: Address;
+    verifier_pop: Address;
+    verifier_pfp: Address;
+    multicall: Address;
   };
 };
 
@@ -429,7 +430,7 @@ const StarknetIdcontracts: StarknetIdContractTypes = {
     multicall:
       "0x034ffb8f4452df7a613a0210824d6414dbadcddce6c6e19bf4ddc9e22ce5f970",
   },
-};
+} as const;
 
 const multicallABI = [
   {
