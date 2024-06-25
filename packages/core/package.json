@@ -32,6 +32,7 @@
     "build": "tsup",
     "clean": "rimraf dist",
     "test": "vitest",
+    "test:ci": "vitest run",
     "lint": "biome check src",
     "lint:fix": "pnpm lint --apply",
     "format:check": "biome format .",

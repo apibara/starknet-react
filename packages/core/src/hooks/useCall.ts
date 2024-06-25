@@ -1,4 +1,4 @@
-import { Chain } from "@starknet-react/chains";
+import { Address, Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
   Abi,
@@ -37,7 +37,7 @@ export type UseCallProps = CallArgs &
     /** The target contract's ABI. */
     abi?: Abi;
     /** The target contract's address. */
-    address?: string;
+    address?: Address;
     /** Refresh data at every block. */
     watch?: boolean;
   };

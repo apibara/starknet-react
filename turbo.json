@@ -20,6 +20,9 @@
     "test": {
       "dependsOn": ["^build"]
     },
+    "test:ci": {
+      "dependsOn": ["^build"]
+    },
     "test:typecheck": {
       "dependsOn": ["^build"]
     },

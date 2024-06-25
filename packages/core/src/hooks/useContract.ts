@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import { Abi } from "abi-wan-kanabi";
 import {
   ContractFunctions,
@@ -70,7 +71,7 @@ export interface UseContractArgs<TAbi extends Abi> {
    */
   abi?: TAbi;
   /** The contract address. */
-  address?: string;
+  address?: Address;
   /** The provider, by default it will be the current one. */
   provider?: ProviderInterface | null;
 }

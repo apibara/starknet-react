@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
 import { CallData, Provider, ProviderInterface, starknetId } from "starknet";
 
@@ -15,7 +16,7 @@ export type UseStarkAddressProps = UseQueryProps<
   /** Stark name. */
   name?: string;
   /** Naming contract to use . */
-  contract?: string;
+  contract?: Address;
 };
 
 export type UseStarkAddressResult = UseQueryResult<string, Error>;
