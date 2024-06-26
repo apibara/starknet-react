@@ -16,9 +16,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "../ui/checkbox";
 
 function ContractRead() {
   const [blockIdentifier, setBlockIdentifier] = useState("latest");
+  const [enabled, setEnabled] = useState(false);
+
   const { chain } = useNetwork();
 
   const { data, refetch, fetchStatus, status } = useContractRead({
@@ -40,6 +43,7 @@ function ContractRead() {
     address: chain.nativeCurrency.address,
     args: [],
     watch: true,
+    enabled,
     blockIdentifier:
       blockIdentifier === "latest" ? BlockTag.latest : BlockTag.pending,
   });
@@ -69,6 +73,19 @@ function ContractRead() {
               </SelectGroup>
             </SelectContent>
           </Select>
+        </div>
+        <div className="space-y-1 flex items-center space-x-2">
+          <Checkbox
+            id="enableQuery"
+            checked={enabled}
+            onCheckedChange={(c) => setEnabled(c === true)}
+          />
+          <Label
+            htmlFor="enableQuery"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Enable Query
+          </Label>
         </div>
         <div className="space-y-1">
           <Label>Fetch status</Label>

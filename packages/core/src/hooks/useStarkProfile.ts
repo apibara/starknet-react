@@ -123,7 +123,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   return useQuery({
@@ -180,13 +180,13 @@ function queryFn({
       address,
       naming,
       identity,
-      contracts
+      contracts,
     );
     const data = await executeMulticallWithFallback(
       multicallContract,
       "aggregate",
       initialCalldata,
-      fallbackCalldata
+      fallbackCalldata,
     );
 
     if (Array.isArray(data)) {
@@ -207,7 +207,7 @@ function queryFn({
           ? data[8]
               .slice(1)
               .map((val: BigInt) =>
-                shortString.decodeShortString(val.toString())
+                shortString.decodeShortString(val.toString()),
               )
               .join("")
           : undefined;
@@ -339,7 +339,7 @@ const executeMulticallWithFallback = async (
   contract: ContractInterface,
   functionName: string,
   initialCalldata: RawArgsArray,
-  fallbackCalldata: RawArgsArray
+  fallbackCalldata: RawArgsArray,
 ) => {
   try {
     // Attempt the initial call with the new hint parameter
@@ -358,7 +358,7 @@ const getStarkProfileCalldata = (
   address: string,
   namingContract: string,
   identityContract: string,
-  contracts: Record<string, string>
+  contracts: Record<string, string>,
 ): {
   initialCalldata: RawArgsArray;
   fallbackCalldata: RawArgsArray;
@@ -446,7 +446,7 @@ const getStarkProfileCalldata = (
       execution: staticExecution(),
       to: hardcoded(identityContract),
       selector: hardcoded(
-        hash.getSelectorFromName("get_extended_verifier_data")
+        hash.getSelectorFromName("get_extended_verifier_data"),
       ),
       calldata: [
         reference(1, 0),

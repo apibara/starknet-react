@@ -62,6 +62,7 @@ export function useEstimateFees({
   });
 
   return useQuery({
+    enabled,
     queryKey: queryKey_,
     queryFn: queryFn({
       account,

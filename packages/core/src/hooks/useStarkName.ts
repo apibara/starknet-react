@@ -76,7 +76,7 @@ export function useStarkName({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   return useQuery({
@@ -132,7 +132,7 @@ function queryFn({
       const hexDomain = await executeWithFallback(
         p,
         calldata,
-        fallbackCalldata
+        fallbackCalldata,
       );
       const decimalDomain = hexDomain.result
         .map((element) => BigInt(element))
@@ -151,7 +151,7 @@ function queryFn({
 const executeWithFallback = async (
   provider: ProviderInterface,
   initialCall: Call,
-  fallbackCall: Call
+  fallbackCall: Call,
 ) => {
   try {
     // Attempt the initial call with the hint parameter

@@ -81,6 +81,7 @@ export function useBalance({
   });
 
   return useQuery({
+    enabled,
     queryKey: queryKey_,
     queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
     refetchInterval,
