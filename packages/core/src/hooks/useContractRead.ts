@@ -90,6 +90,7 @@ export function useContractRead({
   });
 
   return useQuery({
+    enabled,
     queryKey: queryKey_,
     queryFn: queryFn({
       contract,

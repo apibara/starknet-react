@@ -10,21 +10,21 @@ describe("useBalance", () => {
       const { result } = renderHook(() => useBalance({}));
 
       await waitFor(() => {
-        expect(result.current.status).toEqual("error");
+        expect(result.current.status).toEqual("pending");
       });
 
       expect(result.current).toMatchInlineSnapshot(`
         {
           "data": undefined,
-          "error": [Error: address is required],
+          "error": null,
           "fetchStatus": "idle",
-          "isError": true,
+          "isError": false,
           "isFetching": false,
           "isLoading": false,
-          "isPending": false,
+          "isPending": true,
           "isSuccess": false,
           "refetch": [Function],
-          "status": "error",
+          "status": "pending",
         }
       `);
     });
@@ -34,7 +34,7 @@ describe("useBalance", () => {
     // Some issue with the RPC provider.
     it.skip("returns the balance", async () => {
       const { result } = renderHook(() =>
-        useBalance({ address: accounts.goerli[0].address }),
+        useBalance({ address: accounts.goerli[0].address })
       );
 
       await waitFor(() => {
