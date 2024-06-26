@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.8.3
+
+### Patch Changes
+
+- [#456](https://github.com/apibara/starknet-react/pull/456) [`fcd6ffe`](https://github.com/apibara/starknet-react/commit/fcd6ffed8c8a14e565396fa0af4377eaabd985aa) Thanks [@fracek](https://github.com/fracek)! - Fix disabling queries
+
 ## 2.8.2
 
 ### Patch Changes
