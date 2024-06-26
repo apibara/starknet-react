@@ -39,6 +39,8 @@ export interface StarknetState {
   provider: ProviderInterface;
   /** Error. */
   error?: Error;
+  /** Provider Factory **/
+  providerFactory: ChainProviderFactory;
 }
 
 const StarknetContext = createContext<StarknetState | undefined>(undefined);
@@ -70,7 +72,7 @@ export function useStarknet(): StarknetState {
   const state = useContext(StarknetContext);
   if (!state) {
     throw new Error(
-      "useStarknet must be used within a StarknetProvider or StarknetConfig",
+      "useStarknet must be used within a StarknetProvider or StarknetConfig"
     );
   }
   return state;
@@ -106,7 +108,7 @@ function useStarknetManager({
 
   const { chain: defaultChain, provider: defaultProvider } = providerForChain(
     initialChain,
-    provider,
+    provider
   );
 
   // The currently connected connector needs to be accessible from the
@@ -125,7 +127,7 @@ function useStarknetManager({
         if (chain.id === chainId) {
           const { chain: newChain, provider: newProvider } = providerForChain(
             chain,
-            provider,
+            provider
           );
           setState((state) => ({
             ...state,
@@ -136,7 +138,7 @@ function useStarknetManager({
         }
       }
     },
-    [setState, chains],
+    [setState, chains]
   );
 
   const handleConnectorChange = useCallback(
@@ -153,7 +155,7 @@ function useStarknetManager({
         }));
       }
     },
-    [updateChainAndProvider, setState, connectorRef],
+    [updateChainAndProvider, setState, connectorRef]
   );
 
   const connect = useCallback(
@@ -203,7 +205,7 @@ function useStarknetManager({
       state.currentAccount,
       handleConnectorChange,
       updateChainAndProvider,
-    ],
+    ]
   );
 
   const disconnect = useCallback(async () => {
@@ -243,7 +245,7 @@ function useStarknetManager({
       }
 
       const lastConnectedConnector = connectors.find(
-        (connector) => connector.id === lastConnectedConnectorId,
+        (connector) => connector.id === lastConnectedConnectorId
       );
       if (lastConnectedConnector === undefined) {
         return;
@@ -279,6 +281,7 @@ function useStarknetManager({
     disconnect,
     connectors,
     chains,
+    providerFactory: provider,
   };
 }
 
@@ -329,7 +332,7 @@ export function StarknetProvider({
 
 function providerForChain(
   chain: Chain,
-  factory: ChainProviderFactory,
+  factory: ChainProviderFactory
 ): { chain: Chain; provider: ProviderInterface } {
   const provider = factory(chain);
   if (provider) {
@@ -340,7 +343,7 @@ function providerForChain(
 }
 
 export function starknetChainId(
-  chainId: bigint,
+  chainId: bigint
 ): constants.StarknetChainId | undefined {
   switch (chainId) {
     case mainnet.id:
