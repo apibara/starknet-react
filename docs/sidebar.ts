@@ -16,6 +16,7 @@ export const sidebar = {
         { text: "useAddChain", link: "/docs/hooks/use-add-chain" },
         { text: "useBalance", link: "/docs/hooks/use-balance" },
         { text: "useBlock", link: "/docs/hooks/use-block" },
+        { text: "useBlockNumber", link: "/docs/hooks/use-block-number" },
       ],
     }
   ],

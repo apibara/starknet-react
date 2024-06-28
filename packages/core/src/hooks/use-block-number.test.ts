@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "../../test/react";
 
-import { useBlockNumber } from "./useBlockNumber";
+import { useBlockNumber } from "./use-block-number";
 
 describe("useBlockNumber", () => {
   it("returns the current block number", async () => {

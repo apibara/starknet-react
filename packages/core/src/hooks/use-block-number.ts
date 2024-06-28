@@ -23,36 +23,6 @@ export type UseBlockNumberResult = UseQueryResult<number | undefined, Error>;
  * @remarks
  *
  * Control if and how often data is refreshed with `refetchInterval`.
- *
- * @example
- * This example shows how to fetch the current block only once.
- * ```tsx
- * function Component() {
- *   const { data, isLoading, isError } = useBlockNumber({
- *     refetchInterval: false
- *   })
- *
- *   if (isLoading) return <span>Loading...</span>
- *   if (isError) return <span>Error...</span>
- *   return <span>Block number: {data}</span>
- * }
- * ```
- *
- * @example
- * This example shows how to fetch the current block every 3 seconds.
- * Use your browser network monitor to verify that the hook is refetching the
- * data.
- * ```tsx
- * function Component() {
- *   const { data, isLoading, isError } = useBlockNumber({
- *     refetchInterval: 3000
- *   })
- *
- *   if (isLoading) return <span>Loading...</span>
- *   if (isError) return <span>Error...</span>
- *   return <span>Block Number: {data}</span>
- * }
- * ```
  */
 export function useBlockNumber({
   blockIdentifier = BlockTag.latest,
