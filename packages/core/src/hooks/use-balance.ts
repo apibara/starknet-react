@@ -38,6 +38,11 @@ export type UseBalanceResult = UseQueryResult<Balance, Error>;
 type TAbi = typeof balanceABIFragment;
 type Contract = StarknetTypedContract<TAbi>;
 
+/**
+ * Fetch the balance for the provided address and token.
+ *
+ * If no token is provided, the native currency is used.
+ */
 export function useBalance({
   token: token_,
   address,

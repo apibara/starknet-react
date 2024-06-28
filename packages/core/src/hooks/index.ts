@@ -1,6 +1,6 @@
 export * from "./use-account";
 export * from "./use-add-chain";
-export * from "./useBalance";
+export * from "./use-balance";
 export * from "./useBlock";
 export * from "./useBlockNumber";
 export * from "./useConnect";

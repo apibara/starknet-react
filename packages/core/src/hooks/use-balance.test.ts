@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { accounts } from "../../test/devnet";
 import { renderHook, waitFor } from "../../test/react";
 
-import { useBalance } from "./useBalance";
+import { useBalance } from "./use-balance";
 
 describe("useBalance", () => {
   describe("when address is undefined", () => {
@@ -34,7 +34,7 @@ describe("useBalance", () => {
     it("returns the balance", async () => {
       const { result } = renderHook(() =>
         useBalance({
-          address: accounts.sepolia[0].address,
+          address: accounts.sepolia[0].address as `0x${string}`,
         }),
       );
 
