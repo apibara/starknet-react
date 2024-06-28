@@ -3,6 +3,7 @@ export * from "./use-add-chain";
 export * from "./use-balance";
 export * from "./use-block";
 export * from "./use-block-number";
+export * from "./use-call";
 export * from "./useConnect";
 export * from "./useContract";
 export * from "./useContractFactory";
