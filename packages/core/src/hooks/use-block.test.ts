@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { renderHook, waitFor } from "../../test/react";
 
-import { useBlock } from "./useBlock";
+import { useBlock } from "./use-block";
 
 describe("useBlock", () => {
   it("returns the latest block", async () => {
@@ -45,7 +45,7 @@ describe("useBlock", () => {
           "block_number": 999999
         }
       }
-       
+
               24: Block not found: undefined],
         "fetchStatus": "idle",
         "isError": true,
