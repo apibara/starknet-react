@@ -1,5 +1,5 @@
 export * from "./use-account";
-export * from "./useAddChain";
+export * from "./use-add-chain";
 export * from "./useBalance";
 export * from "./useBlock";
 export * from "./useBlockNumber";

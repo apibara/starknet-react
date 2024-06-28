@@ -29,7 +29,6 @@ export type UseAddChainResult = Omit<
 
 /**
  * Hook to add a new network in the list of networks of the wallet.
- *
  */
 export function useAddChain(props: UseAddChainProps): UseAddChainResult {
   const { params, ...rest } = props;
