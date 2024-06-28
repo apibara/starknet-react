@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "../../test/react";
 
 import { shortString } from "starknet";
 import { defaultConnector } from "../../test/devnet";
-import { UseAddChainArgs, useAddChain } from "./useAddChain";
+import { UseAddChainArgs, useAddChain } from "./use-add-chain";
 import { useConnect } from "./useConnect";
 import { useDisconnect } from "./useDisconnect";
 

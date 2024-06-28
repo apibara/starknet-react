@@ -12,7 +12,8 @@ export const sidebar = {
     {
       text: "Hooks",
       items: [
-        { text: "useAccount", link: "/docs/hooks/use-account" }
+        { text: "useAccount", link: "/docs/hooks/use-account" },
+        { text: "useAddChain", link: "/docs/hooks/use-add-chain" },
       ],
     }
   ],

@@ -1,0 +1,110 @@
+# useAddChain
+
+Request the user to add a chain to their wallet.
+
+## Usage
+
+```ts twoslash
+import { shortString } from "starknet";
+import { useAddChain } from "@starknet-react/core";
+
+const { addChain, error } = useAddChain({
+  params: {
+    id: "ZORG",
+    chain_id: shortString.encodeShortString("ZORG"),
+    chain_name: "ZORG",
+    rpc_urls: ["http://192.168.1.44:6060"],
+    native_currency: {
+      type: "ERC20",
+      options: {
+        address:
+          "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+        name: "ETHER",
+        symbol: "ETH",
+        decimals: 18,
+      },
+    },
+  }
+});
+```
+
+## Arguments
+
+### params
+
+* Type: `AddStarknetChainParameters`
+
+The chain definition. This type is defined in the Starknet Types package.
+
+## Returns
+
+### addChain
+
+* Type: `(args?: AddStarknetChainParameters) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### addChainAsync
+
+* Type: `(args?: AddStarknetChainParameters) => Promise<boloean>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+* Type: `boolean | undefined`
+
+The resolved data.
+
+### error
+
+* Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+* Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+* Type: `AddStarknetChainParameters | undefined`
+
+The variables passed to `addChain` or `addChainAsync`.
+
+### status
+
+* Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+* `idle`: the mutation has not been triggered yet.
+* `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+* `success`: the mutation executed without an error.
+* `error`: the mutation threw an error.
+
+### isError
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+* Type: `boolean`
+
+Derived from `status`.
