@@ -1,0 +1,155 @@
+# useBalance
+
+Fetch the balance for the provided address and token.
+
+If no token is provided, the native currency is used.
+
+## Usage
+
+```ts twoslash
+import { useBalance } from "@starknet-react/core";
+
+const { data, error } = useBalance({
+  address: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+})
+```
+
+## Data
+
+### value
+
+* Type: `bigint`
+
+The raw token balance.
+
+### decimals
+
+* Type: `number`
+
+The token decimals.
+
+### symbol
+
+* Type: `string`
+
+The token symbol.
+
+### formatted
+
+* Type: `string`
+
+The formatted token balance.
+
+## Arguments
+
+### token
+
+* Type: `0x${string} | undefined`
+
+The token address. Defaults to the chain's native currency.
+
+### address
+
+* Type: `0x${string} | undefined`
+
+The address to fetch the balance for.
+
+### watch
+
+* Type: `boolean | undefined`
+
+If `true`, refresh the query at every new block.
+
+### blockIdentifier
+
+* Type: `BlockNumber | undefined`
+
+Perform the query against the provided block, e.g. `BlockTag.latest`.
+
+### enabled
+
+* Type: `boolean | undefined`
+
+If `false`, don't perform the query.
+
+### refetchInterval
+
+* Type: `number | false | ((query: Query) => number | false | undefined)`
+
+If set to a number, the query is refetched at the provided interval (in milliseconds).
+
+If set to a function, the callback will be used to determine the refetch interval.
+
+## Returns
+
+### data
+
+* Type: `Data | undefined`
+
+The resolved data.
+
+### error
+
+* Type: `Error | null`
+
+Any error thrown by the query.
+
+### reset
+
+* Type: `() => void`
+
+Reset the query status.
+
+### status
+
+* Type: `"error" | "pending" | "success"`
+
+The mutation status.
+
+* `pending`: the query is being executed.
+* `success`: the query executed without an error.
+* `error`: the query threw an error.
+
+### isError
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+* Type: `boolean`
+
+Derived from `status`.
+
+### fetchStatus
+
+* Type: `"fetching" | "paused" | "idle"`
+
+* `fetching`: the query is fetching.
+* `paused`: the query is paused.
+* `idle`: the query is not fetching.
+
+### isFetching
+
+* Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isPaused
+
+* Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isIdle
+
+* Type: `boolean`
+
+Derived from `fetchStatus`.
