@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Abi, CompiledContract, ContractFactory } from "starknet";
 
-import { useAccount } from "./useAccount";
+import { useAccount } from "./use-account";
 
 /** Arguments for `useContractFactory`. */
 export interface UseContractFactoryProps {

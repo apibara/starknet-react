@@ -8,7 +8,7 @@ import {
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { useAccount } from "./useAccount";
+import { useAccount } from "./use-account";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 
 type EstimateFeesArgs = {
