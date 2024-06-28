@@ -8,7 +8,7 @@ import {
 
 import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
-import { useAccount } from "./useAccount";
+import { useAccount } from "./use-account";
 
 export type DeployAccountVariables = {
   /** The class hash of the contract to deploy. */

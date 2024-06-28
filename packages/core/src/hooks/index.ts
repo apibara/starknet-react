@@ -1,4 +1,4 @@
-export * from "./useAccount";
+export * from "./use-account";
 export * from "./useAddChain";
 export * from "./useBalance";
 export * from "./useBlock";

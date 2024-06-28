@@ -8,17 +8,6 @@ import { useStarknetAccount } from "../context/account";
 import { useConnect } from "./useConnect";
 import { useProvider } from "./useProvider";
 
-/** Arguments for `useAccount` hook. */
-export type UseAccountProps = {
-  /** Function to invoke when connected. */
-  onConnect?: (args: {
-    address?: UseAccountResult["address"];
-    connector?: UseAccountResult["connector"];
-  }) => void;
-  /** Function to invoke when disconnected. */
-  onDisconnect?: () => void;
-};
-
 /** Account connection status. */
 export type AccountStatus =
   | "connected"
@@ -55,23 +44,8 @@ export type UseAccountResult = {
  *
  * This hook is used to access the `AccountInterface` object provided by the
  * currently connected wallet.
- *
- * @example
- * This example shows how to display the wallet connection status and
- * the currently connected wallet address.
- * ```tsx
- * function Component() {
- *   const { account, address, status } = useAccount()
- *
- *   if (status === 'disconnected') return <p>Disconnected</p>
- *   return <p>Account: {address}</p>
- * }
- * ```
  */
-export function useAccount({
-  onConnect,
-  onDisconnect,
-}: UseAccountProps = {}): UseAccountResult {
+export function useAccount(): UseAccountResult {
   const { account: connectedAccount } = useStarknetAccount();
   const { connectors } = useConnect();
   const { provider } = useProvider();
@@ -81,9 +55,6 @@ export function useAccount({
 
   const refreshState = useCallback(async () => {
     if (!connectedAccount) {
-      if (!state.isDisconnected && onDisconnect !== undefined) {
-        onDisconnect();
-      }
       return setState({
         status: "disconnected",
         isDisconnected: true,
@@ -104,10 +75,6 @@ export function useAccount({
       } catch {}
 
       if (connAccount && connAccount?.address === connectedAccount.address) {
-        if (state.isDisconnected && onConnect !== undefined) {
-          onConnect({ address, connector });
-        }
-
         return setState({
           connector,
           chainId: await connector.chainId(),
@@ -135,14 +102,7 @@ export function useAccount({
       isDisconnected: false,
       isReconnecting: false,
     });
-  }, [
-    connectedAccount,
-    connectors,
-    onConnect,
-    onDisconnect,
-    state.isDisconnected,
-    provider,
-  ]);
+  }, [connectedAccount, connectors, provider]);
 
   useEffect(() => {
     refreshState();
