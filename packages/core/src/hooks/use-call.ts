@@ -109,6 +109,7 @@ export function useCall({
       parseResult,
     }),
     refetchInterval,
+    enabled,
     ...props,
   });
 }
