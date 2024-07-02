@@ -29,6 +29,7 @@ export type UseSendTransactionResult = Omit<
   ) => Promise<RequestResult<"wallet_addInvokeTransaction">>;
 };
 
+/** Hook to send one or several transaction(s) to the network. */
 export function useSendTransaction(
   props: UseSendTransactionProps,
 ): UseSendTransactionResult {
