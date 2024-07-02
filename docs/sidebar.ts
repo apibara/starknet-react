@@ -28,6 +28,10 @@ export const sidebar = {
           text: "useDeclareContract",
           link: "/docs/hooks/use-declare-contract",
         },
+        {
+          text: "useDeployAccount",
+          link: "/docs/hooks/use-deploy-account",
+        },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },
