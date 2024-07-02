@@ -1,6 +1,7 @@
 import { useStarknet } from "../context/starknet";
 import { Explorer } from "../explorers";
 
+/** Access the current explorer, should be inside a StarknetConfig. */
 export function useExplorer(): Explorer {
   const { explorer, chain } = useStarknet();
   if (!explorer)
