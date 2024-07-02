@@ -63,6 +63,10 @@ export const sidebar = {
           text: "useStarkAddress",
           link: "/docs/hooks/use-stark-address",
         },
+        {
+          text: "useStarkName",
+          link: "/docs/hooks/use-stark-name",
+        },
       ],
     },
   ],
