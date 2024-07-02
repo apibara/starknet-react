@@ -4,7 +4,7 @@ import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { StarknetTypedContract, useContract } from "./useContract";
+import { StarknetTypedContract, useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 import { useNetwork } from "./useNetwork";
 

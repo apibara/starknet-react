@@ -5,7 +5,7 @@ export * from "./use-block";
 export * from "./use-block-number";
 export * from "./use-call";
 export * from "./use-connect";
-export * from "./useContract";
+export * from "./use-contract";
 export * from "./useContractFactory";
 export * from "./useDeclareContract";
 export * from "./useDeployAccount";

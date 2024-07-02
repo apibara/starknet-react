@@ -19,6 +19,7 @@ export const sidebar = {
         { text: "useBlockNumber", link: "/docs/hooks/use-block-number" },
         { text: "useCall", link: "/docs/hooks/use-call" },
         { text: "useConnect", link: "/docs/hooks/use-connect" },
+        { text: "useContract", link: "/docs/hooks/use-contract" },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

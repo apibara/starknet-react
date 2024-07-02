@@ -90,18 +90,6 @@ export interface UseContractResult<TAbi extends Abi> {
  * - The returned contract is a starknet.js `Contract` object.
  * - Must pass `abi` as const for strict type safety
  *
- * @example
- * This example creates a new contract from its address and abi.
- * ```tsx
- * function Component() {
- *   const { contract } = useContract({
- *     address: ethAddress,
- *     abi: compiledErc20.abi
- *   })
- *
- *   return <span>{contract.address}</span>
- * }
- * ```
  */
 export function useContract<TAbi extends Abi>({
   abi,
