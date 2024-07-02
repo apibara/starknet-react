@@ -1,3 +1,122 @@
+import { Callout } from 'vocs/components'
+
 # Getting Started
 
-## Overview
+<Callout type="warning">
+Starknet React V3 is currently in preview. If you experience any issue, feel
+free to open an issue on GitHub.
+</Callout>
+
+## Setup
+
+::::steps
+
+### Installation
+
+Start by installing the preview version of Starknet React (tagged `@next`).
+
+:::code-group
+
+```bash [npm]
+npm add @starknet-react/chains@next @starknet-react/core@next
+```
+
+```bash [pnpm]
+pnpm add @starknet-react/chains@next @starknet-react/core@next
+```
+
+:::
+
+### Configure the provider
+
+The next step is to configure the Starknet provider. You need to configure the
+following:
+
+* `chains`: a list of chains supported by your dapp.
+* `provider`: the JSON-RPC provider you want to use.
+* `connectors`: the wallet connectors supported by your dapp. See the wallets page for more information.
+
+Starknet React provides the `useInjectedConnectors` hook to merge a static list
+of recommended connectors with a dynamic list of injected connectors.
+
+```tsx [components/starknet-provider.tsx]
+"use client";
+import React from "react";
+
+import { sepolia, mainnet } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  publicProvider,
+  argent,
+  braavos,
+  useInjectedConnectors,
+  voyager
+} from "@starknet-react/core";
+
+export function StarknetProvider({ children }: { children: React.ReactNode }) {
+  const { connectors } = useInjectedConnectors({
+    // Show these connectors if the user has no connector installed.
+    recommended: [
+      argent(),
+      braavos(),
+    ],
+    // Hide recommended connectors if the user has any connector installed.
+    includeRecommended: "onlyIfNoConnectors",
+    // Randomize the order of the connectors.
+    order: "random"
+  });
+
+  return (
+    <StarknetConfig
+      chains={[mainnet, sepolia]}
+      provider={publicProvider()}
+      connectors={connectors}
+      explorer={voyager}
+    >
+      {children}
+    </StarknetConfig>
+  );
+}
+```
+
+### Wrap your app in the provider
+
+Wrap your app in the provider just created.
+
+```tsx [app.tsx]
+import { StarknetProvider } from "@/components/starknet-provider";
+
+export function App() {
+  return (
+    <StarknetProvider>
+      <YourApp />
+    </StarknetProvider>
+  );
+}
+```
+
+Notice that if you are using Next.js app routes, you should place the provider
+in the root layout file.
+
+```tsx [app/layout.tsx]
+import { StarknetProvider } from "@/components/starknet-provider";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <StarknetProvider>
+          {children}
+        </StarknetProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### Using hooks
+
+You can now use the Starknet React hooks from any component wrapped by the root
+provider!
+
+::::
