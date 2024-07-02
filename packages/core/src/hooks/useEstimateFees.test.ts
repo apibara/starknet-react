@@ -5,7 +5,7 @@ import { Abi } from "abi-wan-kanabi";
 import { defaultConnector } from "../../test/devnet";
 import { useAccount } from "./use-account";
 import { useConnect } from "./use-connect";
-import { useContract } from "./useContract";
+import { useContract } from "./use-contract";
 import { useDisconnect } from "./useDisconnect";
 import { useEstimateFees } from "./useEstimateFees";
 import { useNetwork } from "./useNetwork";

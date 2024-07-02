@@ -13,7 +13,7 @@ import {
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { StarknetTypedContract, useContract } from "./useContract";
+import { StarknetTypedContract, useContract } from "./use-contract";
 import { useNetwork } from "./useNetwork";
 import { useProvider } from "./useProvider";
 

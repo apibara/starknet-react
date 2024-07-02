@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { tokenAddress } from "../../test/devnet";
 import { renderHook } from "../../test/react";
 
-import { useContract } from "./useContract";
+import { useContract } from "./use-contract";
 
 describe("useContract", () => {
   it("returns a contract", async () => {
