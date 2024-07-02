@@ -7,7 +7,7 @@ export * from "./use-call";
 export * from "./use-connect";
 export * from "./use-contract";
 export * from "./use-contract-factory";
-export * from "./useDeclareContract";
+export * from "./use-declare-contract";
 export * from "./useDeployAccount";
 export * from "./useDisconnect";
 export * from "./useEstimateFees";

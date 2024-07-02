@@ -24,6 +24,10 @@ export const sidebar = {
           text: "useContractFactory",
           link: "/docs/hooks/use-contract-factory",
         },
+        {
+          text: "useDeclareContract",
+          link: "/docs/hooks/use-declare-contract",
+        },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

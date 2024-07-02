@@ -1,0 +1,102 @@
+# useDeclareContract
+
+Hook to declare a new class in the current network.
+
+## Usage
+
+```ts twoslash
+import { useDeclareContract } from "@starknet-react/core";
+
+const { addChain, error } = useDeclareContract({
+  params: {
+    compiled_class_hash: hash.computeCompiledClassHash(contractCasm),
+    contract_class: {
+      sierra_program: contractSierra.sierra_program,
+      contract_class_version: "0x01",
+      entry_points_by_type: contractSierra.entry_points_by_type,
+      abi: json.stringify(contractSierra.abi),
+    },
+  },
+});
+```
+
+## Arguments
+
+### params
+
+- Type: `AddDeclareTransactionParameters`
+
+The Contract definition. This type is defined in the Starknet Types package.
+
+## Returns
+
+### declare
+
+- Type: `(args?: AddDeclareTransactionParameters) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### declareAsync
+
+- Type: `(args?: AddDeclareTransactionParameters) => Promise<AddDeclareTransactionResult>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+- Type: `AddDeclareTransactionResult | undefined`
+
+The resolved data. This type is defined in the Starknet Types package.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `AddDeclareTransactionParameters | undefined`
+
+The variables passed to `declare` or `declareAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.

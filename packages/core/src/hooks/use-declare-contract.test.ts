@@ -6,7 +6,7 @@ import { useConnect } from "./use-connect";
 import {
   UseDeclareContractArgs,
   useDeclareContract,
-} from "./useDeclareContract";
+} from "./use-declare-contract";
 import { useDisconnect } from "./useDisconnect";
 
 // TODO
