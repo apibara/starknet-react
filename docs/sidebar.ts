@@ -7,7 +7,7 @@ export const sidebar = {
       items: [
         { text: "Getting Started", link: "/docs/getting-started" },
         { text: "Upgrading to V3", link: "/docs/upgrading-to-v3" },
-      ]
+      ],
     },
     {
       text: "Hooks",
@@ -18,7 +18,8 @@ export const sidebar = {
         { text: "useBlock", link: "/docs/hooks/use-block" },
         { text: "useBlockNumber", link: "/docs/hooks/use-block-number" },
         { text: "useCall", link: "/docs/hooks/use-call" },
+        { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
-    }
+    },
   ],
 } as const satisfies Sidebar;
