@@ -5,7 +5,7 @@ import { AccountInterface } from "starknet";
 import { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
 
-import { useConnect } from "./useConnect";
+import { useConnect } from "./use-connect";
 import { useProvider } from "./useProvider";
 
 /** Account connection status. */

@@ -6,9 +6,9 @@ import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
 export type ConnectVariables = { connector?: Connector };
 
-type MutationResult = UseMutationResult<void, unknown, ConnectVariables>;
+type MutationResult = UseMutationResult<void, Error, ConnectVariables>;
 
-export type UseConnectProps = UseMutationProps<void, unknown, ConnectVariables>;
+export type UseConnectProps = UseMutationProps<void, Error, ConnectVariables>;
 
 /** Value returned from `useConnect`. */
 export type UseConnectResult = Omit<
@@ -34,23 +34,6 @@ export type UseConnectResult = Omit<
  *
  * Use this to implement a "connect wallet" component.
  *
- * @example
- * This example shows how to connect a wallet.
- * ```tsx
- * function Component() {
- *   const { connect, connectors } = useConnect();
- *   return (
- *     <ul>
- *     {connectors.map((connector) => (
- *       <li key={connector.id}>
- *         <button onClick={() => connect({ connector })}>
- *           {connector.name}
- *         </button>
- *       </li>
- *     ))}
- *     </ul>
- *   )
- * }
  * ```
  */
 export function useConnect(props: UseConnectProps = {}): UseConnectResult {

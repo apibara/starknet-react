@@ -1,4 +1,4 @@
-import { useStarkProfile } from "@starknet-react/core";
+import { Address, useStarkProfile } from "@starknet-react/core";
 import { useState } from "react";
 import { DemoContainer } from "../starknet";
 
@@ -16,7 +16,7 @@ function StarkProfileInner() {
   );
 
   const { data, isLoading, isError, error } = useStarkProfile({
-    address,
+    address: address as Address,
   });
 
   return (
