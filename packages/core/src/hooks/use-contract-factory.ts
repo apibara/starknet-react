@@ -27,20 +27,6 @@ export interface UseContractFactoryResult {
  * The returned contract factory is a starknet.js `ContractFactory` object.
  *
  * This hook works well with `useDeploy`.
- *
- * @example
- * This example shows how to create a contract factory.
- * ```tsx
- * function Component() {
- *   const { contractFactory } = useContractFactory({
- *     compiledContract: compiledErc20,
- *     classHash: erc20ClassHash,
- *     abi: compiledErc20.abi,
- *   })
- *
- *   return <p>Nothing to see here...</p>
- * }
- * ```
  */
 export function useContractFactory({
   compiledContract,
