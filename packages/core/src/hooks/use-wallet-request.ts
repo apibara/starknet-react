@@ -37,6 +37,7 @@ export type UseWalletRequestResult<T extends RequestMessageTypes> = Omit<
   requestAsync: (args?: RequestArgs<T>) => Promise<RequestResult<T>>;
 };
 
+/** Hook to perform request calls to connected wallet */
 export function useWalletRequest<T extends RequestMessageTypes>(
   props: UseWalletRequestProps<T>,
 ): UseWalletRequestResult<T> {

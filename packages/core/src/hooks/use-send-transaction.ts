@@ -6,7 +6,7 @@ import {
   UseWalletRequestProps,
   UseWalletRequestResult,
   useWalletRequest,
-} from "./useWalletRequest";
+} from "./use-wallet-request";
 
 export type UseSendTransactionArgs = {
   /** List of smart contract calls to execute. */
