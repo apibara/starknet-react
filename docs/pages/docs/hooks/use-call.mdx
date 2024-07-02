@@ -2,24 +2,37 @@
 
 Perform a read-only contract call.
 
-This hook expects the arguments to be "compiled" call data, use [`useContractRead`](/docs/hooks/use-contract-read) if you'd like abi encoding and decoding to be automatically handled.
+This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
 
 ## Usage
 
 ```ts twoslash
-import { useCall } from "@starknet-react/core";
+import { useCall, useNetwork } from "@starknet-react/core";
 
+const { chain } = useNetwork();
 const { data, error } = useCall({
-  abi,
-  address,
-  functionName: "balanceOf",
-  args: [address],
-})
+  abi: [
+    {
+      name: "symbol",
+      type: "function",
+      inputs: [],
+      outputs: [
+        {
+          type: "core::felt252",
+        },
+      ],
+      state_mutability: "view",
+    },
+  ],
+  functionName: "symbol",
+  address: chain.nativeCurrency.address,
+  args: [],
+});
 ```
 
 ## Data
 
-* Type: `Result`
+- Type: `Result`
 
 The call `Result` type from `starknet`.
 
@@ -27,61 +40,61 @@ The call `Result` type from `starknet`.
 
 ### functionName
 
-* Type: `string`
+- Type: `string`
 
 The contract function name.
 
 ### args
 
-* Type: `ArgsOrCalldata`
+- Type: `ArgsOrCalldata`
 
 The arguments to the function.
 
 ### address
 
-* Type: `0x${string}`
+- Type: `0x${string}`
 
 The contract address.
 
 ### abi
 
-* Type: `Abi`
+- Type: `Abi`
 
 The contract abi.
 
 ### parseArgs
 
-* Type: `boolean | undefined`
+- Type: `boolean | undefined`
 
 Parse arguments before calling the contract.
 
 ### parseResult
 
-* Type: `boolean | undefined`
+- Type: `boolean | undefined`
 
 Parse the return value from the contract.
 
 ### blockIdentifier
 
-* Type: `BlockNumber | undefined`
+- Type: `BlockNumber | undefined`
 
 Perform the query against the provided block, e.g. `BlockTag.latest`.
 
 ### watch
 
-* Type: `boolean | undefined`
+- Type: `boolean | undefined`
 
 If `true`, refetch the data at every block.
 
 ### enabled
 
-* Type: `boolean | undefined`
+- Type: `boolean | undefined`
 
 If `false`, don't perform the query.
 
 ### refetchInterval
 
-* Type: `number | false | ((query: Query) => number | false | undefined)`
+- Type: `number | false | ((query: Query) => number | false | undefined)`
 
 If set to a number, the query is refetched at the provided interval (in milliseconds).
 
@@ -91,72 +104,72 @@ If set to a function, the callback will be used to determine the refetch interva
 
 ### data
 
-* Type: `Data | undefined`
+- Type: `Data | undefined`
 
 The resolved data.
 
 ### error
 
-* Type: `Error | null`
+- Type: `Error | null`
 
 Any error thrown by the query.
 
 ### reset
 
-* Type: `() => void`
+- Type: `() => void`
 
 Reset the query status.
 
 ### status
 
-* Type: `"error" | "pending" | "success"`
+- Type: `"error" | "pending" | "success"`
 
 The mutation status.
 
-* `pending`: the query is being executed.
-* `success`: the query executed without an error.
-* `error`: the query threw an error.
+- `pending`: the query is being executed.
+- `success`: the query executed without an error.
+- `error`: the query threw an error.
 
 ### isError
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### isPending
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### isSuccess
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### fetchStatus
 
-* Type: `"fetching" | "paused" | "idle"`
+- Type: `"fetching" | "paused" | "idle"`
 
-* `fetching`: the query is fetching.
-* `paused`: the query is paused.
-* `idle`: the query is not fetching.
+- `fetching`: the query is fetching.
+- `paused`: the query is paused.
+- `idle`: the query is not fetching.
 
 ### isFetching
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `fetchStatus`.
 
 ### isPaused
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `fetchStatus`.
 
 ### isIdle
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `fetchStatus`.
