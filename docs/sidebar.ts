@@ -71,6 +71,10 @@ export const sidebar = {
           text: "useStarkProfile",
           link: "/docs/hooks/use-stark-profile",
         },
+        {
+          text: "useSwitchChain",
+          link: "/docs/hooks/use-switch-chain",
+        },
       ],
     },
   ],
