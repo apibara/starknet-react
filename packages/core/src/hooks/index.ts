@@ -15,7 +15,7 @@ export * from "./useExplorer";
 export * from "./useInvalidateOnBlock";
 export * from "./useNetwork";
 export * from "./useProvider";
-export * from "./useReadContract";
+export * from "./use-read-contract";
 export * from "./useSendTransaction";
 export * from "./useSign";
 export * from "./useStarkAddress";

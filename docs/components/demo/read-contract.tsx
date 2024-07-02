@@ -13,16 +13,15 @@ export function ReadContractInner() {
   const { data, refetch, fetchStatus, status, error } = useReadContract({
     abi: [
       {
-        inputs: [],
         name: "symbol",
+        type: "function",
+        inputs: [],
         outputs: [
           {
-            name: "symbol",
-            type: "felt",
+            type: "core::felt252",
           },
         ],
         state_mutability: "view",
-        type: "function",
       },
     ] as const,
     functionName: "symbol",

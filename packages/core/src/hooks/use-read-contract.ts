@@ -10,7 +10,7 @@ import { BlockNumber } from "starknet";
 
 import { UseQueryProps, UseQueryResult } from "../query";
 
-import { CallQueryKey, UseCallProps, useCall } from "./useCall";
+import { CallQueryKey, UseCallProps, useCall } from "./use-call";
 
 type Result<
   TAbi extends Abi,
@@ -33,22 +33,6 @@ export type UseReadContractProps<
    *
    * You must pass ABI as const
    *
-   * @example
-   * abi: [
-   *   {
-   *     type: "function",
-   *     name: "fn_simple_array",
-   *     inputs: [
-   *       {
-   *         name: "arg",
-   *         type: "core::array::Array::<core::integer::u8>",
-   *       },
-   *     ],
-   *     outputs: [],
-   *     state_mutability: "view",
-   *   }
-   *  ] as const
-   *
    */
   abi?: TAbi;
   /** The target contract's address. */
@@ -70,7 +54,8 @@ export type UseReadContractResult<
 > = UseQueryResult<Result<TAbi, TFunctionName>, Error>;
 
 /**
- * Hook to perform a read-only contract call.
+ * Perform a read-only contract call. If the specified block identifier is pending,
+ * the hook will periodically refetch data automatically.
  *
  * @remarks
  *

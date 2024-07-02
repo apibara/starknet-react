@@ -2,7 +2,7 @@ import { FunctionRet } from "abi-wan-kanabi/dist/kanabi";
 import { assertType, describe, it } from "vitest";
 import { tokenAddress } from "../../test/devnet";
 import { testAbi } from "../../test/test-abi";
-import { UseReadContractProps, useReadContract } from "./useReadContract";
+import { UseReadContractProps, useReadContract } from "./use-read-contract";
 
 type TAbi = typeof testAbi;
 

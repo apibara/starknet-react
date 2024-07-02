@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { accounts, tokenAddress } from "../../test/devnet";
 import { renderHook, waitFor } from "../../test/react";
 
-import { useReadContract } from "./useReadContract";
+import { useReadContract } from "./use-read-contract";
 
 const abi = [
   {
