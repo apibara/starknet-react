@@ -19,7 +19,7 @@ export * from "./use-read-contract";
 export * from "./use-send-transaction";
 export * from "./use-sign";
 export * from "./use-stark-address";
-export * from "./useStarkName";
+export * from "./use-stark-name";
 export * from "./useStarkProfile";
 export * from "./useSwitchChain";
 export * from "./useTransactionReceipt";
