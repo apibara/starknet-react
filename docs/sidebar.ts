@@ -55,6 +55,10 @@ export const sidebar = {
           text: "useSendTransaction",
           link: "/docs/hooks/use-send-transaction",
         },
+        {
+          text: "useSignTypedData",
+          link: "/docs/hooks/use-sign-typed-data",
+        },
       ],
     },
   ],
