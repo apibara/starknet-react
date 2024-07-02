@@ -45,7 +45,7 @@ describe("useBlock", () => {
           "block_number": 999999
         }
       }
-
+       
               24: Block not found: undefined],
         "fetchStatus": "idle",
         "isError": true,
