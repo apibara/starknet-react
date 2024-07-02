@@ -9,7 +9,7 @@ export * from "./use-contract";
 export * from "./use-contract-factory";
 export * from "./use-declare-contract";
 export * from "./use-deploy-account";
-export * from "./useDisconnect";
+export * from "./use-disconnect";
 export * from "./useEstimateFees";
 export * from "./useExplorer";
 export * from "./useInvalidateOnBlock";

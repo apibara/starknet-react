@@ -6,7 +6,7 @@ import { defaultConnector } from "../../test/devnet";
 import { useAccount } from "./use-account";
 import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
-import { useDisconnect } from "./useDisconnect";
+import { useDisconnect } from "./use-disconnect";
 import { useEstimateFees } from "./useEstimateFees";
 import { useNetwork } from "./useNetwork";
 

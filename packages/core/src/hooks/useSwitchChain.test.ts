@@ -4,7 +4,7 @@ import { act, renderHook, waitFor } from "../../test/react";
 import { constants } from "starknet";
 import { defaultConnector } from "../../test/devnet";
 import { useConnect } from "./use-connect";
-import { useDisconnect } from "./useDisconnect";
+import { useDisconnect } from "./use-disconnect";
 import { useSwitchChain } from "./useSwitchChain";
 
 function useSwitchChainWithConnect() {

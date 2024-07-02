@@ -32,6 +32,10 @@ export const sidebar = {
           text: "useDeployAccount",
           link: "/docs/hooks/use-deploy-account",
         },
+        {
+          text: "useDisconnect",
+          link: "/docs/hooks/use-disconnect",
+        },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

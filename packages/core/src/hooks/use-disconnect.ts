@@ -1,9 +1,9 @@
 import { useStarknet } from "../context/starknet";
 import { UseMutationProps, UseMutationResult, useMutation } from "../query";
 
-type MutationResult = UseMutationResult<void, unknown, void>;
+type MutationResult = UseMutationResult<void, Error, void>;
 
-export type UseDisconnectProps = UseMutationProps<void, unknown, void>;
+export type UseDisconnectProps = UseMutationProps<void, Error, void>;
 
 /** Value returned from `useDisconnect`. */
 export type UseDisconnectResult = Omit<
@@ -16,6 +16,10 @@ export type UseDisconnectResult = Omit<
   disconnectAsync: MutationResult["mutateAsync"];
 };
 
+/**
+ *
+ * Hook for disconnecting connected wallet.
+ */
 export function useDisconnect(
   props: UseDisconnectProps = {},
 ): UseDisconnectResult {
