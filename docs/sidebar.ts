@@ -40,6 +40,10 @@ export const sidebar = {
           text: "useEstimateFees",
           link: "/docs/hooks/use-estimate-fees",
         },
+        {
+          text: "useExplorer",
+          link: "/docs/hooks/use-explorer",
+        },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

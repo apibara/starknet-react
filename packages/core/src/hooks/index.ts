@@ -11,7 +11,7 @@ export * from "./use-declare-contract";
 export * from "./use-deploy-account";
 export * from "./use-disconnect";
 export * from "./use-estimate-fees";
-export * from "./useExplorer";
+export * from "./use-explorer";
 export * from "./useInvalidateOnBlock";
 export * from "./useNetwork";
 export * from "./useProvider";
