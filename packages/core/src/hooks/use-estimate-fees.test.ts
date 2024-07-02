@@ -7,7 +7,7 @@ import { useAccount } from "./use-account";
 import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
 import { useDisconnect } from "./use-disconnect";
-import { useEstimateFees } from "./useEstimateFees";
+import { useEstimateFees } from "./use-estimate-fees";
 import { useNetwork } from "./useNetwork";
 
 function useEstimateFeesWithConnect() {
