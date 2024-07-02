@@ -16,7 +16,7 @@ export * from "./use-invalidate-on-block";
 export * from "./use-network";
 export * from "./use-provider";
 export * from "./use-read-contract";
-export * from "./useSendTransaction";
+export * from "./use-send-transaction";
 export * from "./useSign";
 export * from "./useStarkAddress";
 export * from "./useStarkName";

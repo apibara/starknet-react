@@ -51,6 +51,10 @@ export const sidebar = {
         { text: "useNetwork", link: "/docs/hooks/use-network" },
         { text: "useProvider", link: "/docs/hooks/use-provider" },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
+        {
+          text: "useSendTransaction",
+          link: "/docs/hooks/use-send-transaction",
+        },
       ],
     },
   ],

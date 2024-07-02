@@ -8,7 +8,7 @@ import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
 import { useDisconnect } from "./use-disconnect";
 import { useNetwork } from "./use-network";
-import { useSendTransaction } from "./useSendTransaction";
+import { useSendTransaction } from "./use-send-transaction";
 
 function useSendTransactionWithConnect() {
   const { chain } = useNetwork();
