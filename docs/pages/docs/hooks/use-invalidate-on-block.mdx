@@ -1,0 +1,25 @@
+# useInvalidateOnBlock
+
+Invalidate the given query on every new block.
+
+## Usage
+
+```ts twoslash
+import { useInvalidateOnBlock } from "@starknet-react/core";
+// TODO
+useInvalidateOnBlock({ queryKey: ["somekey"] });
+```
+
+## Arguments
+
+### enabled
+
+- enabled: `boolean`
+
+Enable or disable the query from automatically running. `true` by default
+
+### queryKey
+
+- queryKey: `QueryKey`
+
+Type from `@tanstack/react-query`

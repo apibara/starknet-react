@@ -5,7 +5,7 @@ import { GetTransactionReceiptResponse, ProviderInterface } from "starknet";
 import { useStarknet } from "../context/starknet";
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 
 /** Arguments for the `useTransactionReceipt` hook. */
 export type UseTransactionReceiptProps = UseQueryProps<

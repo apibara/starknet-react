@@ -12,7 +12,7 @@ export * from "./use-deploy-account";
 export * from "./use-disconnect";
 export * from "./use-estimate-fees";
 export * from "./use-explorer";
-export * from "./useInvalidateOnBlock";
+export * from "./use-invalidate-on-block";
 export * from "./useNetwork";
 export * from "./useProvider";
 export * from "./use-read-contract";
