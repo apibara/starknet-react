@@ -36,6 +36,10 @@ export const sidebar = {
           text: "useDisconnect",
           link: "/docs/hooks/use-disconnect",
         },
+        {
+          text: "useEstimateFees",
+          link: "/docs/hooks/use-estimate-fees",
+        },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

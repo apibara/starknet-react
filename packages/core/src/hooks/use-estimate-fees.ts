@@ -11,7 +11,7 @@ import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 import { useAccount } from "./use-account";
 import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
 
-type EstimateFeesArgs = {
+export type EstimateFeesArgs = {
   /** List of smart contract calls to estimate. */
   calls?: Call[];
   /** Estimate Fee options. */
@@ -68,6 +68,7 @@ export function useEstimateFees({
       calls,
       options,
     }),
+    enabled,
     ...props,
   });
 }
