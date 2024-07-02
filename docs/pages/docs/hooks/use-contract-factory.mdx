@@ -1,0 +1,49 @@
+# useContractFactory
+
+Hook to create a `ContractFactory`
+
+## Usage
+
+```ts twoslash
+import { useContractFactory } from "@starknet-react/core";
+
+const { contractFactory } = useContractFactory({
+  compiledContract: compiledErc20,
+  classHash: erc20ClassHash,
+  abi: compiledErc20.abi,
+});
+```
+
+## Data
+
+- Type: `ContractFactory`
+
+Type `ContractFactory` from `starknet`.
+
+## Arguments
+
+### compiledContract
+
+- Type: `CompiledContract`
+
+Type `CompiledContract` from `starknet`.
+
+### classHash
+
+- Type: `string`
+
+The class hash.
+
+### abi
+
+- Type: `Abi`
+
+The contract abi.
+
+## Returns
+
+### contractFactory
+
+- Type: `ContractFactory | undefined`
+
+The contract factory.
