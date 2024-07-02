@@ -8,7 +8,7 @@ import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
 import { useDisconnect } from "./use-disconnect";
 import { useEstimateFees } from "./use-estimate-fees";
-import { useNetwork } from "./useNetwork";
+import { useNetwork } from "./use-network";
 
 function useEstimateFeesWithConnect() {
   const { chain } = useNetwork();

@@ -18,14 +18,6 @@ export type UseNetworkResult = {
  * The network object contains information about the
  * network.
  *
- * @example
- * This example shows how to display the current network name.
- * ```tsx
- * function Component() {
- *   const { chain } = useNetwork()
- *
- *   return <span>{chain.name}</span>
- * }
  */
 export function useNetwork(): UseNetworkResult {
   const { chain, chains } = useStarknet();

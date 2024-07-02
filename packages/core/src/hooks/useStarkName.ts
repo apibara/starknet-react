@@ -10,7 +10,7 @@ import {
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { useNetwork } from "./useNetwork";
+import { useNetwork } from "./use-network";
 import { useProvider } from "./useProvider";
 
 /** Arguments for `useStarkName` hook. */

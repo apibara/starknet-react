@@ -6,7 +6,7 @@ import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { StarknetTypedContract, useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
-import { useNetwork } from "./useNetwork";
+import { useNetwork } from "./use-network";
 
 const DEFAULT_FETCH_INTERVAL = 5_000;
 
