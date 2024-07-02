@@ -13,7 +13,7 @@ export * from "./use-disconnect";
 export * from "./use-estimate-fees";
 export * from "./use-explorer";
 export * from "./use-invalidate-on-block";
-export * from "./useNetwork";
+export * from "./use-network";
 export * from "./useProvider";
 export * from "./use-read-contract";
 export * from "./useSendTransaction";

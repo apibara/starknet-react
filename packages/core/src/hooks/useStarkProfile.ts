@@ -12,7 +12,7 @@ import {
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { StarknetTypedContract, useContract } from "./use-contract";
-import { useNetwork } from "./useNetwork";
+import { useNetwork } from "./use-network";
 import { useProvider } from "./useProvider";
 
 /** Arguments for `useStarkProfile` hook. */
