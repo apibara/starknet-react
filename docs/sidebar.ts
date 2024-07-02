@@ -59,6 +59,10 @@ export const sidebar = {
           text: "useSignTypedData",
           link: "/docs/hooks/use-sign-typed-data",
         },
+        {
+          text: "useStarkAddress",
+          link: "/docs/hooks/use-stark-address",
+        },
       ],
     },
   ],
