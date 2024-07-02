@@ -1,84 +1,31 @@
-# useCall
+# useTransactionReceipt
 
-Perform a read-only contract call.
-
-This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
+Hook to fetch a single transaction receipt.
 
 ## Usage
 
 ```ts twoslash
-import { useCall, useNetwork } from "@starknet-react/core";
+import { useTransactionReceipt } from "@starknet-react/core";
 
-const { chain } = useNetwork();
-const { data, error } = useCall({
-  abi: [
-    {
-      name: "symbol",
-      type: "function",
-      inputs: [],
-      outputs: [
-        {
-          type: "core::felt252",
-        },
-      ],
-      state_mutability: "view",
-    },
-  ],
-  functionName: "symbol",
-  address: chain.nativeCurrency.address,
-  args: [],
+// TODO
+const { data, error } = useTransactionReceipt({
+  hash: "",
 });
 ```
 
 ## Data
 
-- Type: `Result`
+- Type: `GetTransactionReceiptResponse`
 
-The call `Result` type from `starknet`.
+The transaction receipt response type from `starknet`.
 
 ## Arguments
 
-### functionName
+### hash
 
-- Type: `string`
+- Type: `string | undefined`
 
-The contract function name.
-
-### args
-
-- Type: `ArgsOrCalldata`
-
-The arguments to the function.
-
-### address
-
-- Type: `0x${string}`
-
-The contract address.
-
-### abi
-
-- Type: `Abi`
-
-The contract abi.
-
-### parseArgs
-
-- Type: `boolean | undefined`
-
-Parse arguments before calling the contract.
-
-### parseResult
-
-- Type: `boolean | undefined`
-
-Parse the return value from the contract.
-
-### blockIdentifier
-
-- Type: `BlockNumber | undefined`
-
-Perform the query against the provided block, e.g. `BlockTag.latest`.
+The transaction hash.
 
 ### watch
 

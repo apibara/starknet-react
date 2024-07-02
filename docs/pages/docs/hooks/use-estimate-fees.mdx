@@ -1,90 +1,37 @@
-# useCall
+# useEstimateFees
 
-Perform a read-only contract call.
-
-This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
+Hook to estimate fees for smart contract calls.
 
 ## Usage
 
 ```ts twoslash
-import { useCall, useNetwork } from "@starknet-react/core";
-
-const { chain } = useNetwork();
-const { data, error } = useCall({
-  abi: [
-    {
-      name: "symbol",
-      type: "function",
-      inputs: [],
-      outputs: [
-        {
-          type: "core::felt252",
-        },
-      ],
-      state_mutability: "view",
-    },
-  ],
-  functionName: "symbol",
-  address: chain.nativeCurrency.address,
-  args: [],
+import { useEstimateFees } from "@starknet-react/core";
+// TODO
+const { data, error } = useEstimateFees({
+  calls: [],
+  options: {},
 });
 ```
 
 ## Data
 
-- Type: `Result`
+- Type: `EstimateFeeResponse`
 
-The call `Result` type from `starknet`.
+The `EstimateFeeResponse` response type from `starknet`.
 
 ## Arguments
 
-### functionName
+### calls
 
-- Type: `string`
+- Type: `Call[] | undefined`
 
-The contract function name.
+List of smart contract calls to estimate, type from `starknet`
 
-### args
+### options
 
-- Type: `ArgsOrCalldata`
+- Type: `EstimateFeeDetails`
 
-The arguments to the function.
-
-### address
-
-- Type: `0x${string}`
-
-The contract address.
-
-### abi
-
-- Type: `Abi`
-
-The contract abi.
-
-### parseArgs
-
-- Type: `boolean | undefined`
-
-Parse arguments before calling the contract.
-
-### parseResult
-
-- Type: `boolean | undefined`
-
-Parse the return value from the contract.
-
-### blockIdentifier
-
-- Type: `BlockNumber | undefined`
-
-Perform the query against the provided block, e.g. `BlockTag.latest`.
-
-### watch
-
-- Type: `boolean | undefined`
-
-If `true`, refetch the data at every block.
+Estimate Fee options, type from `starknet`
 
 ### enabled
 

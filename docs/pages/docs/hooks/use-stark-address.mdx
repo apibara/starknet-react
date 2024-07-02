@@ -1,90 +1,36 @@
-# useCall
+# useStarkAddress
 
-Perform a read-only contract call.
-
-This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
+Hook to get the address associated to a stark name.
 
 ## Usage
 
 ```ts twoslash
-import { useCall, useNetwork } from "@starknet-react/core";
+import { useStarkAddress } from "@starknet-react/core";
 
-const { chain } = useNetwork();
-const { data, error } = useCall({
-  abi: [
-    {
-      name: "symbol",
-      type: "function",
-      inputs: [],
-      outputs: [
-        {
-          type: "core::felt252",
-        },
-      ],
-      state_mutability: "view",
-    },
-  ],
-  functionName: "symbol",
-  address: chain.nativeCurrency.address,
-  args: [],
+const { data, error } = useStarkAddress({
+  name: "vitalik.stark",
 });
 ```
 
 ## Data
 
-- Type: `Result`
+- Type: `string | undefined`
 
-The call `Result` type from `starknet`.
+Address associated to stark name
 
 ## Arguments
 
-### functionName
+### name
 
-- Type: `string`
+- Type: `string | undefined`
 
-The contract function name.
+Stark name.
 
-### args
+### contract
 
-- Type: `ArgsOrCalldata`
+- Type: `Address | undefined`
 
-The arguments to the function.
-
-### address
-
-- Type: `0x${string}`
-
-The contract address.
-
-### abi
-
-- Type: `Abi`
-
-The contract abi.
-
-### parseArgs
-
-- Type: `boolean | undefined`
-
-Parse arguments before calling the contract.
-
-### parseResult
-
-- Type: `boolean | undefined`
-
-Parse the return value from the contract.
-
-### blockIdentifier
-
-- Type: `BlockNumber | undefined`
-
-Perform the query against the provided block, e.g. `BlockTag.latest`.
-
-### watch
-
-- Type: `boolean | undefined`
-
-If `true`, refetch the data at every block.
+Naming contract to use
 
 ### enabled
 

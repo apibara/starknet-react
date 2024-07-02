@@ -1,0 +1,103 @@
+# useWalletRequest
+
+Hook to perform request calls to connected wallet
+
+## Usage
+
+```ts twoslash
+import { useWalletRequest } from "@starknet-react/core";
+
+const { request, error } = useWalletRequest({
+  type: "wallet_requestAccounts",
+  params: { silent_mode: true },
+});
+```
+
+## Arguments
+
+### type
+
+- Type: `T`
+
+Type of Request message
+
+Where `T extends RequestMessageTypes` and This type is defined in the Starknet Types package.
+
+### params
+
+- Type: `RpcTypeToMessageMap[T]["params"]`
+
+Options for request, inferred based on request type. This type is defined in the Starknet Types package.
+
+## Returns
+
+### request
+
+- Type: `(args?: RequestArgs<T>) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### requestAsync
+
+- Type: `(args?: RequestArgs<T>) => Promise<RequestResult<T>>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+- Type: `RequestResult<T> | undefined`
+
+The resolved data. This type is defined in the Starknet Types package.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `TypedData | undefined`
+
+The variables passed to `request` or `requestAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.

@@ -4,9 +4,9 @@ import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
-import { StarknetTypedContract, useContract } from "./useContract";
-import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
-import { useNetwork } from "./useNetwork";
+import { StarknetTypedContract, useContract } from "./use-contract";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
+import { useNetwork } from "./use-network";
 
 export type Balance = {
   decimals: number;

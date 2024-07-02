@@ -1,90 +1,48 @@
-# useCall
+# useStarkProfile
 
-Perform a read-only contract call.
-
-This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
+Hook for fetching Stark profile for address.
 
 ## Usage
 
 ```ts twoslash
-import { useCall, useNetwork } from "@starknet-react/core";
+import { useStarkProfile } from "@starknet-react/core";
 
-const { chain } = useNetwork();
-const { data, error } = useCall({
-  abi: [
-    {
-      name: "symbol",
-      type: "function",
-      inputs: [],
-      outputs: [
-        {
-          type: "core::felt252",
-        },
-      ],
-      state_mutability: "view",
-    },
-  ],
-  functionName: "symbol",
-  address: chain.nativeCurrency.address,
-  args: [],
+const { data, error } = useStarkProfile({
+  address: "0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732",
 });
 ```
 
 ## Data
 
-- Type: `Result`
+- Type: `GetStarkprofileResponse | undefined`
 
-The call `Result` type from `starknet`.
+Stark Profile associated to address
 
 ## Arguments
 
-### functionName
-
-- Type: `string`
-
-The contract function name.
-
-### args
-
-- Type: `ArgsOrCalldata`
-
-The arguments to the function.
-
 ### address
 
-- Type: `0x${string}`
+- Type: `Address | undefined`
 
-The contract address.
+Account address.
 
-### abi
-
-- Type: `Abi`
-
-The contract abi.
-
-### parseArgs
+### useDefaultPfp
 
 - Type: `boolean | undefined`
 
-Parse arguments before calling the contract.
+Get Starknet ID default pfp url if no profile picture is set
 
-### parseResult
+### namingContract
 
-- Type: `boolean | undefined`
+- Type: `Address | undefined`
 
-Parse the return value from the contract.
+Naming contract to use.
 
-### blockIdentifier
+### identityContract
 
-- Type: `BlockNumber | undefined`
+- Type: `Address | undefined`
 
-Perform the query against the provided block, e.g. `BlockTag.latest`.
-
-### watch
-
-- Type: `boolean | undefined`
-
-If `true`, refetch the data at every block.
+Identity contract to use.
 
 ### enabled
 

@@ -1,0 +1,84 @@
+# useDisconnect
+
+Hook for disconnecting connected StarkNet wallet.
+
+## Usage
+
+```ts twoslash
+import { useDisconnect } from "@starknet-react/core";
+
+const { disconnect, error } = useDisconnect({});
+```
+
+## Returns
+
+### disconnect
+
+- Type: `() => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### disconnectAsync
+
+- Type: `() => Promise<void>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+- Type: `void | undefined`
+
+The resolved data.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `void | undefined`
+
+The variables passed to `disconnect` or `disconnectAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.

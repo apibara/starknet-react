@@ -1,16 +1,14 @@
-# useCall
+# useReadContract
 
-Perform a read-only contract call.
-
-This hook expects the arguments to be "compiled" call data, use [`useReadContract`](/docs/hooks/use-read-contract) if you'd like abi encoding and decoding to be automatically handled.
+Perform a read-only contract call with type safety.
 
 ## Usage
 
 ```ts twoslash
-import { useCall, useNetwork } from "@starknet-react/core";
+import { useReadContract, useNetwork } from "@starknet-react/core";
 
 const { chain } = useNetwork();
-const { data, error } = useCall({
+const { data, error } = useReadContract({
   abi: [
     {
       name: "symbol",
@@ -23,7 +21,7 @@ const { data, error } = useCall({
       ],
       state_mutability: "view",
     },
-  ],
+  ] as const,
   functionName: "symbol",
   address: chain.nativeCurrency.address,
   args: [],
@@ -32,9 +30,9 @@ const { data, error } = useCall({
 
 ## Data
 
-- Type: `Result`
+- Type: `unknown`
 
-The call `Result` type from `starknet`.
+The response from the contract. Type is inferred.
 
 ## Arguments
 
@@ -60,19 +58,7 @@ The contract address.
 
 - Type: `Abi`
 
-The contract abi.
-
-### parseArgs
-
-- Type: `boolean | undefined`
-
-Parse arguments before calling the contract.
-
-### parseResult
-
-- Type: `boolean | undefined`
-
-Parse the return value from the contract.
+The contract abi which needs to be a const for type safety
 
 ### blockIdentifier
 

@@ -3,8 +3,8 @@ import { defaultConnector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
 
 import { useAccount } from "./use-account";
-import { useConnect } from "./useConnect";
-import { useDisconnect } from "./useDisconnect";
+import { useConnect } from "./use-connect";
+import { useDisconnect } from "./use-disconnect";
 
 function useAccountWithConnect() {
   return {

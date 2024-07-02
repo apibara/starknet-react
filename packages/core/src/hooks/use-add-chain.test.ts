@@ -4,8 +4,8 @@ import { act, renderHook, waitFor } from "../../test/react";
 import { shortString } from "starknet";
 import { defaultConnector } from "../../test/devnet";
 import { UseAddChainArgs, useAddChain } from "./use-add-chain";
-import { useConnect } from "./useConnect";
-import { useDisconnect } from "./useDisconnect";
+import { useConnect } from "./use-connect";
+import { useDisconnect } from "./use-disconnect";
 
 // Reference: https://github.com/PhilippeR26/Starknet-WalletAccount/blob/main/doc/walletAPIspec.md#example--3
 const chainData: UseAddChainArgs = {

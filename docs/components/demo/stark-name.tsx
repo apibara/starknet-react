@@ -1,4 +1,4 @@
-import { useStarkName } from "@starknet-react/core";
+import { Address, useStarkName } from "@starknet-react/core";
 import { useState } from "react";
 import { DemoContainer } from "../starknet";
 
@@ -16,7 +16,7 @@ function StarkNameInner() {
   );
 
   const { data, isLoading, isError, error } = useStarkName({
-    address,
+    address: address as Address,
   });
 
   return (

@@ -1,0 +1,140 @@
+# useSignTypedData
+
+Hook which returns the signature of an EIP712 "like" message, made by the current account of the wallet.
+
+## Usage
+
+```ts twoslash
+import { useSignTypedData } from "@starknet-react/core";
+import { shortString } from "starknet";
+
+const { signTypedData, error } = useSignTypedData({
+  params: {
+    message: {
+      id: "0x0000004f000f",
+      from: "0x2c94f628d125cd0e86eaefea735ba24c262b9a441728f63e5776661829a4066",
+      amount: "400",
+      nameGamer: "Hector26",
+      endDate:
+        "0x27d32a3033df4277caa9e9396100b7ca8c66a4ef8ea5f6765b91a7c17f0109c",
+      itemsAuthorized: ["0x01", "0x03", "0x0a", "0x0e"],
+      chkFunction: "check_authorization",
+      rootList: [
+        {
+          address:
+            "0x69b49c2cc8b16e80e86bfc5b0614a59aa8c9b601569c7b80dde04d3f3151b79",
+          amount: "1554785",
+        },
+      ],
+    },
+    types: {
+      StarkNetDomain: [
+        { name: "name", type: "string" },
+        { name: "version", type: "string" },
+        { name: "chainId", type: "string" },
+      ],
+      Airdrop: [
+        { name: "address", type: "string" },
+        { name: "amount", type: "string" },
+      ],
+      Validate: [
+        { name: "id", type: "string" },
+        { name: "from", type: "string" },
+        { name: "amount", type: "string" },
+        { name: "nameGamer", type: "string" },
+        { name: "endDate", type: "string" },
+        { name: "itemsAuthorized", type: "string*" }, // array of string
+        { name: "chkFunction", type: "selector" }, // name of function
+        { name: "rootList", type: "merkletree", contains: "Airdrop" }, // root of a merkle tree
+      ],
+    },
+    primaryType: "Validate",
+    domain: {
+      name: "myDapp",
+      version: "1",
+      chainId: shortString.encodeShortString("SN_SEPOLIA"),
+    },
+  },
+});
+```
+
+## Arguments
+
+### params
+
+- Type: `TypedData`
+
+TypedData. This type is defined in the Starknet Types package.
+
+## Returns
+
+### signTypedData
+
+- Type: `(args?: TypedData) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### signTypedDataAsync
+
+- Type: `(args?: TypedData) => Promise<SIGNATURE>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+- Type: `SIGNATURE | undefined`
+
+The resolved data. This type is defined in the Starknet Types package.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `TypedData | undefined`
+
+The variables passed to `signTypedData` or `signTypedDataAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
