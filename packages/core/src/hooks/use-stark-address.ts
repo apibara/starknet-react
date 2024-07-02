@@ -30,17 +30,6 @@ export type UseStarkAddressResult = UseQueryResult<string, Error>;
  * It defaults to the starknetID contract but a different contract can be targetted by specifying its address
  * If stark name does not have an associated address, it will return "0x0"
  *
- * @example
- * This example shows how to get the address associated to a stark name
- * ```tsx
- * function Component() {
- *   const { data, isLoading, isError } = useAddressFromStarkName({ name: 'vitalik.stark' })
- *
- *   if (isLoading) return <span>Loading...</span>
- *   if (isError) return <span>Error fetching address...</span>
- *   return <span>address: {data}</span>
- * }
- * ```
  */
 export function useStarkAddress({
   name,

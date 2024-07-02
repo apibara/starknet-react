@@ -18,7 +18,7 @@ export * from "./use-provider";
 export * from "./use-read-contract";
 export * from "./use-send-transaction";
 export * from "./use-sign";
-export * from "./useStarkAddress";
+export * from "./use-stark-address";
 export * from "./useStarkName";
 export * from "./useStarkProfile";
 export * from "./useSwitchChain";
