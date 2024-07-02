@@ -11,7 +11,7 @@ import {
 
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 import { useContract } from "./use-contract";
-import { useInvalidateOnBlock } from "./useInvalidateOnBlock";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useNetwork } from "./useNetwork";
 
 const DEFAULT_FETCH_INTERVAL = 5_000;
