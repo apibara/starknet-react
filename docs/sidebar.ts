@@ -75,6 +75,10 @@ export const sidebar = {
           text: "useSwitchChain",
           link: "/docs/hooks/use-switch-chain",
         },
+        {
+          text: "useTransactionReceipt",
+          link: "/docs/hooks/use-transaction-receipt",
+        },
       ],
     },
   ],
