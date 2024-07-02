@@ -5,7 +5,7 @@ import { CallData, Provider, ProviderInterface, starknetId } from "starknet";
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { useNetwork } from "./use-network";
-import { useProvider } from "./useProvider";
+import { useProvider } from "./use-provider";
 
 export type UseStarkAddressProps = UseQueryProps<
   string,

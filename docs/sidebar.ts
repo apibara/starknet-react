@@ -49,6 +49,7 @@ export const sidebar = {
           link: "/docs/hooks/use-invalidate-on-block",
         },
         { text: "useNetwork", link: "/docs/hooks/use-network" },
+        { text: "useProvider", link: "/docs/hooks/use-provider" },
         { text: "useReadContract", link: "/docs/hooks/use-read-contract" },
       ],
     },

@@ -14,7 +14,7 @@ export * from "./use-estimate-fees";
 export * from "./use-explorer";
 export * from "./use-invalidate-on-block";
 export * from "./use-network";
-export * from "./useProvider";
+export * from "./use-provider";
 export * from "./use-read-contract";
 export * from "./useSendTransaction";
 export * from "./useSign";

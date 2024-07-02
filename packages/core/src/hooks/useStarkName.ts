@@ -11,7 +11,7 @@ import {
 import { UseQueryProps, UseQueryResult, useQuery } from "../query";
 
 import { useNetwork } from "./use-network";
-import { useProvider } from "./useProvider";
+import { useProvider } from "./use-provider";
 
 /** Arguments for `useStarkName` hook. */
 export type StarkNameArgs = UseQueryProps<
