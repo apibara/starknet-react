@@ -7,7 +7,7 @@ import {
   UseDeclareContractArgs,
   useDeclareContract,
 } from "./use-declare-contract";
-import { useDisconnect } from "./useDisconnect";
+import { useDisconnect } from "./use-disconnect";
 
 // TODO
 const params: UseDeclareContractArgs = {

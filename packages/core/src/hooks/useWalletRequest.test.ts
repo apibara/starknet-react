@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "../../test/react";
 
 import { defaultConnector } from "../../test/devnet";
 import { useConnect } from "./use-connect";
-import { useDisconnect } from "./useDisconnect";
+import { useDisconnect } from "./use-disconnect";
 import { useWalletRequest } from "./useWalletRequest";
 
 function useWalletRequestWithConnect() {
