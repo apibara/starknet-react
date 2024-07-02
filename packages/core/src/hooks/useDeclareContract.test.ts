@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { act, renderHook, waitFor } from "../../test/react";
 
 import { defaultConnector } from "../../test/devnet";
-import { useConnect } from "./useConnect";
+import { useConnect } from "./use-connect";
 import {
   UseDeclareContractArgs,
   useDeclareContract,
