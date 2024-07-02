@@ -67,6 +67,10 @@ export const sidebar = {
           text: "useStarkName",
           link: "/docs/hooks/use-stark-name",
         },
+        {
+          text: "useStarkProfile",
+          link: "/docs/hooks/use-stark-profile",
+        },
       ],
     },
   ],

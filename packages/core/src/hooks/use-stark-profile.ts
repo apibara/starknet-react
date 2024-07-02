@@ -29,13 +29,13 @@ export type StarkProfileArgs = UseQueryProps<
   /** Get Starknet ID default pfp url if no profile picture is set */
   useDefaultPfp?: boolean;
   /** Naming contract to use. */
-  namingContract?: string;
+  namingContract?: Address;
   /** Identity contract to use. */
-  identityContract?: string;
+  identityContract?: Address;
 };
 
 /** Value returned by `useStarkProfile` hook. */
-type GetStarkprofileResponse = {
+export type GetStarkprofileResponse = {
   name: string;
   /** Metadata url of the NFT set as profile picture. */
   profile?: string;
@@ -65,49 +65,6 @@ type Contract = StarknetTypedContract<typeof multicallABI>;
  * targetted by specifying their contract addresses
  * If address does not have a stark name, it will return "stark"
  *
- * @example
- * This example shows how to get the stark profile of an address using the default
- * Starknet.id contracts
- * ```tsx
- * function Component() {
- *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
- *   const { data, isLoading, isError } = useStarkProfile({ address })
- *
- *   if (isLoading) return <span>Loading...</span>
- *   if (isError) return <span>Error fetching stark profile...</span>
- *   return (
- *      <span>name: {data?.name}</span>
- *      <span>Profile picture metadata uri : {data?.profile}</span>
- *      <span>Profile picture uri : {data?.profilePicture}</span>
- *      <span>Discord id: {data?.discord}</span>
- *      <span>Twitter id: {data?.twitter}</span>
- *      <span>Github id: {data?.github}</span>
- *      <span>Proof of personhood verification: {data?.proofOfPersonhood}</span>
- *    )
- * }
- * ```
- *
- *  @example
- * This example shows how to get the stark profile of an address disabling useDefaultPfp and specifying a
- * different naming and identity contract addresses
- * ```tsx
- * function Component() {
- *   const address = '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3'
- *   const { data, isLoading, isError } = useStarkProfile({ address, useDefaultPfp: false, namingContract: '0x1234', identityContract: '0x5678' })
- *
- *   if (isLoading) return <span>Loading...</span>
- *   if (isError) return <span>Error fetching profile...</span>
- *   return (
- *      <span>name: {data?.name}</span>
- *      <span>Profile picture metadata uri : {data?.profile}</span>
- *      <span>Profile picture uri : {data?.profilePicture}</span>
- *      <span>Discord id: {data?.discord}</span>
- *      <span>Twitter id: {data?.twitter}</span>
- *      <span>Github id: {data?.github}</span>
- *      <span>Proof of personhood verification: {data?.proofOfPersonhood}</span>
- *    )
- * }
- * ```
  */
 export function useStarkProfile({
   address,

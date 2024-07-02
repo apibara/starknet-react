@@ -20,7 +20,7 @@ export * from "./use-send-transaction";
 export * from "./use-sign";
 export * from "./use-stark-address";
 export * from "./use-stark-name";
-export * from "./useStarkProfile";
+export * from "./use-stark-profile";
 export * from "./useSwitchChain";
 export * from "./useTransactionReceipt";
 export * from "./useWalletRequest";
