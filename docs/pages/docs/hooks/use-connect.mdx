@@ -1,0 +1,88 @@
+# useConnect
+
+Hook for connecting to a StarkNet wallet.
+
+## Usage
+
+```ts twoslash
+import { useConnect } from "@starknet-react/core";
+
+const { connect, error } = useConnect({});
+```
+
+## Arguments
+
+No arguments are required
+
+## Returns
+
+### connect
+
+- Type: `(args?: ConnectVariables) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### connectAsync
+
+- Type: `(args?: ConnectVariables) => Promise<void>`
+
+Send the request to the user and block until it receives a response.
+
+### data
+
+- Type: `boolean | undefined`
+
+The resolved data.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `ConnectVariables | undefined`
+
+The variables passed to `connect` or `connectAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
