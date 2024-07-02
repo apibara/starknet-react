@@ -15,14 +15,6 @@ export interface UseProviderResult {
  *
  * Use this hook to access the current provider object
  * implementing starknet.js `ProviderInterface`.
- *
- * @example
- * This example shows how to access the current provider.
- * ```tsx
- * function Component() {
- *   const { provider } = useProvider()
- * }
- * ```
  */
 export function useProvider(): UseProviderResult {
   const { provider } = useStarknet();
