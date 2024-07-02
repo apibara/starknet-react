@@ -5,7 +5,7 @@ import { constants } from "starknet";
 import { defaultConnector } from "../../test/devnet";
 import { useConnect } from "./use-connect";
 import { useDisconnect } from "./use-disconnect";
-import { useSwitchChain } from "./useSwitchChain";
+import { useSwitchChain } from "./use-switch-chain";
 
 function useSwitchChainWithConnect() {
   return {
