@@ -12,7 +12,7 @@ export function StarkName() {
 
 function StarkNameInner() {
   const [address, setAddress] = useState(
-    "0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732",
+    "0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf"
   );
 
   const { data, isLoading, isError, error } = useStarkName({
@@ -25,7 +25,7 @@ function StarkNameInner() {
       <div className="flex items-center gap-2">
         Address:{" "}
         <input
-          placeholder="0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732"
+          placeholder="0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf"
           className="rounded-md focus:outline-none placeholder:text-white/20 px-2 flex-grow"
           value={address}
           onChange={(e) => setAddress(e.target.value)}

@@ -12,7 +12,7 @@ export function StarkProfile() {
 
 function StarkProfileInner() {
   const [address, setAddress] = useState(
-    "0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3",
+    "0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf"
   );
 
   const { data, isLoading, isError, error } = useStarkProfile({
@@ -25,7 +25,7 @@ function StarkProfileInner() {
       <div className="flex items-center gap-2">
         Address:{" "}
         <input
-          placeholder="0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3"
+          placeholder="0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf"
           className="rounded-md focus:outline-none placeholder:text-white/20 px-2 flex-grow"
           value={address}
           onChange={(e) => setAddress(e.target.value)}

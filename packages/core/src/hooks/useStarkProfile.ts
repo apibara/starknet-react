@@ -124,7 +124,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address],
+    [enabled_, address]
   );
 
   const { refetchInterval, ...rest } = props;
@@ -209,15 +209,12 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(naming),
           selector: hardcoded(hash.getSelectorFromName("address_to_domain")),
-          calldata: [hardcoded(address)],
+          calldata: [hardcoded(address), hardcoded(0)],
         },
         {
           execution: staticExecution(),
           to: hardcoded(naming),
-          selector:
-            network === "mainnet"
-              ? hardcoded(hash.getSelectorFromName("domain_to_token_id"))
-              : hardcoded(hash.getSelectorFromName("domain_to_id")),
+          selector: hardcoded(hash.getSelectorFromName("domain_to_id")),
           calldata: [arrayReference(0, 0)],
         },
         {
@@ -280,7 +277,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data"),
+            hash.getSelectorFromName("get_extended_verifier_data")
           ),
           calldata: [
             reference(1, 0),
@@ -318,10 +315,12 @@ function queryFn({
 
       // extract nft_image from profile data
       const profilePicture = profile
-        ? await fetchImageUrl(profile)
+        ? profile.includes("base64")
+          ? parseBase64Image(profile)
+          : await fetchImageUrl(profile)
         : useDefaultPfp
-          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-          : undefined;
+        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+        : undefined;
 
       const res: GetStarkprofileResponse = {
         name,
@@ -368,6 +367,10 @@ const notEqual = (call: number, pos: number, value: number) => {
   return new CairoCustomEnum({
     IfNotEqual: cairo.tuple(call, pos, value),
   });
+};
+
+const parseBase64Image = (metadata: string): string => {
+  return JSON.parse(atob(metadata.split(",")[1].slice(0, -1))).image;
 };
 
 const fetchImageUrl = async (url: string): Promise<string> => {
