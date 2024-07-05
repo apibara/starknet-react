@@ -7,6 +7,8 @@
       "inputs": [
         "src/**/*.ts",
         "src/**/*.tsx",
+        "pages/**/*.mdx",
+        "components/**/*.tsx",
         "package.json",
         "tsconfig.json"
       ],
