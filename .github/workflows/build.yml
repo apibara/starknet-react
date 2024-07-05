@@ -27,7 +27,7 @@ jobs:
           node-version: 18
       - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 8.15.3
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Run check format
