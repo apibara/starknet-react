@@ -124,7 +124,7 @@ export function useStarkProfile({
 
   const enabled = useMemo(
     () => Boolean(enabled_ && address),
-    [enabled_, address]
+    [enabled_, address],
   );
 
   const { refetchInterval, ...rest } = props;
@@ -277,7 +277,7 @@ function queryFn({
           execution: staticExecution(),
           to: hardcoded(identity),
           selector: hardcoded(
-            hash.getSelectorFromName("get_extended_verifier_data")
+            hash.getSelectorFromName("get_extended_verifier_data"),
           ),
           calldata: [
             reference(1, 0),
@@ -319,8 +319,8 @@ function queryFn({
           ? parseBase64Image(profile)
           : await fetchImageUrl(profile)
         : useDefaultPfp
-        ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
-        : undefined;
+          ? `https://starknet.id/api/identicons/${data[1][0].toString()}`
+          : undefined;
 
       const res: GetStarkprofileResponse = {
         name,

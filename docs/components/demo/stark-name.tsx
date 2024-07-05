@@ -12,7 +12,7 @@ export function StarkName() {
 
 function StarkNameInner() {
   const [address, setAddress] = useState(
-    "0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf"
+    "0x0220756d68C9B120Fcfc539510Fc474359BeA9F8bc73e8af3A23A8276d571faf",
   );
 
   const { data, isLoading, isError, error } = useStarkName({
