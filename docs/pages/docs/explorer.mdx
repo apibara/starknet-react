@@ -1,0 +1,44 @@
+# Explorers
+
+The `StarknetConfig` provider accepts an optional `explorer` property to
+configure the block explorer used by the `useExplorer` hook.
+
+Starknet React ships with the following block explorers (in alphabetical order):
+
+ - Stark Compass
+ - Starkscan
+ - Viewblock
+ - Voyager
+
+## The `Explorer` interface
+
+The `Explorer` interface is used to generate links to the block explorer.
+It provides the following properties and methods.
+
+ - `name: string`: human-friendly explorer name.
+ - `block({ hash?: string, number?: number }): string`: link to the specified
+   block, either by hash or number.
+ - `transaction(hash: string): string`: link to the specified transaction.
+ - `contract(address: string): string`: link to the specified contract.
+ - `class(hash: string): string`: link to the specified class.
+
+## Explorer factory
+
+`StarknetConfig` expects an __explorer factory__, that is a function with the
+following signature:
+
+```ts twoslash
+import { type Chain } from "@starknet-react/chains";
+import { type Explorer } from "@starknet-react/core";
+
+type ExplorerFactory<T extends Explorer = Explorer> = (
+  chain: Chain,
+) => T | null;
+```
+
+Starknet React ships with the following explorer factories:
+
+ - `starkcompass`
+ - `starkscan`
+ - `viewblock`
+ - `voyager`

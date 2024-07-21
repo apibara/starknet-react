@@ -1,13 +1,18 @@
 # useConnect
 
-Hook for connecting to a StarkNet wallet.
+Hook for connecting to a Starknet wallet.
 
 ## Usage
 
 ```ts twoslash
 import { useConnect } from "@starknet-react/core";
 
-const { connect, error } = useConnect({});
+const {
+  connect,
+  connector,
+  connectors,
+  error,
+} = useConnect({});
 ```
 
 ## Arguments
@@ -16,23 +21,35 @@ No arguments are required
 
 ## Returns
 
+### connector
+
+ - Type: `Connector | undefined`
+
+The currently connected connector.
+
+### connectors
+
+ - Type: `Connector[]`
+
+List of supported connectors.
+
+### pendingConnector
+
+ - Type: `Connector | undefined`
+
+The pending connector, that is the connector that is being connected.
+
 ### connect
 
 - Type: `(args?: ConnectVariables) => void`
 
-Function to send the request to the user, optionally overriding the arguments to the hook.
+Request to connect to a new connector.
 
 ### connectAsync
 
 - Type: `(args?: ConnectVariables) => Promise<void>`
 
-Send the request to the user and block until it receives a response.
-
-### data
-
-- Type: `boolean | undefined`
-
-The resolved data.
+Request to connect the connector and block until it receives a response.
 
 ### error
 
