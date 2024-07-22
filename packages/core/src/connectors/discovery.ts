@@ -16,6 +16,8 @@ export type UseInjectedConnectorsProps = {
 export type UseInjectedConnectorsResult = {
   /** Connectors list. */
   connectors: Connector[];
+  /** Connectors installed by the user. */
+  installedConnectors: Connector[];
 };
 
 export function useInjectedConnectors({
@@ -42,7 +44,7 @@ export function useInjectedConnectors({
     });
   }, [injectedConnectors, recommended, includeRecommended, order]);
 
-  return { connectors };
+  return { connectors, installedConnectors: injectedConnectors };
 }
 
 function mergeConnectors(

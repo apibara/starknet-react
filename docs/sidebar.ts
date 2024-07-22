@@ -13,6 +13,18 @@ export const sidebar = {
           text: "Upgrading to V3",
           link: "/docs/upgrading-to-v3",
         },
+        {
+          text: "Connectors",
+          link: "/docs/connector",
+        },
+        {
+          text: "RPC Providers",
+          link: "/docs/rpc-provider",
+        },
+        {
+          text: "Explorers",
+          link: "/docs/explorer",
+        },
       ],
     },
     {
@@ -70,6 +82,10 @@ export const sidebar = {
         {
           text: "useExplorer",
           link: "/docs/hooks/use-explorer",
+        },
+        {
+          text: "useInjectedConnectors",
+          link: "/docs/hooks/use-injected-connectors",
         },
         {
           text: "useInvalidateOnBlock",

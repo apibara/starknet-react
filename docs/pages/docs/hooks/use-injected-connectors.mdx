@@ -1,0 +1,83 @@
+# useInjectedConnectors
+
+Hook for discovering injected connectors.
+
+## Usage
+
+```tsx twoslash
+import React from "react";
+import { sepolia, mainnet } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  publicProvider,
+  argent,
+  braavos,
+  useInjectedConnectors,
+} from "@starknet-react/core";
+
+export default function App(
+  { children }: { children: React.ReactNode }
+) {
+  const chains = [sepolia, mainnet];
+  const provider = publicProvider();
+  const { connectors } = useInjectedConnectors({
+    // Show these connectors if the user has no connector installed.
+    recommended: [argent(), braavos()],
+    // Hide recommended connectors if the user has any connector installed.
+    includeRecommended: "onlyIfNoConnectors",
+    // Randomize the order of the connectors.
+    order: "random",
+  });
+
+  return (
+    <StarknetConfig
+      chains={chains}
+      provider={provider}
+      connectors={connectors}
+    >
+      {children}
+    </StarknetConfig>
+  );
+}
+```
+
+## Arguments
+
+### recommended
+
+- Type: `Connector[]`
+
+List of recommended connectors.
+
+### includeRecommended
+
+- Type: `"always" | "onlyIfNoConnectors"`
+
+If `"always"`, the hook always returns the recommended connectors.
+If `"onlyIfNoConnectors"`, the recommended connectors are included only if
+no other connector is installed.
+
+### order
+
+- Type: `"random" | "alphabetical"`
+
+Control the order in which connectors are returned.
+If `"random"`, connectors are shuffled.
+If `"alphabetical"`, connectors are alphabetically sorted by their id.
+
+## Returns
+
+### connectors
+
+- Type: `Connector[]`
+
+Contains the list of available connectors, optionally merged with the
+recommended connectors.
+All connectors are unique and sorted.
+
+### installedConnectors
+
+- Type: `Connector[]`
+
+Contains the list of injected connectors installed by the user.
+All connectors are unique and sorted.
