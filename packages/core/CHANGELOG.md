@@ -1,5 +1,11 @@
 # @starknet-react/core
 
+## 2.9.0
+
+### Minor Changes
+
+- [#471](https://github.com/apibara/starknet-react/pull/471) [`574a6fa`](https://github.com/apibara/starknet-react/commit/574a6faf5ae9e872a0090496d6d5929bc988e86b) Thanks [@avimak](https://github.com/avimak)! - use mobile-connector when dApp is launched within an in-app mobile browser
+
 ## 2.8.3
 
 ### Patch Changes
