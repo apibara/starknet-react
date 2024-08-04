@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Connector } from "./base";
 import { injected } from "./helpers";
+import { withMobileConnector } from "~/connectors/mobile";
 
 export type UseInjectedConnectorsProps = {
   /** List of recommended connectors to display. */
@@ -42,7 +43,7 @@ export function useInjectedConnectors({
     });
   }, [injectedConnectors, recommended, includeRecommended, order]);
 
-  return { connectors };
+  return { connectors: withMobileConnector(connectors) };
 }
 
 function mergeConnectors(
