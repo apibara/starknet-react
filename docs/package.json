@@ -16,6 +16,7 @@
     "@starknet-react/core": "workspace:*",
     "react": "^18.2.0",
     "starknet": "6.9.0",
+    "starknetkit": "^2.2.16",
     "vocs": "1.0.0-alpha.53"
   },
   "devDependencies": {
