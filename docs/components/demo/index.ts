@@ -2,6 +2,7 @@ import { AddChain } from "./add-chain";
 import { ConnectWallet } from "./connect-wallet";
 import { DeclareContract } from "./declare-contract";
 import { EstimateFees } from "./estimate-fees";
+import { NonceForAddress } from "./nonce-for-address";
 import { ReadContract } from "./read-contract";
 import { SendTransaction } from "./send-transaction";
 import { SignTypedData } from "./sign-typed-data";
@@ -22,4 +23,5 @@ export default {
   AddChain,
   SignTypedData,
   DeclareContract,
+  NonceForAddress,
 };
