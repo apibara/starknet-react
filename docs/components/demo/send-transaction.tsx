@@ -34,7 +34,9 @@ function SendTransactionInner() {
     <div className="flex flex-col">
       {address ? (
         <div>
-          <button onClick={() => send()}>Send Transaction</button>
+          <button className="button" onClick={() => send()}>
+            Send Transaction
+          </button>
           {isError && <p>Error: {error?.message}</p>}
         </div>
       ) : (

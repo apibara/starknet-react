@@ -64,7 +64,6 @@ export function useAccount(): UseAccountResult {
       });
     }
 
-    const address = connectedAccount.address as Address;
     for (const connector of connectors) {
       if (!connector.available()) continue;
 
@@ -79,7 +78,7 @@ export function useAccount(): UseAccountResult {
           connector,
           chainId: await connector.chainId(),
           account: connectedAccount,
-          address,
+          address: connectedAccount.address as Address,
           status: "connected",
           isConnected: true,
           isConnecting: false,
@@ -95,7 +94,7 @@ export function useAccount(): UseAccountResult {
       connector: undefined,
       chainId: undefined,
       account: connectedAccount,
-      address,
+      address: connectedAccount.address as Address,
       status: "connected",
       isConnected: true,
       isConnecting: false,
