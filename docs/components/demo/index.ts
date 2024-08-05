@@ -9,6 +9,7 @@ import { SignTypedData } from "./sign-typed-data";
 import { StarkAddress } from "./stark-address";
 import { StarkName } from "./stark-name";
 import { StarkProfile } from "./stark-profile";
+import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
 
 export default {
@@ -24,4 +25,5 @@ export default {
   SignTypedData,
   DeclareContract,
   NonceForAddress,
+  StarknetKit,
 };
