@@ -153,6 +153,8 @@ function queryFn({
   network?: string;
 }) {
   return async () => {
+    throw new Error("Not implemented");
+    /*
     if (!address) throw new Error("address is required");
     if (!multicallContract) throw new Error("multicallContract is required");
     if (!network) throw new Error("network is required");
@@ -305,9 +307,11 @@ function queryFn({
     }
 
     throw new Error("Error while fetching data");
+    */
   };
 }
 
+/*
 const hardcoded = (arg: string | number) => {
   return new CairoCustomEnum({
     Hardcoded: arg,
@@ -359,6 +363,7 @@ const fetchImageUrl = async (url: string): Promise<string> => {
     return "Error fetching data";
   }
 };
+*/
 
 type StarknetIdContractTypes = {
   [network: string]: {
@@ -399,6 +404,7 @@ const StarknetIdcontracts: StarknetIdContractTypes = {
   },
 } as const;
 
+/*
 const executeMulticallWithFallback = async (
   contract: ContractInterface,
   functionName: string,
@@ -528,6 +534,8 @@ const getStarkProfileCalldata = (
 
   return { initialCalldata, fallbackCalldata };
 };
+
+*/
 
 const multicallABI = [
   {
