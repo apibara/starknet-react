@@ -44,3 +44,4 @@ out/
 next-env.d.ts
 demos/arcade-factory/target
 demos/demo-contracts/target
+.vercel

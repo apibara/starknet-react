@@ -1,5 +1,5 @@
-import { Chain } from "@starknet-react/chains";
-import { ProviderInterface } from "starknet";
+import type { Chain } from "@starknet-react/chains";
+import type { ProviderInterface } from "starknet";
 
 export type ChainProviderFactory<
   T extends ProviderInterface = ProviderInterface,

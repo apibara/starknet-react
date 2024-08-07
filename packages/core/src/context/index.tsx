@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StarknetProvider, StarknetProviderProps } from "./starknet";
+import { StarknetProvider, type StarknetProviderProps } from "./starknet";
 
 export { starknetChainId } from "./starknet";
 export { AccountProvider as OverrideAccount } from "./account";

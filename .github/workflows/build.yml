@@ -1,18 +1,24 @@
 name: Build
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 on:
   pull_request:
     branches:
       - main
+      - develop
   push:
     branches:
       - main
+      - develop
 
 jobs:
   test:
     services:
       devnet:
-        image: shardlabs/starknet-devnet:0.6.2-seed0
+        image: shardlabs/starknet-devnet-rs:0.0.6-seed0
         ports:
           - 5050:5050
     runs-on: ubuntu-latest
@@ -22,13 +28,21 @@ jobs:
       - name: Set Node version
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - uses: pnpm/action-setup@v2
         with:
           version: 8
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
+      - name: Run check format
+        run: pnpm format:check
+      - name: Run lint
+        run: pnpm lint
       - name: Run build
         run: pnpm build
       - name: Run test
-        run: pnpm test
+        run: pnpm test:ci
+      - name: Vercel whoami
+        run: echo "${{ env.VERCEL_ORG_ID }}" | wc -c
+      - name: Vercel whoami
+        run: echo "${{ env.VERCEL_TOKEN }}" | wc -c

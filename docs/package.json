@@ -1,0 +1,24 @@
+{
+  "name": "@starknet-react/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vocs dev",
+    "build": "vocs build",
+    "preview": "vocs preview",
+    "lint": "biome lint components",
+    "lint:fix": "biome lint components --apply",
+    "format:check": "biome format components",
+    "format": "biome format components --write"
+  },
+  "dependencies": {
+    "@starknet-react/chains": "workspace:*",
+    "@starknet-react/core": "workspace:*",
+    "react": "^18.2.0",
+    "starknet": "6.9.0",
+    "vocs": "1.0.0-alpha.53"
+  },
+  "devDependencies": {
+    "@starknet-react/typescript-config": "workspace:*"
+  }
+}

@@ -1,6 +1,7 @@
-import { Chain, goerli, mainnet, sepolia } from "@starknet-react/chains";
+import { type Chain, mainnet, sepolia } from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, {
+import type React from "react";
+import {
   createContext,
   useCallback,
   useContext,
@@ -8,15 +9,19 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { constants, AccountInterface, ProviderInterface } from "starknet";
+import {
+  constants,
+  type AccountInterface,
+  type ProviderInterface,
+} from "starknet";
 
-import { Connector } from "~/connectors";
-import { ConnectorData } from "~/connectors/base";
-import { ConnectorNotFoundError } from "~/errors";
-import { ChainProviderFactory } from "~/providers";
-import { ExplorerFactory } from "~/explorers/";
+import type { Connector } from "../connectors";
+import type { ConnectorData } from "../connectors/base";
+import { ConnectorNotFoundError } from "../errors";
+import type { ExplorerFactory } from "../explorers/";
+import type { ChainProviderFactory } from "../providers";
+
 import { AccountProvider } from "./account";
-import { withMobileConnector } from "~/connectors/mobile";
 
 const defaultQueryClient = new QueryClient();
 
@@ -116,7 +121,7 @@ function useStarknetManager({
   const [state, setState] = useState<StarknetManagerState>({
     currentChain: defaultChain,
     currentProvider: defaultProvider,
-    connectors: withMobileConnector(connectors),
+    connectors,
   });
 
   const updateChainAndProvider = useCallback(
@@ -137,7 +142,7 @@ function useStarknetManager({
         }
       }
     },
-    [setState, chains],
+    [chains, provider],
   );
 
   const handleConnectorChange = useCallback(
@@ -147,14 +152,16 @@ function useStarknetManager({
       }
 
       if (account && connectorRef.current) {
-        const account = await connectorRef.current.account();
+        const account = await connectorRef.current.account(
+          state.currentProvider,
+        );
         setState((state) => ({
           ...state,
           currentAccount: account,
         }));
       }
     },
-    [updateChainAndProvider, setState, connectorRef],
+    [updateChainAndProvider, state.currentProvider],
   );
 
   const connect = useCallback(
@@ -170,7 +177,7 @@ function useStarknetManager({
 
       try {
         const { chainId } = await connector.connect();
-        const account = await connector.account();
+        const account = await connector.account(state.currentProvider);
 
         if (account.address !== state.currentAccount?.address) {
           connectorRef.current = connector;
@@ -199,9 +206,8 @@ function useStarknetManager({
     },
     [
       autoConnect,
-      setState,
-      connectorRef,
       state.currentAccount,
+      state.currentProvider,
       handleConnectorChange,
       updateChainAndProvider,
     ],
@@ -226,15 +232,11 @@ function useStarknetManager({
       await connectorRef.current.disconnect();
     } catch {}
     connectorRef.current = undefined;
-  }, [
-    autoConnect,
-    setState,
-    connectorRef,
-    handleConnectorChange,
-    defaultProvider,
-    defaultChain,
-  ]);
+  }, [autoConnect, handleConnectorChange, defaultProvider, defaultChain]);
 
+  // Dependencies intentionally omitted since we only want
+  // this executed once.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: want to execute only once
   useEffect(() => {
     async function tryAutoConnect(connectors: Connector[]) {
       const lastConnectedConnectorId =
@@ -263,11 +265,8 @@ function useStarknetManager({
     }
 
     if (autoConnect && !connectorRef.current) {
-      tryAutoConnect(withMobileConnector(connectors));
+      tryAutoConnect(connectors);
     }
-    // Dependencies intentionally omitted since we only want
-    // this executed once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
@@ -346,8 +345,6 @@ export function starknetChainId(
   switch (chainId) {
     case mainnet.id:
       return constants.StarknetChainId.SN_MAIN;
-    case goerli.id:
-      return constants.StarknetChainId.SN_GOERLI;
     case sepolia.id:
       return constants.StarknetChainId.SN_SEPOLIA;
     default:

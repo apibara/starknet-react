@@ -1,0 +1,97 @@
+# useContract
+
+Get a contract.
+
+## Usage
+
+```ts twoslash
+import { useContract } from "@starknet-react/core";
+
+const testAddress =
+  "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+
+const abi = [
+  {
+    members: [
+      {
+        name: "low",
+        type: "felt",
+      },
+      {
+        name: "high",
+        type: "felt",
+      },
+    ],
+    name: "Uint256",
+    type: "struct",
+  },
+  {
+    inputs: [
+      {
+        name: "name",
+        type: "felt",
+      },
+      {
+        name: "symbol",
+        type: "felt",
+      },
+      {
+        name: "recipient",
+        type: "felt",
+      },
+    ],
+    name: "constructor",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        type: "felt",
+      },
+    ],
+    state_mutability: "view",
+    type: "function",
+  },
+] as const;
+
+const { contract } = useContract({
+  abi,
+  address: testAddress,
+});
+```
+
+## Data
+
+- Type: `StarknetTypedContract`
+
+Typed contract with `abi-wan-kanabi` types.
+
+## Arguments
+
+### address
+
+- Type: `0x${string}`
+
+The contract address.
+
+### abi
+
+- Type: `Abi`
+
+The contract abi.
+
+### provider
+
+- Type: `ProviderInterface | undefined`
+
+ProviderInterface is from starknet.js. by default it will be the current one
+
+## Returns
+
+### contract
+
+- Type: `StarknetTypedContract | undefined`
+
+Typed Contract

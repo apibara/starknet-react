@@ -8,5 +8,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./test/setup.ts",
+    typecheck: {
+      enabled: true,
+      ignoreSourceErrors: true,
+    },
   },
 });

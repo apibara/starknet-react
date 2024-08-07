@@ -1,4 +1,4 @@
-export type { Chain, NativeCurrency, Address, RpcUrls } from "./types";
+export type { Address, Chain, NativeCurrency, RpcUrls } from "./types";
 
-export { mainnet, goerli, sepolia } from "./starknet";
 export { devnet } from "./devnet";
+export { mainnet, sepolia } from "./starknet";

@@ -1,3 +1,5 @@
 packages:
-  - 'packages/*'
-  - 'website'
+  - "packages/chains"
+  - "packages/core"
+  - "packages/typescript-config"
+  - "docs"

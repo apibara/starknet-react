@@ -1,0 +1,133 @@
+# useStarkProfile
+
+Hook for fetching Stark profile for address.
+
+## Usage
+
+```ts twoslash
+import { useStarkProfile } from "@starknet-react/core";
+
+const { data, error } = useStarkProfile({
+  address: "0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732",
+});
+```
+
+## Data
+
+- Type: `GetStarkprofileResponse | undefined`
+
+Stark Profile associated to address
+
+## Arguments
+
+### address
+
+- Type: `Address | undefined`
+
+Account address.
+
+### useDefaultPfp
+
+- Type: `boolean | undefined`
+
+Get Starknet ID default pfp url if no profile picture is set
+
+### namingContract
+
+- Type: `Address | undefined`
+
+Naming contract to use.
+
+### identityContract
+
+- Type: `Address | undefined`
+
+Identity contract to use.
+
+### enabled
+
+- Type: `boolean | undefined`
+
+If `false`, don't perform the query.
+
+### refetchInterval
+
+- Type: `number | false | ((query: Query) => number | false | undefined)`
+
+If set to a number, the query is refetched at the provided interval (in milliseconds).
+
+If set to a function, the callback will be used to determine the refetch interval.
+
+## Returns
+
+### data
+
+- Type: `Data | undefined`
+
+The resolved data.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the query.
+
+### reset
+
+- Type: `() => void`
+
+Reset the query status.
+
+### status
+
+- Type: `"error" | "pending" | "success"`
+
+The mutation status.
+
+- `pending`: the query is being executed.
+- `success`: the query executed without an error.
+- `error`: the query threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### fetchStatus
+
+- Type: `"fetching" | "paused" | "idle"`
+
+- `fetching`: the query is fetching.
+- `paused`: the query is paused.
+- `idle`: the query is not fetching.
+
+### isFetching
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isPaused
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.

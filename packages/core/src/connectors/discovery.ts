@@ -1,9 +1,8 @@
 import type { StarknetWindowObject } from "get-starknet-core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Connector } from "./base";
+import type { Connector } from "./base";
 import { injected } from "./helpers";
-import { withMobileConnector } from "~/connectors/mobile";
 
 export type UseInjectedConnectorsProps = {
   /** List of recommended connectors to display. */
@@ -30,7 +29,7 @@ export function useInjectedConnectors({
     const wallets = scanObjectForWallets(window);
     const connectors = wallets.map((wallet) => injected({ id: wallet.id }));
     setInjectedConnectors(connectors);
-  }, [setInjectedConnectors]);
+  }, []);
 
   useEffect(() => {
     refreshConnectors();
@@ -43,7 +42,7 @@ export function useInjectedConnectors({
     });
   }, [injectedConnectors, recommended, includeRecommended, order]);
 
-  return { connectors: withMobileConnector(connectors) };
+  return { connectors };
 }
 
 function mergeConnectors(

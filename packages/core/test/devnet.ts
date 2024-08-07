@@ -1,46 +1,51 @@
 import { devnet } from "@starknet-react/chains";
-import { AccountInterface } from "starknet";
-import { Account, RpcProvider } from "starknet";
+import { Account, AccountInterface, RpcProvider } from "starknet";
 import { MockConnector } from "../src/connectors";
 
 const provider = new RpcProvider({ nodeUrl: devnet.rpcUrls.public.http[0] });
 
 export const tokenAddress =
-  "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+  "0x49D36570D4E46F48E99674BD3FCC84644DDD6B96F7C741B1562B82F9E004DC7";
 
 const devnetAccounts = [
   {
-    address: "0x5deccd84c24333d10f4ad34ff2b2dd891b9842cb05a86a401ef39de4974183",
-    privateKey: "0x5610de175f2eaf556b7d7808599f871c",
+    address:
+      "0x64b48806902a367c8598f4f95c305e8c1a1acba5f082d294a43793113115691",
+    privateKey: "0x71d7bb07b9a64f6f78ac4c816aff4da9",
   },
   {
     address:
-      "0x79d719ac68e56635121bf9317fae4f281e23b7ad95b6900ccafd2b9668b410f",
-    privateKey: "0xa2866149d7a34fba053b2c8682d98d55",
+      "0x78662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
+    privateKey: "0xe1406455b7d66b1690803be066cbe5e",
   },
   {
     address:
-      "0x61d688465fb5a35ab6c90ab552ece2557506d94c593f3c672b42b528bce4d76",
-    privateKey: "0xa86b50d6970c5d1b978275a2ebcd8641",
+      "0x49dfb8ce986e21d354ac93ea65e6a11f639c1934ea253e5ff14ca62eca0f38e",
+    privateKey: "0xa20a02f0ac53692d144b20cb371a60d7",
   },
   {
     address:
-      "0x573cb89bba93cf64b21ff62bb021dc25361c2288db93390fca2b531f5bd2011",
-    privateKey: "0xb104a2c90e395ba3ad9f168588405c4d",
+      "0x4f348398f859a55a0c80b1446c5fdc37edb3a8478a32f10764659fc241027d3",
+    privateKey: "0xa641611c17d4d92bd0790074e34beeb7",
   },
   {
-    address:
-      "0x4aa8370514e442bcb9463b35d13320fed700c429cd883e9aa8a5f757033cfb5",
-    privateKey: "0x51993b0c6aace18708226d8e50247d82",
+    address: "0xd513de92c16aa42418cf7e5b60f8022dbee1b4dfd81bcf03ebee079cfb5cb5",
+    privateKey: "0x5b4ac23628a5749277bcabbf4726b025",
   },
 ];
 
-function makeAccount({ address, privateKey }): AccountInterface {
+function makeAccount({
+  address,
+  privateKey,
+}: {
+  address: string;
+  privateKey: string;
+}): AccountInterface {
   return new Account(provider, address, privateKey);
 }
 
 export const accounts = {
-  goerli: [makeAccount(devnetAccounts[1]), makeAccount(devnetAccounts[3])],
+  sepolia: [makeAccount(devnetAccounts[1]), makeAccount(devnetAccounts[3])],
   mainnet: [makeAccount(devnetAccounts[0]), makeAccount(devnetAccounts[2])],
 };
 
@@ -49,6 +54,5 @@ export const defaultConnector = new MockConnector({
   options: {
     id: "mock",
     name: "Mock Connector",
-    icon: {},
   },
 });

@@ -1,8 +1,8 @@
-import { Chain } from "@starknet-react/chains";
-import { RpcProvider, RpcProviderOptions } from "starknet";
+import type { Chain } from "@starknet-react/chains";
+import { RpcProvider, type RpcProviderOptions } from "starknet";
 
-import { starknetChainId } from "~/context";
-import { ChainProviderFactory } from "./factory";
+import { starknetChainId } from "../context";
+import type { ChainProviderFactory } from "./factory";
 
 /** Arguments for `jsonRpcProvider`. */
 export type JsonRpcProviderArgs = {
@@ -13,7 +13,7 @@ export type JsonRpcProviderArgs = {
 export function jsonRpcProvider({
   rpc,
 }: JsonRpcProviderArgs): ChainProviderFactory<RpcProvider> {
-  return function (chain) {
+  return (chain) => {
     const config = rpc(chain);
     if (!config) return null;
     const chainId = starknetChainId(chain.id);

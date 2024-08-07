@@ -1,0 +1,25 @@
+# useNetwork
+
+Hook for accessing the current connected chain.
+
+## Usage
+
+```ts twoslash
+import { useNetwork } from "@starknet-react/core";
+
+const { chain, chains } = useNetwork();
+```
+
+## Returns
+
+### chain
+
+- Type: `Chain`
+
+The current chain.
+
+### chains
+
+- Type: `Chain[]`
+
+List of supported chains.

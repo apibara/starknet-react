@@ -1,0 +1,9 @@
+@layer vocs_preflight {
+  @tailwind base;
+}
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply bg-red-500 rounded px-2 py-1 text-white;
+}

@@ -1,13 +1,22 @@
-import { goerli, mainnet, sepolia } from "@starknet-react/chains";
-import { StarknetWindowObject } from "get-starknet-core";
-import { AccountInterface } from "starknet";
+import {
+  type AccountInterface,
+  type ProviderInterface,
+  type ProviderOptions,
+  WalletAccount,
+} from "starknet";
+import {
+  Permission,
+  type RequestFnCall,
+  type RpcMessage,
+  type RpcTypeToMessageMap,
+  type StarknetWindowObject,
+} from "starknet-types";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
-  UserNotConnectedError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector, ConnectorData, ConnectorIcons } from "./base";
+import { Connector, type ConnectorData, type ConnectorIcons } from "./base";
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
@@ -34,9 +43,10 @@ const walletIcons = {
   braavos:
     "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0zMjMuNDQgNDEuMzg4NkMzMjQuMTk4IDQyLjY3MjggMzIzLjE5NSA0NC4yNjAzIDMyMS43MDQgNDQuMjYwM0MyOTEuNTEgNDQuMjYwMyAyNjYuOTY1IDY4LjE2NTYgMjY2LjM4OSA5Ny44NzFDMjU2LjA1IDk1Ljk0MDcgMjQ1LjMzNyA5NS43OTU2IDIzNC43NTQgOTcuNTc4N0MyMzQuMDIzIDY4LjAwOSAyMDkuNTQgNDQuMjYwMyAxNzkuNDQ1IDQ0LjI2MDNDMTc3Ljk1MyA0NC4yNjAzIDE3Ni45NDkgNDIuNjcxNiAxNzcuNzA3IDQxLjM4NjVDMTkyLjMyMyAxNi42MzMgMjE5LjQ4MyAwIDI1MC41NzMgMEMyODEuNjY0IDAgMzA4LjgyNCAxNi42MzM5IDMyMy40NCA0MS4zODg2WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzIzMjRfNjE4NjkpIi8+CjxwYXRoIGQ9Ik00MTguNzU2IDIyNi44OTRDNDI2LjM3IDIyOS4yIDQzMy41ODEgMjIyLjUxNyA0MzEuMDM2IDIxNC45NzlDNDA0LjUwNyAxMzYuNDAxIDMxNi41MzUgMTA0LjM1OCAyNTAuMTU5IDEwNC4zNThDMTgzLjY3NCAxMDQuMzU4IDkzLjczOTEgMTM3LjQxOCA2OS4zMDUxIDIxNS4zMzFDNjYuOTU3NCAyMjIuODE4IDc0LjE0NjUgMjI5LjI3NSA4MS42NDc5IDIyNi45NzdMMjQ0LjI1IDE3Ny4xNTFDMjQ3LjU2OSAxNzYuMTM0IDI1MS4xMTYgMTc2LjEyOCAyNTQuNDM5IDE3Ny4xMzVMNDE4Ljc1NiAyMjYuODk0WiIgZmlsbD0idXJsKCNwYWludDFfbGluZWFyXzIzMjRfNjE4NjkpIi8+CjxwYXRoIGQ9Ik02OS43MTY1IDIzOS40MjZMMjQ0LjM3IDE4Ni40NTZDMjQ3LjY2OSAxODUuNDU2IDI1MS4xOTEgMTg1LjQ1MyAyNTQuNDkyIDE4Ni40NDhMNDMwLjIzMiAyMzkuNDUyQzQ0NC43NiAyNDMuODMzIDQ1NC43MDEgMjU3LjIxNiA0NTQuNzAxIDI3Mi4zOVY0MzAuNDgxQzQ1NC4wMjggNDY5LjA3IDQxOS4zNjIgNTAwIDM4MC43ODYgNTAwSDMxNi43MTJDMzEwLjM3OSA1MDAgMzA1LjI1IDQ5NC44NzcgMzA1LjI1IDQ4OC41NDNWNDMzLjExNUMzMDUuMjUgNDExLjI4OSAzMTguMTY3IDM5MS41MzUgMzM4LjE1NSAzODIuNzkyQzM2NC45NDkgMzcxLjA3MSAzOTYuNjQ2IDM1NS4yMTggNDAyLjYwOCAzMjMuNDA2QzQwNC41MzIgMzEzLjEzOCAzOTcuODM3IDMwMy4yMzQgMzg3LjU5NSAzMDEuMTk4QzM2MS42OTkgMjk2LjA1MSAzMzIuOTg5IDI5OC4wMzkgMzA4LjcxMSAzMDguODk4QzI4MS4xNSAzMjEuMjI1IDI3My45NCAzNDEuNzMxIDI3MS4yNzEgMzY5LjI3TDI2OC4wMzYgMzk4LjkzOEMyNjcuMDQ3IDQwOC4wMDUgMjU4LjU0NiA0MTQuOTUyIDI0OS40MjkgNDE0Ljk1MkMyMzkuOTk4IDQxNC45NTIgMjMyLjkyNiA0MDcuNzY5IDIzMS45MDMgMzk4LjM4OEwyMjguNzI4IDM2OS4yN0MyMjYuNDQyIDM0NS42ODEgMjIyLjI5OCAzMjIuNzY3IDE5Ny45MTIgMzExLjg2QzE3MC4wOTUgMjk5LjQxOSAxNDIuMTQxIDI5NS4yODcgMTEyLjQwNCAzMDEuMTk4QzEwMi4xNjIgMzAzLjIzNCA5NS40NjcgMzEzLjEzOCA5Ny4zOTEzIDMyMy40MDZDMTAzLjQwNSAzNTUuNDk1IDEzNC44NTQgMzcwLjk4NSAxNjEuODQ0IDM4Mi43OTJDMTgxLjgzMyAzOTEuNTM1IDE5NC43NSA0MTEuMjg5IDE5NC43NSA0MzMuMTE1VjQ4OC41MzNDMTk0Ljc1IDQ5NC44NjcgMTg5LjYyMiA1MDAgMTgzLjI4OSA1MDBIMTE5LjIxNEM4MC42Mzc0IDUwMCA0NS45NzE2IDQ2OS4wNyA0NS4yOTc5IDQzMC40ODFWMjcyLjM0OUM0NS4yOTc5IDI1Ny4xOTQgNTUuMjE0MiAyNDMuODI0IDY5LjcxNjUgMjM5LjQyNloiIGZpbGw9InVybCgjcGFpbnQyX2xpbmVhcl8yMzI0XzYxODY5KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzIzMjRfNjE4NjkiIHgxPSIyNDUuOTg2IiB5MT0iLTI3IiB4Mj0iNDI1LjQ5NiIgeTI9IjUwMi4zNzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Y1RDQ1RSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRjk2MDAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDFfbGluZWFyXzIzMjRfNjE4NjkiIHgxPSIyNDUuOTg2IiB5MT0iLTI3IiB4Mj0iNDI1LjQ5NiIgeTI9IjUwMi4zNzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Y1RDQ1RSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRjk2MDAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDJfbGluZWFyXzIzMjRfNjE4NjkiIHgxPSIyNDUuOTg2IiB5MT0iLTI3IiB4Mj0iNDI1LjQ5NiIgeTI9IjUwMi4zNzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Y1RDQ1RSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRjk2MDAiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
 };
+
 export class InjectedConnector extends Connector {
   private _wallet?: StarknetWindowObject;
-  private _options: InjectedConnectorOptions;
+  private readonly _options: InjectedConnectorOptions;
 
   constructor({ options }: { options: InjectedConnectorOptions }) {
     super();
@@ -48,22 +58,21 @@ export class InjectedConnector extends Connector {
   }
 
   get name(): string {
+    this.ensureWallet();
     return this._options.name ?? this._wallet?.name ?? this._options.id;
   }
 
   get icon(): ConnectorIcons {
-    let defaultIcon = {
+    this.ensureWallet();
+    const deafultIcon = {
       dark:
-        this._wallet?.icon ||
         walletIcons[this.id as keyof typeof walletIcons] ||
         WALLET_NOT_FOUND_ICON_DARK,
       light:
-        this._wallet?.icon ||
         walletIcons[this.id as keyof typeof walletIcons] ||
         WALLET_NOT_FOUND_ICON_LIGHT,
     };
-
-    return this._options.icon ?? defaultIcon;
+    return this._options.icon || this._wallet?.icon || deafultIcon;
   }
 
   available(): boolean {
@@ -73,21 +82,44 @@ export class InjectedConnector extends Connector {
 
   async chainId(): Promise<bigint> {
     this.ensureWallet();
+    const locked = await this.isLocked();
 
-    if (!this._wallet) {
+    if (!this._wallet || locked) {
       throw new ConnectorNotConnectedError();
     }
 
-    const chainIdHex = await this._wallet.provider.getChainId();
-    const chainId = BigInt(chainIdHex);
-    return chainId;
+    try {
+      const chainIdHex = await this.request({ type: "wallet_requestChainId" });
+      const chainId = BigInt(chainIdHex);
+      return chainId;
+    } catch {
+      throw new ConnectorNotFoundError();
+    }
   }
 
   async ready(): Promise<boolean> {
     this.ensureWallet();
 
     if (!this._wallet) return false;
-    return await this._wallet.isPreauthorized();
+
+    const permissions: Permission[] = await this.request({
+      type: "wallet_getPermissions",
+    });
+
+    return permissions?.includes(Permission.Accounts);
+  }
+
+  async account(
+    provider: ProviderOptions | ProviderInterface,
+  ): Promise<AccountInterface> {
+    this.ensureWallet();
+    const locked = await this.isLocked();
+
+    if (locked || !this._wallet) {
+      throw new ConnectorNotConnectedError();
+    }
+
+    return new WalletAccount(provider, this._wallet);
   }
 
   async connect(): Promise<ConnectorData> {
@@ -97,32 +129,32 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
-    let accounts;
+    let accounts: string[];
     try {
-      accounts = await this._wallet.enable({ starknetVersion: "v5" });
+      accounts = await this.request({
+        type: "wallet_requestAccounts",
+      });
     } catch {
-      // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
       throw new UserRejectedRequestError();
     }
 
-    if (!this._wallet.isConnected || !accounts) {
-      // NOTE: Argent v3.0.0 swallows the `.enable` call on reject, so this won't get hit.
+    if (!accounts) {
       throw new UserRejectedRequestError();
     }
 
-    this._wallet.on("accountsChanged", async (accounts: string[] | string) => {
+    this._wallet.on("accountsChanged", async (accounts) => {
       await this.onAccountsChanged(accounts);
     });
 
-    this._wallet.on("networkChanged", (network?: string) => {
-      this.onNetworkChanged(network);
+    this._wallet.on("networkChanged", (chainId, accounts) => {
+      this.onNetworkChanged(chainId, accounts);
     });
 
     await this.onAccountsChanged(accounts);
 
-    const account = this._wallet.account.address;
-    const chainId = await this.chainId();
+    const [account] = accounts;
 
+    const chainId = await this.chainId();
     this.emit("connect", { account, chainId });
 
     return {
@@ -134,118 +166,72 @@ export class InjectedConnector extends Connector {
   async disconnect(): Promise<void> {
     this.ensureWallet();
 
-    if (!this.available()) {
+    if (!this._wallet) {
       throw new ConnectorNotFoundError();
-    }
-
-    if (!this._wallet?.isConnected) {
-      throw new UserNotConnectedError();
     }
 
     this.emit("disconnect");
   }
 
-  async account(): Promise<AccountInterface> {
+  async request<T extends RpcMessage["type"]>(
+    call: RequestFnCall<T>,
+  ): Promise<RpcTypeToMessageMap[T]["result"]> {
     this.ensureWallet();
 
-    if (!this._wallet || !this._wallet.account) {
+    if (!this._wallet) {
       throw new ConnectorNotConnectedError();
     }
 
-    return this._wallet.account;
+    try {
+      return await this._wallet.request(call);
+    } catch {
+      throw new UserRejectedRequestError();
+    }
+  }
+
+  private async isLocked() {
+    const accounts = await this.request({
+      type: "wallet_requestAccounts",
+      params: { silent_mode: true },
+    });
+
+    return accounts.length === 0;
   }
 
   private ensureWallet() {
-    const installed = getAvailableWallets(globalThis);
-    const wallet = installed.filter((w) => w.id === this._options.id)[0];
+    // biome-ignore lint/suspicious/noExplicitAny: any
+    const global_object: Record<string, any> = globalThis;
+
+    const wallet: StarknetWindowObject =
+      global_object?.[`starknet_${this._options.id}`];
+
     if (wallet) {
       this._wallet = wallet;
     }
   }
 
-  private async onAccountsChanged(accounts: string[] | string): Promise<void> {
-    let account;
-    if (typeof accounts === "string") {
-      account = accounts;
-    } else {
-      account = accounts[0];
-    }
-
-    if (account) {
-      const chainId = await this.chainId();
-      this.emit("change", { account, chainId });
-    } else {
+  private async onAccountsChanged(accounts?: string[]): Promise<void> {
+    if (!accounts) {
       this.emit("disconnect");
-    }
-  }
+    } else {
+      const [account] = accounts;
 
-  private onNetworkChanged(network?: string): void {
-    switch (network) {
-      // Argent
-      case "SN_MAIN":
-        this.emit("change", { chainId: mainnet.id });
-        break;
-      case "SN_GOERLI":
-        this.emit("change", { chainId: goerli.id });
-        break;
-      case "SN_SEPOLIA":
-        this.emit("change", { chainId: sepolia.id });
-        break;
-      // Braavos
-      case "mainnet-alpha":
-        this.emit("change", { chainId: mainnet.id });
-        break;
-      case "goerli-alpha":
-        this.emit("change", { chainId: goerli.id });
-        break;
-      case "sepolia-alpha":
-        this.emit("change", { chainId: sepolia.id });
-        break;
-      default:
-        this.emit("change", {});
-        break;
-    }
-  }
-}
-
-// biome-ignore lint: window could contain anything
-function getAvailableWallets(obj: Record<string, any>): StarknetWindowObject[] {
-  return Object.values(
-    Object.getOwnPropertyNames(obj).reduce<
-      Record<string, StarknetWindowObject>
-    >((wallets, key) => {
-      if (key.startsWith("starknet")) {
-        const wallet = obj[key];
-
-        if (isWalletObject(wallet) && !wallets[wallet.id]) {
-          wallets[wallet.id] = wallet as StarknetWindowObject;
-        }
+      if (account) {
+        const chainId = await this.chainId();
+        this.emit("change", { account, chainId });
+      } else {
+        this.emit("disconnect");
       }
-      return wallets;
-    }, {}),
-  );
-}
+    }
+  }
 
-// biome-ignore lint: wallet could be anything
-function isWalletObject(wallet: any): boolean {
-  try {
-    return (
-      wallet &&
-      [
-        // wallet's must have methods/members, see IStarknetWindowObject
-        "request",
-        "isConnected",
-        "provider",
-        "enable",
-        "isPreauthorized",
-        "on",
-        "off",
-        "version",
-        "id",
-        "name",
-        "icon",
-      ].every((key) => key in wallet)
-    );
-  } catch (err) {}
-  return false;
+  private onNetworkChanged(chainIdHex?: string, accounts?: string[]): void {
+    if (chainIdHex) {
+      const chainId = BigInt(chainIdHex);
+      const [account] = accounts || [];
+      this.emit("change", { chainId, account });
+    } else {
+      this.emit("change", {});
+    }
+  }
 }

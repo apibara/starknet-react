@@ -1,0 +1,161 @@
+# useReadContract
+
+Perform a read-only contract call with type safety.
+
+## Usage
+
+```ts twoslash
+import { useReadContract, useNetwork } from "@starknet-react/core";
+
+const { chain } = useNetwork();
+const { data, error } = useReadContract({
+  abi: [
+    {
+      name: "symbol",
+      type: "function",
+      inputs: [],
+      outputs: [
+        {
+          type: "core::felt252",
+        },
+      ],
+      state_mutability: "view",
+    },
+  ] as const,
+  functionName: "symbol",
+  address: chain.nativeCurrency.address,
+  args: [],
+});
+```
+
+## Data
+
+- Type: `unknown`
+
+The response from the contract. Type is inferred.
+
+## Arguments
+
+### functionName
+
+- Type: `string`
+
+The contract function name.
+
+### args
+
+- Type: `ArgsOrCalldata`
+
+The arguments to the function.
+
+### address
+
+- Type: `0x${string}`
+
+The contract address.
+
+### abi
+
+- Type: `Abi`
+
+The contract abi which needs to be a const for type safety
+
+### blockIdentifier
+
+- Type: `BlockNumber | undefined`
+
+Perform the query against the provided block, e.g. `BlockTag.latest`.
+
+### watch
+
+- Type: `boolean | undefined`
+
+If `true`, refetch the data at every block.
+
+### enabled
+
+- Type: `boolean | undefined`
+
+If `false`, don't perform the query.
+
+### refetchInterval
+
+- Type: `number | false | ((query: Query) => number | false | undefined)`
+
+If set to a number, the query is refetched at the provided interval (in milliseconds).
+
+If set to a function, the callback will be used to determine the refetch interval.
+
+## Returns
+
+### data
+
+- Type: `Data | undefined`
+
+The resolved data.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the query.
+
+### reset
+
+- Type: `() => void`
+
+Reset the query status.
+
+### status
+
+- Type: `"error" | "pending" | "success"`
+
+The mutation status.
+
+- `pending`: the query is being executed.
+- `success`: the query executed without an error.
+- `error`: the query threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### fetchStatus
+
+- Type: `"fetching" | "paused" | "idle"`
+
+- `fetching`: the query is fetching.
+- `paused`: the query is paused.
+- `idle`: the query is not fetching.
+
+### isFetching
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isPaused
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.

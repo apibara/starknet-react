@@ -1,0 +1,8 @@
+{
+	"extends": "@starknet-react/typescript-config/react-library.json",
+	"compilerOptions": {
+    "noEmit": true
+	},
+	"include": ["components"]
+}
+

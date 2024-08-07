@@ -1,7 +1,7 @@
-import { Chain } from "./types";
+import type { Chain } from "./types";
 
 export const devnet = {
-  id: BigInt("0x534e5f474f45524c49"),
+  id: BigInt("0x534e5f5345504f4c4941"),
   network: "devnet",
   name: "Starknet Devnet",
   nativeCurrency: {

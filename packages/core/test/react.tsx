@@ -3,31 +3,45 @@ import { QueryClient } from "@tanstack/react-query";
 import {
   RenderHookOptions,
   RenderOptions,
+  RenderResult,
   render,
   renderHook,
 } from "@testing-library/react";
 import React from "react";
 
 import { StarknetConfig as OgStarknetConfig } from "../src/context";
-import { publicProvider } from "../src/providers";
+import { jsonRpcProvider } from "../src/providers";
 
+import { MockConnectorOptions } from "../src";
 import { defaultConnector } from "./devnet";
 
-function StarknetConfig({ children }: { children: React.ReactNode }) {
+function rpc() {
+  return {
+    nodeUrl: devnet.rpcUrls.public.http[0],
+  };
+}
+
+function StarknetConfig({
+  children,
+  connectorOptions,
+}: {
+  children: React.ReactNode;
+  connectorOptions?: Partial<MockConnectorOptions>;
+}) {
   const chains = [devnet, mainnet];
-  const provider = publicProvider();
+  const provider = jsonRpcProvider({ rpc });
   const connectors = [defaultConnector];
+
+  defaultConnector.options = {
+    ...defaultConnector.options,
+    ...connectorOptions,
+  };
 
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         retry: false,
       },
-    },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => {},
     },
   });
 
@@ -45,16 +59,37 @@ function StarknetConfig({ children }: { children: React.ReactNode }) {
 
 function customRender(
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
-) {
-  return render(ui, { wrapper: StarknetConfig, ...options });
+  options: Omit<RenderOptions, "wrapper"> & {
+    connectorOptions?: Partial<MockConnectorOptions>;
+  } = {},
+): RenderResult {
+  const { connectorOptions, ...renderOptions } = options;
+  return render(ui, {
+    wrapper: ({ children }) => (
+      <StarknetConfig connectorOptions={connectorOptions}>
+        {children}
+      </StarknetConfig>
+    ),
+    ...renderOptions,
+  });
 }
 
-function customRenderHook<Result, Props>(
-  render: (initialProps: Props) => Result,
-  options?: Omit<RenderHookOptions<Props>, "wrapper">,
+function customRenderHook<RenderResult, Props>(
+  render: (initialProps: Props) => RenderResult,
+  options: Omit<RenderHookOptions<Props>, "wrapper"> & {
+    connectorOptions?: Partial<MockConnectorOptions>;
+  } = {},
 ) {
-  return renderHook(render, { wrapper: StarknetConfig, ...options });
+  const { connectorOptions, hydrate, ...renderOptions } = options;
+  return renderHook(render, {
+    wrapper: ({ children }) => (
+      <StarknetConfig connectorOptions={connectorOptions}>
+        {children}
+      </StarknetConfig>
+    ),
+    hydrate: hydrate as false | undefined,
+    ...renderOptions,
+  });
 }
 
 export * from "@testing-library/react";
