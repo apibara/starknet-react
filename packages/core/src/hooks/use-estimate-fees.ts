@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import {
+import type {
   AccountInterface,
   Call,
   EstimateFeeDetails,
   EstimateFeeResponse,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { useAccount } from "./use-account";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";

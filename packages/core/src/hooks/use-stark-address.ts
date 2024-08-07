@@ -1,8 +1,13 @@
-import { Address } from "@starknet-react/chains";
+import type { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
-import { CallData, Provider, ProviderInterface, starknetId } from "starknet";
+import {
+  CallData,
+  Provider,
+  type ProviderInterface,
+  starknetId,
+} from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { useNetwork } from "./use-network";
 import { useProvider } from "./use-provider";

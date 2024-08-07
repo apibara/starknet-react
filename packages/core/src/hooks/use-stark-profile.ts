@@ -1,19 +1,19 @@
-import { Address } from "@starknet-react/chains";
+import type { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
   CairoCustomEnum,
   Provider,
-  ProviderInterface,
-  RawArgsArray,
+  type ProviderInterface,
+  type RawArgsArray,
   cairo,
   hash,
   shortString,
   starknetId,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
-import { StarknetTypedContract, useContract } from "./use-contract";
+import { type StarknetTypedContract, useContract } from "./use-contract";
 import { useNetwork } from "./use-network";
 import { useProvider } from "./use-provider";
 
@@ -272,7 +272,7 @@ function queryFn({
         data[3][0] !== BigInt(0) ? data[3][0].toString() : undefined;
       const discord =
         data[4][0] !== BigInt(0) ? data[4][0].toString() : undefined;
-      const proofOfPersonhood = data[5][0] === BigInt(1) ? true : false;
+      const proofOfPersonhood = data[5][0] === BigInt(1);
 
       const profile =
         data.length === 9
@@ -410,11 +410,7 @@ const executeMulticallWithFallback = async (
     return await contract.call(functionName, [initialCalldata]);
   } catch (initialError) {
     // If the initial call fails, try with the fallback calldata without the hint parameter
-    try {
-      return await contract.call(functionName, [fallbackCalldata]);
-    } catch (fallbackError) {
-      throw fallbackError; // Re-throw to handle outside
-    }
+    return await contract.call(functionName, [fallbackCalldata]);
   }
 };
 
@@ -427,8 +423,8 @@ const getStarkProfileCalldata = (
   initialCalldata: RawArgsArray;
   fallbackCalldata: RawArgsArray;
 } => {
-  let initialCalldata: RawArgsArray = [];
-  let fallbackCalldata: RawArgsArray = [];
+  const initialCalldata: RawArgsArray = [];
+  const fallbackCalldata: RawArgsArray = [];
 
   initialCalldata.push({
     execution: staticExecution(),

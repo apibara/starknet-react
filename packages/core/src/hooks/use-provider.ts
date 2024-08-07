@@ -1,4 +1,4 @@
-import { ProviderInterface } from "starknet";
+import type { ProviderInterface } from "starknet";
 
 import { useStarknet } from "../context/starknet";
 

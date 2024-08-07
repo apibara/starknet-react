@@ -1,10 +1,17 @@
-import { Address, Chain } from "@starknet-react/chains";
+import type { Address, Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
-import { BlockNumber, BlockTag, CallOptions, num, shortString } from "starknet";
+import {
+  type BlockNumber,
+  BlockTag,
+  type CallOptions,
+  num,
+  shortString,
+} from "starknet";
+import { formatUnits } from "viem";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
-import { StarknetTypedContract, useContract } from "./use-contract";
+import { type StarknetTypedContract, useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useNetwork } from "./use-network";
 
@@ -83,9 +90,9 @@ export function useBalance({
 
   return useQuery({
     enabled,
+    refetchInterval,
     queryKey: queryKey_,
     queryFn: queryFn({ chain, contract, token, address, blockIdentifier }),
-    enabled,
     ...props,
   });
 }

@@ -1,15 +1,15 @@
-import { Address, Chain } from "@starknet-react/chains";
+import type { Address, Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
 import {
-  Abi,
-  ArgsOrCalldata,
-  BlockNumber,
+  type Abi,
+  type ArgsOrCalldata,
+  type BlockNumber,
   BlockTag,
-  Contract,
-  Result,
+  type Contract,
+  type Result,
 } from "starknet";
 
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 import { useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useNetwork } from "./use-network";

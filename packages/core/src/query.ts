@@ -1,9 +1,9 @@
 import {
-  QueryKey,
-  UseMutationOptions as UseMutationOptions_,
-  UseMutationResult as UseMutationResult_,
-  UseQueryOptions as UseQueryOptions_,
-  UseQueryResult as UseQueryResult_,
+  type QueryKey,
+  type UseMutationOptions as UseMutationOptions_,
+  type UseMutationResult as UseMutationResult_,
+  type UseQueryOptions as UseQueryOptions_,
+  type UseQueryResult as UseQueryResult_,
   useMutation as useMutation_,
   useQuery as useQuery_,
 } from "@tanstack/react-query";

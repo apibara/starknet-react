@@ -1,10 +1,10 @@
-import { TypedData } from "starknet-types";
+import type { TypedData } from "starknet-types";
 
 import {
-  RequestArgs,
-  RequestResult,
-  UseWalletRequestProps,
-  UseWalletRequestResult,
+  type RequestArgs,
+  type RequestResult,
+  type UseWalletRequestProps,
+  type UseWalletRequestResult,
   useWalletRequest,
 } from "./use-wallet-request";
 

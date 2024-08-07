@@ -2,7 +2,7 @@ import { devnet, mainnet } from "@starknet-react/chains";
 import { describe, expect, it } from "vitest";
 import { accounts, defaultConnector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
-import { MockConnector } from "../connectors";
+import type { MockConnector } from "../connectors";
 
 import { useStarknet } from "./starknet";
 

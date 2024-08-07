@@ -1,8 +1,8 @@
-import { Chain } from "@starknet-react/chains";
-import { RpcProvider, RpcProviderOptions } from "starknet";
+import type { Chain } from "@starknet-react/chains";
+import { RpcProvider, type RpcProviderOptions } from "starknet";
 
 import { starknetChainId } from "../context";
-import { ChainProviderFactory } from "./factory";
+import type { ChainProviderFactory } from "./factory";
 
 /** Arguments for `jsonRpcProvider`. */
 export type JsonRpcProviderArgs = {

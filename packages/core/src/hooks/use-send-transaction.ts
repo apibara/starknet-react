@@ -1,10 +1,10 @@
-import { Call } from "starknet";
-import { Call as RequestCall } from "starknet-types";
+import type { Call } from "starknet";
+import type { Call as RequestCall } from "starknet-types";
 import {
-  RequestArgs,
-  RequestResult,
-  UseWalletRequestProps,
-  UseWalletRequestResult,
+  type RequestArgs,
+  type RequestResult,
+  type UseWalletRequestProps,
+  type UseWalletRequestResult,
   useWalletRequest,
 } from "./use-wallet-request";
 

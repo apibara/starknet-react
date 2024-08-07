@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { AccountInterface } from "starknet";
+import type { AccountInterface } from "starknet";
 
 const AccountContext = React.createContext<AccountInterface | undefined>(
   undefined,

@@ -1,12 +1,12 @@
 import {
-  BlockNumber,
+  type BlockNumber,
   BlockTag,
-  GetBlockResponse,
-  ProviderInterface,
+  type GetBlockResponse,
+  type ProviderInterface,
 } from "starknet";
 
 import { useStarknet } from "../context/starknet";
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 /** Arguments for `useBlock`. */
 export type UseBlockProps = UseQueryProps<

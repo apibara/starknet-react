@@ -1,5 +1,5 @@
-import { Chain } from "@starknet-react/chains";
-import { Explorer, ExplorerFactory } from "./explorer";
+import type { Chain } from "@starknet-react/chains";
+import type { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the StarkscanExplorer class that extends Explorer
 export class StarkscanExplorer implements Explorer {

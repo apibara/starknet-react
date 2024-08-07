@@ -1,6 +1,7 @@
-import { Chain, mainnet, sepolia } from "@starknet-react/chains";
+import { type Chain, mainnet, sepolia } from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, {
+import type React from "react";
+import {
   createContext,
   useCallback,
   useContext,
@@ -8,13 +9,17 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { constants, AccountInterface, ProviderInterface } from "starknet";
+import {
+  constants,
+  type AccountInterface,
+  type ProviderInterface,
+} from "starknet";
 
-import { Connector } from "../connectors";
-import { ConnectorData } from "../connectors/base";
+import type { Connector } from "../connectors";
+import type { ConnectorData } from "../connectors/base";
 import { ConnectorNotFoundError } from "../errors";
-import { ExplorerFactory } from "../explorers/";
-import { ChainProviderFactory } from "../providers";
+import type { ExplorerFactory } from "../explorers/";
+import type { ChainProviderFactory } from "../providers";
 
 import { AccountProvider } from "./account";
 import { withMobileConnector } from "~/connectors/mobile";

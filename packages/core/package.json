@@ -63,6 +63,7 @@
     "@tanstack/react-query": "^5.25.0",
     "eventemitter3": "^5.0.1",
     "starknet-types": "^0.7.2",
+    "viem": "^2.19.1",
     "zod": "^3.22.4"
   }
 }

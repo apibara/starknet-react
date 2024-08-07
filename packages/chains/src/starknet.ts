@@ -1,4 +1,4 @@
-import { Chain } from "./types";
+import type { Chain } from "./types";
 
 // Starknet chain ids are generated as follows:
 //

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Abi, CompiledContract, ContractFactory } from "starknet";
+import { type Abi, type CompiledContract, ContractFactory } from "starknet";
 
 import { useAccount } from "./use-account";
 

@@ -1,7 +1,7 @@
 import type { StarknetWindowObject } from "get-starknet-core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Connector } from "./base";
+import type { Connector } from "./base";
 import { injected } from "./helpers";
 import { withMobileConnector } from "~/connectors/mobile";
 

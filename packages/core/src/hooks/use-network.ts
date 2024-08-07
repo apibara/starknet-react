@@ -1,4 +1,4 @@
-import { Chain } from "@starknet-react/chains";
+import type { Chain } from "@starknet-react/chains";
 
 import { useStarknet } from "../context/starknet";
 

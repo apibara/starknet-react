@@ -1,4 +1,4 @@
-import { QueryKey, useQueryClient } from "@tanstack/react-query";
+import { type QueryKey, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 import { useBlockNumber } from "./use-block-number";

@@ -1,22 +1,22 @@
 import {
-  AccountInterface,
-  ProviderInterface,
-  ProviderOptions,
+  type AccountInterface,
+  type ProviderInterface,
+  type ProviderOptions,
   WalletAccount,
 } from "starknet";
 import {
   Permission,
-  RequestFnCall,
-  RpcMessage,
-  RpcTypeToMessageMap,
-  StarknetWindowObject,
+  type RequestFnCall,
+  type RpcMessage,
+  type RpcTypeToMessageMap,
+  type StarknetWindowObject,
 } from "starknet-types";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector, ConnectorData, ConnectorIcons } from "./base";
+import { Connector, type ConnectorData, type ConnectorIcons } from "./base";
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {

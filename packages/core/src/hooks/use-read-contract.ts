@@ -1,16 +1,16 @@
-import { Address } from "@starknet-react/chains";
-import {
+import type { Address } from "@starknet-react/chains";
+import type {
   Abi,
   ExtractAbiFunction,
   ExtractAbiFunctionNames,
   ExtractArgs,
   FunctionRet,
 } from "abi-wan-kanabi/dist/kanabi";
-import { BlockNumber } from "starknet";
+import type { BlockNumber } from "starknet";
 
-import { UseQueryProps, UseQueryResult } from "../query";
+import type { UseQueryProps, UseQueryResult } from "../query";
 
-import { CallQueryKey, UseCallProps, useCall } from "./use-call";
+import { type CallQueryKey, type UseCallProps, useCall } from "./use-call";
 
 type Result<
   TAbi extends Abi,

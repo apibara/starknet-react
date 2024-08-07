@@ -1,6 +1,10 @@
 import EventEmitter from "eventemitter3";
-import { AccountInterface, ProviderInterface, ProviderOptions } from "starknet";
-import {
+import type {
+  AccountInterface,
+  ProviderInterface,
+  ProviderOptions,
+} from "starknet";
+import type {
   RequestFnCall,
   RpcMessage,
   RpcTypeToMessageMap,

@@ -1,4 +1,4 @@
-import {
+import type {
   AccountInterface,
   BigNumberish,
   DeployContractResponse,
@@ -6,7 +6,11 @@ import {
   RawArgs,
 } from "starknet";
 
-import { UseMutationProps, UseMutationResult, useMutation } from "../query";
+import {
+  type UseMutationProps,
+  type UseMutationResult,
+  useMutation,
+} from "../query";
 
 import { useAccount } from "./use-account";
 

@@ -1,9 +1,12 @@
-import { Chain } from "@starknet-react/chains";
+import type { Chain } from "@starknet-react/chains";
 import { useMemo } from "react";
-import { GetTransactionReceiptResponse, ProviderInterface } from "starknet";
+import type {
+  GetTransactionReceiptResponse,
+  ProviderInterface,
+} from "starknet";
 
 import { useStarknet } from "../context/starknet";
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 

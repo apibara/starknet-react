@@ -1,8 +1,8 @@
-import { type Address } from "@starknet-react/chains";
+import type { Address } from "@starknet-react/chains";
 import { useCallback, useEffect, useState } from "react";
-import { AccountInterface } from "starknet";
+import type { AccountInterface } from "starknet";
 
-import { Connector } from "../connectors";
+import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
 
 import { useConnect } from "./use-connect";

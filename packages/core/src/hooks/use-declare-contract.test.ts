@@ -4,7 +4,7 @@ import { act, renderHook, waitFor } from "../../test/react";
 import { defaultConnector } from "../../test/devnet";
 import { useConnect } from "./use-connect";
 import {
-  UseDeclareContractArgs,
+  type UseDeclareContractArgs,
   useDeclareContract,
 } from "./use-declare-contract";
 import { useDisconnect } from "./use-disconnect";

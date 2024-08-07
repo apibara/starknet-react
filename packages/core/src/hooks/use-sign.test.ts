@@ -5,7 +5,7 @@ import { shortString } from "starknet";
 import { defaultConnector } from "../../test/devnet";
 import { useConnect } from "./use-connect";
 import { useDisconnect } from "./use-disconnect";
-import { UseSignTypedDataArgs, useSignTypedData } from "./use-sign";
+import { type UseSignTypedDataArgs, useSignTypedData } from "./use-sign";
 
 // Reference: https://github.com/PhilippeR26/Starknet-WalletAccount/blob/main/doc/walletAPIspec.md#example--9
 const typedData: UseSignTypedDataArgs = {

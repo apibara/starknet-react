@@ -1,6 +1,6 @@
-import { Address } from "@starknet-react/chains";
-import { Abi } from "abi-wan-kanabi";
-import {
+import type { Address } from "@starknet-react/chains";
+import type { Abi } from "abi-wan-kanabi";
+import type {
   ContractFunctions,
   ContractFunctionsPopulateTransaction,
   ExtractAbiFunction,
@@ -9,7 +9,12 @@ import {
   FunctionRet,
 } from "abi-wan-kanabi/dist/kanabi";
 import { useMemo } from "react";
-import { Call, CallOptions, Contract, ProviderInterface } from "starknet";
+import {
+  type Call,
+  type CallOptions,
+  Contract,
+  type ProviderInterface,
+} from "starknet";
 
 import { useStarknet } from "../context/starknet";
 

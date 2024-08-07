@@ -1,27 +1,27 @@
 import { devnet, mainnet } from "@starknet-react/chains";
-import {
+import type {
   AccountInterface,
   Call,
   ProviderInterface,
   ProviderOptions,
 } from "starknet";
 import {
-  AddDeclareTransactionParameters,
-  AddInvokeTransactionParameters,
-  Call as RequestCall,
+  type AddDeclareTransactionParameters,
+  type AddInvokeTransactionParameters,
   Permission,
-  RequestFnCall,
-  RpcMessage,
-  RpcTypeToMessageMap,
-  SwitchStarknetChainParameters,
-  TypedData,
+  type Call as RequestCall,
+  type RequestFnCall,
+  type RpcMessage,
+  type RpcTypeToMessageMap,
+  type SwitchStarknetChainParameters,
+  type TypedData,
 } from "starknet-types";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector, ConnectorData, ConnectorIcons } from "./base";
+import { Connector, type ConnectorData, type ConnectorIcons } from "./base";
 
 export type MockConnectorOptions = {
   /** The wallet id. */
