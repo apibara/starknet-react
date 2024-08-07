@@ -1,4 +1,8 @@
-import { UseAddChainArgs, useAccount, useAddChain } from "@starknet-react/core";
+import {
+  type UseAddChainArgs,
+  useAccount,
+  useAddChain,
+} from "@starknet-react/core";
 import { shortString } from "starknet";
 import { DemoContainer } from "../starknet";
 

@@ -1,4 +1,4 @@
-import { Connector } from "~/connectors/base";
+import type { Connector } from "~/connectors/base";
 import { braavos } from "~/connectors/helpers";
 
 export const isMobile = (): boolean => {

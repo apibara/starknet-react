@@ -1,5 +1,5 @@
 import {
-  UseDeclareContractArgs,
+  type UseDeclareContractArgs,
   useAccount,
   useDeclareContract,
 } from "@starknet-react/core";

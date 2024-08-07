@@ -1,4 +1,4 @@
-import { Address, useStarkProfile } from "@starknet-react/core";
+import { type Address, useStarkProfile } from "@starknet-react/core";
 import { useState } from "react";
 import { DemoContainer } from "../starknet";
 

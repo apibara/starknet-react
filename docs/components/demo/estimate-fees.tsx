@@ -1,5 +1,5 @@
 import {
-  Abi,
+  type Abi,
   useAccount,
   useContract,
   useEstimateFees,

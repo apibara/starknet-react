@@ -1,5 +1,5 @@
 import {
-  UseSignTypedDataArgs,
+  type UseSignTypedDataArgs,
   useAccount,
   useSignTypedData,
 } from "@starknet-react/core";

@@ -1,5 +1,5 @@
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
-import { type AccountInterface } from "starknet";
+import type { AccountInterface } from "starknet";
 
 export function WalletBar() {
   const { account } = useAccount();

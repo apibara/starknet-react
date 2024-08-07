@@ -4,7 +4,7 @@ import {
   useNetwork,
   useSendTransaction,
 } from "@starknet-react/core";
-import { Abi } from "starknet";
+import type { Abi } from "starknet";
 import { DemoContainer } from "../starknet";
 
 export function SendTransaction() {

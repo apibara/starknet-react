@@ -21,8 +21,8 @@ import { ConnectorNotFoundError } from "../errors";
 import type { ExplorerFactory } from "../explorers/";
 import type { ChainProviderFactory } from "../providers";
 
-import { AccountProvider } from "./account";
 import { withMobileConnector } from "~/connectors/mobile";
+import { AccountProvider } from "./account";
 
 const defaultQueryClient = new QueryClient();
 
