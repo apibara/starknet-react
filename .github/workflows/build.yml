@@ -1,8 +1,4 @@
 name: Build
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 on:
   pull_request:
@@ -42,7 +38,3 @@ jobs:
         run: pnpm build
       - name: Run test
         run: pnpm test:ci
-      - name: Vercel whoami
-        run: echo "${{ env.VERCEL_ORG_ID }}" | wc -c
-      - name: Vercel whoami
-        run: echo "${{ env.VERCEL_TOKEN }}" | wc -c
