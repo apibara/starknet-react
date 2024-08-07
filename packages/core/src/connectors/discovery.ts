@@ -1,7 +1,6 @@
 import type { StarknetWindowObject } from "get-starknet-core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { withMobileConnector } from "~/connectors/mobile";
 import type { Connector } from "./base";
 import { injected } from "./helpers";
 
@@ -43,7 +42,7 @@ export function useInjectedConnectors({
     });
   }, [injectedConnectors, recommended, includeRecommended, order]);
 
-  return { connectors: withMobileConnector(connectors) };
+  return { connectors };
 }
 
 function mergeConnectors(

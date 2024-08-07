@@ -21,7 +21,6 @@ import { ConnectorNotFoundError } from "../errors";
 import type { ExplorerFactory } from "../explorers/";
 import type { ChainProviderFactory } from "../providers";
 
-import { withMobileConnector } from "~/connectors/mobile";
 import { AccountProvider } from "./account";
 
 const defaultQueryClient = new QueryClient();
@@ -122,7 +121,7 @@ function useStarknetManager({
   const [state, setState] = useState<StarknetManagerState>({
     currentChain: defaultChain,
     currentProvider: defaultProvider,
-    connectors: withMobileConnector(connectors),
+    connectors,
   });
 
   const updateChainAndProvider = useCallback(
@@ -266,7 +265,7 @@ function useStarknetManager({
     }
 
     if (autoConnect && !connectorRef.current) {
-      tryAutoConnect(withMobileConnector(connectors));
+      tryAutoConnect(connectors);
     }
   }, []);
 
