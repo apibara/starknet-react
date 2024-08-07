@@ -16,7 +16,7 @@
     "@starknet-react/core": "workspace:*",
     "react": "^18.2.0",
     "starknet": "6.9.0",
-    "vocs": "1.0.0-alpha.52"
+    "vocs": "1.0.0-alpha.53"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*"

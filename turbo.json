@@ -1,12 +1,18 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "inputs": [
         "src/**/*.ts",
         "src/**/*.tsx",
+        "components/**/*.tsx",
+        "pages/**/*.mdx",
         "package.json",
         "tsconfig.json"
       ],
@@ -15,25 +21,29 @@
       ]
     },
     "dev": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test:ci": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test:typecheck": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
-    "lint": {
-    },
-    "lint:fix": {
-    },
-    "format:check": {
-    },
-    "format": {
-    },
+    "lint": {},
+    "lint:fix": {},
+    "format:check": {},
+    "format": {},
     "clean": {
       "dependsOn": []
     }
