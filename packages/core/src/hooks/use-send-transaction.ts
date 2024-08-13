@@ -1,5 +1,5 @@
-import type { Call } from "starknet";
-import type { Call as RequestCall } from "starknet-types";
+import { Call as RequestCall } from "@starknet-io/types-js";
+import { Call } from "starknet";
 import {
   type RequestArgs,
   type RequestResult,

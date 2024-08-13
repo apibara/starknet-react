@@ -33,7 +33,7 @@
   "peerDependencies": {
     "get-starknet-core": "^4.0.0-next.5",
     "react": "^18.0",
-    "starknet": "^6.9.0"
+    "starknet": "^6.12.1"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*",
@@ -45,17 +45,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^4.1.2",
-    "starknet": "^6.9.0",
+    "starknet": "^6.12.1",
     "tsup": "^8.0.2",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.2"
   },
   "dependencies": {
+    "@starknet-io/types-js": "^0.7.7",
     "@starknet-react/chains": "workspace:^",
     "@tanstack/react-query": "^5.25.0",
     "eventemitter3": "^5.0.1",
-    "starknet-types": "^0.7.2",
-    "viem": "^2.19.1",
     "zod": "^3.22.4"
   }
 }

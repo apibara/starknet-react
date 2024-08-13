@@ -25,7 +25,7 @@ export type UseBlockNumberResult = UseQueryResult<number | undefined, Error>;
  * Control if and how often data is refreshed with `refetchInterval`.
  */
 export function useBlockNumber({
-  blockIdentifier = BlockTag.latest,
+  blockIdentifier = BlockTag.LATEST,
   ...props
 }: UseBlockNumberProps = {}): UseBlockNumberResult {
   const { provider } = useStarknet();
