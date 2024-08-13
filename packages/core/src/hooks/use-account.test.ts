@@ -75,6 +75,7 @@ describe("useAccount", () => {
             "address": "0x78662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
             "cairoVersion": undefined,
             "channel": RpcChannel2 {
+              "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": undefined,
               "headers": {
