@@ -1,5 +1,5 @@
+import { RpcMessage, RpcTypeToMessageMap } from "@starknet-io/types-js";
 import { useCallback } from "react";
-import { RpcMessage, RpcTypeToMessageMap } from "starknet-types";
 
 import { Connector } from "../connectors/base";
 import { useStarknet } from "../context/starknet";

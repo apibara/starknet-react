@@ -39,11 +39,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       starknet:
-        specifier: 6.9.0
-        version: 6.9.0
+        specifier: ^6.12.1
+        version: 6.12.1
       starknetkit:
         specifier: ^2.2.16
-        version: 2.2.16(starknet@6.9.0)
+        version: 2.2.16(starknet@6.12.1)
       vocs:
         specifier: 1.0.0-alpha.52
         version: 1.0.0-alpha.52(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(rollup@4.18.0)(typescript@5.3.3)
@@ -66,6 +66,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@starknet-io/types-js':
+        specifier: ^0.7.7
+        version: 0.7.7
       '@starknet-react/chains':
         specifier: workspace:^
         version: link:../chains
@@ -78,9 +81,6 @@ importers:
       get-starknet-core:
         specifier: ^4.0.0-next.5
         version: 4.0.0-next.5
-      starknet-types:
-        specifier: ^0.7.2
-        version: 0.7.2
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -113,8 +113,8 @@ importers:
         specifier: ^4.1.2
         version: 4.4.1
       starknet:
-        specifier: ^6.9.0
-        version: 6.9.0
+        specifier: ^6.12.1
+        version: 6.12.1
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(typescript@5.3.3)
@@ -2437,7 +2437,6 @@ packages:
 
   /@starknet-io/types-js@0.7.7:
     resolution: {integrity: sha512-WLrpK7LIaIb8Ymxu6KF/6JkGW1sso988DweWu7p5QY/3y7waBIiPvzh27D9bX5KIJNRDyOoOVoHVEKYUYWZ/RQ==}
-    dev: false
 
   /@tanstack/query-core@5.25.0:
     resolution: {integrity: sha512-vlobHP64HTuSE68lWF1mEhwSRC5Q7gaT+a/m9S+ItuN+ruSOxe1rFnR9j0ACWQ314BPhBEVKfBQ6mHL0OWfdbQ==}
@@ -4442,18 +4441,19 @@ packages:
     resolution: {integrity: sha512-Gxc29eLs1fbn6LQ4jSU4vXjlwyZhF5HsGuMAa7gqBP4Rw4yxxltyDUuF5MBclFzDTXO+ACchGQoeela4DSfzdQ==}
     dev: false
 
-  /get-starknet-core@3.2.0(starknet@6.9.0):
+  /get-starknet-core@3.2.0(starknet@6.12.1):
     resolution: {integrity: sha512-SZhxtLlKoPKLZ2H3l9WIU7CiNmkL3qLWGksALmvZdAXa/9PykYfLtvIB5B8A2UZMpf2ojTZlWLfuo1KhgmVobA==}
     peerDependencies:
       starknet: ^5.18.0
     dependencies:
-      starknet: 6.9.0
+      starknet: 6.12.1
     dev: false
 
   /get-starknet-core@4.0.0-next.5:
     resolution: {integrity: sha512-zZ3i4E5UYF1f04fgkwfaVC0uj1pvdBlzsDqXEAfb4jc1WO4zM7rIm4XAUqdMwVSr4CBend5RM7U+zv166fBNYg==}
     dependencies:
       starknet-types: 0.7.2
+    dev: false
 
   /get-stream@6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
@@ -7417,9 +7417,10 @@ packages:
   /starknet-types@0.7.2:
     resolution: {integrity: sha512-r3JJ0rrK0g3FnVRGcFiLY+9YT5WZgxB4TKBfR44wYGevHtKEM6BM5B+Gn1eou1zV7xEAwz3GpmvLSQTUAzDhsw==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    dev: false
 
-  /starknet@6.9.0:
-    resolution: {integrity: sha512-8860J7sGUr5UO/BDl3pjCZNUs/vgUM75wVoI93iOYLbTGF0f6MvFZsMOd73tsPKjEcG8V5BTSx6I7seDhQ9osw==}
+  /starknet@6.12.1:
+    resolution: {integrity: sha512-LLjabmmkRsBOgg0UaJtkSBBEpqeM49vULWqk06xbdm2kefcTqPLeHN4uYcZ5EqMwoqibv8rGf3a2w6IwXexeSg==}
     dependencies:
       '@noble/curves': 1.4.0
       '@noble/hashes': 1.4.0
@@ -7427,17 +7428,16 @@ packages:
       '@scure/starknet': 1.0.0
       abi-wan-kanabi: 2.2.2
       fetch-cookie: 3.0.1
-      get-starknet-core: 4.0.0-next.5
       isomorphic-fetch: 3.0.0
       lossless-json: 4.0.1
       pako: 2.1.0
-      starknet-types-07: /starknet-types@0.7.2
+      starknet-types-07: /@starknet-io/types-js@0.7.7
       ts-mixer: 6.0.4
       url-join: 4.0.1
     transitivePeerDependencies:
       - encoding
 
-  /starknetkit@2.2.16(starknet@6.9.0):
+  /starknetkit@2.2.16(starknet@6.12.1):
     resolution: {integrity: sha512-xBJ+cKspMCVH39/qG71ZSaGA1pKHcmbdUClVvRbLijphN6JEDhs6nQeYaXCDWdndavQcASgav389tJMkK+TrAA==}
     peerDependencies:
       starknet: ^6.9.0
@@ -7452,9 +7452,9 @@ packages:
       detect-browser: 5.3.0
       eventemitter3: 5.0.1
       events: 3.3.0
-      get-starknet-coreV3: /get-starknet-core@3.2.0(starknet@6.9.0)
+      get-starknet-coreV3: /get-starknet-core@3.2.0(starknet@6.12.1)
       lodash-es: 4.17.21
-      starknet: 6.9.0
+      starknet: 6.12.1
       svelte-forms: 2.3.1
       trpc-browser: 1.4.2(@trpc/client@10.45.2)(@trpc/server@10.45.2)
     transitivePeerDependencies:

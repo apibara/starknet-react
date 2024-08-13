@@ -59,7 +59,7 @@ export function useCall({
   address,
   functionName,
   args,
-  blockIdentifier = BlockTag.latest,
+  blockIdentifier = BlockTag.LATEST,
   refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
@@ -89,7 +89,7 @@ export function useCall({
 
   const refetchInterval =
     refetchInterval_ ??
-    (blockIdentifier === BlockTag.pending && watch
+    (blockIdentifier === BlockTag.PENDING && watch
       ? DEFAULT_FETCH_INTERVAL
       : undefined);
 

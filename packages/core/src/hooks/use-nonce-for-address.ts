@@ -26,7 +26,7 @@ export type UseNonceForAddressResult = UseQueryResult<Nonce, Error>;
  */
 export function useNonceForAddress({
   address,
-  blockIdentifier = BlockTag.latest,
+  blockIdentifier = BlockTag.LATEST,
   ...props
 }: UseNonceForAddressProps): UseNonceForAddressResult {
   const { provider } = useStarknet();

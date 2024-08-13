@@ -46,7 +46,7 @@ export function useBalance({
   address,
   watch = false,
   enabled: enabled_ = true,
-  blockIdentifier = BlockTag.latest,
+  blockIdentifier = BlockTag.LATEST,
   ...props
 }: UseBalanceProps) {
   const { chain } = useNetwork();

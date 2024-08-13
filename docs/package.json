@@ -15,7 +15,7 @@
     "@starknet-react/chains": "workspace:*",
     "@starknet-react/core": "workspace:*",
     "react": "^18.2.0",
-    "starknet": "6.9.0",
+    "starknet": "^6.12.1",
     "starknetkit": "^2.2.16",
     "vocs": "1.0.0-alpha.52"
   },

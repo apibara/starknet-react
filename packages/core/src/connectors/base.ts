@@ -1,11 +1,11 @@
-import EventEmitter from "eventemitter3";
-import { AccountInterface, ProviderInterface, ProviderOptions } from "starknet";
 import {
   RequestFnCall,
   RpcMessage,
   RpcTypeToMessageMap,
   StarknetWindowObject,
-} from "starknet-types";
+} from "@starknet-io/types-js";
+import EventEmitter from "eventemitter3";
+import { AccountInterface, ProviderInterface, ProviderOptions } from "starknet";
 
 /** Connector icons, as base64 encoded svg. */
 export type ConnectorIcons = StarknetWindowObject["icon"];

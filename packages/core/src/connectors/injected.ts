@@ -1,16 +1,16 @@
 import {
-  AccountInterface,
-  ProviderInterface,
-  ProviderOptions,
-  WalletAccount,
-} from "starknet";
-import {
   Permission,
   RequestFnCall,
   RpcMessage,
   RpcTypeToMessageMap,
   StarknetWindowObject,
-} from "starknet-types";
+} from "@starknet-io/types-js";
+import {
+  AccountInterface,
+  ProviderInterface,
+  ProviderOptions,
+  WalletAccount,
+} from "starknet";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
@@ -106,7 +106,7 @@ export class InjectedConnector extends Connector {
       type: "wallet_getPermissions",
     });
 
-    return permissions?.includes(Permission.Accounts);
+    return permissions?.includes(Permission.ACCOUNTS);
   }
 
   async account(

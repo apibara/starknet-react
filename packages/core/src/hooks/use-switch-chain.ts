@@ -1,4 +1,4 @@
-import { SwitchStarknetChainParameters } from "starknet-types";
+import { SwitchStarknetChainParameters } from "@starknet-io/types-js";
 
 import {
   RequestArgs,

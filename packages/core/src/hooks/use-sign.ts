@@ -1,4 +1,4 @@
-import { TypedData } from "starknet-types";
+import { TypedData } from "@starknet-io/types-js";
 
 import {
   RequestArgs,
