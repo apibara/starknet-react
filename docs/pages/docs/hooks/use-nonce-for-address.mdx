@@ -1,76 +1,41 @@
-# useReadContract
+# useNonceForAddress
 
-Perform a read-only contract call with type safety.
+Returns the nonce associated with the given address in the given block
+
+By default this hook fetches the latest block, but you can change it with the `blockIdentifier` argument.
 
 ## Usage
 
 ```ts twoslash
-import { useReadContract, useNetwork } from "@starknet-react/core";
+import { useNonceForAddress, useAccount } from "@starknet-react/core";
+import { type Address } from "@starknet-react/chains";
 
-const { chain } = useNetwork();
-const { data, error } = useReadContract({
-  abi: [
-    {
-      name: "symbol",
-      type: "function",
-      inputs: [],
-      outputs: [
-        {
-          type: "core::felt252",
-        },
-      ],
-      state_mutability: "view",
-    },
-  ] as const,
-  functionName: "symbol",
-  address: chain.nativeCurrency.address,
-  args: [],
+const { account } = useAccount();
+
+const { data, isLoading, isError, error } = useNonceForAddress({
+  address: account?.address as Address,
 });
 ```
 
 ## Data
 
-- Type: `unknown`
+- Type: `Nonce`
 
-The response from the contract. Type is inferred.
+The Nonce type from `starknet`.
 
 ## Arguments
 
-### functionName
-
-- Type: `string`
-
-The contract function name.
-
-### args
-
-- Type: `ArgsOrCalldata`
-
-The arguments to the function.
-
 ### address
 
-- Type: `0x${string}`
+- Type: `Address`
 
-The contract address.
-
-### abi
-
-- Type: `Abi`
-
-The contract abi which needs to be a const for type safety
+Contract address.
 
 ### blockIdentifier
 
 - Type: `BlockNumber | undefined`
 
 Perform the query against the provided block, e.g. `BlockTag.LATEST`.
-
-### watch
-
-- Type: `boolean | undefined`
-
-If `true`, refetch the data at every block.
 
 ### enabled
 

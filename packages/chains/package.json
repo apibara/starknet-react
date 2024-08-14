@@ -24,7 +24,7 @@
     "build": "tsup",
     "clean": "rimraf dist",
     "lint": "biome check src",
-    "lint:fix": "pnpm lint --apply",
+    "lint:fix": "pnpm lint --write",
     "format:check": "biome format .",
     "format": "biome format . --write"
   },

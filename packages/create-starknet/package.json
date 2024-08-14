@@ -7,7 +7,7 @@
     "build": "tsup --publicDir",
     "start": "pnpm run build && node dist/index.js",
     "lint": "biome check .",
-    "lint:fix": "pnpm lint --apply",
+    "lint:fix": "pnpm lint --write",
     "format": "biome format . --write"
   },
   "bin": {

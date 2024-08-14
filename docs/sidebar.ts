@@ -80,6 +80,10 @@ export const sidebar = {
           link: "/docs/hooks/use-network",
         },
         {
+          text: "useNonceForAddress",
+          link: "/docs/hooks/use-nonce-for-address",
+        },
+        {
           text: "useProvider",
           link: "/docs/hooks/use-provider",
         },

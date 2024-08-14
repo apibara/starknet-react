@@ -56,7 +56,7 @@ export function useBalance({
   refetchInterval: refetchInterval_,
   watch = false,
   enabled: enabled_ = true,
-  blockIdentifier = BlockTag.latest,
+  blockIdentifier = BlockTag.LATEST,
   ...props
 }: UseBalanceProps) {
   const { chain } = useNetwork();
@@ -79,7 +79,7 @@ export function useBalance({
 
   const refetchInterval =
     refetchInterval_ ??
-    (blockIdentifier === BlockTag.pending && watch
+    (blockIdentifier === BlockTag.PENDING && watch
       ? DEFAULT_FETCH_INTERVAL
       : undefined);
 

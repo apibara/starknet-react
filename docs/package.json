@@ -7,7 +7,7 @@
     "build": "vocs build",
     "preview": "vocs preview",
     "lint": "biome lint components",
-    "lint:fix": "biome lint components --apply",
+    "lint:fix": "biome lint components --write",
     "format:check": "biome format components",
     "format": "biome format components --write"
   },
@@ -15,7 +15,8 @@
     "@starknet-react/chains": "workspace:*",
     "@starknet-react/core": "workspace:*",
     "react": "^18.2.0",
-    "starknet": "6.9.0",
+    "starknet": "^6.12.1",
+    "starknetkit": "^2.2.16",
     "vocs": "1.0.0-alpha.53"
   },
   "devDependencies": {

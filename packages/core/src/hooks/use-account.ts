@@ -6,7 +6,6 @@ import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
 
 import { useConnect } from "./use-connect";
-import { useProvider } from "./use-provider";
 
 /** Account connection status. */
 export type AccountStatus =
@@ -48,7 +47,6 @@ export type UseAccountResult = {
 export function useAccount(): UseAccountResult {
   const { account: connectedAccount } = useStarknetAccount();
   const { connectors } = useConnect();
-  const { provider } = useProvider();
   const [state, setState] = useState<UseAccountResult>({
     status: "disconnected",
   });
@@ -64,22 +62,24 @@ export function useAccount(): UseAccountResult {
       });
     }
 
-    const address = connectedAccount.address as Address;
     for (const connector of connectors) {
       if (!connector.available()) continue;
 
-      // If the connector is not authorized, `.account()` will throw.
-      let connAccount: AccountInterface | undefined;
+      // If the account is connected, we get the address
+      let connAccount: string[] | undefined;
       try {
-        connAccount = await connector.account(provider);
+        connAccount = await connector.request({
+          type: "wallet_requestAccounts",
+          params: { silent_mode: true },
+        });
       } catch {}
 
-      if (connAccount && connAccount?.address === connectedAccount.address) {
+      if (connAccount?.[0] === connectedAccount.address) {
         return setState({
           connector,
           chainId: await connector.chainId(),
           account: connectedAccount,
-          address,
+          address: connectedAccount.address as Address,
           status: "connected",
           isConnected: true,
           isConnecting: false,
@@ -95,14 +95,14 @@ export function useAccount(): UseAccountResult {
       connector: undefined,
       chainId: undefined,
       account: connectedAccount,
-      address,
+      address: connectedAccount.address as Address,
       status: "connected",
       isConnected: true,
       isConnecting: false,
       isDisconnected: false,
       isReconnecting: false,
     });
-  }, [connectedAccount, connectors, provider]);
+  }, [connectedAccount, connectors]);
 
   useEffect(() => {
     refreshState();

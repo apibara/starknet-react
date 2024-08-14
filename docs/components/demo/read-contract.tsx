@@ -29,7 +29,7 @@ export function ReadContractInner() {
     args: [],
     watch: true,
     blockIdentifier:
-      blockIdentifier === "latest" ? BlockTag.latest : BlockTag.pending,
+      blockIdentifier === "latest" ? BlockTag.LATEST : BlockTag.PENDING,
   });
 
   // Cast bigint into string to avoid "TypeError: Do not know how to serialize a BigInt"

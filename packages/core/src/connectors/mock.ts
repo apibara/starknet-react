@@ -1,10 +1,3 @@
-import { devnet, mainnet } from "@starknet-react/chains";
-import type {
-  AccountInterface,
-  Call,
-  ProviderInterface,
-  ProviderOptions,
-} from "starknet";
 import {
   type AddDeclareTransactionParameters,
   type AddInvokeTransactionParameters,
@@ -15,7 +8,14 @@ import {
   type RpcTypeToMessageMap,
   type SwitchStarknetChainParameters,
   type TypedData,
-} from "starknet-types";
+} from "@starknet-io/types-js";
+import { devnet, mainnet } from "@starknet-react/chains";
+import type {
+  AccountInterface,
+  Call,
+  ProviderInterface,
+  ProviderOptions,
+} from "starknet";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
@@ -117,7 +117,7 @@ export class MockConnector extends Connector {
     const permissions: Permission[] = await this.request({
       type: "wallet_getPermissions",
     });
-    if (!permissions?.includes(Permission.Accounts)) {
+    if (!permissions?.includes(Permission.ACCOUNTS)) {
       return false;
     }
 
@@ -166,7 +166,7 @@ export class MockConnector extends Connector {
       case "wallet_requestChainId":
         return this._chainId.toString();
       case "wallet_getPermissions":
-        if (this._connected) return [Permission.Accounts];
+        if (this._connected) return [Permission.ACCOUNTS];
         return [];
       case "wallet_requestAccounts":
         return [this._account.address];
