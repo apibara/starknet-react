@@ -1,9 +1,14 @@
-import { Address } from "@starknet-react/chains";
+import type { Address } from "@starknet-react/chains";
 
-import { BlockNumber, BlockTag, Nonce, ProviderInterface } from "starknet";
+import {
+  type BlockNumber,
+  BlockTag,
+  type Nonce,
+  type ProviderInterface,
+} from "starknet";
 
 import { useStarknet } from "../context/starknet";
-import { UseQueryProps, UseQueryResult, useQuery } from "../query";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 /** Arguments for `useNonceForAddress`. */
 export type UseNonceForAddressProps = UseQueryProps<

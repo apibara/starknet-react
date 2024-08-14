@@ -1,14 +1,14 @@
 import {
   Permission,
-  RequestFnCall,
-  RpcMessage,
-  RpcTypeToMessageMap,
-  StarknetWindowObject,
+  type RequestFnCall,
+  type RpcMessage,
+  type RpcTypeToMessageMap,
+  type StarknetWindowObject,
 } from "@starknet-io/types-js";
 import {
-  AccountInterface,
-  ProviderInterface,
-  ProviderOptions,
+  type AccountInterface,
+  type ProviderInterface,
+  type ProviderOptions,
   WalletAccount,
 } from "starknet";
 import {

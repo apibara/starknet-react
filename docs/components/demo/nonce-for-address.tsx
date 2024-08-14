@@ -1,4 +1,8 @@
-import { Address, useAccount, useNonceForAddress } from "@starknet-react/core";
+import {
+  type Address,
+  useAccount,
+  useNonceForAddress,
+} from "@starknet-react/core";
 import { DemoContainer } from "../starknet";
 
 export function NonceForAddress() {

@@ -79,7 +79,7 @@ export function useBalance({
 
   const refetchInterval =
     refetchInterval_ ??
-    (blockIdentifier === BlockTag.pending && watch
+    (blockIdentifier === BlockTag.PENDING && watch
       ? DEFAULT_FETCH_INTERVAL
       : undefined);
 

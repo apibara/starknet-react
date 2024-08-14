@@ -1,5 +1,5 @@
 import {
-  Connector,
+  type Connector,
   useAccount,
   useConnect,
   useContract,
@@ -7,8 +7,11 @@ import {
   useSendTransaction,
 } from "@starknet-react/core";
 import { DemoContainer } from "../starknet";
-import { StarknetkitConnector, useStarknetkitConnectModal } from "starknetkit";
-import { Abi } from "starknet";
+import {
+  type StarknetkitConnector,
+  useStarknetkitConnectModal,
+} from "starknetkit";
+import type { Abi } from "starknet";
 
 export function StarknetKit() {
   return (

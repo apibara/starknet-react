@@ -1,4 +1,4 @@
-import { AddDeclareTransactionParameters } from "@starknet-io/types-js";
+import type { AddDeclareTransactionParameters } from "@starknet-io/types-js";
 
 import {
   type RequestArgs,

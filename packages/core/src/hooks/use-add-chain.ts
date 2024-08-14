@@ -1,4 +1,4 @@
-import { AddStarknetChainParameters } from "@starknet-io/types-js";
+import type { AddStarknetChainParameters } from "@starknet-io/types-js";
 
 import {
   type RequestArgs,

@@ -26,7 +26,7 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "lint": "biome check src",
-    "lint:fix": "pnpm lint --apply",
+    "lint:fix": "pnpm lint --write",
     "format:check": "biome format .",
     "format": "biome format . --write"
   },
@@ -55,6 +55,7 @@
     "@starknet-react/chains": "workspace:^",
     "@tanstack/react-query": "^5.25.0",
     "eventemitter3": "^5.0.1",
+    "viem": "^2.19.1",
     "zod": "^3.22.4"
   }
 }

@@ -2,14 +2,15 @@ import {
   type AddDeclareTransactionParameters,
   type AddInvokeTransactionParameters,
   Permission,
-  RequestFnCall,
-  RpcMessage,
-  RpcTypeToMessageMap,
-  SwitchStarknetChainParameters,
-  TypedData,
+  type Call as RequestCall,
+  type RequestFnCall,
+  type RpcMessage,
+  type RpcTypeToMessageMap,
+  type SwitchStarknetChainParameters,
+  type TypedData,
 } from "@starknet-io/types-js";
 import { devnet, mainnet } from "@starknet-react/chains";
-import {
+import type {
   AccountInterface,
   Call,
   ProviderInterface,

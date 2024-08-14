@@ -7,7 +7,7 @@
     "build": "vocs build",
     "preview": "vocs preview",
     "lint": "biome lint components",
-    "lint:fix": "biome lint components --apply",
+    "lint:fix": "biome lint components --write",
     "format:check": "biome format components",
     "format": "biome format components --write"
   },

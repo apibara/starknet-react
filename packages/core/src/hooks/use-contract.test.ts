@@ -187,6 +187,7 @@ describe("useContract", () => {
           },
           "providerOrAccount": RpcProvider2 {
             "channel": RpcChannel2 {
+              "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": "0x534e5f5345504f4c4941",
               "headers": {
