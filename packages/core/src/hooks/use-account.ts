@@ -5,6 +5,7 @@ import type { AccountInterface } from "starknet";
 import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
 
+import { Permission } from "@starknet-io/types-js";
 import { useConnect } from "./use-connect";
 
 /** Account connection status. */
@@ -68,6 +69,16 @@ export function useAccount(): UseAccountResult {
       // If the account is connected, we get the address
       let connAccount: string[] | undefined;
       try {
+        // we get permissions from the wallet
+        const permissions: Permission[] = await connector.request({
+          type: "wallet_getPermissions",
+        });
+
+        // if the wallet doesn't have the permission to get accounts,
+        // that means the wallet is not connected and we skip it
+        if (!permissions.includes(Permission.ACCOUNTS)) continue;
+
+        // if the wallet is connected and has permissions, so we request the accounts
         connAccount = await connector.request({
           type: "wallet_requestAccounts",
           params: { silent_mode: true },
