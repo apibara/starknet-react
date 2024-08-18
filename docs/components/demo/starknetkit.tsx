@@ -56,22 +56,32 @@ function WalletButton({ connector }: { connector: Connector }) {
   const [res2, setRes2] = useState<string>("-- No res --");
   const [res3, setRes3] = useState<string>("-- No res --");
 
+  const [time1, setTime1] = useState<number | undefined>(undefined);
+  const [time2, setTime2] = useState<number | undefined>(undefined);
+
   async function connectWallet() {
     const _res = await connector.connect();
     setRes(JSON.stringify(_res.account));
   }
 
   async function request() {
+    const start = performance.now();
     const _res = await connector.request({
       type: "wallet_getPermissions",
     });
+    const end = performance.now();
+    setTime1(end - start);
     setRes2(JSON.stringify(_res));
   }
+
   async function request2() {
+    const start = performance.now();
     const _res = await connector.request({
       type: "wallet_requestAccounts",
       params: { silent_mode: true },
     });
+    const end = performance.now();
+    setTime2(end - start);
     setRes3(JSON.stringify(_res));
   }
 
@@ -87,11 +97,13 @@ function WalletButton({ connector }: { connector: Connector }) {
           Request Call (wallet_getPermissions)
           <br />
           {res2}
+          {time1 && <div>Time: {Math.floor(time1)} ms</div>}
         </button>
         <button onClick={() => request2()} className="button !bg-red-900">
           Request Call (wallet_requestAccounts with silent_mode)
           <br />
           {res3}
+          {time2 && <div>Time: {Math.floor(time2)} ms</div>}
         </button>
       </div>
     </div>
