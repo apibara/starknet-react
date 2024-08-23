@@ -9,9 +9,9 @@ import {
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./globals.css";
+import "./global.css";
 
-function Root({ children }: { children: React.ReactNode }) {
+export default function Root({ children }: { children: React.ReactNode }) {
   const chains = [mainnet];
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({

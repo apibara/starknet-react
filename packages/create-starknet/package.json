@@ -1,10 +1,11 @@
 {
   "name": "create-starknet",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Create starknet apps with one command",
   "main": "index.js",
   "scripts": {
     "build": "tsup --publicDir",
+    "clean": "rimraf dist",
     "start": "pnpm run build && node dist/index.js",
     "lint": "biome check .",
     "lint:fix": "pnpm lint --write",
