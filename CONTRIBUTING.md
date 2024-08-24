@@ -29,6 +29,8 @@ Changes that are cosmetic in nature and do not add anything substantial to the s
 
 ### Installation Guide
 
+NOTICE: there's an issue with vocs on Windows. Please use the Windows Linux Subsystem (WSL) for now.
+
 The project is a standard [turbo](https://turbo.build/repo/docs) repo, you will find all `starknet-react` packages in the `packages` directory.
 
 Clone this repository
