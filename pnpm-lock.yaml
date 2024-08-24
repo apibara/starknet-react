@@ -42,8 +42,8 @@ importers:
         specifier: ^6.12.1
         version: 6.12.1
       starknetkit:
-        specifier: ^2.2.25
-        version: 2.2.25(starknet@6.12.1)
+        specifier: ^2.2.26
+        version: 2.2.26(starknet@6.12.1)
       vocs:
         specifier: 1.0.0-alpha.53
         version: 1.0.0-alpha.53(@types/react@18.3.3)(react-dom@18.2.0)(react@18.2.0)(rollup@4.18.0)(typescript@5.5.4)
@@ -7067,8 +7067,8 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /starknetkit@2.2.25(starknet@6.12.1):
-    resolution: {integrity: sha512-6zPkfm9dLQ1dkAtjt4dhU2nKekQBPLx66+E6dpAB0dCxg+ton1CZvCsPTAw4UEKRwA5PypqjmeqbeGeXTm60jQ==}
+  /starknetkit@2.2.26(starknet@6.12.1):
+    resolution: {integrity: sha512-X5sWwhp652oUbH9Y8x0UXFzUu95OI8VzCoLX62axyVKy5vRWuQ92tR1gwI2padiWTBrdhYQD0Ku5b++UrpU2Sw==}
     peerDependencies:
       starknet: ^6.9.0
     dependencies:
