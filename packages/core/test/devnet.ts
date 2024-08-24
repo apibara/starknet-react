@@ -15,7 +15,7 @@ const devnetAccounts = [
   },
   {
     address:
-      "0x78662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
+      "0x078662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
     privateKey: "0xe1406455b7d66b1690803be066cbe5e",
   },
   {

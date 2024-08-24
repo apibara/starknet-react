@@ -1,11 +1,10 @@
+import { Permission } from "@starknet-io/types-js";
 import type { Address } from "@starknet-react/chains";
 import { useCallback, useEffect, useState } from "react";
 import type { AccountInterface } from "starknet";
-
 import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
-
-import { Permission } from "@starknet-io/types-js";
+import { getAddress } from "../utils";
 import { useConnect } from "./use-connect";
 
 /** Account connection status. */
@@ -90,7 +89,7 @@ export function useAccount(): UseAccountResult {
           connector,
           chainId: await connector.chainId(),
           account: connectedAccount,
-          address: connectedAccount.address as Address,
+          address: getAddress(connectedAccount.address),
           status: "connected",
           isConnected: true,
           isConnecting: false,
@@ -106,7 +105,7 @@ export function useAccount(): UseAccountResult {
       connector: undefined,
       chainId: undefined,
       account: connectedAccount,
-      address: connectedAccount.address as Address,
+      address: getAddress(connectedAccount.address),
       status: "connected",
       isConnected: true,
       isConnecting: false,
