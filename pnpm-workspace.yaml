@@ -1,5 +1,6 @@
 packages:
   - "packages/chains"
   - "packages/core"
+  - "packages/create-starknet"
   - "packages/typescript-config"
   - "docs"

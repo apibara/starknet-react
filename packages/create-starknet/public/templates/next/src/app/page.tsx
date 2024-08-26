@@ -1,5 +1,5 @@
 "use client";
-import WalletBar from "@/components/WalletBar";
+import WalletBar from "@/components/wallet-bar.tsx";
 
 export default function Home() {
   return (

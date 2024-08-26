@@ -12,4 +12,9 @@ export default defineConfig({
       options.packages = "external";
     }
   },
+  outExtension() {
+    return {
+       js: `.js`,
+    }
+  },
 });
