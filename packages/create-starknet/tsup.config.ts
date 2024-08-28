@@ -14,7 +14,7 @@ export default defineConfig({
   },
   outExtension() {
     return {
-       js: `.js`,
-    }
+      js: ".js",
+    };
   },
 });

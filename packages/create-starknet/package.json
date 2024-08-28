@@ -2,23 +2,21 @@
   "name": "create-starknet",
   "version": "2.1.2",
   "description": "Create starknet apps with one command",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "tsup --publicDir",
+    "build": "tsup",
     "clean": "rimraf dist",
     "start": "pnpm run build && node dist/index.js",
     "lint": "biome check .",
     "lint:fix": "pnpm lint --write",
+    "format:check": "biome format .",
     "format": "biome format . --write"
   },
   "bin": {
     "create-starknet": "dist/index.js"
   },
-  "keywords": [
-    "starknet",
-    "ethereum",
-    "l2"
-  ],
+  "keywords": ["starknet", "ethereum", "l2"],
   "author": "Yohan Tancrez",
   "license": "MIT",
   "devDependencies": {
@@ -27,14 +25,11 @@
     "@types/prompts": "2.0.1",
     "@types/validate-npm-package-name": "^4.0.0",
     "tsup": "^8.0.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.5.4"
   },
-  "files": [
-    "README.md",
-    "dist",
-    "templates"
-  ],
+  "files": ["dist", "src", "README.md"],
   "dependencies": {
+    "@starknet-react/typescript-config": "workspace:*",
     "@types/cross-spawn": "^6.0.2",
     "chalk": "4.1.2",
     "commander": "^10.0.0",
