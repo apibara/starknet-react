@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "React Library",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "target": "es2021",
+    "outDir": "./dist",
+    "emitDeclarationOnly": false,
+    "incremental": true,
+    "tsBuildInfoFile": "/mnt/c/Users/HP/Desktop/starknet-react/node_modules/.pnpm/vitest@1.5.2_jsdom@24.0.0/node_modules/vitest/dist/vendor/tsconfig.tmp.tsbuildinfo"
+  },
+  "exclude": [
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts",
+    "dist"
+  ],
+  "include": [
+    "src",
+    "test"
+  ]
+}
