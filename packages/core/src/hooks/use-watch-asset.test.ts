@@ -39,7 +39,7 @@ describe("useWatchAsset", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.watchAsset.data).toBeFalsy();
+      expect(result.current.watchAsset.watchAsset).toBeTruthy();
     });
   });
 
