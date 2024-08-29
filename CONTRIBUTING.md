@@ -33,10 +33,14 @@ NOTICE: there's an issue with vocs on Windows. Please use the Windows Linux Subs
 
 The project is a standard [turbo](https://turbo.build/repo/docs) repo, you will find all `starknet-react` packages in the `packages` directory.
 
-Clone this repository
+### Fork this repo
+
+You can fork this repo by clicking the fork button in the top right corner of this page.
+
+### Clone the forked repo on your local machine
 
 ```
-git clone git@github.com:apibara/starknet-react.git
+git clone https://github.com/your-username/starknet-react.git
 ```
 
 Install the dependencies
