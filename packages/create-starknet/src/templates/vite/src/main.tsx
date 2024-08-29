@@ -1,6 +1,3 @@
-"use client";
-import { ReactNode } from "react";
-
 import { mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
@@ -8,27 +5,38 @@ import {
   braavos,
   publicProvider,
   useInjectedConnectors,
-  voyager,
 } from "@starknet-react/core";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./global.css";
 
-export function StarknetProvider({ children }: { children: ReactNode }) {
+export default function Root({ children }: { children: React.ReactNode }) {
+  const chains = [mainnet];
+  const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
     recommended: [argent(), braavos()],
-    // Hide recommended connectors if the user has any connector installed.
-    includeRecommended: "onlyIfNoConnectors",
     // Randomize the order of the connectors.
     order: "random",
   });
 
   return (
     <StarknetConfig
-      chains={[mainnet]}
-      provider={publicProvider()}
+      autoConnect
+      chains={chains}
+      provider={provider}
       connectors={connectors}
-      explorer={voyager}
     >
       {children}
     </StarknetConfig>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <Root>
+      <App />
+    </Root>
+  </React.StrictMode>,
+);
