@@ -16,7 +16,10 @@
     "skipLibCheck": true,
     "strict": true,
     "jsx": "react-jsx",
-    "lib": ["dom", "ES2022"],
+    "lib": [
+      "dom",
+      "ES2022"
+    ],
     "module": "ESNext",
     "target": "es2021",
     "outDir": "./dist",
@@ -24,6 +27,13 @@
     "incremental": true,
     "tsBuildInfoFile": "/mnt/c/Users/HP/Desktop/starknet-react/node_modules/.pnpm/vitest@1.5.2_jsdom@24.0.0/node_modules/vitest/dist/vendor/tsconfig.tmp.tsbuildinfo"
   },
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "dist"],
-  "include": ["src", "test"]
+  "exclude": [
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts",
+    "dist"
+  ],
+  "include": [
+    "src",
+    "test"
+  ]
 }

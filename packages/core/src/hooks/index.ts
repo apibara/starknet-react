@@ -25,3 +25,4 @@ export * from "./use-stark-profile";
 export * from "./use-switch-chain";
 export * from "./use-transaction-receipt";
 export * from "./use-wallet-request";
+export * from "./use-watch-asset";
