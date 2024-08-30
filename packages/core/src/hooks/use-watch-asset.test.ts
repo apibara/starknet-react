@@ -11,9 +11,9 @@ const myAsset: UseWatchAssetArgs = {
   type: "ERC20",
   options: {
     address: addrxASTR,
-    decimals: 10,
-    name: "xAstraly",
-    symbol: "xASTR",
+    name: "ETHER",
+    symbol: "ETH",
+    decimals: 18,
   },
 };
 
@@ -39,7 +39,7 @@ describe("useWatchAsset", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.watchAsset.watchAsset).toBeTruthy();
+      expect(result.current.watchAsset.isSuccess).toBeTruthy();
     });
   });
 
