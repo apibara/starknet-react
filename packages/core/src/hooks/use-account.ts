@@ -62,56 +62,67 @@ export function useAccount(): UseAccountResult {
       });
     }
 
-    for (const connector of connectors) {
-      if (!connector.available()) continue;
-
+    const connectorPromises = connectors
       // If the account is connected, we get the address
-      let connAccount: string[] | undefined;
-      try {
-        // we get permissions from the wallet
-        const permissions: Permission[] = await connector.request({
-          type: "wallet_getPermissions",
-        });
+      .filter((connector) => connector.available())
+      .map(async (connector) => {
+        try {
+          // we get permissions from the wallet
+          const permissions: Permission[] = await connector.request({
+            type: "wallet_getPermissions",
+          });
 
-        // if the wallet doesn't have the permission to get accounts,
-        // that means the wallet is not connected and we skip it
-        if (!permissions.includes(Permission.ACCOUNTS)) continue;
+          // if the wallet doesn't have the permission to get accounts,
+          // that means the wallet is not connected and we skip it
+          if (!permissions.includes(Permission.ACCOUNTS)) return null;
 
-        // if the wallet is connected and has permissions, so we request the accounts
-        connAccount = await connector.request({
-          type: "wallet_requestAccounts",
-          params: { silent_mode: true },
-        });
-      } catch {}
+          // if the wallet is connected and has permissions, so we request the accounts
+          const connAccount = await connector.request({
+            type: "wallet_requestAccounts",
+            params: { silent_mode: true },
+          });
 
-      if (connAccount?.[0] === connectedAccount.address) {
-        return setState({
-          connector,
-          chainId: await connector.chainId(),
-          account: connectedAccount,
-          address: getAddress(connectedAccount.address),
-          status: "connected",
-          isConnected: true,
-          isConnecting: false,
-          isDisconnected: false,
-          isReconnecting: false,
-        });
+          // Check if the account matches the connected account
+          if (connAccount?.[0] === connectedAccount.address) {
+            return {
+              connector,
+              chainId: await connector.chainId(),
+              account: connectedAccount,
+              address: getAddress(connectedAccount.address),
+              status: "connected" as const,
+              isConnected: true,
+              isConnecting: false,
+              isDisconnected: false,
+              isReconnecting: false,
+            };
+          }
+
+          return null; // Continue to the next connector if account doesn't match
+        } catch {
+          return null;
+        }
+      });
+
+    try {
+      const state = await Promise.any(connectorPromises);
+      if (state) {
+        return setState(state);
       }
+    } catch {
+      // If we get here, we're not connected to any connector.
+      // This can happen if it's an arcade account.
+      setState({
+        connector: undefined,
+        chainId: undefined,
+        account: connectedAccount,
+        address: getAddress(connectedAccount.address),
+        status: "connected",
+        isConnected: true,
+        isConnecting: false,
+        isDisconnected: false,
+        isReconnecting: false,
+      });
     }
-
-    // If we get here, we're not connected to any connector.
-    // This can happen if it's an arcade account.
-    setState({
-      connector: undefined,
-      chainId: undefined,
-      account: connectedAccount,
-      address: getAddress(connectedAccount.address),
-      status: "connected",
-      isConnected: true,
-      isConnecting: false,
-      isDisconnected: false,
-      isReconnecting: false,
-    });
   }, [connectedAccount, connectors]);
 
   useEffect(() => {
