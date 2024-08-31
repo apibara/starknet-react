@@ -40,7 +40,7 @@ export function useQuery<
 >(
   args: UseQueryOptions_<TQueryFnData, TError, TData, TQueryKey>,
 ): UseQueryResult<TData, TError> {
-  const base = useQuery_(args);
+  const base = useQuery_({ ...args, structuralSharing: false });
 
   return {
     data: base.data,
