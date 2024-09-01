@@ -172,6 +172,8 @@ export class MockConnector extends Connector {
         return [this._account.address];
       case "wallet_addStarknetChain":
         return true;
+      case "wallet_watchAsset":
+        return true;
       case "wallet_switchStarknetChain": {
         if (!params) throw new Error("Params are missing");
 
