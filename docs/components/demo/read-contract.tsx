@@ -4,10 +4,21 @@ import { useState } from "react";
 import { useNetwork, useReadContract } from "@starknet-react/core";
 import { BlockTag } from "starknet";
 
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export function ReadContractInner() {
   const [blockIdentifier, setBlockIdentifier] = useState("latest");
+  const [enable, setEnable] = useState(false);
   const { chain } = useNetwork();
 
   const { data, refetch, fetchStatus, status, error } = useReadContract({
@@ -28,29 +39,57 @@ export function ReadContractInner() {
     address: chain.nativeCurrency.address,
     args: [],
     watch: true,
+    enabled: enable,
     blockIdentifier:
       blockIdentifier === "latest" ? BlockTag.LATEST : BlockTag.PENDING,
   });
 
-  // Cast bigint into string to avoid "TypeError: Do not know how to serialize a BigInt"
-  // See https://github.com/GoogleChromeLabs/jsbi/issues/30#issuecomment-521460510
-  const callResult = JSON.stringify(data, (_key, value) =>
-    typeof value === "bigint" ? value.toString() : value,
-  );
-
   return (
-    <div>
-      <h1 className="font-bold text-lg">Contract read</h1>
-      <div>blockIdentifier: {blockIdentifier} </div>
-      <div>fetchStatus: {fetchStatus} </div>
-      <div>Status: {status} </div>
-      <div>Call result: {callResult} </div>
-      <button
-        className="bg-white text-black px-4 py-2 mt-4 rounded-md"
-        onClick={() => refetch()}
+    <div className="flex flex-col gap-4">
+      <Select
+        onValueChange={(value) => setBlockIdentifier(value)}
+        value={blockIdentifier}
       >
-        Refetch data
-      </button>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Block Identifier" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={BlockTag.LATEST}>Latest</SelectItem>
+          <SelectItem value={BlockTag.PENDING}>Pending</SelectItem>
+        </SelectContent>
+      </Select>
+
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="enable"
+          checked={enable}
+          onCheckedChange={() => {
+            setEnable((prev) => !prev);
+          }}
+        />
+        <label
+          htmlFor="enable"
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Enable Query
+        </label>
+      </div>
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data: data ?? "No Data",
+            blockIdentifier,
+            fetchStatus,
+            status,
+            enabled: enable,
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <Button onClick={() => refetch()}>Refetch data</Button>
     </div>
   );
 }

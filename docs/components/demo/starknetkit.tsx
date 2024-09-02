@@ -1,16 +1,18 @@
+import { mainnet, sepolia } from "@starknet-react/chains";
 import {
   type Connector,
-  publicProvider,
   StarknetConfig,
+  publicProvider,
+  useAccount,
   useConnect,
 } from "@starknet-react/core";
+import { useState } from "react";
 import {
   type StarknetkitConnector,
   useStarknetkitConnectModal,
 } from "starknetkit";
 import { availableConnectors } from "../starknetkit";
-import { mainnet, sepolia } from "@starknet-react/chains";
-import { useState } from "react";
+import { Button } from "../ui/button";
 
 export function StarknetKit() {
   return (
@@ -27,6 +29,8 @@ function StarknetKitInner() {
     connectors: availableConnectors as StarknetkitConnector[],
   });
 
+  const { account } = useAccount();
+
   const connectWallet = async () => {
     const { connector } = await starknetkitConnectModal();
     if (!connector) {
@@ -38,14 +42,21 @@ function StarknetKitInner() {
   return (
     <div>
       <div className="flex flex-col gap-4">
+        <p>Staknetkit Modal</p>
+
+        {account?.address ? (
+          <div className="h-full flex flex-col justify-center">
+            <p className="font-medium">Connected Address: </p>
+            <pre>{account.address}</pre>
+          </div>
+        ) : (
+          <Button onClick={connectWallet}>Starknetkit Modal</Button>
+        )}
+
+        <p>Experimental</p>
         {connectors.map((connector, index) => (
           <WalletButton connector={connector} key={connector.id} />
         ))}
-
-        <div className="my-5"> Starknetkit Modal</div>
-        <button onClick={connectWallet} className="button">
-          Starknetkit Modal
-        </button>
       </div>
     </div>
   );
@@ -87,24 +98,36 @@ function WalletButton({ connector }: { connector: Connector }) {
 
   return (
     <div className="my-4 flex flex-col gap-2">
-      <button onClick={() => connectWallet()} className="button">
+      <Button className="h-auto" onClick={() => connectWallet()}>
         {connector.id} | connect()
         <br />
         {res}
-      </button>
-      <div className="flex gap-4">
-        <button onClick={() => request()} className="button !bg-red-900">
-          Request Call (wallet_getPermissions)
+      </Button>
+      <div className="flex py-2 gap-4">
+        <Button
+          className="flex flex-col grow gap-2 h-auto"
+          onClick={() => request()}
+        >
+          Request Call
+          <br />
+          (wallet_getPermissions)
           <br />
           {res2}
+          <br />
           {time1 && <div>Time: {Math.floor(time1)} ms</div>}
-        </button>
-        <button onClick={() => request2()} className="button !bg-red-900">
-          Request Call (wallet_requestAccounts with silent_mode)
+        </Button>
+        <Button
+          className="flex flex-col grow gap-2 h-auto"
+          onClick={() => request2()}
+        >
+          Request Call
+          <br />
+          (wallet_requestAccounts with silent_mode)
           <br />
           {res3}
+          <br />
           {time2 && <div>Time: {Math.floor(time2)} ms</div>}
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -120,8 +143,8 @@ function StarknetProvider({ children }: { children: React.ReactNode }) {
       provider={provider}
       connectors={availableConnectors}
     >
-      <div className="flex flex-col border border-red-500 rounded shadow-md">
-        <div className="p-4">{children}</div>
+      <div className="flex flex-col px-4 border border-primary rounded-xl">
+        <div className="py-4">{children}</div>
       </div>
     </StarknetConfig>
   );

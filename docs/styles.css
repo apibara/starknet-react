@@ -1,9 +1,67 @@
 @layer vocs_preflight {
   @tailwind base;
+
+  :root {
+    --background: 242 100% 95%;
+    --foreground: 242 5% 0%;
+    --card: 242 50% 90%;
+    --card-foreground: 242 5% 10%;
+    --popover: 242 100% 95%;
+    --popover-foreground: 242 100% 0%;
+    --primary: 242 50.2% 55.1%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 242 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 204 30% 85%;
+    --muted-foreground: 242 5% 35%;
+    --accent: 204 30% 80%;
+    --accent-foreground: 242 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 242 5% 90%;
+    --border: 242 30% 50%;
+    --input: 242 30% 18%;
+    --ring: 242 50.2% 55.1%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 242 50% 5%;
+    --foreground: 242 5% 90%;
+    --card: 242 50% 0%;
+    --card-foreground: 242 5% 90%;
+    --popover: 242 50% 5%;
+    --popover-foreground: 242 5% 90%;
+    --primary: 242 50.2% 55.1%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 242 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 204 30% 15%;
+    --muted-foreground: 242 5% 60%;
+    --accent: 204 30% 15%;
+    --accent-foreground: 242 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 242 5% 90%;
+    --border: 242 30% 18%;
+    --input: 242 30% 18%;
+    --ring: 242 50.2% 55.1%;
+    --radius: 0.5rem;
+  }
 }
 @tailwind components;
 @tailwind utilities;
 
-.button {
-  @apply bg-red-500 rounded px-2 py-1 text-white;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    /* @apply bg-background text-foreground; */
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+pre {
+  @apply dark:bg-white/5 bg-black/5 rounded-lg p-2 !text-sm;
+  tab-size: 4;
+  white-space: break-spaces;
 }

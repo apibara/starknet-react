@@ -1,5 +1,5 @@
 import { devnet } from "@starknet-react/chains";
-import { Account, AccountInterface, RpcProvider } from "starknet";
+import { Account, type AccountInterface, RpcProvider } from "starknet";
 import { MockConnector } from "../src/connectors";
 
 const provider = new RpcProvider({ nodeUrl: devnet.rpcUrls.public.http[0] });

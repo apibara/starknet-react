@@ -1,10 +1,11 @@
 import {
   type UseSignTypedDataArgs,
-  useAccount,
   useSignTypedData,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { shortString } from "starknet";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function SignTypedData() {
   return (
@@ -15,35 +16,37 @@ export function SignTypedData() {
 }
 
 function SignTypedDataInner() {
-  const { address } = useAccount();
   const { isError, isPending, data, error, signTypedData } = useSignTypedData({
     params: typedData,
   });
   return (
-    <div className="flex flex-col">
-      {address ? (
-        <div className="flex flex-col gap-4">
-          <button className="button" onClick={() => signTypedData()}>
-            Sign
-          </button>
-          <a
-            className="underline text-blue-400"
-            href="https://github.com/PhilippeR26/Starknet-WalletAccount/blob/main/doc/walletAPIspec.md#example--9"
-          >
-            Reference{" "}
-          </a>
-          <pre className="whitespace-pre-wrap break-words">
-            <code>{JSON.stringify(typedData)}</code>
-          </pre>
-        </div>
-      ) : (
-        <p className="font-bold mb-4">Connect wallet first</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <p>Typed Data</p>
+      <a
+        className="underline text-blue-400 text-xs"
+        href="https://github.com/PhilippeR26/Starknet-WalletAccount/blob/main/doc/walletAPIspec.md#example--9"
+      >
+        Reference{" "}
+      </a>
+      <pre>{stringify(typedData, null, 2)}</pre>
 
-      <div>isPending: {isPending ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>data: {data ? JSON.stringify(data) : "null"} </div>
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <Button onClick={() => signTypedData()}>Sign</Button>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

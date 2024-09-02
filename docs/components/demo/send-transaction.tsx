@@ -4,8 +4,10 @@ import {
   useNetwork,
   useSendTransaction,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import type { Abi } from "starknet";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function SendTransaction() {
   return (
@@ -23,7 +25,7 @@ function SendTransactionInner() {
     address: chain.nativeCurrency.address,
   });
 
-  const { isError, error, send } = useSendTransaction({
+  const { isError, error, send, data, isPending } = useSendTransaction({
     calls:
       contract && address
         ? [contract.populate("transfer", [address, 1n])]
@@ -31,17 +33,23 @@ function SendTransactionInner() {
   });
 
   return (
-    <div className="flex flex-col">
-      {address ? (
-        <div>
-          <button className="button" onClick={() => send()}>
-            Send Transaction
-          </button>
-          {isError && <p>Error: {error?.message}</p>}
-        </div>
-      ) : (
-        <p>Connect your wallet to start.</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
+        )}
+      </pre>
+      <Button onClick={() => send()}>Send Transaction</Button>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }
