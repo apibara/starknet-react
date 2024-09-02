@@ -3,8 +3,10 @@ import {
   useAccount,
   useAddChain,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { shortString } from "starknet";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function AddChain() {
   return (
@@ -36,28 +38,28 @@ function AddChainInner() {
     params: chainData,
   });
   return (
-    <div className="flex flex-col">
-      {address ? (
-        <div className="flex flex-col gap-4">
-          <p className="font-bold">Chain to Add:</p>
-          <pre className="font-bold break-words whitespace-break-spaces">
-            {JSON.stringify(chainData)}
-          </pre>
-          <button className="button" onClick={() => addChain()}>
-            Add Chain
-          </button>
-          <button className="button" onClick={() => addChain(chainData)}>
-            Add Chain (override)
-          </button>
-        </div>
-      ) : (
-        <p className="font-bold mb-4">Connect wallet first</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <p>Chain to Add</p>
+      <pre>{stringify(chainData, null, 2)}</pre>
 
-      <div>isPending: {isPending ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>data: {data ? JSON.stringify(data) : "null"} </div>
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <Button onClick={() => addChain()}>Add Chain</Button>
+      <Button onClick={() => addChain(chainData)}>Add Chain (override)</Button>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import { useStarkAddress } from "@starknet-react/core";
 import { useState } from "react";
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 export function StarkAddress() {
   return (
@@ -13,26 +16,39 @@ export function StarkAddress() {
 function StarkAddressInner() {
   const [name, setName] = useState("vitalik.stark");
 
-  const { data, isLoading, isError, error } = useStarkAddress({
+  const { data, isLoading, isPending, isError, error } = useStarkAddress({
     name,
   });
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-bold text-lg">Stark Address</h1>
-      <div className="flex items-center gap-2">
-        name:{" "}
-        <input
+    <div className="flex flex-col gap-4">
+      <div>
+        <p>Starkname</p>
+        <Input
+          id="starkname"
           placeholder="vitalik.eth"
-          className="rounded-md focus:outline-none placeholder:text-white/20 px-2 flex-grow"
+          className="mt-1"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        />{" "}
+        />
       </div>
-      <div>isLoading: {isLoading ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>address: {data} </div>
+      <div>
+        <p>Response</p>
+        <pre className="mt-1">
+          {stringify(
+            {
+              data,
+              isLoading,
+              isPending,
+              isError,
+              error: error?.message,
+            },
+            null,
+            2,
+          )}
+        </pre>
+      </div>
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

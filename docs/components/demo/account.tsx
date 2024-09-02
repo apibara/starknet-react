@@ -1,4 +1,5 @@
 import { useAccount } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 
 export function Account() {
@@ -13,20 +14,19 @@ function AccountInner() {
   const { address, connector } = useAccount();
 
   return (
-    <div>
-      {address ? (
-        <>
-          <p>
-            <span className="font-bold"> Connected Account: </span> {address}
-          </p>
-          <p>
-            <span className="font-bold"> Connected Connector: </span>{" "}
-            {connector?.id}
-          </p>
-        </>
-      ) : (
-        <p>Connect Wallet first</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <pre>
+        {stringify(
+          {
+            address: address ?? "Connect wallet first",
+            connector: connector?.id ?? "Connect wallet first",
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

@@ -10,9 +10,9 @@ export function DemoContainer({
 }) {
   return (
     <StarknetProvider>
-      <div className="flex flex-col border border-red-500 rounded shadow-md">
+      <div className="flex flex-col px-4 border border-primary rounded-xl">
         {hasWallet ? <WalletBar /> : null}
-        <div className="p-4">{children}</div>
+        <div className="py-4">{children}</div>
       </div>
     </StarknetProvider>
   );

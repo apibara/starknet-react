@@ -12,14 +12,25 @@
     "format": "biome format components --write"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
     "@starknet-react/chains": "workspace:*",
     "@starknet-react/core": "workspace:*",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.438.0",
     "react": "^18.2.0",
-    "starknet": "^6.12.1",
+    "safe-stable-stringify": "^2.5.0",
+    "starknet": "^6.11.0",
     "starknetkit": "^2.2.26",
-    "vocs": "1.0.0-alpha.53"
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
+    "vocs": "1.0.0-alpha.55"
   },
   "devDependencies": {
-    "@starknet-react/typescript-config": "workspace:*"
+    "@starknet-react/typescript-config": "workspace:*",
+    "tailwindcss": "^3.4.10"
   }
 }

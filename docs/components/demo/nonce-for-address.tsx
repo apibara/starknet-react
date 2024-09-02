@@ -3,6 +3,7 @@ import {
   useAccount,
   useNonceForAddress,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 
 export function NonceForAddress() {
@@ -16,25 +17,27 @@ export function NonceForAddress() {
 function NonceForAddressInner() {
   const { account } = useAccount();
 
-  const { data, isLoading, isError, error } = useNonceForAddress({
+  const { data, isLoading, isError, error, isPending } = useNonceForAddress({
     address: account?.address as Address,
   });
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-bold text-lg">Nonce for Address</h1>
-      <div className="flex flex-col mt-2">
-        {account?.address ? (
-          <>
-            <div>nonce: {data} </div>
-            <div>isLoading: {isLoading ? "true" : "false"} </div>
-            <div>isError: {isError ? "true" : "false"} </div>
-            <div>error: {error ? error.message : "null"} </div>
-          </>
-        ) : (
-          "Connect your wallet to start."
+    <div className="flex flex-col gap-4">
+      <pre>
+        {stringify(
+          {
+            data,
+            isLoading,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
         )}
-      </div>
+      </pre>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

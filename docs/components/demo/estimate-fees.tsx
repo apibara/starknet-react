@@ -5,6 +5,7 @@ import {
   useEstimateFees,
   useNetwork,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import {} from "starknet";
 import { DemoContainer } from "../starknet";
 
@@ -24,7 +25,7 @@ function EstimateFeesInner() {
     address: chain.nativeCurrency.address,
   });
 
-  const { data, isError, isLoading, error } = useEstimateFees({
+  const { data, isError, isLoading, isPending, error } = useEstimateFees({
     calls:
       contract && address
         ? [contract.populate("transfer", [address, 1n])]
@@ -32,15 +33,29 @@ function EstimateFeesInner() {
   });
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-bold text-lg">Estimate Fees</h1>
-      <div>isLoading: {isLoading ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>
-        Suggested Max Fee:{" "}
-        {formatAmount(data?.suggestedMaxFee, chain.nativeCurrency.decimals)} ETH
-      </div>
+    <div className="flex flex-col gap-4">
+      <p>Calls</p>
+      <pre>[contract.populate("transfer", [address, 1n])]</pre>
+
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isLoading,
+            isPending,
+            isError,
+            error: error?.message,
+            suggestedMaxFee: `${formatAmount(
+              data?.suggestedMaxFee,
+              chain.nativeCurrency.decimals,
+            )} ETH`,
+          },
+          null,
+          2,
+        )}
+      </pre>
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

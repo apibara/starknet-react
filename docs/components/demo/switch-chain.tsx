@@ -1,7 +1,9 @@
 import { sepolia } from "@starknet-react/chains";
 import { useAccount, useNetwork, useSwitchChain } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { constants } from "starknet";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function SwitchChain() {
   return (
@@ -12,7 +14,6 @@ export function SwitchChain() {
 }
 
 function SwitchChainInner() {
-  const { address } = useAccount();
   const { chain } = useNetwork();
   const { isError, isPending, data, error, switchChain } = useSwitchChain({
     params: {
@@ -23,38 +24,43 @@ function SwitchChainInner() {
     },
   });
   return (
-    <div className="flex flex-col">
-      {address ? (
-        <div className="flex flex-col gap-4">
-          <p className="font-bold">Current Chain: {chain.name}</p>
-          <button className="button" onClick={() => switchChain()}>
-            Switch Chain between Mainnet and Sepolia
-          </button>
-          <button
-            className="button"
-            onClick={() =>
-              switchChain({ chainId: constants.StarknetChainId.SN_MAIN })
-            }
-          >
-            Switch to Mainnet (Override)
-          </button>
-          <button
-            className="button"
-            onClick={() =>
-              switchChain({ chainId: constants.StarknetChainId.SN_SEPOLIA })
-            }
-          >
-            Switch to Sepolia (Override)
-          </button>
-        </div>
-      ) : (
-        <p className="font-bold mb-4">Connect wallet first</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <p>Current Chain:</p>
+      <pre>{chain.name}</pre>
 
-      <div>isPending: {isPending ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>data: {data ? JSON.stringify(data) : "null"} </div>
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <Button onClick={() => switchChain()}>
+        Switch Chain between Mainnet and Sepolia
+      </Button>
+      <Button
+        onClick={() =>
+          switchChain({ chainId: constants.StarknetChainId.SN_MAIN })
+        }
+      >
+        Switch to Mainnet (Override)
+      </Button>
+      <Button
+        onClick={() =>
+          switchChain({ chainId: constants.StarknetChainId.SN_SEPOLIA })
+        }
+      >
+        Switch to Sepolia (Override)
+      </Button>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

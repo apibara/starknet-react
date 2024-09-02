@@ -3,7 +3,9 @@ import {
   useAccount,
   useDeclareContract,
 } from "@starknet-react/core";
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function DeclareContract() {
   return (
@@ -14,29 +16,33 @@ export function DeclareContract() {
 }
 
 function DeclareContractInner() {
-  const { address } = useAccount();
   const { isError, isPending, data, error, declare } = useDeclareContract({
     params,
   });
   return (
-    <div className="flex flex-col">
-      {address ? (
-        <div className="flex flex-col gap-4">
-          <button className="button" onClick={() => declare()}>
-            Sign
-          </button>
-          <pre className="whitespace-pre-wrap break-words">
-            <code>{JSON.stringify(params)}</code>
-          </pre>
-        </div>
-      ) : (
-        <p className="font-bold mb-4">Connect wallet first</p>
-      )}
+    <div className="flex flex-col gap-4">
+      <p>Params</p>
+      <pre>{stringify(params, null, 2)}</pre>
 
-      <div>isPending: {isPending ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>data: {data ? JSON.stringify(data) : "null"} </div>
+      <p>Response</p>
+      <pre>
+        {stringify(
+          {
+            data,
+            isPending,
+            isError,
+            error: error?.message,
+          },
+          null,
+          2,
+        )}
+      </pre>
+
+      <Button className="button" onClick={() => declare()}>
+        Declare
+      </Button>
+
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

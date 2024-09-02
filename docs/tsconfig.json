@@ -15,5 +15,5 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["components"]
+  "include": ["components", "lib"]
 }

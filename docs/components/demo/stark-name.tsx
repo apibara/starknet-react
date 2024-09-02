@@ -1,6 +1,8 @@
 import { type Address, useStarkName } from "@starknet-react/core";
 import { useState } from "react";
+import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
+import { Input } from "../ui/input";
 
 export function StarkName() {
   return (
@@ -15,26 +17,39 @@ function StarkNameInner() {
     "0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732",
   );
 
-  const { data, isLoading, isError, error } = useStarkName({
+  const { data, isLoading, isPending, isError, error } = useStarkName({
     address: address as Address,
   });
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-bold text-lg">Stark Name</h1>
-      <div className="flex items-center gap-2">
-        Address:{" "}
-        <input
+    <div className="flex flex-col gap-4">
+      <div>
+        <p>Address</p>
+        <Input
           placeholder="0x7cffe72748da43594c5924129b4f18bffe643270a96b8760a6f2e2db49d9732"
-          className="rounded-md focus:outline-none placeholder:text-white/20 px-2 flex-grow"
+          className="mt-1"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />{" "}
       </div>
-      <div>isLoading: {isLoading ? "true" : "false"} </div>
-      <div>isError: {isError ? "true" : "false"} </div>
-      <div>error: {error ? error.message : "null"} </div>
-      <div>address: {data} </div>
+
+      <div>
+        <p>Response</p>
+        <pre className="mt-1">
+          {stringify(
+            {
+              data,
+              isLoading,
+              isPending,
+              isError,
+              error: error?.message,
+            },
+            null,
+            2,
+          )}
+        </pre>
+      </div>
+      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }
