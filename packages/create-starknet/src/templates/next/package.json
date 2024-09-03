@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@starknet-react/chains": "^3.0.0-beta.2",
-    "@starknet-react/core": "^3.0.0-beta.2",
+    "@starknet-react/chains": "^3.0.0-beta.3",
+    "@starknet-react/core": "^3.0.0-beta.3",
     "get-starknet-core": "^3.3.3",
     "react": "^18",
     "react-dom": "^18",
