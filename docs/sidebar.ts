@@ -1,4 +1,4 @@
-import { type Sidebar } from "vocs";
+import type { Sidebar } from "vocs";
 
 export const sidebar = {
   "/docs/": [
@@ -13,43 +13,67 @@ export const sidebar = {
           text: "Upgrading to V3",
           link: "/docs/upgrading-to-v3",
         },
+        {
+          text: "Wallets",
+          link: "/docs/wallets",
+        },
+        {
+          text: "RPC Providers",
+          link: "/docs/providers",
+        },
+        {
+          text: "Explorers",
+          link: "/docs/explorers",
+        }
       ],
     },
     {
-      text: "Hooks",
-      items: [
-        { text: "useAccount", link: "/docs/hooks/use-account" },
-        {
-          text: "useAddChain",
-          link: "/docs/hooks/use-add-chain",
-        },
+      "text": "Smart Contracts",
+      "items": [
         {
           text: "useBalance",
           link: "/docs/hooks/use-balance",
-        },
-        {
-          text: "useBlock",
-          link: "/docs/hooks/use-block",
-        },
-        {
-          text: "useBlockNumber",
-          link: "/docs/hooks/use-block-number",
-        },
-        {
-          text: "useCall",
-          link: "/docs/hooks/use-call",
-        },
-        {
-          text: "useConnect",
-          link: "/docs/hooks/use-connect",
         },
         {
           text: "useContract",
           link: "/docs/hooks/use-contract",
         },
         {
+          text: "useReadContract",
+          link: "/docs/hooks/use-read-contract",
+        },
+        {
+          text: "useCall",
+          link: "/docs/hooks/use-call",
+        },
+        {
           text: "useContractFactory",
           link: "/docs/hooks/use-contract-factory",
+        },
+      ]
+    },
+    {
+      "text": "Wallet Actions",
+      "items": [
+        {
+          text: "useSendTransaction",
+          link: "/docs/hooks/use-send-transaction",
+        },
+        {
+          text: "useSignTypedData",
+          link: "/docs/hooks/use-sign-typed-data",
+        },
+        {
+          text: "useAddChain",
+          link: "/docs/hooks/use-add-chain",
+        },
+        {
+          text: "useSwitchChain",
+          link: "/docs/hooks/use-switch-chain",
+        },
+        {
+          text: "useWalletRequest",
+          link: "/docs/hooks/use-wallet-request",
         },
         {
           text: "useDeclareContract",
@@ -59,13 +83,33 @@ export const sidebar = {
           text: "useDeployAccount",
           link: "/docs/hooks/use-deploy-account",
         },
+      ]
+    },
+    {
+      "text": "Connectors",
+      "items": [
+        { text: "useInjectedConnectors", link: "/docs/hooks/use-injected-connectors" },
+        { text: "useAccount", link: "/docs/hooks/use-account" },
+        {
+          text: "useConnect",
+          link: "/docs/hooks/use-connect",
+        },
         {
           text: "useDisconnect",
           link: "/docs/hooks/use-disconnect",
         },
+      ]
+    },
+    {
+      "text": "Helpers",
+      "items": [
         {
-          text: "useEstimateFees",
-          link: "/docs/hooks/use-estimate-fees",
+          text: "useNetwork",
+          link: "/docs/hooks/use-network",
+        },
+        {
+          text: "useProvider",
+          link: "/docs/hooks/use-provider",
         },
         {
           text: "useExplorer",
@@ -75,30 +119,36 @@ export const sidebar = {
           text: "useInvalidateOnBlock",
           link: "/docs/hooks/use-invalidate-on-block",
         },
+      ]
+    },
+    {
+      "text": "RPC Methods",
+      "items": [
         {
-          text: "useNetwork",
-          link: "/docs/hooks/use-network",
+          text: "useBlock",
+          link: "/docs/hooks/use-block",
+        },
+        {
+          text: "useBlockNumber",
+          link: "/docs/hooks/use-block-number",
+        },
+        {
+          text: "useEstimateFees",
+          link: "/docs/hooks/use-estimate-fees",
         },
         {
           text: "useNonceForAddress",
           link: "/docs/hooks/use-nonce-for-address",
         },
         {
-          text: "useProvider",
-          link: "/docs/hooks/use-provider",
+          text: "useTransactionReceipt",
+          link: "/docs/hooks/use-transaction-receipt",
         },
-        {
-          text: "useReadContract",
-          link: "/docs/hooks/use-read-contract",
-        },
-        {
-          text: "useSendTransaction",
-          link: "/docs/hooks/use-send-transaction",
-        },
-        {
-          text: "useSignTypedData",
-          link: "/docs/hooks/use-sign-typed-data",
-        },
+      ]
+    },
+    {
+      "text": "Starknet.ID",
+      "items": [
         {
           text: "useStarkAddress",
           link: "/docs/hooks/use-stark-address",
@@ -111,19 +161,7 @@ export const sidebar = {
           text: "useStarkProfile",
           link: "/docs/hooks/use-stark-profile",
         },
-        {
-          text: "useSwitchChain",
-          link: "/docs/hooks/use-switch-chain",
-        },
-        {
-          text: "useTransactionReceipt",
-          link: "/docs/hooks/use-transaction-receipt",
-        },
-        {
-          text: "useWalletRequest",
-          link: "/docs/hooks/use-wallet-request",
-        },
-      ],
-    },
+      ]
+    }
   ],
 } as const satisfies Sidebar;

@@ -1,11 +1,21 @@
 import { Callout } from 'vocs/components'
 
+
 # Getting Started
+
+## Overview
 
 <Callout type="warning">
 Starknet React V3 is currently in preview. If you experience any issue, feel
 free to open an issue on GitHub.
 </Callout>
+
+Starknet React is a collection of React hooks for Starknet. It combines the following packages:
+
+- [Tankstack Query](https://tanstack.com/query/latest) for data fetching.
+- [Starknet.js](https://www.starknetjs.com/) for interacting with Starknet.
+- [abi-wan-kanabi](https://github.com/keep-starknet-strange/abi-wan-kanabi) for type-safe contract calls.
+
 
 ## Setup
 
@@ -13,16 +23,16 @@ free to open an issue on GitHub.
 
 ### Installation
 
-Start by installing the preview version of Starknet React (tagged `@next`).
+Start by installing Starknet React.
 
 :::code-group
 
 ```bash [npm]
-npm add @starknet-react/chains@next @starknet-react/core@next
+npm add @starknet-react/chains @starknet-react/core
 ```
 
 ```bash [pnpm]
-pnpm add @starknet-react/chains@next @starknet-react/core@next
+pnpm add @starknet-react/chains @starknet-react/core
 ```
 
 :::
