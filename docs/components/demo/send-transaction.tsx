@@ -48,8 +48,6 @@ function SendTransactionInner() {
         )}
       </pre>
       <Button onClick={() => send()}>Send Transaction</Button>
-
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

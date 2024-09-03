@@ -6,12 +6,11 @@ import {
   useNetwork,
 } from "@starknet-react/core";
 import stringify from "safe-stable-stringify";
-import {} from "starknet";
 import { DemoContainer } from "../starknet";
 
 export function EstimateFees() {
   return (
-    <DemoContainer hasWallet>
+    <DemoContainer>
       <EstimateFeesInner />
     </DemoContainer>
   );
@@ -49,13 +48,12 @@ function EstimateFeesInner() {
             suggestedMaxFee: `${formatAmount(
               data?.suggestedMaxFee,
               chain.nativeCurrency.decimals,
-            )} ETH`,
+            )} ${chain.nativeCurrency.symbol}`,
           },
           null,
           2,
         )}
       </pre>
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

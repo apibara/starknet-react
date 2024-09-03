@@ -1,8 +1,4 @@
-import {
-  type UseAddChainArgs,
-  useAccount,
-  useAddChain,
-} from "@starknet-react/core";
+import { type UseAddChainArgs, useAddChain } from "@starknet-react/core";
 import stringify from "safe-stable-stringify";
 import { shortString } from "starknet";
 import { DemoContainer } from "../starknet";
@@ -17,7 +13,6 @@ export function AddChain() {
 }
 
 function AddChainInner() {
-  const { address } = useAccount();
   const chainData: UseAddChainArgs = {
     id: "ZORG",
     chain_id: shortString.encodeShortString("ZORG"),
@@ -58,8 +53,6 @@ function AddChainInner() {
 
       <Button onClick={() => addChain()}>Add Chain</Button>
       <Button onClick={() => addChain(chainData)}>Add Chain (override)</Button>
-
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

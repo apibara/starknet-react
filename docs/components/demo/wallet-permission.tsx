@@ -3,7 +3,7 @@ import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 import { Button } from "../ui/button";
 
-export function ConnectWallet() {
+export function WalletPermission() {
   return (
     <DemoContainer hasWallet>
       <WalletRequest />

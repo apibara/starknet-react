@@ -2,15 +2,54 @@
 
 Hook to send one or several transaction(s) to the network.
 
+Use this hook together with [`useContract`](/docs/hooks/use-contract) to
+send transactions to the network in a type-safe way.
+
 ## Usage
 
-```ts twoslash
-import { useSendTransaction } from "@starknet-react/core";
+The following example shows how to transfer `$STRK` tokens to an address.
 
-// TODO
-const { send, error } = useSendTransaction({
-  calls: [],
-});
+```ts twoslash
+import {
+  useSendTransaction,
+  useContract,
+  useNetwork,
+  useAccount,
+} from "@starknet-react/core";
+import type { Abi } from "starknet";
+
+const abi = [
+  {
+    type: "function",
+    name: "transfer",
+    state_mutability: "external",
+    inputs: [
+      {
+        name: "recipient",
+        type: "core::starknet::contract_address::ContractAddress",
+      },
+      {
+        name: "amount",
+        type: "core::integer::u256",
+      },
+    ],
+    outputs: [],
+  },
+] as const satisfies Abi;
+
+const { address } = useAccount();
+const { chain } = useNetwork();
+const { contract } = useContract({ // [!code focus]
+  abi, // [!code focus]
+  address: chain.nativeCurrency.address, // [!code focus]
+}); // [!code focus]
+
+const { send, error } = useSendTransaction({ // [!code focus]
+  calls: // [!code focus]
+    contract && address // [!code focus]
+      ? [contract.populate("transfer", [address, 1n])] // [!code focus]
+      : undefined, // [!code focus]
+}); // [!code focus]
 ```
 
 ## Arguments
