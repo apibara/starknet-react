@@ -45,8 +45,6 @@ function SignTypedDataInner() {
       </pre>
 
       <Button onClick={() => signTypedData()}>Sign</Button>
-
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

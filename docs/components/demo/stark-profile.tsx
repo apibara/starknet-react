@@ -49,7 +49,6 @@ function StarkProfileInner() {
           )}
         </pre>
       </div>
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }

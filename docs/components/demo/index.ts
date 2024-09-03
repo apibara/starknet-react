@@ -1,5 +1,5 @@
 import { AddChain } from "./add-chain";
-import { ConnectWallet } from "./connect-wallet";
+import { WalletPermission } from "./wallet-permission";
 import { DeclareContract } from "./declare-contract";
 import { EstimateFees } from "./estimate-fees";
 import { NonceForAddress } from "./nonce-for-address";
@@ -15,7 +15,7 @@ import { Account } from "./account";
 
 export default {
   Account,
-  ConnectWallet,
+  WalletPermission,
   ReadContract,
   SendTransaction,
   EstimateFees,

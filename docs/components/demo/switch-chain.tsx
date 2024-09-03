@@ -59,8 +59,6 @@ function SwitchChainInner() {
       >
         Switch to Sepolia (Override)
       </Button>
-
-      <i className="text-xs mt-2">* Wallet connection required</i>
     </div>
   );
 }
