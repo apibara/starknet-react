@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { AccountInterface } from "starknet";
 import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
+import { useStarknet } from "../context/starknet";
 import { getAddress } from "../utils";
 import { useConnect } from "./use-connect";
 
@@ -45,80 +46,40 @@ export type UseAccountResult = {
  * currently connected wallet.
  */
 export function useAccount(): UseAccountResult {
-  const { account: connectedAccount } = useStarknetAccount();
-  const { connectors } = useConnect();
+  const { connector, chain } = useStarknet();
+  const { account: connectedAccount, address: connectedAddress } =
+    useStarknetAccount();
   const [state, setState] = useState<UseAccountResult>({
     status: "disconnected",
   });
 
   const refreshState = useCallback(async () => {
-    if (!connectedAccount) {
-      return setState({
-        status: "disconnected",
-        isDisconnected: true,
-        isConnected: false,
-        isConnecting: false,
-        isReconnecting: false,
-      });
-    }
-
-    const connectorPromises = connectors
-      // If the account is connected, we get the address
-      .filter((connector) => connector.available())
-      .map(async (connector) => {
-        // we get permissions from the wallet
-        const permissions: Permission[] = await connector.request({
-          type: "wallet_getPermissions",
-        });
-
-        // if the wallet doesn't have the permission to get accounts, reject
-        if (!permissions.includes(Permission.ACCOUNTS))
-          throw new Error("No permission to get accounts");
-
-        // if the wallet is connected and has permissions, so we request the accounts
-        const connAccount = await connector.request({
-          type: "wallet_requestAccounts",
-          params: { silent_mode: true },
-        });
-
-        // Check if the account matches the connected account
-        if (connAccount?.[0] === connectedAccount.address) {
-          return {
-            connector,
-            chainId: await connector.chainId(),
-            account: connectedAccount,
-            address: getAddress(connectedAccount.address),
-            status: "connected" as const,
-            isConnected: true,
-            isConnecting: false,
-            isDisconnected: false,
-            isReconnecting: false,
-          };
-        }
-
-        // If the account does not match, reject
-        throw new Error("Account does not match");
-      });
-
-    try {
-      const state = await Promise.any(connectorPromises);
-      if (state) return setState(state);
-    } catch {
-      // If we get here, we're not connected to any connector.
-      // This can happen if it's an arcade account.
+    if (connector && connectedAccount && connectedAddress) {
       setState({
-        connector: undefined,
-        chainId: undefined,
+        status: "connected" as const,
+        connector,
+        chainId: chain.id,
         account: connectedAccount,
-        address: getAddress(connectedAccount.address),
-        status: "connected",
+        address: getAddress(connectedAddress),
         isConnected: true,
         isConnecting: false,
         isDisconnected: false,
         isReconnecting: false,
       });
+    } else {
+      return setState({
+        status: "disconnected" as const,
+        connector: undefined,
+        chainId: undefined,
+        account: undefined,
+        address: undefined,
+        isConnected: false,
+        isConnecting: false,
+        isDisconnected: true,
+        isReconnecting: false,
+      });
     }
-  }, [connectedAccount, connectors]);
+  }, [connectedAccount, connector, chain.id, connectedAddress]);
 
   useEffect(() => {
     refreshState();
