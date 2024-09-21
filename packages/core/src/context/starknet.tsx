@@ -1,4 +1,9 @@
-import { type Chain, mainnet, sepolia } from "@starknet-react/chains";
+import {
+  type Address,
+  type Chain,
+  mainnet,
+  sepolia,
+} from "@starknet-react/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type React from "react";
 import {
@@ -85,6 +90,7 @@ export function useStarknet(): StarknetState {
 interface StarknetManagerState {
   currentChain: Chain;
   connectors: Connector[];
+  currentAddress?: Address;
   currentAccount?: AccountInterface;
   currentProvider: ProviderInterface;
   error?: Error;
@@ -104,7 +110,10 @@ function useStarknetManager({
   explorer,
   connectors = [],
   autoConnect = false,
-}: UseStarknetManagerProps): StarknetState & { account?: AccountInterface } {
+}: UseStarknetManagerProps): StarknetState & {
+  account?: AccountInterface;
+  address?: Address;
+} {
   const initialChain = chains[0];
   if (initialChain === undefined) {
     throw new Error("Must provide at least one chain.");
@@ -146,17 +155,18 @@ function useStarknetManager({
   );
 
   const handleConnectorChange = useCallback(
-    async ({ chainId, account }: ConnectorData) => {
+    async ({ chainId, account: address }: ConnectorData) => {
       if (chainId) {
         updateChainAndProvider({ chainId });
       }
 
-      if (account && connectorRef.current) {
+      if (address && connectorRef.current) {
         const account = await connectorRef.current.account(
           state.currentProvider,
         );
         setState((state) => ({
           ...state,
+          currentAddress: address as Address,
           currentAccount: account,
         }));
       }
@@ -176,13 +186,14 @@ function useStarknetManager({
       }
 
       try {
-        const { chainId } = await connector.connect();
+        const { chainId, account: address } = await connector.connect();
         const account = await connector.account(state.currentProvider);
 
-        if (account.address !== state.currentAccount?.address) {
+        if (address !== state.currentAccount?.address) {
           connectorRef.current = connector;
           setState((state) => ({
             ...state,
+            currentAddress: address as Address,
             currentAccount: account,
           }));
         }
@@ -216,6 +227,7 @@ function useStarknetManager({
   const disconnect = useCallback(async () => {
     setState((state) => ({
       ...state,
+      currentAddress: undefined,
       currentAccount: undefined,
       currentProvider: defaultProvider,
       currentChain: defaultChain,
@@ -271,6 +283,7 @@ function useStarknetManager({
 
   return {
     account: state.currentAccount,
+    address: state.currentAddress,
     provider: state.currentProvider,
     chain: state.currentChain,
     connector: connectorRef.current,
@@ -310,7 +323,7 @@ export function StarknetProvider({
   queryClient,
   children,
 }: StarknetProviderProps): JSX.Element {
-  const { account, ...state } = useStarknetManager({
+  const { account, address, ...state } = useStarknetManager({
     chains,
     provider,
     explorer,
@@ -321,7 +334,9 @@ export function StarknetProvider({
   return (
     <QueryClientProvider client={queryClient ?? defaultQueryClient}>
       <StarknetContext.Provider value={state}>
-        <AccountProvider account={account}>{children}</AccountProvider>
+        <AccountProvider address={address} account={account}>
+          {children}
+        </AccountProvider>
       </StarknetContext.Provider>
     </QueryClientProvider>
   );
