@@ -1,7 +1,7 @@
 import { constants } from "starknet";
 import {
-  isInArgentMobileAppBrowser,
   ArgentMobileConnector,
+  isInArgentMobileAppBrowser,
 } from "starknetkit/argentMobile";
 import { InjectedConnector } from "starknetkit/injected";
 import { WebWalletConnector } from "starknetkit/webwallet";
@@ -23,7 +23,7 @@ export const availableConnectors = isInArgentMobileAppBrowser()
         options: {
           url: typeof window !== "undefined" ? window.location.href : "",
           dappName: "Example dapp",
-          chainId: constants.NetworkName.SN_SEPOLIA,
+          chainId: constants.NetworkName.SN_MAIN,
         },
       }),
       new WebWalletConnector({ url: "https://web.argent.xyz" }),
