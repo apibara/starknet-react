@@ -29,39 +29,56 @@ function StarknetKitInner() {
     connectors: availableConnectors as StarknetkitConnector[],
   });
 
-  const { account } = useAccount();
+  const { address, chainId, account } = useAccount();
 
-  const connectWallet = async () => {
+  // function to connect to a wallet via starknetkit modal
+  async function connectWalletWithModal() {
     const { connector } = await starknetkitConnectModal();
     if (!connector) {
       return;
     }
     await connectAsync({ connector: connector as Connector });
-  };
+  }
+
+  // function to connect to a wallet via starknetkit connector
+  async function connectWalletWithConnector(connector: Connector) {
+    await connectAsync({ connector });
+  }
 
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <p>Staknetkit Modal</p>
-
-        {account?.address ? (
+        {address && (
           <div className="h-full flex flex-col justify-center">
             <p className="font-medium">Connected Address: </p>
-            <pre>{account.address}</pre>
+            <pre>{address}</pre>
           </div>
-        ) : (
-          <Button onClick={connectWallet}>Starknetkit Modal</Button>
         )}
 
-        <p>Experimental</p>
+        <p>Staknetkit Modal</p>
+        <Button onClick={connectWalletWithModal}>Starknetkit Modal</Button>
+
+        <p>Staknetkit Connectors</p>
+        {connectors.map((connector, index) => (
+          <Button
+            onClick={() => connectWalletWithConnector(connector)}
+            key={connector.id}
+          >
+            {connector.id}
+          </Button>
+        ))}
+
+        {/*         
+        <p>Experimental (for internal testing only)</p>
         {connectors.map((connector, index) => (
           <WalletButton connector={connector} key={connector.id} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
 }
 
+/** @experimental ignore: this function is for internal testing purpose only (not part of demo) */
 function WalletButton({ connector }: { connector: Connector }) {
   const [res, setRes] = useState<string>("-- No res --");
   const [res2, setRes2] = useState<string>("-- No res --");
@@ -132,7 +149,7 @@ function WalletButton({ connector }: { connector: Connector }) {
     </div>
   );
 }
-
+/** @experimental ignore: this function is for internal testing purpose only (not part of demo) */
 function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [sepolia, mainnet];
   const provider = publicProvider();

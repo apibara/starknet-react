@@ -24,7 +24,7 @@
     "react": "^18.2.0",
     "safe-stable-stringify": "^2.5.0",
     "starknet": "^6.11.0",
-    "starknetkit": "^2.2.26",
+    "starknetkit": "^2.3.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vocs": "1.0.0-alpha.55"

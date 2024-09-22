@@ -21,6 +21,10 @@ describe("useAccount", () => {
 
       expect(result.current.account).toMatchInlineSnapshot(`
         {
+          "account": undefined,
+          "address": undefined,
+          "chainId": undefined,
+          "connector": undefined,
           "isConnected": false,
           "isConnecting": false,
           "isDisconnected": true,
@@ -47,6 +51,10 @@ describe("useAccount", () => {
 
       expect(result.current.account).toMatchInlineSnapshot(`
         {
+          "account": undefined,
+          "address": undefined,
+          "chainId": undefined,
+          "connector": undefined,
           "isConnected": false,
           "isConnecting": false,
           "isDisconnected": true,
