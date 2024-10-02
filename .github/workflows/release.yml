@@ -18,14 +18,16 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 9.7
-      - name: Install dependencies
-        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
-      - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@v1
-        with:
-          publish: pnpm run release
-          commit: "chore: version bump"
-          title: "chore: version bump"
+      - name: Setup git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://$(GITHUB_TOKEN)@github.com/apibara/starknet-react"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
+      - name: Publish package
+        run: pnpm beachball publish --access public --token "$(NPM_TOKEN)"
+        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

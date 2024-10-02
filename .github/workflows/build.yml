@@ -38,3 +38,5 @@ jobs:
         run: pnpm build
       - name: Run test
         run: pnpm test:ci
+      - name: Check change files
+        run: pnpm beachball check
