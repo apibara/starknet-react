@@ -1,7 +1,9 @@
 name: Release
 
 on:
-  workflow_call: {}
+  push:
+    branches:
+      - main
 
 jobs:
   release:
