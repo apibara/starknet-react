@@ -22,12 +22,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://$(GITHUB_TOKEN)@github.com/apibara/starknet-react"
+          git remote set-url origin "https://${GITHUB_TOKEN}@github.com/apibara/starknet-react"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Publish package
-        run: pnpm beachball publish --access public --token "$(NPM_TOKEN)"
+        run: pnpm beachball publish --access public --token "${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
