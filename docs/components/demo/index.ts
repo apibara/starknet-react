@@ -1,5 +1,6 @@
+import { Account } from "./account";
 import { AddChain } from "./add-chain";
-import { WalletPermission } from "./wallet-permission";
+import { Balance } from "./balance";
 import { DeclareContract } from "./declare-contract";
 import { EstimateFees } from "./estimate-fees";
 import { NonceForAddress } from "./nonce-for-address";
@@ -11,11 +12,12 @@ import { StarkName } from "./stark-name";
 import { StarkProfile } from "./stark-profile";
 import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
-import { Account } from "./account";
+import { WalletPermission } from "./wallet-permission";
 
 export default {
   Account,
   WalletPermission,
+  Balance,
   ReadContract,
   SendTransaction,
   EstimateFees,

@@ -1,21 +1,21 @@
 import { useAccount, useConnect } from "@starknet-react/core";
-import type { AccountInterface } from "starknet";
 import { Button } from "../ui/button";
 
 export function WalletBar() {
-  const { account } = useAccount();
+  const { address } = useAccount();
+
   return (
     <div className="w-full py-2 h-24 border-b border-primary">
-      {account ? <ConnectedWallet account={account} /> : <ConnectWallet />}
+      {address ? <ConnectedWallet address={address} /> : <ConnectWallet />}
     </div>
   );
 }
 
-function ConnectedWallet({ account }: { account: AccountInterface }) {
+function ConnectedWallet({ address }: { address: `0x${string}` }) {
   return (
     <div className="h-full flex flex-col justify-center">
       <p className="font-medium">Connected Address: </p>
-      <pre>{account.address}</pre>
+      <pre>{address}</pre>
     </div>
   );
 }

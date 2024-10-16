@@ -24,12 +24,12 @@ export const sidebar = {
         {
           text: "Explorers",
           link: "/docs/explorers",
-        }
+        },
       ],
     },
     {
-      "text": "Smart Contracts",
-      "items": [
+      text: "Smart Contracts",
+      items: [
         {
           text: "useBalance",
           link: "/docs/hooks/use-balance",
@@ -50,11 +50,11 @@ export const sidebar = {
           text: "useContractFactory",
           link: "/docs/hooks/use-contract-factory",
         },
-      ]
+      ],
     },
     {
-      "text": "Wallet Actions",
-      "items": [
+      text: "Wallet Actions",
+      items: [
         {
           text: "useSendTransaction",
           link: "/docs/hooks/use-send-transaction",
@@ -83,12 +83,15 @@ export const sidebar = {
           text: "useDeployAccount",
           link: "/docs/hooks/use-deploy-account",
         },
-      ]
+      ],
     },
     {
-      "text": "Connectors",
-      "items": [
-        { text: "useInjectedConnectors", link: "/docs/hooks/use-injected-connectors" },
+      text: "Connectors",
+      items: [
+        {
+          text: "useInjectedConnectors",
+          link: "/docs/hooks/use-injected-connectors",
+        },
         { text: "useAccount", link: "/docs/hooks/use-account" },
         {
           text: "useConnect",
@@ -98,11 +101,11 @@ export const sidebar = {
           text: "useDisconnect",
           link: "/docs/hooks/use-disconnect",
         },
-      ]
+      ],
     },
     {
-      "text": "Helpers",
-      "items": [
+      text: "Helpers",
+      items: [
         {
           text: "useNetwork",
           link: "/docs/hooks/use-network",
@@ -119,11 +122,11 @@ export const sidebar = {
           text: "useInvalidateOnBlock",
           link: "/docs/hooks/use-invalidate-on-block",
         },
-      ]
+      ],
     },
     {
-      "text": "RPC Methods",
-      "items": [
+      text: "RPC Methods",
+      items: [
         {
           text: "useBlock",
           link: "/docs/hooks/use-block",
@@ -144,11 +147,11 @@ export const sidebar = {
           text: "useTransactionReceipt",
           link: "/docs/hooks/use-transaction-receipt",
         },
-      ]
+      ],
     },
     {
-      "text": "Starknet.ID",
-      "items": [
+      text: "Starknet.ID",
+      items: [
         {
           text: "useStarkAddress",
           link: "/docs/hooks/use-stark-address",
@@ -161,7 +164,7 @@ export const sidebar = {
           text: "useStarkProfile",
           link: "/docs/hooks/use-stark-profile",
         },
-      ]
-    }
+      ],
+    },
   ],
 } as const satisfies Sidebar;
