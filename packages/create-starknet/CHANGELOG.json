@@ -1,0 +1,20 @@
+{
+  "name": "create-starknet",
+  "entries": [
+    {
+      "date": "Wed, 16 Oct 2024 18:14:02 GMT",
+      "version": "3.0.0",
+      "tag": "create-starknet_v3.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "create-starknet",
+            "commit": "b4591364d8e91dd86c1d7841f80ace3dbb419632",
+            "comment": "create-starknet: fix formatting"
+          }
+        ]
+      }
+    }
+  ]
+}
