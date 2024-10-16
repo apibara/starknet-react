@@ -44,9 +44,9 @@ export const mainnet = {
     },
     public: {
       http: [
-        "https://starknet-mainnet.public.blastapi.io/rpc/v0.5",
+        "https://starknet-mainnet.public.blastapi.io/rpc/v0_7",
         "https://rpc.starknet.lava.build",
-        "https://free-rpc.nethermind.io/mainnet-juno/v0_5",
+        "https://free-rpc.nethermind.io/mainnet-juno/v0_7",
       ],
     },
   },
@@ -71,18 +71,12 @@ export const sepolia = {
   },
   testnet: true,
   rpcUrls: {
-    // alchemy: {
-    //   http: [],
-    // },
     blast: {
       http: ["https://starknet-sepolia.blastapi.io"],
     },
     infura: {
       http: ["https://starknet-sepolia.infura.io/v3"],
     },
-    // lava: {
-    //   http: [],
-    // },
     nethermind: {
       http: ["https://rpc.nethermind.io/sepolia-juno"],
     },
