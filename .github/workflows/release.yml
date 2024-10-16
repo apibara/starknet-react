@@ -7,24 +7,27 @@ on:
 
 jobs:
   release:
+    environment: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Node version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
-          version: 9.7
+          version: 9.10.0
+      - name: Run build
+        run: pnpm build
       - name: Setup git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://${GITHUB_TOKEN}@github.com/apibara/starknet-react"
+          git remote set-url origin "https://${GIT_TOKEN}@github.com/apibara/starknet-react"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Publish package
