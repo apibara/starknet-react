@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update RPC urls to RPC 0.7",
+  "packageName": "@starknet-react/chains",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}
