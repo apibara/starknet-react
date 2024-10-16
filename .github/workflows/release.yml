@@ -19,6 +19,8 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 9.10.0
+      - name: Install dependencies
+        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Run build
         run: pnpm build
       - name: Setup git
