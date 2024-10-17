@@ -102,6 +102,7 @@ interface UseStarknetManagerProps {
   explorer?: ExplorerFactory;
   connectors?: Connector[];
   autoConnect?: boolean;
+  defaultChainId?: bigint;
 }
 
 function useStarknetManager({
@@ -110,17 +111,20 @@ function useStarknetManager({
   explorer,
   connectors = [],
   autoConnect = false,
+  defaultChainId,
 }: UseStarknetManagerProps): StarknetState & {
   account?: AccountInterface;
   address?: Address;
 } {
-  const initialChain = chains[0];
-  if (initialChain === undefined) {
+  const defaultChain = defaultChainId
+    ? (chains.find((c) => c.id === defaultChainId) ?? chains[0])
+    : chains[0];
+  if (defaultChain === undefined) {
     throw new Error("Must provide at least one chain.");
   }
 
-  const { chain: defaultChain, provider: defaultProvider } = providerForChain(
-    initialChain,
+  const { chain: _, provider: defaultProvider } = providerForChain(
+    defaultChain,
     provider,
   );
 
@@ -174,6 +178,16 @@ function useStarknetManager({
     [updateChainAndProvider, state.currentProvider],
   );
 
+  useEffect(() => {
+    if (!connectorRef.current) {
+      // Only update currentChain if no wallet is connected
+      setState((state) => ({
+        ...state,
+        currentChain: defaultChain,
+        currentProvider: providerForChain(defaultChain, provider).provider,
+      }));
+    }
+  }, [defaultChain, provider]);
   const connect = useCallback(
     async ({ connector }: { connector?: Connector }) => {
       if (!connector) {
@@ -311,6 +325,8 @@ export interface StarknetProviderProps {
   queryClient?: QueryClient;
   /** Application. */
   children?: React.ReactNode;
+  /** Default chain to use when wallet is not connected */
+  defaultChainId?: bigint;
 }
 
 /** Root Starknet context provider. */
@@ -321,6 +337,7 @@ export function StarknetProvider({
   explorer,
   autoConnect,
   queryClient,
+  defaultChainId,
   children,
 }: StarknetProviderProps): JSX.Element {
   const { account, address, ...state } = useStarknetManager({
@@ -329,6 +346,7 @@ export function StarknetProvider({
     explorer,
     connectors,
     autoConnect,
+    defaultChainId,
   });
 
   return (

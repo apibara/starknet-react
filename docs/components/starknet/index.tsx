@@ -2,14 +2,16 @@ import { WalletBar } from "./bar";
 import { StarknetProvider } from "./provider";
 
 export function DemoContainer({
+  defaultChainId,
   hasWallet,
   children,
 }: {
+  defaultChainId?: bigint;
   hasWallet?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <StarknetProvider>
+    <StarknetProvider defaultChainId={defaultChainId}>
       <div className="flex flex-col px-4 border border-primary rounded-xl">
         {hasWallet ? <WalletBar /> : null}
         <div className="py-4">{children}</div>

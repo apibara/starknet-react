@@ -13,6 +13,7 @@ import { StarkProfile } from "./stark-profile";
 import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
 import { WalletPermission } from "./wallet-permission";
+import { ChangeDefaultNetwork } from "./change-default-network";
 
 export default {
   Account,
@@ -30,4 +31,5 @@ export default {
   DeclareContract,
   NonceForAddress,
   StarknetKit,
+  ChangeDefaultNetwork,
 };

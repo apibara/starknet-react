@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add provider option to select default chain when no wallet is connected",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}
