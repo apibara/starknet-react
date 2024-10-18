@@ -9,10 +9,12 @@ import {
 } from "@starknet-react/core";
 
 export function StarknetProvider({
+  defaultChainId,
   children,
   explorer,
 }: {
   children: React.ReactNode;
+  defaultChainId?: bigint;
   explorer?: ExplorerFactory;
 }) {
   const chains = [sepolia, mainnet];
@@ -32,6 +34,7 @@ export function StarknetProvider({
       provider={provider}
       connectors={connectors}
       explorer={explorer}
+      defaultChainId={defaultChainId}
     >
       {children}
     </StarknetConfig>
