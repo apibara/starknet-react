@@ -1,18 +1,18 @@
 import { devnet, mainnet } from "@starknet-react/chains";
 import { QueryClient } from "@tanstack/react-query";
 import {
-  RenderHookOptions,
-  RenderOptions,
-  RenderResult,
+  type RenderHookOptions,
+  type RenderOptions,
+  type RenderResult,
   render,
   renderHook,
 } from "@testing-library/react";
-import React from "react";
+import type React from "react";
 
 import { StarknetConfig as OgStarknetConfig } from "../src/context";
 import { jsonRpcProvider } from "../src/providers";
 
-import { MockConnectorOptions } from "../src";
+import type { MockConnectorOptions } from "../src";
 import { defaultConnector } from "./devnet";
 
 function rpc() {
