@@ -1,0 +1,26 @@
+{
+  "name": "@starknet-react/core",
+  "entries": [
+    {
+      "date": "Fri, 18 Oct 2024 11:07:07 GMT",
+      "version": "3.0.3",
+      "tag": "@starknet-react/core_v3.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "63b3268a9e7a23ec1bd7f6dd21efaf6aecee6467",
+            "comment": "Add provider option to select default chain when no wallet is connected"
+          },
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "63b3268a9e7a23ec1bd7f6dd21efaf6aecee6467",
+            "comment": "Sync packages version"
+          }
+        ]
+      }
+    }
+  ]
+}

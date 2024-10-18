@@ -1,4 +1,17 @@
-# @starknet-react/chains
+# Change Log - @starknet-react/chains
+
+<!-- This log was last generated on Fri, 18 Oct 2024 11:07:07 GMT and should not be manually modified. -->
+
+<!-- Start content -->
+
+## 3.0.2
+
+Fri, 18 Oct 2024 11:07:07 GMT
+
+### Patches
+
+- Update RPC urls to RPC 0.7 (francesco@ceccon.me)
+- Sync packages version (francesco@ceccon.me)
 
 ## 0.1.7
 

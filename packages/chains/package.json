@@ -1,10 +1,14 @@
 {
   "name": "@starknet-react/chains",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "repository": "apibara/starknet-react",
   "homepage": "https://www.starknet-react.com/",
-  "keywords": ["starknet", "ethereum", "l2"],
+  "keywords": [
+    "starknet",
+    "ethereum",
+    "l2"
+  ],
   "type": "module",
   "main": "./src/index.ts",
   "exports": "./src/index.ts",
@@ -18,7 +22,11 @@
         "default": "./dist/index.js"
       }
     },
-    "files": ["dist", "src", "README.md"]
+    "files": [
+      "dist",
+      "src",
+      "README.md"
+    ]
   },
   "scripts": {
     "build": "tsup",
