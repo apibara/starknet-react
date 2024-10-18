@@ -14,6 +14,10 @@ export const sidebar = {
           link: "/docs/upgrading-to-v3",
         },
         {
+          text: "StarknetConfig",
+          link: "/docs/starknet-config",
+        },
+        {
           text: "Wallets",
           link: "/docs/wallets",
         },

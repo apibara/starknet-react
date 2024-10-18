@@ -1,0 +1,65 @@
+# StarknetConfig
+
+The React Context provider for Starknet.
+
+## Usage
+
+```tsx twoslash
+"use client";
+import React from "react";
+
+import { mainnet } from "@starknet-react/chains";
+import { StarknetConfig, publicProvider } from "@starknet-react/core";
+
+function App() {
+  return (
+    <StarknetConfig chains={[mainnet]} provider={publicProvider()}>
+      {/* your app here */}
+    </StarknetConfig>
+  );
+}
+```
+
+## Arguments
+
+### chains
+
+- Type: `Chain[]`
+
+List of supported chains.
+
+### provider
+
+- Type: `ChainProviderFactory`
+
+The JSON-RPC provider you want to use. See [the RPC providers page](/docs/providers) for more information.
+
+### connectors
+
+- Type: `Connector[]`
+
+List of wallet connectors you want to use. See [the wallets page](/docs/wallets) for more information.
+
+### explorer
+
+- Type: `ExplorerFactory`
+
+Explorer factory to use. See [the explorers page](/docs/explorers) for more information.
+
+### autoConnect
+
+- Type: `boolean | undefined`
+
+Whether to automatically connect to the first available wallet.
+
+### queryClient
+
+- Type: `QueryClient`
+
+React Query client to use.
+
+### defaultChainId
+
+- Type: `bigint | undefined`
+
+Default chain to use when no wallet is connected. This chain must be included in the `chains` array.
