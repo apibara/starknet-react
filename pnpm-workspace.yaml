@@ -1,6 +1,7 @@
 packages:
   - "packages/chains"
   - "packages/core"
+  - "packages/kakarot"
   - "packages/create-starknet"
   - "packages/typescript-config"
   - "docs"

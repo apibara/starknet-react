@@ -210,7 +210,7 @@ export class InjectedConnector extends Connector {
     }
   }
 
-  private async onAccountsChanged(accounts?: string[]): Promise<void> {
+  protected async onAccountsChanged(accounts?: string[]): Promise<void> {
     if (!accounts) {
       this.emit("disconnect");
     } else {
