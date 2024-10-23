@@ -32,6 +32,10 @@ export interface ConnectorEvents {
   disconnect(): void;
 }
 
+export type ConnectArgs = {
+  chainIdHint?: bigint;
+};
+
 export abstract class Connector extends EventEmitter<ConnectorEvents> {
   /** Unique connector id. */
   abstract get id(): string;
@@ -45,7 +49,7 @@ export abstract class Connector extends EventEmitter<ConnectorEvents> {
   /** Whether connector is already authorized */
   abstract ready(): Promise<boolean>;
   /** Connect wallet. */
-  abstract connect(): Promise<ConnectorData>;
+  abstract connect(args: ConnectArgs): Promise<ConnectorData>;
   /** Disconnect wallet. */
   abstract disconnect(): Promise<void>;
   /** Get current account. */

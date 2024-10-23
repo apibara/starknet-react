@@ -1,24 +1,16 @@
-import type { InjectedConnector } from "@starknet-react/core";
+import type { ChainProviderFactory } from "@starknet-react/core";
 import { createStore } from "mipd";
+import type { RpcProvider } from "starknet";
 import { KakarotConnector } from "./kakarot";
 
-export function kakarotConnectors(): InjectedConnector[] {
-  console.log("kakarotConnectors");
+export function kakarotConnectors(
+  starknetRpcProvider: ChainProviderFactory<RpcProvider>,
+): KakarotConnector[] {
   // Set up a MIPD Store, and request Providers.
   const store = createStore();
 
-  // Subscribe to the MIPD Store.
-  store.subscribe((providerDetails) => {
-    console.log(providerDetails);
-    // => [EIP6963ProviderDetail, EIP6963ProviderDetail, ...]
-  });
-
-  // Retrieve emitted Providers.
   const allProviders = store.getProviders();
-  // => [EIP6963ProviderDetail, EIP6963ProviderDetail, ...]
-
   return allProviders.map((provider) => {
-    console.log("provider", provider);
-    return new KakarotConnector(provider);
+    return new KakarotConnector(provider, starknetRpcProvider);
   });
 }

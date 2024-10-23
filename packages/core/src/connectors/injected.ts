@@ -16,7 +16,12 @@ import {
   ConnectorNotFoundError,
   UserRejectedRequestError,
 } from "../errors";
-import { Connector, type ConnectorData, type ConnectorIcons } from "./base";
+import {
+  type ConnectArgs,
+  Connector,
+  type ConnectorData,
+  type ConnectorIcons,
+} from "./base";
 
 /** Injected connector options. */
 export interface InjectedConnectorOptions {
@@ -122,7 +127,7 @@ export class InjectedConnector extends Connector {
     return new WalletAccount(provider, this._wallet);
   }
 
-  async connect(): Promise<ConnectorData> {
+  async connect(_args: ConnectArgs = {}): Promise<ConnectorData> {
     this.ensureWallet();
 
     if (!this._wallet) {

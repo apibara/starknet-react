@@ -15,5 +15,5 @@ yarn add @starknet-react/kakarot
 Simply import the kakarotConnectors.
 
 ```ts
-import { kakarotConnectors } from '@starknet-react/kakarot`
+import { kakarotConnectors } from "@starknet-react/kakarot"
 ```

@@ -1,4 +1,4 @@
-export { Connector } from "./base";
+export { Connector, type ConnectArgs } from "./base";
 export { InjectedConnector, type InjectedConnectorOptions } from "./injected";
 export {
   type UseInjectedConnectorsProps,

@@ -22,7 +22,7 @@ export function StarknetProvider({
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [argent(), braavos(), ...kakarotConnectors()],
+    recommended: [argent(), braavos(), ...kakarotConnectors(provider)],
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "always",
     // Randomize the order of the connectors.

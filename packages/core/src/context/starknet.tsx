@@ -200,7 +200,9 @@ function useStarknetManager({
       }
 
       try {
-        const { chainId, account: address } = await connector.connect();
+        const { chainId, account: address } = await connector.connect({
+          chainIdHint: defaultChain.id,
+        });
         const account = await connector.account(state.currentProvider);
 
         if (address !== state.currentAccount?.address) {
@@ -233,6 +235,7 @@ function useStarknetManager({
       autoConnect,
       state.currentAccount,
       state.currentProvider,
+      defaultChain.id,
       handleConnectorChange,
       updateChainAndProvider,
     ],
