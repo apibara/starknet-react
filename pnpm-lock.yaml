@@ -213,8 +213,8 @@ importers:
         specifier: ^0.7.7
         version: 0.7.7
       '@starknet-react/chains':
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^3.0.4
+        version: 3.0.4
       '@starknet-react/core':
         specifier: workspace:^
         version: link:../core
@@ -1593,8 +1593,8 @@ packages:
   '@starknet-io/types-js@0.7.7':
     resolution: {integrity: sha512-WLrpK7LIaIb8Ymxu6KF/6JkGW1sso988DweWu7p5QY/3y7waBIiPvzh27D9bX5KIJNRDyOoOVoHVEKYUYWZ/RQ==}
 
-  '@starknet-react/chains@3.0.3':
-    resolution: {integrity: sha512-+XuXba6p/5tnFcnmGKxvbUbFD8WwClcyNfZB5HEU4Md45cco9Z5YZLtqc3ZTYG9vWWwe0nRFSRXsaYizu0f21Q==}
+  '@starknet-react/chains@3.0.4':
+    resolution: {integrity: sha512-Em/3AOPya22HRP7Hhhy6jlQqQJL5wbq5wVbvkuMB7J+DIoAq+QxLYdmAZ7bVxr3n+c9oYdAj5pO6InABnF0Hyw==}
 
   '@tanstack/query-core@5.53.2':
     resolution: {integrity: sha512-gCsABpRrYfLsmwcQ0JCE5I3LOQ9KYrDDSnseUDP3T7ukV8E7+lhlHDJS4Gegt1TSZCsxKhc1J5A7TkF5ePjDUQ==}
@@ -5676,7 +5676,7 @@ snapshots:
 
   '@starknet-io/types-js@0.7.7': {}
 
-  '@starknet-react/chains@3.0.3': {}
+  '@starknet-react/chains@3.0.4': {}
 
   '@tanstack/query-core@5.53.2': {}
 
