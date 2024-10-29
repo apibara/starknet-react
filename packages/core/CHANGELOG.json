@@ -1,0 +1,48 @@
+{
+  "name": "@starknet-react/core",
+  "entries": [
+    {
+      "date": "Tue, 29 Oct 2024 16:28:38 GMT",
+      "version": "3.4.0",
+      "tag": "@starknet-react/core_v3.4.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "Add provider option to select default chain when no wallet is connected"
+          },
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "Sync packages version"
+          },
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "core: reduce the number of wallet api calls"
+          }
+        ],
+        "minor": [
+          {
+            "author": "mathieu@kakarot.org",
+            "package": "@starknet-react/core",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "add chainId hint in connector's `connect`"
+          }
+        ],
+        "none": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "sync package version"
+          }
+        ]
+      }
+    }
+  ]
+}

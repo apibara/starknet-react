@@ -1,0 +1,28 @@
+{
+  "name": "create-starknet",
+  "entries": [
+    {
+      "date": "Tue, 29 Oct 2024 16:28:38 GMT",
+      "version": "3.4.0",
+      "tag": "create-starknet_v3.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "create-starknet",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "create-starknet: fix formatting"
+          }
+        ],
+        "minor": [
+          {
+            "author": "mathieu@kakarot.org",
+            "package": "create-starknet",
+            "commit": "a0d1687178d72aade2797734be5a2cb14057de5d",
+            "comment": "add kakarotConnectors to starknet-provider"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add chainId hint in connector's `connect`",
-  "packageName": "@starknet-react/core",
-  "email": "mathieu@kakarot.org",
-  "dependentChangeType": "patch"
-}
