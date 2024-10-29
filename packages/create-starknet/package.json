@@ -1,6 +1,6 @@
 {
   "name": "create-starknet",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Create starknet apps with one command",
   "main": "./dist/index.js",
   "type": "module",

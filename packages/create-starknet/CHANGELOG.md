@@ -1,4 +1,16 @@
-# create-starknet
+# Change Log - create-starknet
+
+<!-- This log was last generated on Tue, 29 Oct 2024 14:54:02 GMT and should not be manually modified. -->
+
+<!-- Start content -->
+
+## 3.2.0
+
+Tue, 29 Oct 2024 14:54:02 GMT
+
+### Minor changes
+
+- add kakarotConnectors to starknet-provider (mathieu@kakarot.org)
 
 ## 2.1.1
 

@@ -1,0 +1,34 @@
+{
+  "name": "@starknet-react/kakarot",
+  "entries": [
+    {
+      "date": "Tue, 29 Oct 2024 14:54:02 GMT",
+      "version": "3.0.2",
+      "tag": "@starknet-react/kakarot_v3.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/kakarot",
+            "commit": "6993533a24378963bce454ea5ec08b11436290bb",
+            "comment": "sync package version"
+          },
+          {
+            "author": "mathieu@kakarot.org",
+            "package": "@starknet-react/kakarot",
+            "commit": "6993533a24378963bce454ea5ec08b11436290bb",
+            "comment": "feat: add EVM wallets through kakarot connectors"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@starknet-react/kakarot",
+            "comment": "Bump @starknet-react/chains to v3.0.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    }
+  ]
+}

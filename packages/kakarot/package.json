@@ -1,6 +1,6 @@
 {
   "name": "@starknet-react/kakarot",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "repository": "apibara/starknet-react",
   "homepage": "https://www.starknet-react.com/",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@starknet-io/types-js": "^0.7.7",
-    "@starknet-react/chains": "^3.0.3",
+    "@starknet-react/chains": "^3.0.4",
     "@starknet-react/core": "workspace:^",
     "mipd": "^0.0.7",
     "starknet": "^6.11.0",
