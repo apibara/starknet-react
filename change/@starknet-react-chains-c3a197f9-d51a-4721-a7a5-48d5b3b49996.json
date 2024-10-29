@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "sync package version",
-  "packageName": "@starknet-react/chains",
-  "email": "francesco@ceccon.me",
-  "dependentChangeType": "none"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add kakarotConnectors to starknet-provider",
-  "packageName": "create-starknet",
-  "email": "mathieu@kakarot.org",
-  "dependentChangeType": "patch"
-}

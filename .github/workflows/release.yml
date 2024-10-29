@@ -23,16 +23,13 @@ jobs:
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Run build
         run: pnpm build
-      - name: Setup git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://${GIT_TOKEN}@github.com/apibara/starknet-react"
+
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          commit: "chore: version bump"
+          title: "Master branch version bump"
+          publish: pnpm run release
         env:
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-      - name: Install dependencies
-        run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
-      - name: Publish package
-        run: pnpm beachball publish --access public --token "${NPM_TOKEN}"
-        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
