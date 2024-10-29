@@ -94,9 +94,7 @@ export class InjectedConnector extends Connector {
     }
 
     try {
-      const chainIdHex = await this.request({ type: "wallet_requestChainId" });
-      const chainId = BigInt(chainIdHex);
-      return chainId;
+      return this.requestChainId();
     } catch {
       throw new ConnectorNotFoundError();
     }
@@ -118,6 +116,7 @@ export class InjectedConnector extends Connector {
     provider: ProviderOptions | ProviderInterface,
   ): Promise<AccountInterface> {
     this.ensureWallet();
+
     const locked = await this.isLocked();
 
     if (locked || !this._wallet) {
@@ -159,7 +158,7 @@ export class InjectedConnector extends Connector {
 
     const [account] = accounts;
 
-    const chainId = await this.chainId();
+    const chainId = await this.requestChainId();
     this.emit("connect", { account, chainId });
 
     return {
@@ -203,6 +202,11 @@ export class InjectedConnector extends Connector {
     return accounts.length === 0;
   }
 
+  private async requestChainId(): Promise<bigint> {
+    const chainIdHex = await this.request({ type: "wallet_requestChainId" });
+    return BigInt(chainIdHex);
+  }
+
   private ensureWallet() {
     // biome-ignore lint/suspicious/noExplicitAny: any
     const global_object: Record<string, any> = globalThis;
@@ -222,7 +226,7 @@ export class InjectedConnector extends Connector {
       const [account] = accounts;
 
       if (account) {
-        const chainId = await this.chainId();
+        const chainId = await this.requestChainId();
         this.emit("change", { account, chainId });
       } else {
         this.emit("disconnect");

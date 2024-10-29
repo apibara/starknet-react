@@ -91,7 +91,6 @@ interface StarknetManagerState {
   currentChain: Chain;
   connectors: Connector[];
   currentAddress?: Address;
-  currentAccount?: AccountInterface;
   currentProvider: ProviderInterface;
   error?: Error;
 }
@@ -165,17 +164,13 @@ function useStarknetManager({
       }
 
       if (address && connectorRef.current) {
-        const account = await connectorRef.current.account(
-          state.currentProvider,
-        );
         setState((state) => ({
           ...state,
           currentAddress: address as Address,
-          currentAccount: account,
         }));
       }
     },
-    [updateChainAndProvider, state.currentProvider],
+    [updateChainAndProvider],
   );
 
   useEffect(() => {
@@ -203,14 +198,13 @@ function useStarknetManager({
         const { chainId, account: address } = await connector.connect({
           chainIdHint: defaultChain.id,
         });
-        const account = await connector.account(state.currentProvider);
 
-        if (address !== state.currentAccount?.address) {
+        if (address !== state.currentAddress) {
           connectorRef.current = connector;
+
           setState((state) => ({
             ...state,
             currentAddress: address as Address,
-            currentAccount: account,
           }));
         }
 
@@ -233,8 +227,7 @@ function useStarknetManager({
     },
     [
       autoConnect,
-      state.currentAccount,
-      state.currentProvider,
+      state.currentAddress,
       defaultChain.id,
       handleConnectorChange,
       updateChainAndProvider,
@@ -245,7 +238,6 @@ function useStarknetManager({
     setState((state) => ({
       ...state,
       currentAddress: undefined,
-      currentAccount: undefined,
       currentProvider: defaultProvider,
       currentChain: defaultChain,
     }));
@@ -299,7 +291,6 @@ function useStarknetManager({
   }, []);
 
   return {
-    account: state.currentAccount,
     address: state.currentAddress,
     provider: state.currentProvider,
     chain: state.currentChain,

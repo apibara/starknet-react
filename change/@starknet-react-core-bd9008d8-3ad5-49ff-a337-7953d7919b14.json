@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "core: reduce the number of wallet api calls",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}

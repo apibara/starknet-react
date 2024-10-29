@@ -11,7 +11,7 @@ export function Account() {
 }
 
 function AccountInner() {
-  const { address, connector } = useAccount();
+  const { address, connector, account } = useAccount();
 
   return (
     <div className="flex flex-col gap-4">
@@ -20,6 +20,7 @@ function AccountInner() {
           {
             address: address ?? "Connect wallet first",
             connector: connector?.id ?? "Connect wallet first",
+            account: account ? typeof account : "Connect wallet first",
           },
           null,
           2,

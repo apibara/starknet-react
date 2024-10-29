@@ -7,6 +7,7 @@ import { useStarknetAccount } from "../context/account";
 import { useStarknet } from "../context/starknet";
 import { getAddress } from "../utils";
 import { useConnect } from "./use-connect";
+import { useProvider } from "./use-provider";
 
 /** Account connection status. */
 export type AccountStatus =
@@ -47,25 +48,32 @@ export type UseAccountResult = {
  */
 export function useAccount(): UseAccountResult {
   const { connector, chain } = useStarknet();
-  const { account: connectedAccount, address: connectedAddress } =
-    useStarknetAccount();
+  const { provider } = useProvider();
+  const { address: connectedAddress } = useStarknetAccount();
   const [state, setState] = useState<UseAccountResult>({
     status: "disconnected",
   });
 
   const refreshState = useCallback(async () => {
-    if (connector && connectedAccount && connectedAddress) {
+    if (connector && provider && connectedAddress) {
       setState({
         status: "connected" as const,
         connector,
         chainId: chain.id,
-        account: connectedAccount,
+        account: undefined,
         address: getAddress(connectedAddress),
         isConnected: true,
         isConnecting: false,
         isDisconnected: false,
         isReconnecting: false,
       });
+
+      // Lazily build the account since it makes a wallet call to check if the wallet is locked.
+      connector
+        .account(provider)
+        .then((connectedAccount) =>
+          setState((state) => ({ ...state, account: connectedAccount })),
+        );
     } else {
       return setState({
         status: "disconnected" as const,
@@ -79,7 +87,7 @@ export function useAccount(): UseAccountResult {
         isReconnecting: false,
       });
     }
-  }, [connectedAccount, connector, chain.id, connectedAddress]);
+  }, [provider, connector, chain.id, connectedAddress]);
 
   useEffect(() => {
     refreshState();
