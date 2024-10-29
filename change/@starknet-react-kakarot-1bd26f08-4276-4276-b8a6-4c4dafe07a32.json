@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "sync package version",
+  "packageName": "@starknet-react/kakarot",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "none"
+}
