@@ -90,7 +90,7 @@ export const sepolia = {
       http: ["https://api.cartridge.gg/x/starknet/sepolia"],
     },
     default: {
-      http: [""],
+      http: [],
     },
     public: {
       http: [
