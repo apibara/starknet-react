@@ -5,6 +5,7 @@ import {
   publicProvider,
   useAccount,
   useConnect,
+  useNetwork,
 } from "@starknet-react/core";
 import { useState } from "react";
 import {
@@ -68,7 +69,7 @@ function StarknetKitInner() {
           </Button>
         ))}
 
-        {/*         
+        {/*
         <p>Experimental (for internal testing only)</p>
         {connectors.map((connector, index) => (
           <WalletButton connector={connector} key={connector.id} />
@@ -86,6 +87,8 @@ function WalletButton({ connector }: { connector: Connector }) {
 
   const [time1, setTime1] = useState<number | undefined>(undefined);
   const [time2, setTime2] = useState<number | undefined>(undefined);
+
+  const { chain } = useNetwork();
 
   async function connectWallet() {
     const _res = await connector.connect();

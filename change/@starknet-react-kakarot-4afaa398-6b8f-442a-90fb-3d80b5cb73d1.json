@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "feat: add EVM wallets through kakarot connectors",
+  "packageName": "@starknet-react/kakarot",
+  "email": "mathieu@kakarot.org",
+  "dependentChangeType": "none"
+}

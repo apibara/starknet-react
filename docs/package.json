@@ -18,6 +18,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@starknet-react/chains": "workspace:*",
     "@starknet-react/core": "workspace:*",
+    "@starknet-react/kakarot": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.438.0",
