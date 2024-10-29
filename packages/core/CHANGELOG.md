@@ -1,4 +1,21 @@
-# @starknet-react/core
+# Change Log - @starknet-react/core
+
+<!-- This log was last generated on Tue, 29 Oct 2024 12:11:49 GMT and should not be manually modified. -->
+
+<!-- Start content -->
+
+## 3.1.0
+
+Tue, 29 Oct 2024 12:11:49 GMT
+
+### Minor changes
+
+- add chainId hint in connector's `connect` (mathieu@kakarot.org)
+
+### Patches
+
+- Add provider option to select default chain when no wallet is connected (francesco@ceccon.me)
+- Sync packages version (francesco@ceccon.me)
 
 ## 2.9.0
 

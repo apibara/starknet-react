@@ -1,0 +1,34 @@
+{
+  "name": "@starknet-react/chains",
+  "entries": [
+    {
+      "date": "Tue, 29 Oct 2024 12:11:49 GMT",
+      "version": "3.0.3",
+      "tag": "@starknet-react/chains_v3.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/chains",
+            "commit": "5c0029b7e6bc59ccae3f8171e4498ca2bdc5ea14",
+            "comment": "Update RPC urls to RPC 0.7"
+          },
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/chains",
+            "commit": "5c0029b7e6bc59ccae3f8171e4498ca2bdc5ea14",
+            "comment": "Sync packages version"
+          }
+        ],
+        "none": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/chains",
+            "commit": "5c0029b7e6bc59ccae3f8171e4498ca2bdc5ea14",
+            "comment": "sync package version"
+          }
+        ]
+      }
+    }
+  ]
+}
