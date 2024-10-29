@@ -60,3 +60,55 @@ const connectors = [
   braavos()
 ];
 ```
+
+### Cartridge Controller
+
+The Cartridge Controller wallet is supported however, you need to install the
+`@cartridge/connector` package. 
+
+The Controller enables seamless use of Session Keys.
+
+```bash
+pnpm i @cartridge/connector
+```
+
+```tsx twoslash
+import React, { useCallback } from "react";
+import { ControllerConnector } from "@cartridge/connector";
+import { Connector } from "@starknet-react/core";
+
+const rpc = useCallback(() => {
+  return { nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' };
+}, []);
+
+// Without Session Keys
+const connectors = [
+  new ControllerConnector({
+    rpc: rpc().nodeUrl,
+  }) as never as Connector,
+];
+```
+
+
+```tsx twoslash
+import React, { useCallback } from "react";
+import { ControllerConnector } from "@cartridge/connector";
+import { Connector } from "@starknet-react/core";
+
+const rpc = useCallback(() => {
+  return { nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' };
+}, []);
+
+// With Session Keys // [!code focus]
+const connectors = [// [!code focus]
+  new ControllerConnector({// [!code focus] 
+    rpc: rpc().nodeUrl, // [!code focus]
+    policies:[ // [!code focus]
+      { // [!code focus]
+        target: "0x3f96056436be253753351fe689110ced7d53f5db3fd98f13df3f19058311b95", // [!code focus]
+        method: "create", // [!code focus]
+      }, // [!code focus]
+    ], // [!code focus] 
+  }) as never as Connector,// [!code focus]
+];// [!code focus]
+```
