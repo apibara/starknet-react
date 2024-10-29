@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "sync package version",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "none"
+}
