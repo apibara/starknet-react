@@ -192,6 +192,7 @@ function useStarknetManager({
       const needsListenerSetup = connectorRef.current?.id !== connector.id;
       if (needsListenerSetup) {
         connectorRef.current?.off("change", handleConnectorChange);
+        connectorRef.current?.off("disconnect", disconnect);
       }
 
       try {
@@ -214,6 +215,7 @@ function useStarknetManager({
 
         if (needsListenerSetup) {
           connector.on("change", handleConnectorChange);
+          connector.on("disconnect", disconnect);
         }
 
         updateChainAndProvider({ chainId });
@@ -248,6 +250,7 @@ function useStarknetManager({
 
     if (!connectorRef.current) return;
     connectorRef.current.off("change", handleConnectorChange);
+    connectorRef.current.off("disconnect", disconnect);
 
     try {
       await connectorRef.current.disconnect();
