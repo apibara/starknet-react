@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Tue, 29 Oct 2024 16:28:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 30 Oct 2024 14:00:10 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.4.1
+
+Wed, 30 Oct 2024 14:00:10 GMT
+
+### Patches
+
+- core: add disconnect event listener for wallets (jadejajaipal5@gmail.com)
 
 ## 3.4.0
 
