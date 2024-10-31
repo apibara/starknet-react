@@ -167,7 +167,7 @@ import {
 import { ControllerConnector } from "@cartridge/connector";
 
 const cartridgeConnector = new ControllerConnector({
-  rpc: cartridgeProvider().nodeUrl,
+  rpc: mainnet.rpcUrls.cartridge.http[0], // or process.env.NEXT_PUBLIC_CARTIDGE_RPC_URL etc
 });
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
