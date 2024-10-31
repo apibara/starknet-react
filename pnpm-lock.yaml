@@ -216,8 +216,8 @@ importers:
         specifier: ^0.7.7
         version: 0.7.7
       '@starknet-react/chains':
-        specifier: ^3.0.6
-        version: 3.0.6
+        specifier: ^3.1.0
+        version: 3.1.0
       '@starknet-react/core':
         specifier: workspace:^
         version: link:../core
@@ -1638,8 +1638,8 @@ packages:
   '@starknet-io/types-js@0.7.7':
     resolution: {integrity: sha512-WLrpK7LIaIb8Ymxu6KF/6JkGW1sso988DweWu7p5QY/3y7waBIiPvzh27D9bX5KIJNRDyOoOVoHVEKYUYWZ/RQ==}
 
-  '@starknet-react/chains@3.0.6':
-    resolution: {integrity: sha512-Jh4TtJxP39HPhGPF+4TdAdGIGhSahtzy4hClGoMV2FxYBBk05zwFK46LgHZyspxXByw3s1rMjnriLjVQFtZzlA==}
+  '@starknet-react/chains@3.1.0':
+    resolution: {integrity: sha512-h+fxh+Bs8h0ZSEX651vG3mn1NtMKzFDSHqrX7Q8YRRIeTKolPCx4vmoi5Gg19SXr/9iIVSwgx6qe4rVZTNfhcQ==}
 
   '@starknet-react/core@3.4.0':
     resolution: {integrity: sha512-BnlAs5iBWzvHWK2XbdOmbuM8WAme/nNj9/qH/1TkNa1TuiU1iGyayHprMg+loAujhU+fTpCTM5OLYMYsU+Dcxw==}
@@ -5820,12 +5820,12 @@ snapshots:
 
   '@starknet-io/types-js@0.7.7': {}
 
-  '@starknet-react/chains@3.0.6': {}
+  '@starknet-react/chains@3.1.0': {}
 
   '@starknet-react/core@3.4.0(get-starknet-core@4.0.0)(react@18.3.1)(starknet@6.11.0)(typescript@5.6.2)':
     dependencies:
       '@starknet-io/types-js': 0.7.7
-      '@starknet-react/chains': 3.0.6
+      '@starknet-react/chains': 3.1.0
       '@tanstack/react-query': 5.53.2(react@18.3.1)
       eventemitter3: 5.0.1
       get-starknet-core: 4.0.0

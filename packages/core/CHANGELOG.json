@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Thu, 31 Oct 2024 12:36:27 GMT",
+      "version": "3.5.0",
+      "tag": "@starknet-react/core_v3.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ponderingdemocritus@protonmail.com",
+            "package": "@starknet-react/core",
+            "commit": "f1001608f38fc656a888033fc3bf7adef843bccf",
+            "comment": "add details about controller, add new providers for cartridge and slot, improve docs around controller"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 30 Oct 2024 14:00:10 GMT",
       "version": "3.4.1",
       "tag": "@starknet-react/core_v3.4.1",

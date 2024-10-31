@@ -2,6 +2,29 @@
   "name": "@starknet-react/kakarot",
   "entries": [
     {
+      "date": "Thu, 31 Oct 2024 12:36:27 GMT",
+      "version": "3.0.8",
+      "tag": "@starknet-react/kakarot_v3.0.8",
+      "comments": {
+        "none": [
+          {
+            "author": "ponderingdemocritus@protonmail.com",
+            "package": "@starknet-react/kakarot",
+            "commit": "f1001608f38fc656a888033fc3bf7adef843bccf",
+            "comment": "none"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@starknet-react/kakarot",
+            "comment": "Bump @starknet-react/chains to v3.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Oct 2024 12:19:29 GMT",
       "version": "3.0.7",
       "tag": "@starknet-react/kakarot_v3.0.7",

@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/kakarot
 
-<!-- This log was last generated on Thu, 31 Oct 2024 12:19:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.8
+
+Thu, 31 Oct 2024 12:36:27 GMT
+
+### Patches
+
+- Bump @starknet-react/chains to v3.1.0
 
 ## 3.0.7
 

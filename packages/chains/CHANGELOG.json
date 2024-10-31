@@ -2,6 +2,21 @@
   "name": "@starknet-react/chains",
   "entries": [
     {
+      "date": "Thu, 31 Oct 2024 12:36:27 GMT",
+      "version": "3.1.0",
+      "tag": "@starknet-react/chains_v3.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ponderingdemocritus@protonmail.com",
+            "package": "@starknet-react/chains",
+            "commit": "f1001608f38fc656a888033fc3bf7adef843bccf",
+            "comment": "add details about controller, add new providers for cartridge and slot, improve docs around controller"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Oct 2024 16:28:38 GMT",
       "version": "3.0.6",
       "tag": "@starknet-react/chains_v3.0.6",

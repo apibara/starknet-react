@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add details about controller, add new providers for cartridge and slot, improve docs around controller",
-  "packageName": "@starknet-react/core",
-  "email": "ponderingdemocritus@protonmail.com",
-  "dependentChangeType": "patch"
-}

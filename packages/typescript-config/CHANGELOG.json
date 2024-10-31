@@ -1,0 +1,20 @@
+{
+  "name": "@starknet-react/typescript-config",
+  "entries": [
+    {
+      "date": "Thu, 31 Oct 2024 12:36:27 GMT",
+      "version": "0.0.0",
+      "tag": "@starknet-react/typescript-config_v0.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "ponderingdemocritus@protonmail.com",
+            "package": "@starknet-react/typescript-config",
+            "commit": "f1001608f38fc656a888033fc3bf7adef843bccf",
+            "comment": "none"
+          }
+        ]
+      }
+    }
+  ]
+}

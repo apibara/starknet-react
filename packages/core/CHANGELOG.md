@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Wed, 30 Oct 2024 14:00:10 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.5.0
+
+Thu, 31 Oct 2024 12:36:27 GMT
+
+### Minor changes
+
+- add details about controller, add new providers for cartridge and slot, improve docs around controller (ponderingdemocritus@protonmail.com)
 
 ## 3.4.1
 

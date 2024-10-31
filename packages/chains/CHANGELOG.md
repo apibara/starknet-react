@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Tue, 29 Oct 2024 16:28:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.1.0
+
+Thu, 31 Oct 2024 12:36:27 GMT
+
+### Minor changes
+
+- add details about controller, add new providers for cartridge and slot, improve docs around controller (ponderingdemocritus@protonmail.com)
 
 ## 3.0.6
 
