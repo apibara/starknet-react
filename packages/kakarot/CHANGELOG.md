@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/kakarot
 
-<!-- This log was last generated on Tue, 29 Oct 2024 16:28:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 31 Oct 2024 12:19:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.7
+
+Thu, 31 Oct 2024 12:19:29 GMT
+
+### Patches
+
+- fix: kakarot multicall precompile address (mathieu@kakarot.org)
 
 ## 3.0.4
 

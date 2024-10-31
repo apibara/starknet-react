@@ -2,6 +2,21 @@
   "name": "@starknet-react/kakarot",
   "entries": [
     {
+      "date": "Thu, 31 Oct 2024 12:19:29 GMT",
+      "version": "3.0.7",
+      "tag": "@starknet-react/kakarot_v3.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "mathieu@kakarot.org",
+            "package": "@starknet-react/kakarot",
+            "commit": "58e3e367b0a7e7e322d1ac1bc57434be2f2bb969",
+            "comment": "fix: kakarot multicall precompile address"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Oct 2024 16:28:38 GMT",
       "version": "3.0.4",
       "tag": "@starknet-react/kakarot_v3.0.4",
