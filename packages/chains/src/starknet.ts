@@ -39,6 +39,9 @@ export const mainnet = {
     reddio: {
       http: ["https://starknet-mainnet.reddio.com"],
     },
+    cartridge: {
+      http: ["https://api.cartridge.gg/x/starknet/mainnet"],
+    },
     default: {
       http: [],
     },
@@ -82,6 +85,9 @@ export const sepolia = {
     },
     reddio: {
       http: ["https://starknet-sepolia.reddio.com"],
+    },
+    cartridge: {
+      http: ["https://api.cartridge.gg/x/starknet/sepolia"],
     },
     default: {
       http: [],

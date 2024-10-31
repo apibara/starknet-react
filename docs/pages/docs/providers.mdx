@@ -107,3 +107,24 @@ import { reddioProvider } from "@starknet-react/core";
 const apiKey = "your-api-key";
 const provider = reddioProvider({ apiKey });
 ```
+
+### Cartridge
+
+Cartridge offers a Starknet RPC provider.
+
+```ts twoslash
+import { cartridgeProvider } from "@starknet-react/core";
+
+const provider = cartridgeProvider();
+```
+
+### Slot
+
+Create a Slot project from the [CLI](https://github.com/cartridge-gg/slot).
+
+```ts twoslash
+import { slotProvider } from "@starknet-react/core";
+
+const projectId = "your-project-id";
+const provider = slotProvider({ projectId });
+```

@@ -12,6 +12,7 @@
     "format": "biome format components --write"
   },
   "dependencies": {
+    "@cartridge/connector": "^0.5.0-alpha.2",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
