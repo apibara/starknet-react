@@ -166,17 +166,16 @@ import {
 
 import { ControllerConnector } from "@cartridge/connector";
 
-export function StarknetProvider({ children }: { children: React.ReactNode }) {
+const cartridgeConnector = new ControllerConnector({
+  rpc: cartridgeProvider().nodeUrl,
+});
 
+export function StarknetProvider({ children }: { children: React.ReactNode }) {
   return (
     <StarknetConfig
       chains={[mainnet, sepolia]}
       provider={cartridgeProvider()}
-      connectors={[
-        new ControllerConnector({
-          rpc: cartridgeProvider().nodeUrl,
-        }) as never as Connector,
-      ]}
+      connectors={[cartridgeConnector as never as Connector]}
       explorer={voyager}
     >
       {children}
