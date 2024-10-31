@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "fix: kakarot multicall precompile address",
+  "packageName": "@starknet-react/kakarot",
+  "email": "mathieu@kakarot.org",
+  "dependentChangeType": "patch"
+}
