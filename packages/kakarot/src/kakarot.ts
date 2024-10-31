@@ -49,7 +49,7 @@ import {
   getCorrespondingStarknetChain,
 } from "./chains";
 
-const MULTICALL_CAIRO_PRECOMPILE = "0x0000000000000000000000000000000000750003";
+const MULTICALL_CAIRO_PRECOMPILE = "0x0000000000000000000000000000000000075003";
 
 class ProviderNotFoundError extends Error {
   constructor() {
