@@ -129,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 You can now use the Starknet React hooks from any component wrapped by the root
 provider!
+
 ### Using the Cartridge Controller
 
 The Cartridge Controller wallet is supported however, you need to install the
@@ -159,24 +160,21 @@ import {
   useInjectedConnectors,
   voyager,
   Connector,
-  jsonRpcProvider
+  jsonRpcProvider,
+  cartridgeProvider
 } from "@starknet-react/core";
 
 import { ControllerConnector } from "@cartridge/connector";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
 
-  const rpc = useCallback(() => {
-    return { nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' };
-  }, []);
-
   return (
     <StarknetConfig
       chains={[mainnet, sepolia]}
-      provider={jsonRpcProvider({ rpc })}
+      provider={cartridgeProvider()}
       connectors={[
         new ControllerConnector({
-          rpc: rpc().nodeUrl,
+          rpc: cartridgeProvider().nodeUrl,
         }) as never as Connector,
       ]}
       explorer={voyager}
