@@ -49,7 +49,7 @@ import {
   getCorrespondingStarknetChain,
 } from "./chains";
 
-const MULTICALL_CAIRO_PRECOMPILE = "0x0000000000000000000000000000000000750003";
+const MULTICALL_CAIRO_PRECOMPILE = "0x0000000000000000000000000000000000075003";
 
 class ProviderNotFoundError extends Error {
   constructor() {
@@ -369,19 +369,25 @@ export class KakarotConnector extends Connector {
         return requestedAccounts.map((x: string) => getAddress(x));
       }
       case "wallet_addStarknetChain":
-        return false;
+        throw new Error(
+          "wallet_addStarknetChain not implemented for Kakarot connectors",
+        );
       case "wallet_watchAsset":
-        return false;
+        throw new Error(
+          "wallet_watchAsset not implemented for Kakarot connectors",
+        );
       case "wallet_switchStarknetChain": {
         if (!params) throw new Error("Params are missing");
 
         const { chainId } = params as SwitchStarknetChainParameters;
 
-        this.switchChain(BigInt(chainId));
+        await this.switchChain(BigInt(chainId));
         return true;
       }
       case "wallet_addDeclareTransaction": {
-        return false;
+        throw new Error(
+          "wallet_addDeclareTransaction not implemented for Kakarot connectors",
+        );
       }
       case "wallet_addInvokeTransaction": {
         if (!params) throw new Error("Params are missing");
@@ -421,7 +427,9 @@ export class KakarotConnector extends Connector {
         //   method: "eth_signTypedData_v4",
         //   params: [accounts[0], domain, message, primaryType, types],
         // });
-        return false;
+        throw new Error(
+          "wallet_signTypedData not implemented for Kakarot connectors",
+        );
       }
       default:
         throw new Error("Unknown request type");
