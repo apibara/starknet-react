@@ -392,7 +392,7 @@ export class KakarotConnector extends Connector {
       case "wallet_addInvokeTransaction": {
         if (!params) throw new Error("Params are missing");
         const { calls } = params as AddInvokeTransactionParameters;
-        return await provider.request({
+        const transaction_hash = await provider.request({
           method: "eth_sendTransaction",
           params: [
             {
@@ -402,6 +402,9 @@ export class KakarotConnector extends Connector {
             },
           ],
         });
+        return {
+          transaction_hash: transaction_hash,
+        };
       }
       case "wallet_signTypedData": {
         if (!params) throw new Error("Params are missing");
@@ -575,7 +578,7 @@ export class KakarotConnector extends Connector {
  */
 const prepareTransactionData = (calls: RequestCall[]) => {
   const encodedCalls = calls.map((call) => {
-    return encodeAbiParameters(
+    const encoded = encodeAbiParameters(
       [
         { type: "uint256", name: "contractAddress" },
         { type: "uint256", name: "selector" },
@@ -587,9 +590,10 @@ const prepareTransactionData = (calls: RequestCall[]) => {
         (call.calldata as string[]).map((data: string) => BigInt(data)),
       ],
     );
+    return encoded.slice(2); // Remove the '0x' prefix from each encoded call
   });
 
   const concatenatedCalls = encodedCalls.join("");
-  const callCount = toHex(calls.length, { size: 32 });
-  return `${callCount}${concatenatedCalls.slice(2)}` as `0x${string}`;
+  const callCount = toHex(calls.length, { size: 32 }).slice(2); // Remove the '0x' prefix from the call count
+  return `0x${callCount}${concatenatedCalls}` as `0x${string}`;
 };
