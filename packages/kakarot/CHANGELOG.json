@@ -2,6 +2,21 @@
   "name": "@starknet-react/kakarot",
   "entries": [
     {
+      "date": "Fri, 01 Nov 2024 09:19:48 GMT",
+      "version": "3.0.9",
+      "tag": "@starknet-react/kakarot_v3.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "msaug@protonmail.com",
+            "package": "@starknet-react/kakarot",
+            "commit": "45a0c5ae25ec2a0e113a9612f95436aae369e5e6",
+            "comment": "fix: kakarot invokeTransaction returndata type & multicall evm encoding"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Oct 2024 12:36:27 GMT",
       "version": "3.0.8",
       "tag": "@starknet-react/kakarot_v3.0.8",

@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/kakarot
 
-<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 01 Nov 2024 09:19:48 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.9
+
+Fri, 01 Nov 2024 09:19:48 GMT
+
+### Patches
+
+- fix: kakarot invokeTransaction returndata type & multicall evm encoding (msaug@protonmail.com)
 
 ## 3.0.8
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix: kakarot invokeTransaction returndata type & multicall evm encoding",
-  "packageName": "@starknet-react/kakarot",
-  "email": "msaug@protonmail.com",
-  "dependentChangeType": "patch"
-}
