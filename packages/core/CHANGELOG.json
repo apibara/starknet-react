@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Tue, 12 Nov 2024 10:43:28 GMT",
+      "version": "3.6.0",
+      "tag": "@starknet-react/core_v3.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "17fce9bb5d5fa18deb6d065afe3c7a12ee20b528",
+            "comment": "core: add legacy connector adapter"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Oct 2024 12:36:27 GMT",
       "version": "3.5.0",
       "tag": "@starknet-react/core_v3.5.0",

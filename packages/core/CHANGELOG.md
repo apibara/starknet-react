@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 12 Nov 2024 10:43:28 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.0
+
+Tue, 12 Nov 2024 10:43:28 GMT
+
+### Minor changes
+
+- core: add legacy connector adapter (francesco@ceccon.me)
 
 ## 3.5.0
 
