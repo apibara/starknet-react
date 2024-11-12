@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "core: add legacy connector adapter",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}

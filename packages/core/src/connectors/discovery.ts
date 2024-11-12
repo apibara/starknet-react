@@ -2,7 +2,7 @@ import type { StarknetWindowObject } from "get-starknet-core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { Connector } from "./base";
-import { injected } from "./helpers";
+import { injected, legacyInjected } from "./helpers";
 
 export type UseInjectedConnectorsProps = {
   /** List of recommended connectors to display. */
@@ -11,6 +11,8 @@ export type UseInjectedConnectorsProps = {
   includeRecommended?: "always" | "onlyIfNoConnectors";
   /** How to order connectors. */
   order?: "random" | "alphabetical";
+  /** Shim the following legacy connectors if they are detected. */
+  shimLegacyConnectors?: string[];
 };
 
 export type UseInjectedConnectorsResult = {
@@ -22,14 +24,20 @@ export function useInjectedConnectors({
   recommended,
   includeRecommended = "always",
   order = "alphabetical",
+  shimLegacyConnectors = [],
 }: UseInjectedConnectorsProps): UseInjectedConnectorsResult {
   const [injectedConnectors, setInjectedConnectors] = useState<Connector[]>([]);
 
   const refreshConnectors = useCallback(() => {
     const wallets = scanObjectForWallets(window);
-    const connectors = wallets.map((wallet) => injected({ id: wallet.id }));
+    const connectors = wallets.map((wallet) => {
+      if (shimLegacyConnectors.includes(wallet.id)) {
+        return legacyInjected({ id: wallet.id });
+      }
+      return injected({ id: wallet.id });
+    });
     setInjectedConnectors(connectors);
-  }, []);
+  }, [shimLegacyConnectors.includes]);
 
   useEffect(() => {
     refreshConnectors();
