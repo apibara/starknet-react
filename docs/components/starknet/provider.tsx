@@ -27,6 +27,7 @@ export function StarknetProvider({
     includeRecommended: "always",
     // Randomize the order of the connectors.
     order: "alphabetical",
+    shimLegacyConnectors: ["okxwallet"],
   });
 
   return (
