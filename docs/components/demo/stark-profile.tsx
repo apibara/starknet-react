@@ -14,7 +14,7 @@ export function StarkProfile() {
 
 function StarkProfileInner() {
   const [address, setAddress] = useState(
-    "0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3"
+    "0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3",
   );
 
   const { data, isLoading, isError, isPending, error } = useStarkProfile({
@@ -45,7 +45,7 @@ function StarkProfileInner() {
               error: error?.message,
             },
             null,
-            2
+            2,
           )}
         </pre>
       </div>
