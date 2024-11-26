@@ -7,7 +7,7 @@
   <a href="https://github.com/apibara/starknet-react/actions/workflows/release.yml">
     <img alt="Release Status" src="https://img.shields.io/github/actions/workflow/status/apibara/starknet-react/build.yml">
   </a>
-  <a href="https://www.github.com/apibara/starknet-react">
+  <a href="https://github.com/apibara/starknet-react/blob/main/LICENSE">
     <img alt="MIT LICENSE" src="https://img.shields.io/github/license/apibara/starknet-react">
   </a>
 </p>
