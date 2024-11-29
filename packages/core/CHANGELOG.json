@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Fri, 29 Nov 2024 10:00:02 GMT",
+      "version": "3.6.1",
+      "tag": "@starknet-react/core_v3.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "iris.devillars@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "3866da65ec1a657ef7621ae98136e39f7ac4663d",
+            "comment": "fix: useStarkProfile hook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Nov 2024 10:43:28 GMT",
       "version": "3.6.0",
       "tag": "@starknet-react/core_v3.6.0",

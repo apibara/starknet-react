@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix: useStarkProfile hook",
-  "packageName": "@starknet-react/core",
-  "email": "iris.devillars@gmail.com",
-  "dependentChangeType": "patch"
-}

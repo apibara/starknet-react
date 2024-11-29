@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Tue, 12 Nov 2024 10:43:28 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 29 Nov 2024 10:00:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.1
+
+Fri, 29 Nov 2024 10:00:02 GMT
+
+### Patches
+
+- fix: useStarkProfile hook (iris.devillars@gmail.com)
 
 ## 3.6.0
 
