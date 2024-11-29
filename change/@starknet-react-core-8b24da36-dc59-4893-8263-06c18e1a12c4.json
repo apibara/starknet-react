@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "fix: useStarkProfile support ipfs image urls",
+  "packageName": "@starknet-react/core",
+  "email": "iris.devillars@gmail.com",
+  "dependentChangeType": "patch"
+}
