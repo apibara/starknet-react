@@ -81,6 +81,37 @@ export interface KakarotConnectorOptions {
   name: string;
   icon: ConnectorIcons;
 }
+
+/**
+ * Creates an SVG icon combining the connector icon with the Kakarot overlay
+ * @param connectorIcon - Base64 or URL of the connector icon
+ * @returns SVG data URL
+ */
+const createCombinedIcon = (connectorIcon: string): string => {
+  const svgString = `
+    <svg width="100%" height="100%" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="connector-${btoa(connectorIcon)}" patternUnits="userSpaceOnUse" width="30" height="30">
+          <image href="${connectorIcon}" width="30" height="30" />
+        </pattern>
+      </defs>
+
+      <!-- Base connector icon -->
+      <rect width="30" height="30" fill="url(#connector-${btoa(connectorIcon)})" />
+
+      <!-- Kakarot overlay - positioned in bottom right -->
+      <g transform="translate(20, 20) scale(0.25)">
+        <path d="M36.5027 0V6.25976C28.1118 7.38002 21.6125 14.6015 21.6125 23.3059V23.5526H15.3915V23.3059C15.3915 14.6015 8.89218 7.38002 0.501221 6.25976V0C8.20526 0.753896 14.8279 5.25938 18.502 11.6636C22.1761 5.25938 28.7987 0.753896 36.5027 0Z" fill="#0DAB0C"/>
+        <path d="M15.3936 22.1167H15.4291C15.4024 22.5078 15.3936 22.9077 15.3936 23.3077V22.1167Z" fill="#0DAB0C"/>
+        <path d="M21.5774 22.1167H21.6129V23.3077C21.6129 22.9077 21.6041 22.5078 21.5774 22.1167Z" fill="#0DAB0C"/>
+        <path d="M36.503 29.7764H0.501465V35.9999H36.503V29.7764Z" fill="#FF7600"/>
+      </g>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+};
+
 export class KakarotConnector extends Connector {
   private _options: KakarotConnectorOptions;
   public ethProvider: EIP1193Provider;
@@ -91,10 +122,16 @@ export class KakarotConnector extends Connector {
     starknetRpcProvider: ChainProviderFactory<RpcProvider>,
   ) {
     super();
+
+    const processedIcon =
+      typeof ethProviderDetail.info.icon === "string"
+        ? createCombinedIcon(ethProviderDetail.info.icon)
+        : ethProviderDetail.info.icon;
+
     this._options = {
       id: ethProviderDetail.info.rdns,
       name: ethProviderDetail.info.name,
-      icon: ethProviderDetail.info.icon,
+      icon: processedIcon,
     };
     this.ethProvider = ethProviderDetail.provider;
     this.starknetRpcProvider = starknetRpcProvider;

@@ -5,7 +5,7 @@ export function WalletBar() {
   const { address } = useAccount();
 
   return (
-    <div className="w-full py-2 h-24 border-b border-primary">
+    <div className="w-full py-6 border-b border-primary">
       {address ? <ConnectedWallet address={address} /> : <ConnectWallet />}
     </div>
   );
@@ -24,9 +24,9 @@ function ConnectWallet() {
   const { connect, connectors, status } = useConnect();
 
   return (
-    <div className="flex h-full items-center justify-between">
-      <p className="font-medium">Connect Wallet </p>
-      <div className="flex flex-row justify-start space-x-2">
+    <div className="flex h-full items-start justify-between">
+      <p className="font-medium mr-2 mt-1 text-nowrap">Connect Wallet </p>
+      <div className="flex justify-center flex-wrap gap-2">
         {connectors.map((connector) => (
           <Button
             key={connector.id}
@@ -37,6 +37,15 @@ function ConnectWallet() {
             disabled={status === "pending"}
           >
             {connector.name}
+            <img
+              src={
+                typeof connector.icon === "string"
+                  ? connector.icon
+                  : connector.icon.dark
+              }
+              className="w-6 ml-2"
+              alt={connector.name}
+            />
           </Button>
         ))}
       </div>
