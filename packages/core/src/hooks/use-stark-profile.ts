@@ -328,9 +328,15 @@ const parseBase64Image = (metadata: string): string => {
   return JSON.parse(atob(metadata.split(",")[1].slice(0, -1))).image;
 };
 
-const fetchImageUrl = async (url: string): Promise<string> => {
+const parseImageUrl = (url: string): string => {
+  return url.startsWith("ipfs://")
+    ? url.replace("ipfs://", "https://ipfs.io/ipfs/")
+    : url;
+};
+
+const fetchImageUrl = async (url: string): Promise<string | undefined> => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(parseImageUrl(url));
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -340,13 +346,13 @@ const fetchImageUrl = async (url: string): Promise<string> => {
 
     // Check if the "image" key exists and is not null
     if (data.image) {
-      return data.image;
+      return parseImageUrl(data.image);
     }
 
-    return "Image is not set";
+    return undefined;
   } catch (error) {
     console.error("There was a problem fetching the image URL:", error);
-    return "Error fetching data";
+    return undefined;
   }
 };
 
