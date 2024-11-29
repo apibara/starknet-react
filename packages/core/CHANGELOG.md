@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Fri, 29 Nov 2024 10:00:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 29 Nov 2024 12:34:32 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.2
+
+Fri, 29 Nov 2024 12:34:32 GMT
+
+### Patches
+
+- fix: useStarkProfile support ipfs image urls (iris.devillars@gmail.com)
 
 ## 3.6.1
 

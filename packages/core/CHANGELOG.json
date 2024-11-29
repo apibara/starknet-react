@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Fri, 29 Nov 2024 12:34:32 GMT",
+      "version": "3.6.2",
+      "tag": "@starknet-react/core_v3.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "iris.devillars@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "5229e0a6b3abe0137852745f7a893f59baec7df8",
+            "comment": "fix: useStarkProfile support ipfs image urls"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 29 Nov 2024 10:00:02 GMT",
       "version": "3.6.1",
       "tag": "@starknet-react/core_v3.6.1",
