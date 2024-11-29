@@ -154,20 +154,15 @@ import React, { useCallback } from "react";
 import { sepolia, mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
-  publicProvider,
-  argent,
-  braavos,
-  useInjectedConnectors,
   voyager,
   Connector,
-  jsonRpcProvider,
   cartridgeProvider
 } from "@starknet-react/core";
 
 import { ControllerConnector } from "@cartridge/connector";
 
 const cartridgeConnector = new ControllerConnector({
-  rpc: cartridgeProvider().nodeUrl,
+  rpc: cartridgeProvider()(mainnet)?.channel.nodeUrl!
 });
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {

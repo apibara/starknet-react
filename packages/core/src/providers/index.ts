@@ -9,3 +9,5 @@ export * from "./infura";
 export * from "./lava";
 export * from "./nethermind";
 export * from "./reddio";
+export * from "./cartridge";
+export * from "./slot";
