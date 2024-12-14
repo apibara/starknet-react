@@ -48,7 +48,6 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.4",
     "@vitejs/plugin-react": "^4.2.1",
-    "abi-wan-kanabi": "^2.2.2",
     "jsdom": "^24.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -62,6 +61,7 @@
     "@starknet-io/types-js": "^0.7.7",
     "@starknet-react/chains": "workspace:^",
     "@tanstack/react-query": "^5.25.0",
+    "abi-wan-kanabi": "^2.2.4",
     "eventemitter3": "^5.0.1",
     "viem": "^2.21.1",
     "zod": "^3.22.4"
