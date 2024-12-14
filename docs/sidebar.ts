@@ -170,14 +170,5 @@ export const sidebar = {
         },
       ],
     },
-    {
-      text: "Kakarot",
-      items: [
-        {
-          text: "Kakarot Connectors",
-          link: "/docs/kakarot-connectors",
-        },
-      ],
-    },
   ],
 } as const satisfies Sidebar;

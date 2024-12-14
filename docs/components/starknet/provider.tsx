@@ -7,7 +7,6 @@ import {
   publicProvider,
   useInjectedConnectors,
 } from "@starknet-react/core";
-import { kakarotConnectors } from "@starknet-react/kakarot";
 
 export function StarknetProvider({
   defaultChainId,
@@ -22,7 +21,7 @@ export function StarknetProvider({
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [argent(), braavos(), ...kakarotConnectors(provider)],
+    recommended: [argent(), braavos()],
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "always",
     // Randomize the order of the connectors.
