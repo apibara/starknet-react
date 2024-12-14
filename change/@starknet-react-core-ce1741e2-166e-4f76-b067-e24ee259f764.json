@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "core: update abi-wan-kanabi",
-  "packageName": "@starknet-react/core",
-  "email": "francesco@ceccon.me",
-  "dependentChangeType": "patch"
-}

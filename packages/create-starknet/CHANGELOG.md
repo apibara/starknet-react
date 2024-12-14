@@ -1,8 +1,16 @@
 # Change Log - create-starknet
 
-<!-- This log was last generated on Tue, 29 Oct 2024 16:28:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 14 Dec 2024 16:19:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.4.1
+
+Sat, 14 Dec 2024 16:19:53 GMT
+
+### Patches
+
+- kakarot: remove package (francesco@ceccon.me)
 
 ## 3.4.0
 

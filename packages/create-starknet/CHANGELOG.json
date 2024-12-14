@@ -2,6 +2,21 @@
   "name": "create-starknet",
   "entries": [
     {
+      "date": "Sat, 14 Dec 2024 16:19:53 GMT",
+      "version": "3.4.1",
+      "tag": "create-starknet_v3.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "create-starknet",
+            "commit": "b123755fd0b04c6b2462714382129f87527be33c",
+            "comment": "kakarot: remove package"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Oct 2024 12:36:27 GMT",
       "version": "3.4.0",
       "tag": "create-starknet_v3.4.0",

@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Sat, 14 Dec 2024 16:19:53 GMT",
+      "version": "3.6.3",
+      "tag": "@starknet-react/core_v3.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "b123755fd0b04c6b2462714382129f87527be33c",
+            "comment": "core: update abi-wan-kanabi"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 29 Nov 2024 12:34:32 GMT",
       "version": "3.6.2",
       "tag": "@starknet-react/core_v3.6.2",

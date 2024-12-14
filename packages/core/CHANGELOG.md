@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Fri, 29 Nov 2024 12:34:32 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 14 Dec 2024 16:19:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.3
+
+Sat, 14 Dec 2024 16:19:53 GMT
+
+### Patches
+
+- core: update abi-wan-kanabi (francesco@ceccon.me)
 
 ## 3.6.2
 

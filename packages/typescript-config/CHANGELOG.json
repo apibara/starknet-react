@@ -2,6 +2,21 @@
   "name": "@starknet-react/typescript-config",
   "entries": [
     {
+      "date": "Sat, 14 Dec 2024 16:19:53 GMT",
+      "version": "0.0.1",
+      "tag": "@starknet-react/typescript-config_v0.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/typescript-config",
+            "commit": "b123755fd0b04c6b2462714382129f87527be33c",
+            "comment": "core: update abi-wan-kanabi"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Oct 2024 12:36:27 GMT",
       "version": "0.0.0",
       "tag": "@starknet-react/typescript-config_v0.0.0",

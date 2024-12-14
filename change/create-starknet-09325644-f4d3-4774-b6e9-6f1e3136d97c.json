@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "kakarot: remove package",
-  "packageName": "create-starknet",
-  "email": "francesco@ceccon.me",
-  "dependentChangeType": "patch"
-}

@@ -47,9 +47,6 @@ importers:
       '@starknet-react/core':
         specifier: workspace:*
         version: link:../packages/core
-      '@starknet-react/kakarot':
-        specifier: workspace:*
-        version: link:../packages/kakarot
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -209,37 +206,6 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
-
-  packages/kakarot:
-    dependencies:
-      '@starknet-io/types-js':
-        specifier: ^0.7.7
-        version: 0.7.7
-      '@starknet-react/chains':
-        specifier: ^3.1.0
-        version: 3.1.0
-      '@starknet-react/core':
-        specifier: workspace:^
-        version: link:../core
-      mipd:
-        specifier: ^0.0.7
-        version: 0.0.7(typescript@5.7.2)
-      starknet:
-        specifier: ^6.11.0
-        version: 6.11.0
-      viem:
-        specifier: ^2.21.1
-        version: 2.21.1(typescript@5.7.2)(zod@3.23.8)
-    devDependencies:
-      '@starknet-react/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      rimraf:
-        specifier: ^4.1.2
-        version: 4.4.1
-      tsup:
-        specifier: ^8.0.2
-        version: 8.2.4(jiti@1.21.6)(postcss@8.4.44)(typescript@5.7.2)(yaml@2.5.0)
 
   packages/typescript-config: {}
 
@@ -3275,14 +3241,6 @@ packages:
 
   minisearch@6.3.0:
     resolution: {integrity: sha512-ihFnidEeU8iXzcVHy74dhkxh/dn8Dc08ERl0xwoMMGqp4+LvRSCgicb+zGqWthVokQKvCSxITlh3P08OzdTYCQ==}
-
-  mipd@0.0.7:
-    resolution: {integrity: sha512-aAPZPNDQ3uMTdKbuO2YmAw2TxLHO0moa4YKAyETM/DTj5FloZo+a+8tU+iv4GmW+sOxKLSRwcSFuczk+Cpt6fg==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
@@ -8112,10 +8070,6 @@ snapshots:
   minipass@7.1.2: {}
 
   minisearch@6.3.0: {}
-
-  mipd@0.0.7(typescript@5.7.2):
-    optionalDependencies:
-      typescript: 5.7.2
 
   mlly@1.7.1:
     dependencies:
