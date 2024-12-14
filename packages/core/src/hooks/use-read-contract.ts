@@ -5,7 +5,7 @@ import type {
   ExtractAbiFunctionNames,
   ExtractArgs,
   FunctionRet,
-} from "abi-wan-kanabi/dist/kanabi";
+} from "abi-wan-kanabi/kanabi";
 import type { BlockNumber } from "starknet";
 
 import type { UseQueryProps, UseQueryResult } from "../query";

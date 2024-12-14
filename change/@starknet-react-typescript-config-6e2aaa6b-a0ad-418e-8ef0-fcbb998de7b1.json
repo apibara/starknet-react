@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "core: update abi-wan-kanabi",
+  "packageName": "@starknet-react/typescript-config",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}

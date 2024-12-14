@@ -7,7 +7,7 @@ import type {
   ExtractAbiFunctionNames,
   ExtractArgs,
   FunctionRet,
-} from "abi-wan-kanabi/dist/kanabi";
+} from "abi-wan-kanabi/kanabi";
 import { useMemo } from "react";
 import {
   type Call,

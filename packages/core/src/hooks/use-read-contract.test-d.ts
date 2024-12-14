@@ -1,4 +1,4 @@
-import type { FunctionRet } from "abi-wan-kanabi/dist/kanabi";
+import type { FunctionRet } from "abi-wan-kanabi/kanabi";
 import { assertType, describe, it } from "vitest";
 import { tokenAddress } from "../../test/devnet";
 import { testAbi } from "../../test/test-abi";
