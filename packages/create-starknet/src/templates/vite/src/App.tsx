@@ -1,4 +1,3 @@
-import React from "react";
 // import { useBlock } from "@starknet-react/core";
 import Header from "./components/Header";
 

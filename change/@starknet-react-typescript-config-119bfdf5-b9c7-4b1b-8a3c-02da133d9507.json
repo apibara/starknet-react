@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "remove not needed configs",
+  "packageName": "@starknet-react/typescript-config",
+  "email": "jadejajaipal5@gmail.com",
+  "dependentChangeType": "patch"
+}

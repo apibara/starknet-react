@@ -1,12 +1,6 @@
 import type { Address } from "@starknet-react/chains";
 import { useMemo } from "react";
-import {
-  Call,
-  CallData,
-  Provider,
-  type ProviderInterface,
-  starknetId,
-} from "starknet";
+import { Provider, type ProviderInterface } from "starknet";
 
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 

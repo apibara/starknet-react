@@ -3,7 +3,6 @@ import { useState } from "react";
 import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 
 export function StarkAddress() {
   return (

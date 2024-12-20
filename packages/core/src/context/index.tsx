@@ -1,5 +1,3 @@
-import React from "react";
-
 import { StarknetProvider, type StarknetProviderProps } from "./starknet";
 
 export { starknetChainId } from "./starknet";
