@@ -1,0 +1,41 @@
+# useUniversalDeployerContract
+
+Get a typed contract for the Universal Deployer contract.
+
+This hook internally calls `useContract` with the Universal Deployer contract address and it's ABI.
+
+## Usage
+
+```ts twoslash
+import { useUniversalDeployerContract } from "@starknet-react/core";
+
+const { contract } = useUniversalDeployerContract();
+```
+
+## Data
+
+- Type: `StarknetTypedContract`
+
+Typed contract with `abi-wan-kanabi` types.
+
+## Arguments
+
+### address
+
+- Type: `0x${string}`
+
+The contract address.
+
+### provider
+
+- Type: `ProviderInterface | undefined`
+
+ProviderInterface is from starknet.js. by default it will be the current one
+
+## Returns
+
+### contract
+
+- Type: `StarknetTypedContract | undefined`
+
+Typed Contract
