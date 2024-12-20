@@ -31,6 +31,8 @@
     "vocs": "1.0.0-alpha.55"
   },
   "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@starknet-react/typescript-config": "workspace:*",
     "tailwindcss": "^3.4.10"
   }

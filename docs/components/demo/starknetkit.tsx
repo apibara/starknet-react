@@ -91,7 +91,7 @@ function WalletButton({ connector }: { connector: Connector }) {
   const { chain } = useNetwork();
 
   async function connectWallet() {
-    const _res = await connector.connect();
+    const _res = await connector.connect({});
     setRes(JSON.stringify(_res.account));
   }
 

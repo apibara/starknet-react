@@ -4,9 +4,11 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-
       "complexity": {
         "useLiteralKeys": "off"
+      },
+      "correctness": {
+        "noUnusedImports": "error"
       },
       "a11y": {
         "useAltText": "off",
