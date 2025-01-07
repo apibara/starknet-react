@@ -1,9 +1,13 @@
 import {
+  type InfiniteData,
   type QueryKey,
+  type UseInfiniteQueryOptions as UseInfiniteQueryOptions_,
+  type UseInfiniteQueryResult as UseInfiniteQueryResult_,
   type UseMutationOptions as UseMutationOptions_,
   type UseMutationResult as UseMutationResult_,
   type UseQueryOptions as UseQueryOptions_,
   type UseQueryResult as UseQueryResult_,
+  useInfiniteQuery as useInfiniteQuery_,
   useMutation as useMutation_,
   useQuery as useQuery_,
 } from "@tanstack/react-query";
@@ -109,5 +113,82 @@ export function useMutation<
     mutateAsync: base.mutateAsync,
     status: base.status,
     variables: base.variables,
+  };
+}
+
+export type UseInfiniteQueryProps<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+  TPageParam = unknown,
+> = Pick<
+  UseInfiniteQueryOptions_<
+    TQueryFnData,
+    TError,
+    TData,
+    TQueryData,
+    TQueryKey,
+    TPageParam
+  >,
+  "enabled" | "refetchInterval" | "retry" | "retryDelay"
+>;
+
+export type UseInfiniteQueryResult<TData, TError> = Pick<
+  UseInfiniteQueryResult_<TData, TError>,
+  | "data"
+  | "error"
+  | "status"
+  | "isSuccess"
+  | "isError"
+  | "isPending"
+  | "fetchStatus"
+  | "isFetching"
+  | "isLoading"
+  | "refetch"
+  | "fetchNextPage"
+  | "fetchPreviousPage"
+  | "hasNextPage"
+  | "hasPreviousPage"
+  | "isFetchingNextPage"
+  | "isFetchingPreviousPage"
+>;
+
+export function useInfiniteQuery<
+  TQueryFnData,
+  TError = unknown,
+  TData = InfiniteData<TQueryFnData>,
+  TQueryKey extends QueryKey = QueryKey,
+  TPageParam = unknown,
+>(
+  args: UseInfiniteQueryOptions_<
+    TQueryFnData,
+    TError,
+    TData,
+    TQueryFnData,
+    TQueryKey,
+    TPageParam
+  >,
+): UseInfiniteQueryResult<TData, TError> {
+  const base = useInfiniteQuery_({ ...args, structuralSharing: false });
+
+  return {
+    data: base.data,
+    error: base.error,
+    status: base.status,
+    isSuccess: base.isSuccess,
+    isError: base.isError,
+    isPending: base.isPending,
+    fetchStatus: base.fetchStatus,
+    isFetching: base.isFetching,
+    isLoading: base.isLoading,
+    refetch: base.refetch,
+    fetchNextPage: base.fetchNextPage,
+    fetchPreviousPage: base.fetchPreviousPage,
+    hasNextPage: base.hasNextPage,
+    hasPreviousPage: base.hasPreviousPage,
+    isFetchingNextPage: base.isFetchingNextPage,
+    isFetchingPreviousPage: base.isFetchingPreviousPage,
   };
 }
