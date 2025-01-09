@@ -121,34 +121,15 @@ function queryKey({
   args,
   blockIdentifier,
 }: { chain?: Chain; contract?: Contract } & CallArgs) {
-  function convertBigIntsToStrings(input: any): any {
-    if (typeof input === "bigint") {
-      return input.toString(10);
-    }
-    if (Array.isArray(input)) {
-      // Recursively process each element in the array
-      return input.map((item) => convertBigIntsToStrings(item));
-    }
-    if (input && typeof input === "object") {
-      // If it's an object, process each key-value pair
-      const result: { [key: string]: any } = {};
-      for (const key in input) {
-        if (Object.prototype.hasOwnProperty.call(input, key)) {
-          result[key] = convertBigIntsToStrings(input[key]);
-        }
-      }
-      return result;
-    }
-
-    return input;
-  }
   return [
     {
       entity: "readContract",
       chainId: chain?.name,
       contract: contract?.address,
       functionName,
-      args: convertBigIntsToStrings(args),
+      args: JSON.stringify(args, (_, v) =>
+        typeof v === "bigint" ? v.toString(10) : v,
+      ),
       blockIdentifier,
     },
   ] as const;
