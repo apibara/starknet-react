@@ -1,7 +1,9 @@
 import { Account } from "./account";
 import { AddChain } from "./add-chain";
 import { Balance } from "./balance";
+import { ChangeDefaultNetwork } from "./change-default-network";
 import { DeclareContract } from "./declare-contract";
+import { DeployContract } from "./deploy-contract";
 import { EstimateFees } from "./estimate-fees";
 import { NonceForAddress } from "./nonce-for-address";
 import { ReadContract } from "./read-contract";
@@ -13,8 +15,6 @@ import { StarkProfile } from "./stark-profile";
 import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
 import { WalletPermission } from "./wallet-permission";
-import { ChangeDefaultNetwork } from "./change-default-network";
-
 export default {
   Account,
   WalletPermission,
@@ -32,4 +32,5 @@ export default {
   NonceForAddress,
   StarknetKit,
   ChangeDefaultNetwork,
+  DeployContract,
 };

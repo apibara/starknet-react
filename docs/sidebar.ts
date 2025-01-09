@@ -29,6 +29,10 @@ export const sidebar = {
           text: "Explorers",
           link: "/docs/explorers",
         },
+        {
+          text: "Deploying Contracts",
+          link: "/docs/deploying-contracts",
+        },
       ],
     },
     {
@@ -53,6 +57,10 @@ export const sidebar = {
         {
           text: "useContractFactory",
           link: "/docs/hooks/use-contract-factory",
+        },
+        {
+          text: "useUniversalDeployerContract",
+          link: "/docs/hooks/use-universal-deployer-contract",
         },
       ],
     },

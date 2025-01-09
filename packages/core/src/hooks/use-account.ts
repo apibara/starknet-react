@@ -1,4 +1,3 @@
-import { Permission } from "@starknet-io/types-js";
 import type { Address } from "@starknet-react/chains";
 import { useCallback, useEffect, useState } from "react";
 import type { AccountInterface } from "starknet";
@@ -6,7 +5,6 @@ import type { Connector } from "../connectors";
 import { useStarknetAccount } from "../context/account";
 import { useStarknet } from "../context/starknet";
 import { getAddress } from "../utils";
-import { useConnect } from "./use-connect";
 import { useProvider } from "./use-provider";
 
 /** Account connection status. */

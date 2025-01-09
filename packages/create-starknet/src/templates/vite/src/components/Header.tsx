@@ -1,5 +1,4 @@
 import { useAccount, useDisconnect } from "@starknet-react/core";
-import React from "react";
 import ConnectModal from "./starknet/ConnectModal";
 
 export default function Header() {

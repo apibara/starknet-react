@@ -1,0 +1,134 @@
+# Deploying Contracts
+
+This guide explains how to deploy contracts on Starknet using the `useUniversalDeployerContract` hook in combination with `useSendTransaction`.
+
+## Overview
+
+The Universal Deployer Contract (UDC) is a utility contract that allows you to deploy new contracts on Starknet. The `useUniversalDeployerContract` hook provides an easy way to interact with the UDC.
+
+## Usage
+
+### 1. Get the UDC Instance
+
+First, import and use the `useUniversalDeployerContract` hook:
+
+```tsx
+import { useUniversalDeployerContract } from "@starknet-react/core";
+
+function YourComponent() {
+  const { udc } = useUniversalDeployerContract();
+}
+```
+
+### 2. Prepare the Transaction
+
+Use `useSendTransaction` to prepare and execute the contract deployment. You'll need:
+
+- `classHash`: The hash of the contract class you want to deploy
+- `salt`: A number used to generate the contract's address
+- `fromZero`: Boolean flag for address calculation
+- `calldata`: Constructor arguments for your contract
+
+```tsx
+import { useSendTransaction } from "@starknet-react/core";
+import { CallData } from "starknet";
+
+function DeployContract() {
+  const { udc } = useUniversalDeployerContract();
+
+  const { send, isPending, error, data } = useSendTransaction({
+    calls: udc
+      ? [
+          udc.populate("deploy_contract", [
+            classHash,
+            salt,
+            fromZero,
+            constructorCalldata,
+          ]),
+        ]
+      : undefined,
+  });
+}
+```
+
+### 3. Complete Example
+
+Here's a complete example showing how to deploy an ERC20 token:
+
+```tsx
+import {
+  useUniversalDeployerContract,
+  useSendTransaction,
+} from "@starknet-react/core";
+import { CallData } from "starknet";
+
+function DeployERC20() {
+  const { address } = useAccount();
+  const { udc } = useUniversalDeployerContract();
+
+  const { send, isPending, error, data } = useSendTransaction({
+    calls:
+      udc && address
+        ? [
+            udc.populate("deploy_contract", [
+              ERC20_CLASS_HASH,
+              23, // salt
+              false, // fromZero
+              getConstructorCalldata(address),
+            ]),
+          ]
+        : undefined,
+  });
+
+  return (
+    <button onClick={() => send()} disabled={isPending}>
+      {isPending ? "Deploying..." : "Deploy ERC20"}
+    </button>
+  );
+}
+```
+
+## API Reference
+
+### useUniversalDeployerContract
+
+```tsx
+function useUniversalDeployerContract(props?: {
+  address?: Address; // Optional: Override default UDC address
+  provider?: ProviderInterface | null; // Optional: Custom provider
+}): {
+  udc: Contract; // The UDC contract instance
+};
+```
+
+### Deploy Contract Parameters
+
+The `deploy_contract` function takes the following parameters:
+
+- `class_hash`: The hash of the contract class to deploy
+- `salt`: A number used to generate a unique contract address
+- `from_zero`: Boolean flag that affects address calculation
+- `calldata`: Constructor arguments for the contract being deployed
+
+## Notes
+
+- Make sure you're connected to the correct network before deploying
+- The UDC has a default address that's used if none is provided
+- Constructor calldata must be properly formatted according to your contract's ABI
+- Transaction fees will apply for contract deployment
+
+## Error Handling
+
+Always handle potential errors during deployment:
+
+```tsx
+const { error, isError, send } = useSendTransaction({
+  // ... configuration
+});
+
+if (isError) {
+  console.error("Deployment failed:", error.message);
+}
+```
+
+For a complete working example, check out our [deployment demo](/demo/deploy-contract).

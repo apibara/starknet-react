@@ -1,19 +1,20 @@
 {
   "extends": "@starknet-react/typescript-config/react-library.json",
   "compilerOptions": {
-    "noEmit": true,
-    "target": "es2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "noEmit": true
   },
-  "include": ["components", "lib"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

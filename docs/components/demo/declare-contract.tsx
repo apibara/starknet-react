@@ -1,6 +1,5 @@
 import {
   type UseDeclareContractArgs,
-  useAccount,
   useDeclareContract,
 } from "@starknet-react/core";
 import stringify from "safe-stable-stringify";

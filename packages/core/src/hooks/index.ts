@@ -26,3 +26,4 @@ export * from "./use-switch-chain";
 export * from "./use-transaction-receipt";
 export * from "./use-wallet-request";
 export * from "./use-watch-asset";
+export * from "./use-universal-deployer-contract";
