@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Sat, 14 Dec 2024 16:19:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jan 2025 09:48:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.4
+
+Thu, 09 Jan 2025 09:48:12 GMT
+
+### Patches
+
+- core: add useUniversalDeployerContract hook (jadejajaipal5@gmail.com)
 
 ## 3.6.3
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "core: add useUniversalDeployerContract hook",
-  "packageName": "@starknet-react/core",
-  "email": "jadejajaipal5@gmail.com",
-  "dependentChangeType": "patch"
-}

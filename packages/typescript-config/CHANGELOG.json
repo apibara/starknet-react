@@ -2,6 +2,21 @@
   "name": "@starknet-react/typescript-config",
   "entries": [
     {
+      "date": "Thu, 09 Jan 2025 09:48:12 GMT",
+      "version": "0.0.2",
+      "tag": "@starknet-react/typescript-config_v0.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/typescript-config",
+            "commit": "e23757d4dc52217dcdf169ff742bfc46387e0459",
+            "comment": "remove not needed configs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Dec 2024 16:19:53 GMT",
       "version": "0.0.1",
       "tag": "@starknet-react/typescript-config_v0.0.1",

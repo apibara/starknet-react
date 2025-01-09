@@ -1,8 +1,16 @@
 # Change Log - create-starknet
 
-<!-- This log was last generated on Sat, 14 Dec 2024 16:19:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 09 Jan 2025 09:48:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.4.2
+
+Thu, 09 Jan 2025 09:48:12 GMT
+
+### Patches
+
+- chore: biome lint fixes (jadejajaipal5@gmail.com)
 
 ## 3.4.1
 

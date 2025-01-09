@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Thu, 09 Jan 2025 09:48:12 GMT",
+      "version": "3.6.4",
+      "tag": "@starknet-react/core_v3.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "e23757d4dc52217dcdf169ff742bfc46387e0459",
+            "comment": "core: add useUniversalDeployerContract hook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Dec 2024 16:19:53 GMT",
       "version": "3.6.3",
       "tag": "@starknet-react/core_v3.6.3",
