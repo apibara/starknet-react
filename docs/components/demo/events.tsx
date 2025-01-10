@@ -3,15 +3,16 @@ import stringify from "safe-stable-stringify";
 import React from "react";
 import { DemoContainer } from "../starknet";
 import { Button } from "../ui/button";
+import { BlockTag } from "starknet";
 
 function EventsInner() {
   const eventName = "Transfer";
   const { chain } = useNetwork();
   const address = chain.nativeCurrency.address;
   const fromBlock = useBlockNumber().data - 10;
-  const toBlock = "latest";
+  const toBlock = BlockTag.LATEST;
 
-  const chunkSize = 3;
+  const pageSize = 3;
   const {
     data,
     error,
@@ -19,14 +20,14 @@ function EventsInner() {
     hasNextPage,
     isFetchingNextPage,
     status,
-  } = useEvents({ address, eventName, fromBlock, toBlock, chunkSize });
+  } = useEvents({ address, eventName, fromBlock, toBlock, pageSize });
 
   const response =
     status === "pending" ? (
       <p>Loading first events ...</p>
     ) : status === "error" ? (
       <>
-        <p>Error: {error.message}</p>
+        <p>Error: {error?.message}</p>
         <pre>{stringify({ data, error }, null, 2)}</pre>
       </>
     ) : (
@@ -44,7 +45,7 @@ function EventsInner() {
           </Button>
         </div>
 
-        {data.pages
+        {data?.pages
           .slice(0)
           .reverse()
           .map((page, i) => (
@@ -61,7 +62,7 @@ function EventsInner() {
       <p>Fetching events for</p>
       <pre>
         {stringify(
-          { address, eventName, fromBlock, toBlock, chunkSize },
+          { address, eventName, fromBlock, toBlock, pageSize },
           null,
           2,
         )}

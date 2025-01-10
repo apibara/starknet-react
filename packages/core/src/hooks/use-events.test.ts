@@ -60,7 +60,7 @@ describe("useEvents", () => {
           eventName: "Transfer",
           fromBlock: 0,
           toBlock: 0,
-          chunkSize: 1,
+          pageSize: 1,
         }),
       );
 
@@ -100,7 +100,7 @@ describe("useEvents", () => {
           eventName: "Transfer",
           fromBlock: 0,
           toBlock: 0,
-          chunkSize: 1,
+          pageSize: 1,
         }),
       );
 

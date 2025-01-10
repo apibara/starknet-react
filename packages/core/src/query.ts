@@ -135,8 +135,8 @@ export type UseInfiniteQueryProps<
   "enabled" | "refetchInterval" | "retry" | "retryDelay"
 >;
 
-export type UseInfiniteQueryResult<TData, TError> = Pick<
-  UseInfiniteQueryResult_<TData, TError>,
+export type UseInfiniteQueryResult<TData, TPageParam, TError> = Pick<
+  UseInfiniteQueryResult_<InfiniteData<TData, TPageParam>, TError>,
   | "data"
   | "error"
   | "status"
@@ -170,7 +170,7 @@ export function useInfiniteQuery<
     TQueryKey,
     TPageParam
   >,
-): UseInfiniteQueryResult<TData, TError> {
+) {
   const base = useInfiniteQuery_({ ...args, structuralSharing: false });
 
   return {

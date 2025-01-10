@@ -1,4 +1,5 @@
 import type { Events } from "@starknet-io/types-js";
+import type { Address } from "@starknet-react/chains";
 import {
   type BlockIdentifier as BlockIdentifier_,
   BlockTag,
@@ -13,6 +14,8 @@ import {
 } from "../query";
 import { useProvider } from "./use-provider";
 
+const DEFAULT_PAGE_SIZE = 5;
+
 type EventsType = Events;
 type BlockIdentifier = Exclude<BlockIdentifier_, bigint>;
 
@@ -26,8 +29,8 @@ export type UseEventsProps = UseInfiniteQueryProps<
   string
 > & {
   /** Filter events emitted by a specific contract address */
-  address?: string;
-  // TODO: support complex/nested events
+  address?: Address;
+  // TODO: support complex/nested events, maybe add a `keys` parameter ?
   /** Filter events using the event name, example: Transfer */
   eventName?: string;
   /** Start fetching events from this block */
@@ -35,11 +38,14 @@ export type UseEventsProps = UseInfiniteQueryProps<
   /** Stop fetching events at this block */
   toBlock?: BlockIdentifier;
   /** The number of events returned from each individual query */
-  chunkSize: number;
+  pageSize?: number;
 };
 
 /** Value returned from `useEvents`. */
-export type UseEventsResult = UseInfiniteQueryResult<EventsType, Error>;
+export type UseEventsResult = Omit<
+  UseInfiniteQueryResult<EventsType, string, Error>,
+  "fetchPreviousPage" | "isFetchingPreviousPage" | "hasPreviousPage"
+>;
 
 /**
  * Hook to fetch events continuously
@@ -54,7 +60,7 @@ export function useEvents({
   eventName,
   fromBlock: fromBlock_,
   toBlock: toBlock_,
-  chunkSize,
+  pageSize,
 }: UseEventsProps): UseEventsResult {
   const { provider } = useProvider();
   const rpcProvider = provider as RpcProvider;
@@ -69,6 +75,8 @@ export function useEvents({
     : undefined;
 
   const toBlock = toBlock_ ? blockIdentifierToBlockId(toBlock_) : undefined;
+
+  const chunkSize = pageSize ? pageSize : DEFAULT_PAGE_SIZE;
 
   const fetchEvents = async ({
     pageParam,
@@ -93,7 +101,7 @@ export function useEvents({
       eventName,
       fromBlock: fromBlock_,
       toBlock: toBlock_,
-      chunkSize,
+      pageSize,
     }),
     queryFn: fetchEvents,
     initialPageParam: "0",
@@ -106,13 +114,13 @@ function queryKey({
   eventName,
   fromBlock,
   toBlock,
-  chunkSize,
+  pageSize,
 }: {
-  address?: string;
+  address?: Address;
   eventName?: string;
   fromBlock?: BlockIdentifier;
   toBlock?: BlockIdentifier;
-  chunkSize?: number;
+  pageSize?: number;
 }) {
   return [
     {
@@ -121,12 +129,12 @@ function queryKey({
       eventName,
       fromBlock,
       toBlock,
-      chunkSize,
+      pageSize,
     },
   ] as const;
 }
 
-// Function to transform BlockIdentifier into a BLOCK_ID
+// Function to transform a BlockIdentifier into a BLOCK_ID
 function blockIdentifierToBlockId(blockIdentifier: BlockIdentifier) {
   if (blockIdentifier === null) {
     return BlockTag.PENDING; // null maps to 'pending' as per the BlockIdentifier doc
