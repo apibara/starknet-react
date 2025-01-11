@@ -127,7 +127,9 @@ function queryKey({
       chainId: chain?.name,
       contract: contract?.address,
       functionName,
-      args,
+      args: JSON.stringify(args, (_, v) =>
+        typeof v === "bigint" ? v.toString(10) : v,
+      ),
       blockIdentifier,
     },
   ] as const;
