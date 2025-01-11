@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Thu, 09 Jan 2025 09:48:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 11 Jan 2025 11:15:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.6.5
+
+Sat, 11 Jan 2025 11:15:27 GMT
+
+### Patches
+
+- feat: useCall convert bigint in args to string (dave.vodrazka@gmail.com)
 
 ## 3.6.4
 

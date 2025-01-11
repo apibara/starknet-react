@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "feat: useCall convert bigint in args to string",
-  "packageName": "@starknet-react/core",
-  "email": "dave.vodrazka@gmail.com",
-  "dependentChangeType": "patch"
-}

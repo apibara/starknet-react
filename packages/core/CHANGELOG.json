@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Sat, 11 Jan 2025 11:15:27 GMT",
+      "version": "3.6.5",
+      "tag": "@starknet-react/core_v3.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "dave.vodrazka@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "62ea4dda3840416b2e10f30ccb91286245dcb518",
+            "comment": "feat: useCall convert bigint in args to string"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Jan 2025 09:48:12 GMT",
       "version": "3.6.4",
       "tag": "@starknet-react/core_v3.6.4",
