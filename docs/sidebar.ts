@@ -159,6 +159,10 @@ export const sidebar = {
           text: "useTransactionReceipt",
           link: "/docs/hooks/use-transaction-receipt",
         },
+        {
+          text: "useEvents",
+          link: "/docs/hooks/use-events",
+        },
       ],
     },
     {

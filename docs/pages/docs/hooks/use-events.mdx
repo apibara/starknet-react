@@ -1,0 +1,149 @@
+# useEvents
+
+Fetch Starknet events continuously
+
+By default this hook tries to fetches all the events (5 events per page) starting from genesis but you can pass arguments for filtering
+
+## Usage
+
+Fetch ETH Transfer events:
+
+```ts twoslash
+import { useEvents } from "@starknet-react/core";
+
+const {
+  data,
+  error,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+} = useEvents(
+  {
+    address: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+    eventName: "Transfer",
+    fromBlock: 442920,
+    toBlock: "latest",
+    pageSize: 10
+  }
+);
+```
+
+## Arguments
+
+### address
+
+- Type: `Address | undefined`
+
+Filter events emitted by a specific contract address
+
+### eventName
+
+- Type: `string | undefined`
+
+Filter events using an event name, e.g "Transfer".
+
+### fromBlock
+
+- Type: `BlockIdentifier | undefined`
+
+The `BlockIdentifer` type from `starknet` excluding `bigint`
+
+Start fetching events from this block, e.g 44920.
+
+### toBlock
+
+- Type: `BlockIdentifier | undefined`
+
+The `BlockIdentifer` type from `starknet` excluding `bigint`
+
+Stop fetching events at this block, e.g `BlockTag.LATEST`.
+
+### pageSize
+
+- Type: `number | undefined`
+
+The number of events returned from each individual query, default to 5.
+
+## Returns
+
+### data
+
+- Type: `InfiniteData<Events, string>`
+```
+InfiniteData<Events, string> = {
+    pages: Array<Events>; // Array containing all pages.
+    pageParams: Array<string>; // Array containing all page params.
+}
+```
+
+The `InfiniteData` type from `react-query` and the `Events` type from `starknet`.
+
+### hasNextPage
+
+- Type: `boolean`
+
+Will be true if there is a next page to be fetched
+
+### isFetchingNextPage
+
+- Type: `boolean`
+
+Will be true while fetching the next page with `fetchNextPage`.
+
+### fetchNextPage
+
+- Type: `(options?: FetchNextPageOptions) => Promise<UseEventsResult>`
+
+`UseEventsResult` is the same return type of the `useEvents` hook
+
+This function allows you to fetch the next page of events, make sure to check `isFetchingNextPage` and `hasNextPage` before calling it.
+
+If `options.cancelRefetch: boolean` is set to true, calling `fetchNextPage` repeatedly will fetch events every time, whether the previous invocation has resolved or not. Also, the result from previous invocations will be ignored. If set to false, calling `fetchNextPage` repeatedly won't have any effect until the first invocation has resolved. Default is true.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the query.
+
+### status
+
+- Type: `"error" | "pending" | "success"`
+
+The query status.
+
+- `pending`: the query is being executed.
+- `success`: the query executed without an error.
+- `error`: the query threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### fetchStatus
+
+- Type: `"fetching" | "paused" | "idle"`
+
+- `fetching`: the query is fetching.
+- `paused`: the query is paused.
+- `idle`: the query is not fetching.
+
+### isFetching
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.

@@ -15,6 +15,8 @@ import { StarkProfile } from "./stark-profile";
 import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
 import { WalletPermission } from "./wallet-permission";
+import { Events } from "./events";
+
 export default {
   Account,
   WalletPermission,
@@ -33,4 +35,5 @@ export default {
   StarknetKit,
   ChangeDefaultNetwork,
   DeployContract,
+  Events,
 };
