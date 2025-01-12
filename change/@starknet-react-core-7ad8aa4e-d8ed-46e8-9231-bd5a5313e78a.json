@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "core: fail if there is duplicated chain ids",
+  "packageName": "@starknet-react/core",
+  "email": "craftedbyte97@gmail.com",
+  "dependentChangeType": "patch"
+}
