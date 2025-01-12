@@ -4,7 +4,8 @@ import { accounts, defaultConnector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
 import type { MockConnector } from "../connectors";
 
-import { useStarknet } from "./starknet";
+import { jsonRpcProvider } from "../providers";
+import { StarknetProvider, useStarknet } from "./starknet";
 
 describe("StarknetProvider", () => {
   it("defaults to the first chain", async () => {
@@ -81,5 +82,19 @@ describe("StarknetProvider", () => {
     expect(account2?.address).toEqual(accounts.mainnet[0].address);
     expect(await result.current.connector?.chainId()).toEqual(mainnet.id);
     expect(result.current.chain.id).toEqual(mainnet.id);
+  });
+
+  it("fails if there is duplicated chain ids", async () => {
+    const chains = [devnet, devnet];
+    function rpc() {
+      return {
+        nodeUrl: devnet.rpcUrls.public.http[0],
+      };
+    }
+    const provider = jsonRpcProvider({ rpc });
+
+    expect(() => StarknetProvider({ provider, chains })).toThrowError(
+      "Duplicated chain id found",
+    );
   });
 });

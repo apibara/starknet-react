@@ -122,6 +122,16 @@ function useStarknetManager({
     throw new Error("Must provide at least one chain.");
   }
 
+  // check for duplicated ids in the chains list
+  const seen = new Set<bigint>();
+
+  for (const chain of chains) {
+    if (seen.has(chain.id)) {
+      throw new Error(`Duplicated chain id found: ${chain.id}`);
+    }
+    seen.add(chain.id);
+  }
+
   const { chain: _, provider: defaultProvider } = providerForChain(
     defaultChain,
     provider,
