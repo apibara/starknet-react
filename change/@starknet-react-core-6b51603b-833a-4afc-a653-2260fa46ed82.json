@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Implement useEvents hook",
-  "packageName": "@starknet-react/core",
-  "email": "craftedbyte97@gmail.com",
-  "dependentChangeType": "patch"
-}

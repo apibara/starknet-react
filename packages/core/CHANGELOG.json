@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Sun, 12 Jan 2025 16:37:15 GMT",
+      "version": "3.7.0",
+      "tag": "@starknet-react/core_v3.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "craftedbyte97@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "fa5667b12a9a400bbea6f71f51588941ac6f58d3",
+            "comment": "Implement useEvents hook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Jan 2025 11:15:27 GMT",
       "version": "3.6.5",
       "tag": "@starknet-react/core_v3.6.5",

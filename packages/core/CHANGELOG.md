@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Sat, 11 Jan 2025 11:15:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 12 Jan 2025 16:37:15 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.7.0
+
+Sun, 12 Jan 2025 16:37:15 GMT
+
+### Minor changes
+
+- Implement useEvents hook (craftedbyte97@gmail.com)
 
 ## 3.6.5
 
