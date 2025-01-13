@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Sun, 12 Jan 2025 16:37:15 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 13 Jan 2025 12:22:40 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.7.1
+
+Mon, 13 Jan 2025 12:22:40 GMT
+
+### Patches
+
+- core: fail if there is duplicated chain ids (craftedbyte97@gmail.com)
 
 ## 3.7.0
 

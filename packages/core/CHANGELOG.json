@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Mon, 13 Jan 2025 12:22:40 GMT",
+      "version": "3.7.1",
+      "tag": "@starknet-react/core_v3.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "craftedbyte97@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "4c677b06d91a9dc33a0365b8baef0b3bdad6eacd",
+            "comment": "core: fail if there is duplicated chain ids"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 12 Jan 2025 16:37:15 GMT",
       "version": "3.7.0",
       "tag": "@starknet-react/core_v3.7.0",
