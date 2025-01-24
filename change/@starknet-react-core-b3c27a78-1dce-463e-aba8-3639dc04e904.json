@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix: re exports packages",
-  "packageName": "@starknet-react/core",
-  "email": "princanurag07@gmail.com",
-  "dependentChangeType": "patch"
-}

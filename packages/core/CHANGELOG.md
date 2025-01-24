@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 13 Jan 2025 12:22:40 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 24 Jan 2025 12:30:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.7.2
+
+Fri, 24 Jan 2025 12:30:17 GMT
+
+### Patches
+
+- fix: re exports packages (princanurag07@gmail.com)
 
 ## 3.7.1
 
