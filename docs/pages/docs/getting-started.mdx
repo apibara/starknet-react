@@ -1,4 +1,5 @@
 import { Callout } from 'vocs/components'
+import { constants } from "starknet";
 
 
 # Getting Started
@@ -165,9 +166,18 @@ import {
 } from "@starknet-react/core";
 
 import { ControllerConnector } from "@cartridge/connector";
+import { constants } from "@starknet-react/core";
 
 const cartridgeConnector = new ControllerConnector({
-  rpc: cartridgeProvider().nodeUrl,
+  chains: [
+    {
+      rpcUrl: "https://api.cartridge.gg/x/starknet/sepolia",
+    },
+    {
+      rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
+    },
+  ],
+  defaultChainId: constants.StarknetChainId.SN_SEPOLIA,
 });
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
@@ -175,7 +185,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
     <StarknetConfig
       chains={[mainnet, sepolia]}
       provider={cartridgeProvider()}
-      connectors={[cartridgeConnector as never as Connector]}
+      connectors={[cartridgeConnector]}
       explorer={voyager}
     >
       {children}
