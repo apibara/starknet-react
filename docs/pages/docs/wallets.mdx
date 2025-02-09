@@ -63,52 +63,73 @@ const connectors = [
 
 ### Cartridge Controller
 
-The Cartridge Controller wallet is supported however, you need to install the
-`@cartridge/connector` package. 
+The Cartridge Controller wallet is supported however, you need to install both the
+`@cartridge/connector` and `@cartridge/controller` packages.
 
 The Controller enables seamless use of Session Keys.
 
 ```bash
-pnpm i @cartridge/connector
+pnpm i @cartridge/connector @cartridge/controller
 ```
 
 ```tsx twoslash
-import React, { useCallback } from "react";
 import { ControllerConnector } from "@cartridge/connector";
 import { Connector } from "@starknet-react/core";
-
-const rpc = useCallback(() => {
-  return { nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' };
-}, []);
+import { constants } from "starknet";
 
 // Without Session Keys
 const connectors = [
   new ControllerConnector({
-    rpc: rpc().nodeUrl,
-  }) as never as Connector,
+    chains: [
+      {
+        rpcUrl: "https://api.cartridge.gg/x/starknet/sepolia",
+      },
+      {
+        rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
+      },
+    ],
+    defaultChainId: constants.StarknetChainId.SN_SEPOLIA,
+  }),
 ];
 ```
 
 
 ```tsx twoslash
-import React, { useCallback } from "react";
 import { ControllerConnector } from "@cartridge/connector";
+import { SessionPolicies } from "@cartridge/controller";
 import { Connector } from "@starknet-react/core";
+import { constants } from "starknet";
 
-const rpc = useCallback(() => {
-  return { nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' };
-}, []);
+// Define session policies
+const policies: SessionPolicies = {
+  contracts: {
+    "0x3f96056436be253753351fe689110ced7d53f5db3fd98f13df3f19058311b95": {
+      name: "Example Contract",
+      description: "Example contract interaction",
+      methods: [
+        {
+          name: "Create",
+          description: "Create a new instance",
+          entrypoint: "create"
+        }
+      ]
+    }
+  }
+};
 
-// With Session Keys // [!code focus]
-const connectors = [// [!code focus]
-  new ControllerConnector({// [!code focus] 
-    rpc: rpc().nodeUrl, // [!code focus]
-    policies:[ // [!code focus]
-      { // [!code focus]
-        target: "0x3f96056436be253753351fe689110ced7d53f5db3fd98f13df3f19058311b95", // [!code focus]
-        method: "create", // [!code focus]
-      }, // [!code focus]
-    ], // [!code focus] 
-  }) as never as Connector,// [!code focus]
-];// [!code focus]
+// With Session Keys
+const connectors = [
+  new ControllerConnector({
+    chains: [
+      {
+        rpcUrl: "https://api.cartridge.gg/x/starknet/sepolia",
+      },
+      {
+        rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
+      },
+    ],
+    defaultChainId: constants.StarknetChainId.SN_SEPOLIA,
+    policies,
+  }),
+];
 ```
