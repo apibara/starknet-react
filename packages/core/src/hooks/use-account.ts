@@ -48,9 +48,23 @@ export function useAccount(): UseAccountResult {
   const { connector, chain } = useStarknet();
   const { provider } = useProvider();
   const { address: connectedAddress } = useStarknetAccount();
-  const [state, setState] = useState<UseAccountResult>({
-    status: "disconnected",
-  });
+  const [state, setState] = useState<UseAccountResult>(
+    connectedAddress === undefined
+      ? {
+          status: "disconnected",
+        }
+      : {
+          status: "connected" as const,
+          connector,
+          chainId: chain.id,
+          account: undefined,
+          address: getAddress(connectedAddress),
+          isConnected: true,
+          isConnecting: false,
+          isDisconnected: false,
+          isReconnecting: false,
+        },
+  );
 
   const refreshState = useCallback(async () => {
     if (connector && provider && connectedAddress) {
