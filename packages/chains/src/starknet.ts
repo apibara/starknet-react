@@ -47,9 +47,9 @@ export const mainnet = {
     },
     public: {
       http: [
-        "https://starknet-mainnet.public.blastapi.io/rpc/v0_7",
+        "https://starknet-mainnet.public.blastapi.io/rpc/v0_8",
         "https://rpc.starknet.lava.build",
-        "https://free-rpc.nethermind.io/mainnet-juno/v0_7",
+        "https://free-rpc.nethermind.io/mainnet-juno/v0_8",
       ],
     },
   },
