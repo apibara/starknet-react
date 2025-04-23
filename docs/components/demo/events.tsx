@@ -1,14 +1,15 @@
 import { useBlockNumber, useEvents, useNetwork } from "@starknet-react/core";
 import stringify from "safe-stable-stringify";
+import { BlockTag } from "starknet";
 import { DemoContainer } from "../starknet";
 import { Button } from "../ui/button";
-import { BlockTag } from "starknet";
 
 function EventsInner() {
   const eventName = "Transfer";
   const { chain } = useNetwork();
   const address = chain.nativeCurrency.address;
-  const fromBlock = useBlockNumber().data - 10;
+  const blockNumber = useBlockNumber();
+  const fromBlock = blockNumber.data ? blockNumber.data - 10 : 0;
   const toBlock = BlockTag.LATEST;
 
   const pageSize = 3;

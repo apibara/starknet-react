@@ -1,5 +1,3 @@
-"use client";
-
 import { useAccount, useBalance } from "@starknet-react/core";
 import { DemoContainer } from "../starknet";
 
