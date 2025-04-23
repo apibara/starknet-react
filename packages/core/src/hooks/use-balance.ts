@@ -144,17 +144,19 @@ function queryFn({
 
     let symbol = chain.nativeCurrency.symbol;
     if (!isNativeCurrency) {
-      const symbol_ = await contract.symbol(options);
+      const symbol_ = await contract.withOptions(options).symbol();
       symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
     let decimals = chain.nativeCurrency.decimals;
     if (!isNativeCurrency) {
-      const decimals_ = await contract.decimals(options);
+      const decimals_ = await contract.withOptions(options).decimals();
       decimals = Number(decimals_);
     }
 
-    const balanceOf = (await contract.balanceOf(address, options)) as bigint;
+    const balanceOf = (await contract
+      .withOptions(options)
+      .balanceOf(address)) as bigint;
 
     const formatted = formatUnits(balanceOf, decimals);
 
