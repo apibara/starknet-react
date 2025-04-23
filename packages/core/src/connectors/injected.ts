@@ -8,13 +8,14 @@ import {
 import {
   type AccountInterface,
   type ProviderInterface,
-  type ProviderOptions,
   WalletAccount,
+  num,
 } from "starknet";
 import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
   UserRejectedRequestError,
+  WalletRequestError,
 } from "../errors";
 import {
   type ConnectArgs,
@@ -112,9 +113,7 @@ export class InjectedConnector extends Connector {
     return permissions?.includes(Permission.ACCOUNTS);
   }
 
-  async account(
-    provider: ProviderOptions | ProviderInterface,
-  ): Promise<AccountInterface> {
+  async account(provider: ProviderInterface): Promise<AccountInterface> {
     this.ensureWallet();
 
     const locked = await this.isLocked();
@@ -123,7 +122,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    return new WalletAccount(provider, this._wallet);
+    return await WalletAccount.connect(provider, this._wallet, undefined, true);
   }
 
   async connect(_args: ConnectArgs = {}): Promise<ConnectorData> {
@@ -133,13 +132,27 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
+    // if chainIdHint is provided, we need to make sure the chain is correct when we connect
+    if (_args.chainIdHint) {
+      const chainId = await this.requestChainId();
+      // if the chainId is not the same as the hint, we need to switch the chain
+      if (chainId !== _args.chainIdHint) {
+        try {
+          // At this moment, braavos wallet does not support switching chain with request call
+          await this.switchChain(_args.chainIdHint);
+        } catch {
+          // if for some reason switching chain fails, we don't want to throw an error
+        }
+      }
+    }
+
     let accounts: string[];
     try {
       accounts = await this.request({
         type: "wallet_requestAccounts",
       });
-    } catch {
-      throw new UserRejectedRequestError();
+    } catch (error) {
+      throw new WalletRequestError(error);
     }
 
     if (!accounts) {
@@ -188,8 +201,9 @@ export class InjectedConnector extends Connector {
 
     try {
       return await this._wallet.request(call);
-    } catch {
-      throw new UserRejectedRequestError();
+    } catch (error) {
+      console.error(error);
+      throw new WalletRequestError(error);
     }
   }
 
@@ -242,5 +256,12 @@ export class InjectedConnector extends Connector {
     } else {
       this.emit("change", {});
     }
+  }
+
+  private async switchChain(chainId: bigint) {
+    await this.request({
+      type: "wallet_switchStarknetChain",
+      params: { chainId: num.toHex(chainId) },
+    });
   }
 }
