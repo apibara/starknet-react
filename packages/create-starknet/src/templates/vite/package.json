@@ -13,7 +13,7 @@
     "@starknet-react/chains": "^3.0.0",
     "@starknet-react/core": "^3.0.0",
     "get-starknet-core": "^4.0.0",
-    "starknet": "^6.11.0",
+    "starknet": "^7.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
