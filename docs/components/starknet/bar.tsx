@@ -1,4 +1,4 @@
-import { useAccount, useConnect } from "@starknet-react/core";
+import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { Button } from "../ui/button";
 
 export function WalletBar() {
@@ -12,10 +12,23 @@ export function WalletBar() {
 }
 
 function ConnectedWallet({ address }: { address: `0x${string}` }) {
+  const { disconnect } = useDisconnect();
   return (
     <div className="h-full flex flex-col justify-center">
       <p className="font-medium">Connected Address: </p>
-      <pre>{address}</pre>
+      <div className="flex flex-row items-center gap-4">
+        <pre title={address}>
+          {address.slice(0, 25)}...{address.slice(-25)}
+        </pre>
+        <Button
+          size={"sm"}
+          variant={"destructive"}
+          className="flex-none"
+          onClick={() => disconnect()}
+        >
+          Disconnect
+        </Button>
+      </div>
     </div>
   );
 }
