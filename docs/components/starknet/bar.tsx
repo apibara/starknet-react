@@ -34,7 +34,7 @@ function ConnectedWallet({ address }: { address: `0x${string}` }) {
 }
 
 function ConnectWallet() {
-  const { connect, connectors, status } = useConnect();
+  const { connectAsync, connectors, status } = useConnect();
 
   return (
     <div className="flex h-full items-center justify-between">
@@ -43,8 +43,8 @@ function ConnectWallet() {
         {connectors.map((connector) => (
           <Button
             key={connector.id}
-            onClick={() => {
-              connect({ connector });
+            onClick={async () => {
+              await connectAsync({ connector });
             }}
             // className="bg-red-500 rounded px-2 py-1 text-white disabled:bg-gray-500"
             disabled={status === "pending"}
