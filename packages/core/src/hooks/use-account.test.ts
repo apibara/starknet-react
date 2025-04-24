@@ -83,11 +83,14 @@ describe("useAccount", () => {
             "address": "0x078662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
             "cairoVersion": undefined,
             "channel": RpcChannel2 {
+              "baseFetch": [Function],
+              "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": undefined,
               "headers": {
                 "Content-Type": "application/json",
               },
+              "id": "RPC08",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,
@@ -103,7 +106,7 @@ describe("useAccount", () => {
             "signer": Signer {
               "pk": "0xe1406455b7d66b1690803be066cbe5e",
             },
-            "transactionVersion": "0x2",
+            "transactionVersion": "0x3",
           },
           "address": "0x078662e7352d062084b0010068b99288486c2d8b914f6e2a55ce945f8792c8b1",
           "chainId": 393402133025997798000961n,
