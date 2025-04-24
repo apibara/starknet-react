@@ -24,15 +24,19 @@ const { addChain, error } = useAddChain({
         decimals: 18,
       },
     },
-  }
+  },
 });
 ```
+
+:::warning
+This hook is not supported by Braavos wallet at the moment.
+:::
 
 ## Arguments
 
 ### params
 
-* Type: `AddStarknetChainParameters`
+- Type: `AddStarknetChainParameters`
 
 The chain definition. This type is defined in the Starknet Types package.
 
@@ -40,71 +44,71 @@ The chain definition. This type is defined in the Starknet Types package.
 
 ### addChain
 
-* Type: `(args?: AddStarknetChainParameters) => void`
+- Type: `(args?: AddStarknetChainParameters) => void`
 
 Function to send the request to the user, optionally overriding the arguments to the hook.
 
 ### addChainAsync
 
-* Type: `(args?: AddStarknetChainParameters) => Promise<boloean>`
+- Type: `(args?: AddStarknetChainParameters) => Promise<boloean>`
 
 Send the request to the user and block until it receives a response.
 
 ### data
 
-* Type: `boolean | undefined`
+- Type: `boolean | undefined`
 
 The resolved data.
 
 ### error
 
-* Type: `Error | null`
+- Type: `Error | null`
 
 Any error thrown by the mutation.
 
 ### reset
 
-* Type: `() => void`
+- Type: `() => void`
 
 Reset the mutation status.
 
 ### variables
 
-* Type: `AddStarknetChainParameters | undefined`
+- Type: `AddStarknetChainParameters | undefined`
 
 The variables passed to `addChain` or `addChainAsync`.
 
 ### status
 
-* Type: `"error" | "idle" | "pending" | "success"`
+- Type: `"error" | "idle" | "pending" | "success"`
 
 The mutation status.
 
-* `idle`: the mutation has not been triggered yet.
-* `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
-* `success`: the mutation executed without an error.
-* `error`: the mutation threw an error.
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
 
 ### isError
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### isIdle
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### isPending
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
 
 ### isSuccess
 
-* Type: `boolean`
+- Type: `boolean`
 
 Derived from `status`.
