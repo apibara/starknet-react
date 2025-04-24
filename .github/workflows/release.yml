@@ -33,6 +33,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --strict-peer-dependencies=false --no-frozen-lockfile
       - name: Publish package
-        run: pnpm beachball publish --access public --token "${NPM_TOKEN}"
+        run: pnpm beachball publish --access public --token "${NPM_TOKEN}" --tag next
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
