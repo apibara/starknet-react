@@ -15,7 +15,6 @@ import {
   ConnectorNotConnectedError,
   ConnectorNotFoundError,
   UserRejectedRequestError,
-  WalletRequestError,
 } from "../errors";
 import {
   type ConnectArgs,
@@ -94,11 +93,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    try {
-      return this.requestChainId();
-    } catch {
-      throw new ConnectorNotFoundError();
-    }
+    return await this.requestChainId();
   }
 
   async ready(): Promise<boolean> {
@@ -110,7 +105,7 @@ export class InjectedConnector extends Connector {
       type: "wallet_getPermissions",
     });
 
-    return permissions?.includes(Permission.ACCOUNTS);
+    return permissions ? permissions.includes(Permission.ACCOUNTS) : false;
   }
 
   async account(provider: ProviderInterface): Promise<AccountInterface> {
@@ -137,23 +132,13 @@ export class InjectedConnector extends Connector {
       const chainId = await this.requestChainId();
       // if the chainId is not the same as the hint, we need to switch the chain
       if (chainId !== _args.chainIdHint) {
-        try {
-          // At this moment, braavos wallet does not support switching chain with request call
-          await this.switchChain(_args.chainIdHint);
-        } catch {
-          // if for some reason switching chain fails, we don't want to throw an error
-        }
+        await this.switchChain(_args.chainIdHint);
       }
     }
 
-    let accounts: string[];
-    try {
-      accounts = await this.request({
-        type: "wallet_requestAccounts",
-      });
-    } catch (error) {
-      throw new WalletRequestError(error);
-    }
+    const accounts = await this.request({
+      type: "wallet_requestAccounts",
+    });
 
     if (!accounts) {
       throw new UserRejectedRequestError();
@@ -199,12 +184,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    try {
-      return await this._wallet.request(call);
-    } catch (error) {
-      console.error(error);
-      throw new WalletRequestError(error);
-    }
+    return await this._wallet.request(call);
   }
 
   private async isLocked() {
