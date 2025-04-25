@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Fri, 24 Jan 2025 12:30:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 25 Apr 2025 13:38:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.7.3
+
+Fri, 25 Apr 2025 13:38:49 GMT
+
+### Patches
+
+- Add cartridge explorer (jun.sugiura.jp@gmail.com)
 
 ## 3.7.2
 

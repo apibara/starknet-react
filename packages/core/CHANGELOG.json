@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Fri, 25 Apr 2025 13:38:49 GMT",
+      "version": "3.7.3",
+      "tag": "@starknet-react/core_v3.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "jun.sugiura.jp@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "b72506853f783cee732fe19814a7bc6070fd0362",
+            "comment": "Add cartridge explorer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Jan 2025 12:30:17 GMT",
       "version": "3.7.2",
       "tag": "@starknet-react/core_v3.7.2",

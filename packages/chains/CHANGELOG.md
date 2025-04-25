@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Thu, 31 Oct 2024 12:36:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 25 Apr 2025 13:38:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.1.3
+
+Fri, 25 Apr 2025 13:38:49 GMT
+
+### Patches
+
+- Add cartridge explorer (jun.sugiura.jp@gmail.com)
 
 ## 3.1.0
 

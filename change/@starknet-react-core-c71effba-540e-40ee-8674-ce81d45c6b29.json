@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add cartridge explorer",
-  "packageName": "@starknet-react/core",
-  "email": "jun.sugiura.jp@gmail.com",
-  "dependentChangeType": "patch"
-}
