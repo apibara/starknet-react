@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "core: useAccount address on initial render",
-  "packageName": "@starknet-react/core",
-  "email": "dave.vodrazka@gmail.com",
-  "dependentChangeType": "patch"
-}

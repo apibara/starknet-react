@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Fri, 25 Apr 2025 13:38:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 27 Apr 2025 08:33:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.7.4
+
+Sun, 27 Apr 2025 08:33:24 GMT
+
+### Patches
+
+- core: useAccount address on initial render (dave.vodrazka@gmail.com)
 
 ## 3.7.3
 

@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Sun, 27 Apr 2025 08:33:24 GMT",
+      "version": "3.7.4",
+      "tag": "@starknet-react/core_v3.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "dave.vodrazka@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "2b38070b0e0005c6a5112947f662799c78666663",
+            "comment": "core: useAccount address on initial render"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Apr 2025 13:38:49 GMT",
       "version": "3.7.3",
       "tag": "@starknet-react/core_v3.7.3",
