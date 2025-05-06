@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Tue, 06 May 2025 07:09:23 GMT",
+      "version": "4.0.1-beta.0",
+      "tag": "@starknet-react/core_v4.0.1-beta.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "c6cd207a64a3d9bdc3f2945931cae30bbf35c510",
+            "comment": "core: upgrade starknet.js to v7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 27 Apr 2025 08:33:24 GMT",
       "version": "3.7.4",
       "tag": "@starknet-react/core_v3.7.4",

@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Fri, 25 Apr 2025 13:38:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 07:09:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.1-beta.0
+
+Tue, 06 May 2025 07:09:23 GMT
+
+### Major changes
+
+- chains: make public apis to use rpc 0.8 (jadejajaipal5@gmail.com)
 
 ## 3.1.3
 

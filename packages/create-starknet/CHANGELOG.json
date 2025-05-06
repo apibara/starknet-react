@@ -2,6 +2,21 @@
   "name": "create-starknet",
   "entries": [
     {
+      "date": "Tue, 06 May 2025 07:09:23 GMT",
+      "version": "4.0.1-beta.0",
+      "tag": "create-starknet_v4.0.1-beta.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "create-starknet",
+            "commit": "c6cd207a64a3d9bdc3f2945931cae30bbf35c510",
+            "comment": "chore: bump starknet.js to v7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Jan 2025 09:48:12 GMT",
       "version": "3.4.2",
       "tag": "create-starknet_v3.4.2",

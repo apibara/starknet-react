@@ -1,8 +1,16 @@
 # Change Log - create-starknet
 
-<!-- This log was last generated on Thu, 09 Jan 2025 09:48:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 07:09:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.1-beta.0
+
+Tue, 06 May 2025 07:09:23 GMT
+
+### Major changes
+
+- chore: bump starknet.js to v7 (jadejajaipal5@gmail.com)
 
 ## 3.4.2
 
