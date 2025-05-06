@@ -29,5 +29,21 @@
     "node": ">=20",
     "pnpm": ">=9"
   },
-  "packageManager": "pnpm@9.10.0"
+  "packageManager": "pnpm@9.10.0",
+  "beachball": {
+    "prereleasePrefix": "beta",
+    "groups": [
+      {
+        "name": "v4-prerelease",
+        "include": [
+          "packages/chains",
+          "packages/core",
+          "packages/create-starknet"
+        ]
+      }
+    ],
+    "ignorePatterns": [
+      "docs/**"
+    ]
+  }
 }

@@ -23,6 +23,7 @@ function SwitchChainInner() {
           : constants.StarknetChainId.SN_SEPOLIA,
     },
   });
+
   return (
     <div className="flex flex-col gap-4">
       <p>Current Chain:</p>
@@ -59,6 +60,11 @@ function SwitchChainInner() {
       >
         Switch to Sepolia (Override)
       </Button>
+
+      <p className="text-sm text-muted-foreground">
+        Important: This does not work with Braavos wallet, as they don't support
+        the API at the moment.
+      </p>
     </div>
   );
 }

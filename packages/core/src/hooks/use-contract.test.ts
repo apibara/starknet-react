@@ -173,6 +173,7 @@ describe("useContract", () => {
           "callStatic": {
             "name": [Function],
           },
+          "contractOptions": undefined,
           "deployTransactionHash": undefined,
           "estimateFee": {
             "name": [Function],
@@ -187,11 +188,14 @@ describe("useContract", () => {
           },
           "providerOrAccount": RpcProvider2 {
             "channel": RpcChannel2 {
+              "baseFetch": [Function],
+              "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": "0x534e5f5345504f4c4941",
               "headers": {
                 "Content-Type": "application/json",
               },
+              "id": "RPC08",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,

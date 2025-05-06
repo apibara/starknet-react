@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 
 import { useNetwork, useReadContract } from "@starknet-react/core";

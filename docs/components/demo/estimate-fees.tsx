@@ -10,7 +10,7 @@ import { DemoContainer } from "../starknet";
 
 export function EstimateFees() {
   return (
-    <DemoContainer>
+    <DemoContainer hasWallet>
       <EstimateFeesInner />
     </DemoContainer>
   );

@@ -91,6 +91,6 @@ function queryFn({
   return async () => {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
-    return account?.estimateInvokeFee(calls, options);
+    return await account.estimateInvokeFee(calls, options);
   };
 }

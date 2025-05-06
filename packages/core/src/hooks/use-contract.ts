@@ -42,6 +42,12 @@ type TypedContractActions_<TAbi extends Abi> = {
     args?: ArgsArray_<TAbi, TFunctionName>,
   ): Call;
   populateTransaction: ContractFunctionsPopulateTransaction<TAbi>;
+  /**
+   * Returns same contract but typed and with the applied options for the next call.
+   * @note if using `contract.withOptions(...).methodName()`, you must NOT pass options again in the `methodName(...argsOfMethodOnly)` as an argument.
+   * @important You must apply the options again for each call
+   */
+  withOptions(options: CallOptions): StarknetTypedContract<TAbi>;
 };
 
 type TypedContract_<TAbi extends Abi> = TypedContractActions_<TAbi> &

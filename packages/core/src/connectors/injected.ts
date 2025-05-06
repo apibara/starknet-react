@@ -8,8 +8,8 @@ import {
 import {
   type AccountInterface,
   type ProviderInterface,
-  type ProviderOptions,
   WalletAccount,
+  num,
 } from "starknet";
 import {
   ConnectorNotConnectedError,
@@ -93,11 +93,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    try {
-      return this.requestChainId();
-    } catch {
-      throw new ConnectorNotFoundError();
-    }
+    return await this.requestChainId();
   }
 
   async ready(): Promise<boolean> {
@@ -109,12 +105,10 @@ export class InjectedConnector extends Connector {
       type: "wallet_getPermissions",
     });
 
-    return permissions?.includes(Permission.ACCOUNTS);
+    return permissions ? permissions.includes(Permission.ACCOUNTS) : false;
   }
 
-  async account(
-    provider: ProviderOptions | ProviderInterface,
-  ): Promise<AccountInterface> {
+  async account(provider: ProviderInterface): Promise<AccountInterface> {
     this.ensureWallet();
 
     const locked = await this.isLocked();
@@ -123,7 +117,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    return new WalletAccount(provider, this._wallet);
+    return await WalletAccount.connect(provider, this._wallet, undefined, true);
   }
 
   async connect(_args: ConnectArgs = {}): Promise<ConnectorData> {
@@ -133,17 +127,21 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
-    let accounts: string[];
-    try {
-      accounts = await this.request({
-        type: "wallet_requestAccounts",
-      });
-    } catch {
-      throw new UserRejectedRequestError();
-    }
+    const accounts = await this.request({
+      type: "wallet_requestAccounts",
+    });
 
     if (!accounts) {
       throw new UserRejectedRequestError();
+    }
+
+    // if chainIdHint is provided, we need to make sure the chain is correct when we connect
+    if (_args.chainIdHint) {
+      const chainId = await this.requestChainId();
+      // if the chainId is not the same as the hint, we need to switch the chain
+      if (chainId !== _args.chainIdHint) {
+        await this.switchChain(_args.chainIdHint);
+      }
     }
 
     this._wallet.on("accountsChanged", async (accounts) => {
@@ -186,11 +184,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    try {
-      return await this._wallet.request(call);
-    } catch {
-      throw new UserRejectedRequestError();
-    }
+    return await this._wallet.request(call);
   }
 
   private async isLocked() {
@@ -242,5 +236,12 @@ export class InjectedConnector extends Connector {
     } else {
       this.emit("change", {});
     }
+  }
+
+  private async switchChain(chainId: bigint) {
+    await this.request({
+      type: "wallet_switchStarknetChain",
+      params: { chainId: num.toHex(chainId) },
+    });
   }
 }

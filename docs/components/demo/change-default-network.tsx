@@ -1,13 +1,11 @@
 import { type Chain, mainnet, sepolia } from "@starknet-react/chains";
-import { publicProvider, useAccount, useNetwork } from "@starknet-react/core";
+import { useAccount, useNetwork } from "@starknet-react/core";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { DemoContainer } from "../starknet";
+import { Button } from "../ui/button";
 
 export function ChangeDefaultNetwork() {
   const [defaultChain, setDefaultChain] = useState<Chain>(sepolia);
-  const chains = [mainnet, sepolia];
-  const provider = publicProvider();
 
   return (
     <DemoContainer hasWallet defaultChainId={defaultChain.id}>

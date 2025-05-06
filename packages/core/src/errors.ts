@@ -18,6 +18,20 @@ export class UserRejectedRequestError extends Error {
   override message = "User rejected request";
 }
 
+export class WalletRequestError extends Error {
+  constructor(error?: string | Error | unknown, cause?: Error | unknown) {
+    super(
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+          ? error
+          : "Unknown Request Error",
+    );
+    this.name = "WalletRequestError";
+    this.stack = error instanceof Error ? error.stack : undefined;
+  }
+}
+
 export class UserNotConnectedError extends Error {
   override name = "UserNotConnectedError";
   override message = "User not connected";

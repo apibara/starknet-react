@@ -7,7 +7,7 @@ Hook to declare a new class in the current network.
 ```tsx
 import { useDeclareContract } from "@starknet-react/core";
 
-const { addChain, error } = useDeclareContract({
+const { declare, error } = useDeclareContract({
   params: {
     compiled_class_hash: hash.computeCompiledClassHash(contractCasm),
     contract_class: {

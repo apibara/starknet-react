@@ -18,6 +18,7 @@ export function StarknetProvider({
   explorer?: ExplorerFactory;
 }) {
   const chains = [sepolia, mainnet];
+
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.

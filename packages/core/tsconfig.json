@@ -1,8 +1,8 @@
 {
   "extends": "@starknet-react/typescript-config/react-library.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
     "outDir": "dist"
-  },
-  "include": ["src", "test"],
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"]
+  }
 }

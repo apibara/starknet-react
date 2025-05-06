@@ -53,6 +53,10 @@ function AddChainInner() {
 
       <Button onClick={() => addChain()}>Add Chain</Button>
       <Button onClick={() => addChain(chainData)}>Add Chain (override)</Button>
+      <p className="text-sm text-muted-foreground">
+        Important: This does not work with Braavos wallet, as they don't support
+        the API at the moment.
+      </p>
     </div>
   );
 }

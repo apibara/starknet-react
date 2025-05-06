@@ -12,8 +12,8 @@
     "format": "biome format components --write"
   },
   "dependencies": {
-    "@cartridge/connector": "^0.6.0",
-    "@cartridge/controller": "^0.6.0",
+    "@cartridge/connector": "^0.7.12",
+    "@cartridge/controller": "^0.7.12",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
@@ -25,16 +25,16 @@
     "lucide-react": "^0.438.0",
     "react": "^18.2.0",
     "safe-stable-stringify": "^2.5.0",
-    "starknet": "^6.11.0",
-    "starknetkit": "^2.3.0",
+    "starknet": "^7.1.0",
+    "starknetkit": "^2.10.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vocs": "1.0.0-alpha.55"
   },
   "devDependencies": {
+    "@starknet-react/typescript-config": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@starknet-react/typescript-config": "workspace:*",
     "tailwindcss": "^3.4.10"
   }
 }
