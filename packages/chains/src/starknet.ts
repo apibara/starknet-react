@@ -33,9 +33,6 @@ export const mainnet = {
     lava: {
       http: ["https://g.w.lavanet.xyz:443/gateway/strk/rpc-http"],
     },
-    nethermind: {
-      http: ["https://rpc.nethermind.io/mainnet-juno"],
-    },
     reddio: {
       http: ["https://starknet-mainnet.reddio.com"],
     },
@@ -49,7 +46,6 @@ export const mainnet = {
       http: [
         "https://starknet-mainnet.public.blastapi.io/rpc/v0_8",
         "https://rpc.starknet.lava.build",
-        "https://free-rpc.nethermind.io/mainnet-juno/v0_8",
       ],
     },
   },
@@ -81,9 +77,6 @@ export const sepolia = {
     infura: {
       http: ["https://starknet-sepolia.infura.io/v3"],
     },
-    nethermind: {
-      http: ["https://rpc.nethermind.io/sepolia-juno"],
-    },
     reddio: {
       http: ["https://starknet-sepolia.reddio.com"],
     },
@@ -94,10 +87,7 @@ export const sepolia = {
       http: [],
     },
     public: {
-      http: [
-        "https://starknet-sepolia.public.blastapi.io",
-        "https://free-rpc.nethermind.io/sepolia-juno",
-      ],
+      http: ["https://starknet-sepolia.public.blastapi.io"],
     },
   },
   explorers: {
