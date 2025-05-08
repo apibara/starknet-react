@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Tue, 06 May 2025 07:09:23 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 08 May 2025 10:03:17 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.1-beta.1
+
+Thu, 08 May 2025 10:03:17 GMT
+
+### Changes
+
+- core: remove nethermind rpc provider (francesco@ceccon.me)
 
 ## 4.0.1-beta.0
 
