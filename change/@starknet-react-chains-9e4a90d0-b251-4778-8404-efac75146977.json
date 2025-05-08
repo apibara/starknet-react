@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "core: remove nethermind rpc provider",
+  "packageName": "@starknet-react/chains",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}

@@ -8,6 +8,5 @@ export * from "./blast";
 export * from "./cartridge";
 export * from "./infura";
 export * from "./lava";
-export * from "./nethermind";
 export * from "./reddio";
 export * from "./slot";
