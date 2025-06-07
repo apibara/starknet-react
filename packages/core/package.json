@@ -1,6 +1,6 @@
 {
   "name": "@starknet-react/core",
-  "version": "4.0.1-beta.1",
+  "version": "4.0.1-beta.2",
   "license": "MIT",
   "repository": "apibara/starknet-react",
   "homepage": "https://www.starknet-react.com",
@@ -41,7 +41,7 @@
   "peerDependencies": {
     "get-starknet-core": "^4.0.0",
     "react": "^18.0",
-    "starknet": "^7.1.0"
+    "starknet": "^7.5.0"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*",

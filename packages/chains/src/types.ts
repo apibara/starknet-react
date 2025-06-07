@@ -29,7 +29,6 @@ export type Chain = {
 
   paymasterRpcUrls: {
     [key: string]: RpcUrls;
-    default: RpcUrls;
   };
 
   /** Flag for testnet networks */

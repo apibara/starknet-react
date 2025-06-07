@@ -21,7 +21,7 @@ export const devnet = {
     },
   },
   paymasterRpcUrls: {
-    default: {
+    avnu: {
       http: ["http://localhost:5050"],
     },
   },

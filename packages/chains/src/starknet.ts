@@ -50,7 +50,7 @@ export const mainnet = {
     },
   },
   paymasterRpcUrls: {
-    default: {
+    avnu: {
       http: ["https://starknet.paymaster.avnu.fi/"],
     },
   },
@@ -96,7 +96,7 @@ export const sepolia = {
     },
   },
   paymasterRpcUrls: {
-    default: {
+    avnu: {
       http: ["https://sepolia.paymaster.avnu.fi/"],
     },
   },

@@ -22,7 +22,7 @@ export function getSlotChain(projectId: string) {
       },
     },
     paymasterRpcUrls: {
-      default: {
+      avnu: {
         http: ["https://sepolia.paymaster.avnu.fi/"],
       },
     },
