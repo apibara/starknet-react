@@ -16,6 +16,7 @@ import {
 } from "react";
 import {
   constants,
+  PaymasterRpc,
   type AccountInterface,
   type ProviderInterface,
 } from "starknet";
@@ -27,6 +28,8 @@ import type { ExplorerFactory } from "../explorers/";
 import type { ChainProviderFactory } from "../providers";
 
 import { AccountProvider } from "./account";
+import { ChainPaymasterFactory } from "../providers/paymaster/factory";
+import { avnuPaymasterProvider } from "../providers/paymaster";
 
 const defaultQueryClient = new QueryClient();
 
@@ -48,6 +51,8 @@ export interface StarknetState {
   chain: Chain;
   /** Current provider. */
   provider: ProviderInterface;
+  /** Current paymaster provider */
+  paymasterProvider?: PaymasterRpc;
   /** Error. */
   error?: Error;
 }
@@ -92,12 +97,14 @@ interface StarknetManagerState {
   connectors: Connector[];
   currentAddress?: Address;
   currentProvider: ProviderInterface;
+  currentPaymasterProvider?: PaymasterRpc;
   error?: Error;
 }
 
 interface UseStarknetManagerProps {
   chains: Chain[];
   provider: ChainProviderFactory;
+  paymasterProvider: ChainPaymasterFactory;
   explorer?: ExplorerFactory;
   connectors?: Connector[];
   autoConnect?: boolean;
@@ -107,6 +114,7 @@ interface UseStarknetManagerProps {
 function useStarknetManager({
   chains,
   provider,
+  paymasterProvider,
   explorer,
   connectors = [],
   autoConnect = false,
@@ -137,12 +145,18 @@ function useStarknetManager({
     provider,
   );
 
+  const { paymasterProvider: defaultPaymasterProvider } = paymasterProviderForChain(
+    defaultChain,
+    paymasterProvider,
+  );
+
   // The currently connected connector needs to be accessible from the
   // event handler.
   const connectorRef = useRef<Connector | undefined>();
   const [state, setState] = useState<StarknetManagerState>({
     currentChain: defaultChain,
     currentProvider: defaultProvider,
+    currentPaymasterProvider: defaultPaymasterProvider,
     connectors,
   });
 
@@ -155,10 +169,15 @@ function useStarknetManager({
             chain,
             provider,
           );
+          const { paymasterProvider: newPaymasterProvider } = paymasterProviderForChain(
+            chain,
+            paymasterProvider,
+          );
           setState((state) => ({
             ...state,
             currentChain: newChain,
             currentProvider: newProvider,
+            currentPaymasterProvider: newPaymasterProvider,
           }));
           return;
         }
@@ -190,6 +209,7 @@ function useStarknetManager({
         ...state,
         currentChain: defaultChain,
         currentProvider: providerForChain(defaultChain, provider).provider,
+        currentPaymasterProvider: paymasterProviderForChain(defaultChain, paymasterProvider).paymasterProvider,
       }));
     }
   }, [defaultChain, provider]);
@@ -251,6 +271,7 @@ function useStarknetManager({
       ...state,
       currentAddress: undefined,
       currentProvider: defaultProvider,
+      currentPaymasterProvider: defaultPaymasterProvider,
       currentChain: defaultChain,
     }));
 
@@ -306,6 +327,7 @@ function useStarknetManager({
   return {
     address: state.currentAddress,
     provider: state.currentProvider,
+    paymasterProvider: state.currentPaymasterProvider,
     chain: state.currentChain,
     connector: connectorRef.current,
     explorer,
@@ -322,6 +344,8 @@ export interface StarknetProviderProps {
   chains: Chain[];
   /** Provider to use. */
   provider: ChainProviderFactory;
+  /** Paymaster provider to use. */
+  paymasterProvider?: ChainPaymasterFactory;
   /** List of connectors to use. */
   connectors?: Connector[];
   /** Explorer to use. */
@@ -340,6 +364,7 @@ export interface StarknetProviderProps {
 export function StarknetProvider({
   chains,
   provider,
+  paymasterProvider,
   connectors,
   explorer,
   autoConnect,
@@ -347,9 +372,11 @@ export function StarknetProvider({
   defaultChainId,
   children,
 }: StarknetProviderProps): JSX.Element {
+  const _paymasterProvider = paymasterProvider ?? avnuPaymasterProvider({});
   const { account, address, ...state } = useStarknetManager({
     chains,
     provider,
+    paymasterProvider: _paymasterProvider,
     explorer,
     connectors,
     autoConnect,
@@ -377,6 +404,18 @@ function providerForChain(
   }
 
   throw new Error(`No provider found for chain ${chain.name}`);
+}
+
+function paymasterProviderForChain(
+  chain: Chain,
+  factory: ChainPaymasterFactory,
+): { chain: Chain; paymasterProvider: PaymasterRpc } {
+  const paymasterProvider = factory(chain);
+  if (paymasterProvider) {
+    return { chain, paymasterProvider };
+  }
+
+  throw new Error(`No paymaster provider found for chain ${chain.name}`);
 }
 
 export function starknetChainId(

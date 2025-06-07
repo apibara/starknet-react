@@ -7,6 +7,8 @@ import {
 } from "@starknet-io/types-js";
 import {
   type AccountInterface,
+  PaymasterInterface,
+  PaymasterOptions,
   type ProviderInterface,
   WalletAccount,
   num,
@@ -108,7 +110,7 @@ export class InjectedConnector extends Connector {
     return permissions ? permissions.includes(Permission.ACCOUNTS) : false;
   }
 
-  async account(provider: ProviderInterface): Promise<AccountInterface> {
+  async account(provider: ProviderInterface, paymasterProvider?: PaymasterInterface): Promise<AccountInterface> {
     this.ensureWallet();
 
     const locked = await this.isLocked();
@@ -117,7 +119,7 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotConnectedError();
     }
 
-    return await WalletAccount.connect(provider, this._wallet, undefined, true);
+    return await WalletAccount.connect(provider, this._wallet, undefined, paymasterProvider, true);
   }
 
   async connect(_args: ConnectArgs = {}): Promise<ConnectorData> {

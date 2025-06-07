@@ -21,5 +21,10 @@ export function getSlotChain(projectId: string) {
         http: [`https://api.cartridge.gg/x/${projectId}/katana`],
       },
     },
+    paymasterRpcUrls: {
+      default: {
+        http: ["https://sepolia.paymaster.avnu.fi/"],
+      },
+    },
   } as const satisfies Chain;
 }

@@ -46,7 +46,7 @@ export type UseAccountResult = {
  */
 export function useAccount(): UseAccountResult {
   const { connector, chain } = useStarknet();
-  const { provider } = useProvider();
+  const { provider, paymasterProvider } = useProvider();
   const { address: connectedAddress } = useStarknetAccount();
   const [state, setState] = useState<UseAccountResult>(
     connectedAddress === undefined
@@ -82,7 +82,7 @@ export function useAccount(): UseAccountResult {
 
       // Lazily build the account since it makes a wallet call to check if the wallet is locked.
       connector
-        .account(provider)
+        .account(provider, paymasterProvider)
         .then((connectedAccount) =>
           setState((state) => ({ ...state, account: connectedAccount })),
         );

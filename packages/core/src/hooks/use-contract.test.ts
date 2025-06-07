@@ -192,10 +192,11 @@ describe("useContract", () => {
               "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": "0x534e5f5345504f4c4941",
+              "channelSpecVersion": "0.8.1",
               "headers": {
                 "Content-Type": "application/json",
               },
-              "id": "RPC08",
+              "id": "RPC081",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,

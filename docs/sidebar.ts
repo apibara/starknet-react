@@ -26,6 +26,10 @@ export const sidebar = {
           link: "/docs/providers",
         },
         {
+          text: "Paymaster Providers",
+          link: "/docs/paymaster-providers",
+        },
+        {
           text: "Explorers",
           link: "/docs/explorers",
         },

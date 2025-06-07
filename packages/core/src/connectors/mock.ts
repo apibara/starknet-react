@@ -13,6 +13,7 @@ import { devnet, mainnet } from "@starknet-react/chains";
 import type {
   AccountInterface,
   Call,
+  PaymasterInterface,
   ProviderInterface,
   ProviderOptions,
 } from "starknet";
@@ -224,6 +225,7 @@ export class MockConnector extends Connector {
 
   async account(
     provider: ProviderOptions | ProviderInterface,
+    paymasterProvider?: PaymasterInterface,
   ): Promise<AccountInterface> {
     if (!this.available()) {
       throw new ConnectorNotFoundError();
