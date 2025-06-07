@@ -1,5 +1,6 @@
 import type { BigNumberish, Call, InvokeFunctionResponse, PaymasterDetails } from "starknet";
 import { useAccount } from "./use-account";
+import { useState } from "react";
 
 export type UsePaymasterSendTransactionArgs = {
   /** List of smart contract calls to execute. */
@@ -11,7 +12,11 @@ export type UsePaymasterSendTransactionArgs = {
 };
 
 export type UsePaymasterSendTransactionResult = {
-  send: (args?: Call[]) => Promise<InvokeFunctionResponse>;
+  sendAsync: (args?: Call[]) => Promise<InvokeFunctionResponse>;
+  data: InvokeFunctionResponse | null;
+  isLoading: boolean;
+  isSuccess: boolean;
+  error: Error | null;
 };
 
 /** Hook to send one or several transaction(s) to the network through a paymaster. */
@@ -20,21 +25,36 @@ export function usePaymasterSendTransaction(
 ): UsePaymasterSendTransactionResult {
   const { calls, options, maxFeeInGasToken } = props;
   const { account } = useAccount();
+  const [data, setData] = useState<InvokeFunctionResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const send = (args?: Call[]) => {
-    const _calls = args || calls;
-    if (!_calls) {
-      throw new Error("No calls provided");
-    }
-
+  const sendAsync = (args?: Call[]) => {
+    const _calls = args || calls || [];
     if (!account) {
-      throw new Error("Account not connected");
+      throw new Error("No connector connected");
     }
 
-    return account?.executePaymasterTransaction(_calls, options, maxFeeInGasToken);
+    setIsLoading(true);
+    return account?.executePaymasterTransaction(_calls, options, maxFeeInGasToken).then((data) => {
+      setData(data);
+      setIsSuccess(true);
+      return data;
+    }).catch((error) => {
+      setError(error);
+      setIsSuccess(false);
+      throw error;
+    }).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   return {
-    send,
+    sendAsync,
+    data,
+    isLoading,
+    isSuccess,
+    error,
   };
 }
