@@ -16,6 +16,7 @@ import { StarknetKit } from "./starknetkit";
 import { SwitchChain } from "./switch-chain";
 import { WalletPermission } from "./wallet-permission";
 import { Events } from "./events";
+import { SendGaslessTransaction } from "./send-gasless-transaction";
 
 export default {
   Account,
@@ -23,6 +24,7 @@ export default {
   Balance,
   ReadContract,
   SendTransaction,
+  SendGaslessTransaction,
   EstimateFees,
   StarkAddress,
   StarkName,
