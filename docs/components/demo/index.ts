@@ -17,6 +17,7 @@ import { SwitchChain } from "./switch-chain";
 import { WalletPermission } from "./wallet-permission";
 import { Events } from "./events";
 import { SendGaslessTransaction } from "./send-gasless-transaction";
+import { PaymasterGasTokens } from "./paymaster-gas-tokens";
 
 export default {
   Account,
@@ -25,6 +26,7 @@ export default {
   ReadContract,
   SendTransaction,
   SendGaslessTransaction,
+  PaymasterGasTokens,
   EstimateFees,
   StarkAddress,
   StarkName,
