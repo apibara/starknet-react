@@ -1,0 +1,142 @@
+# usePaymasterEstimateFees
+
+Hook to estimate fees for smart contract calls.
+
+## Usage
+
+```ts twoslash
+import { usePaymasterEstimateFees } from "@starknet-react/core";
+import { Call, FeeMode } from "starknet";
+
+const calls: Call[] = [
+  {
+    contractAddress: "STRK_SEPOLIA_ADDRESS",
+    entrypoint: "transfer",
+    calldata: [
+      "recipient_address",
+      "0x1",
+      "0x0"
+    ],
+  },
+]; 
+
+const feeMode: FeeMode = {
+  mode: "default",// default or sponsored(need api-key)
+  gasToken: "USDC_SEPOLIA_ADDRESS",// mandatory if 'default'
+}
+
+const { data, error } = usePaymasterEstimateFees({
+  calls,
+  options: {
+    feeMode,
+  },
+});
+```
+
+## Data
+
+- Type: `PaymasterFeeEstimate`
+
+The `PaymasterFeeEstimate` response type from `starknet`.
+
+## Arguments
+
+### calls
+
+- Type: `Call[] | undefined`
+
+List of smart contract calls to estimate, type from `starknet`
+
+### options
+
+- Type: `PaymasterDetails`
+
+Paymaster details, type from `starknet`
+
+### enabled
+
+- Type: `boolean | undefined`
+
+If `false`, don't perform the query.
+
+### refetchInterval
+
+- Type: `number | false | ((query: Query) => number | false | undefined)`
+
+If set to a number, the query is refetched at the provided interval (in milliseconds).
+
+If set to a function, the callback will be used to determine the refetch interval.
+
+## Returns
+
+### data
+
+- Type: `Data | undefined`
+
+The resolved data.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the query.
+
+### reset
+
+- Type: `() => void`
+
+Reset the query status.
+
+### status
+
+- Type: `"error" | "pending" | "success"`
+
+The mutation status.
+
+- `pending`: the query is being executed.
+- `success`: the query executed without an error.
+- `error`: the query threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### fetchStatus
+
+- Type: `"fetching" | "paused" | "idle"`
+
+- `fetching`: the query is fetching.
+- `paused`: the query is paused.
+- `idle`: the query is not fetching.
+
+### isFetching
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isPaused
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `fetchStatus`.

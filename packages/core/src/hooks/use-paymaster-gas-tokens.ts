@@ -1,44 +1,81 @@
-import type { Address } from "@starknet-react/chains";
-import { useCallback, useEffect, useState } from "react";
-import type { AccountInterface, TokenData } from "starknet";
-import type { Connector } from "../connectors";
-import { useStarknetAccount } from "../context/account";
-import { useStarknet } from "../context/starknet";
-import { getAddress } from "../utils";
+import { useMemo } from "react";
+import type {
+  PaymasterInterface,
+  TokenData,
+} from "starknet";
+
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
+
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useProvider } from "./use-provider";
 
+export type PaymasterGasTokensArgs = {};
+
+/** Options for `usePaymasterGasTokens`. */
+export type UsePaymasterGasTokensProps = PaymasterGasTokensArgs &
+  UseQueryProps<
+  TokenData[],
+    Error,
+      TokenData[],
+    ReturnType<typeof queryKey>
+  > & {
+    /** Refresh data at every block. */
+    watch?: boolean;
+  };
+
 /** Value returned from `usePaymasterGasTokens`. */
-export type UsePaymasterGasTokensResult = {
-  /** The paymaster gas tokens. */
-  gasTokens: TokenData[];
-};
+export type UsePaymasterGasTokensResult = UseQueryResult<TokenData[], Error>;
 
 /**
- * Hook for accessing the paymaster gas tokens.
+ * Hook to fetch all gas token supported by the Paymaster.
  *
  * @remarks
  *
- * This hook is used to access the `AccountInterface` object provided by the
- * currently connected wallet.
+ * The hook only performs fetch if the `paymasterProvider` is not undefined.
  */
-export function usePaymasterGasTokens(): UsePaymasterGasTokensResult {
+export function usePaymasterGasTokens({
+  watch = false,
+  enabled: enabled_ = true,
+  ...props
+}: UsePaymasterGasTokensProps = {}): UsePaymasterGasTokensResult {
   const { paymasterProvider } = useProvider();
-  const [state, setState] = useState<UsePaymasterGasTokensResult>(
-    {
-      gasTokens: [],
-    },
+
+  const queryKey_ = useMemo(
+    () => queryKey({  }),
+    [],
   );
 
-  const refreshGasTokens = useCallback(async () => {
-    if (paymasterProvider) {
-      const supportedGasTokens = await paymasterProvider.getSupportedTokens();
-      setState({ gasTokens: supportedGasTokens });
-    }
-  }, [paymasterProvider]);
+  const enabled = useMemo(() => Boolean(enabled_), [enabled_]);
 
-  useEffect(() => {
-    refreshGasTokens();
-  }, [refreshGasTokens]);
+  useInvalidateOnBlock({
+    enabled: Boolean(enabled && watch),
+    queryKey: queryKey_,
+  });
 
-  return state;
+  return useQuery({
+    queryKey: queryKey_,
+    queryFn: queryFn({
+      paymasterProvider,
+    }),
+    enabled,
+    ...props,
+  });
+}
+
+function queryKey({  }: PaymasterGasTokensArgs) {
+  return [
+    {
+      entity: "fetchPaymasterGasTokens",
+   
+    },
+  ] as const;
+}
+
+function queryFn({
+  paymasterProvider,
+}: { paymasterProvider?: PaymasterInterface } & PaymasterGasTokensArgs) {
+  return async () => {
+    if (!paymasterProvider) throw new Error("PaymasterProvider is required");
+    return await paymasterProvider.getSupportedTokens();
+  };
 }

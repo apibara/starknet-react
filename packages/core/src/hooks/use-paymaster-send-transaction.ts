@@ -14,7 +14,7 @@ export type UsePaymasterSendTransactionArgs = {
 export type UsePaymasterSendTransactionResult = {
   sendAsync: (args?: Call[]) => Promise<InvokeFunctionResponse>;
   data: InvokeFunctionResponse | null;
-  isLoading: boolean;
+  isPending: boolean;
   isSuccess: boolean;
   error: Error | null;
 };
@@ -26,7 +26,7 @@ export function usePaymasterSendTransaction(
   const { calls, options, maxFeeInGasToken } = props;
   const { account } = useAccount();
   const [data, setData] = useState<InvokeFunctionResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -36,7 +36,7 @@ export function usePaymasterSendTransaction(
       throw new Error("No connector connected");
     }
 
-    setIsLoading(true);
+    setIsPending(true);
     return account?.executePaymasterTransaction(_calls, options, maxFeeInGasToken).then((data) => {
       setData(data);
       setIsSuccess(true);
@@ -46,14 +46,14 @@ export function usePaymasterSendTransaction(
       setIsSuccess(false);
       throw error;
     }).finally(() => {
-      setIsLoading(false);
+      setIsPending(false);
     });
   };
 
   return {
     sendAsync,
     data,
-    isLoading,
+    isPending,
     isSuccess,
     error,
   };

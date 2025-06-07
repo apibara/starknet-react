@@ -1,0 +1,33 @@
+# Paymaster Providers
+
+You need to configure a Paymaster RPC provider to allow your dapp to execute gasless/gasfree transaction to
+Starknet.
+
+Starknet React paymaster providers are factories that, given a chain, return a Starknet.js
+`PaymasterInterface` object.
+
+## Providers
+
+This section provides an alphabetical list of Paymaster RPC Providers supported by
+Starknet React.
+
+### Public
+
+Starknet React ships with a public provider that you can use to run **Gasless** transactions.
+For any project that needs **Gasfree** transaction, you should configure an *api key* to one
+of the providers below.
+
+At the moment, this provider uses the free Paymaster RPC endpoints provided by:
+
+ - AVNU
+
+### AVNU
+
+Create an AVNU API key from the dashboard(soon available - contact AVNU team until available).
+
+```ts twoslash
+import { avnuPaymasterProvider } from "@starknet-react/core";
+
+const apiKey = "your-api-key";
+const provider = avnuPaymasterProvider({ apiKey });
+```

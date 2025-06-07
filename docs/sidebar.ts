@@ -102,6 +102,23 @@ export const sidebar = {
       ],
     },
     {
+      text: "Paymaster",
+      items: [
+        {
+          text: "usePaymasterGasTokens",
+          link: "/docs/hooks/use-paymaster-gas-tokens",
+        },
+        {
+          text: "usePaymasterEstimateFees",
+          link: "/docs/hooks/use-paymaster-estimate-fees",
+        },
+        {
+          text: "usePaymasterSendTransaction",
+          link: "/docs/hooks/use-paymaster-send-transaction",
+        },
+      ],
+    },
+    {
       text: "Connectors",
       items: [
         {
