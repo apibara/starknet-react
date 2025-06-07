@@ -31,11 +31,9 @@ export function usePaymasterSendTransaction(
   const [isSuccess, setIsSuccess] = useState(false);
 
   const sendAsync = (args?: Call[]) => {
-    const _calls = args || calls || [];
-    if (!account) {
-      throw new Error("No connector connected");
-    }
-
+    const _calls = args || calls;
+    if (!account) throw new Error("account is required");
+    if (!_calls || _calls.length === 0) throw new Error("calls are required");
     setIsPending(true);
     return account?.executePaymasterTransaction(_calls, options, maxFeeInGasToken).then((data) => {
       setData(data);
