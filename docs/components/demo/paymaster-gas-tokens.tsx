@@ -6,7 +6,7 @@ import { DemoContainer } from "../starknet";
 
 export function PaymasterGasTokens() {
   return (  
-    <DemoContainer hasWallet>
+    <DemoContainer>
       <PaymasterGasTokensInner />
     </DemoContainer>
   );

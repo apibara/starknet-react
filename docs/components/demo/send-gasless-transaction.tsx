@@ -13,7 +13,7 @@ import { mainnet, sepolia } from "@starknet-react/chains";
 import { useMemo } from "react";
 
 const USDC_ADDRESS_PER_CHAIN: Record<string, string> = {
-  [mainnet.name]: "0x053b40a647cedfca6ca84f542a0fe36736031905a9639a7f19a3c1e66bfd5080",
+  [mainnet.name]: "0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8",
   [sepolia.name]: "0x053b40a647cedfca6ca84f542a0fe36736031905a9639a7f19a3c1e66bfd5080",
 }
 
