@@ -81,8 +81,10 @@ function SendGaslessTransactionInner() {
           {
             estimateData,
             sendData,
-            isPending: isPendingEstimate || isPendingSend,
-            error: errorEstimate || errorSend,
+            isPendingSend,
+            isPendingEstimate,
+            errorSend: errorSend?.message,
+            errorEstimate: errorEstimate?.message,
           },
           null,
           2,

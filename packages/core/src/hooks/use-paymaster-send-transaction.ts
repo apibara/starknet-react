@@ -20,7 +20,7 @@ export type UsePaymasterSendTransactionArgs = {
 
 /** Value returned from `usePaymasterSendTransaction`. */
 export type UsePaymasterSendTransactionResult = Omit<
-  UseMutationResult<InvokeFunctionResponse, Error | unknown, Call[]>,
+  UseMutationResult<InvokeFunctionResponse, Error, Call[]>,
   "mutate" | "mutateAsync"
 > & {
   send: (args?: Call[]) => void;
@@ -34,7 +34,11 @@ export function usePaymasterSendTransaction(
   const { calls, options, maxFeeInGasToken, ...rest } = props;
   const { account } = useAccount();
 
-  const { mutate, mutateAsync, ...result } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation<
+    InvokeFunctionResponse,
+    Error,
+    Call[]
+  >({
     mutationKey: mutationKey(calls || []),
     mutationFn: mutationFn({ account, options, maxFeeInGasToken }),
     ...rest,
