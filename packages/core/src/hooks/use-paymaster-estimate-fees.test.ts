@@ -7,10 +7,11 @@ import { useAccount } from "./use-account";
 import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
 import { useDisconnect } from "./use-disconnect";
-import { usePaymasterEstimateFees } from "./use-paymaster-estimate-fees";
 import { useNetwork } from "./use-network";
+import { usePaymasterEstimateFees } from "./use-paymaster-estimate-fees";
 
-const STARKNET_SEPOLIA_NATIVE_TOKEN_ADDRESS = "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
+const STARKNET_SEPOLIA_NATIVE_TOKEN_ADDRESS =
+  "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
 
 function usePaymasterEstimateFeesWithConnect() {
   const { chain } = useNetwork();
@@ -28,7 +29,15 @@ function usePaymasterEstimateFeesWithConnect() {
       : undefined;
 
   return {
-    estimatePaymasterFees: usePaymasterEstimateFees({ calls, options: { feeMode: { mode: "default", gasToken: STARKNET_SEPOLIA_NATIVE_TOKEN_ADDRESS } } }),
+    estimatePaymasterFees: usePaymasterEstimateFees({
+      calls,
+      options: {
+        feeMode: {
+          mode: "default",
+          gasToken: STARKNET_SEPOLIA_NATIVE_TOKEN_ADDRESS,
+        },
+      },
+    }),
     connect: useConnect(),
     disconnect: useDisconnect(),
   };
@@ -40,7 +49,7 @@ describe.skip("usePaymasterEstimateFees", () => {
 
     await act(async () => {
       result.current.connect.connect({
-        connector: defaultConnector
+        connector: defaultConnector,
       });
     });
 
@@ -49,7 +58,6 @@ describe.skip("usePaymasterEstimateFees", () => {
       expect(result.current.connect.isSuccess).toBeTruthy();
     });
 
-    
     await waitFor(() => {
       expect(result.current.estimatePaymasterFees.isSuccess).toBeTruthy();
     });

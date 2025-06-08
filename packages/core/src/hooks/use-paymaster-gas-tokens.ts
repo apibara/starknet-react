@@ -1,27 +1,21 @@
 import { useMemo } from "react";
-import type {
-  PaymasterInterface,
-  TokenData,
-} from "starknet";
+import type { PaymasterInterface, TokenData } from "starknet";
 
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useProvider } from "./use-provider";
 
-export type PaymasterGasTokensArgs = {};
-
 /** Options for `usePaymasterGasTokens`. */
-export type UsePaymasterGasTokensProps = PaymasterGasTokensArgs &
-  UseQueryProps<
+export type UsePaymasterGasTokensProps = UseQueryProps<
   TokenData[],
-    Error,
-      TokenData[],
-    ReturnType<typeof queryKey>
-  > & {
-    /** Refresh data at every block. */
-    watch?: boolean;
-  };
+  Error,
+  TokenData[],
+  ReturnType<typeof queryKey>
+> & {
+  /** Refresh data at every block. */
+  watch?: boolean;
+};
 
 /** Value returned from `usePaymasterGasTokens`. */
 export type UsePaymasterGasTokensResult = UseQueryResult<TokenData[], Error>;
@@ -40,10 +34,7 @@ export function usePaymasterGasTokens({
 }: UsePaymasterGasTokensProps = {}): UsePaymasterGasTokensResult {
   const { paymasterProvider } = useProvider();
 
-  const queryKey_ = useMemo(
-    () => queryKey({  }),
-    [],
-  );
+  const queryKey_ = useMemo(() => queryKey({}), []);
 
   const enabled = useMemo(() => Boolean(enabled_), [enabled_]);
 
@@ -62,18 +53,17 @@ export function usePaymasterGasTokens({
   });
 }
 
-function queryKey({  }: PaymasterGasTokensArgs) {
+function queryKey() {
   return [
     {
       entity: "fetchPaymasterGasTokens",
-   
     },
   ] as const;
 }
 
 function queryFn({
   paymasterProvider,
-}: { paymasterProvider?: PaymasterInterface } & PaymasterGasTokensArgs) {
+}: { paymasterProvider?: PaymasterInterface }) {
   return async () => {
     if (!paymasterProvider) throw new Error("PaymasterProvider is required");
     return await paymasterProvider.getSupportedTokens();

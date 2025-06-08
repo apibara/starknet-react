@@ -1,7 +1,13 @@
-import type { AccountInterface, BigNumberish, Call, InvokeFunctionResponse, PaymasterDetails } from "starknet";
-import { useAccount } from "./use-account";
-import { useMutation, UseMutationResult } from "../query";
 import { useCallback } from "react";
+import type {
+  AccountInterface,
+  BigNumberish,
+  Call,
+  InvokeFunctionResponse,
+  PaymasterDetails,
+} from "starknet";
+import { type UseMutationResult, useMutation } from "../query";
+import { useAccount } from "./use-account";
 
 export type UsePaymasterSendTransactionArgs = {
   /** List of smart contract calls to execute. */
@@ -34,13 +40,19 @@ export function usePaymasterSendTransaction(
     ...rest,
   });
 
-  const send = useCallback((args?: Call[]) => {
-    mutate(args || calls || []);
-  }, [mutate, calls]);
+  const send = useCallback(
+    (args?: Call[]) => {
+      mutate(args || calls || []);
+    },
+    [mutate, calls],
+  );
 
-  const sendAsync = useCallback((args?: Call[]) => {
-    return mutateAsync(args || calls || []);
-  }, [mutateAsync, calls]);
+  const sendAsync = useCallback(
+    (args?: Call[]) => {
+      return mutateAsync(args || calls || []);
+    },
+    [mutateAsync, calls],
+  );
 
   return {
     send,
@@ -65,6 +77,10 @@ function mutationFn({
   return async (calls: Call[]) => {
     if (!account) throw new Error("account is required");
     if (!calls || calls.length === 0) throw new Error("calls are required");
-    return account.executePaymasterTransaction(calls, options, maxFeeInGasToken);
+    return account.executePaymasterTransaction(
+      calls,
+      options,
+      maxFeeInGasToken,
+    );
   };
 }

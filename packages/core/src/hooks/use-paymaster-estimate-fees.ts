@@ -21,7 +21,7 @@ export type PaymasterEstimateFeesArgs = {
 /** Options for `useEstimateFees`. */
 export type UsePaymasterEstimateFeesProps = PaymasterEstimateFeesArgs &
   UseQueryProps<
-  PaymasterFeeEstimate,
+    PaymasterFeeEstimate,
     Error,
     PaymasterFeeEstimate,
     ReturnType<typeof queryKey>
@@ -31,7 +31,10 @@ export type UsePaymasterEstimateFeesProps = PaymasterEstimateFeesArgs &
   };
 
 /** Value returned from `useEstimateFees`. */
-export type UsePaymasterEstimateFeesResult = UseQueryResult<PaymasterFeeEstimate, Error>;
+export type UsePaymasterEstimateFeesResult = UseQueryResult<
+  PaymasterFeeEstimate,
+  Error
+>;
 
 /**
  * Hook to estimate fees for smart contract calls.

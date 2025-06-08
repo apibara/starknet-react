@@ -42,7 +42,9 @@ function usePaymasterSendTransactionWithConnect() {
 
 describe.skip("useSendTransaction", () => {
   it("sends a transaction sucessfully", async () => {
-    const { result } = renderHook(() => usePaymasterSendTransactionWithConnect());
+    const { result } = renderHook(() =>
+      usePaymasterSendTransactionWithConnect(),
+    );
 
     await act(async () => {
       result.current.connect.connect({
@@ -60,9 +62,12 @@ describe.skip("useSendTransaction", () => {
   });
 
   it("throws error if user rejects transaction", async () => {
-    const { result } = renderHook(() => usePaymasterSendTransactionWithConnect(), {
-      connectorOptions: { rejectRequest: true },
-    });
+    const { result } = renderHook(
+      () => usePaymasterSendTransactionWithConnect(),
+      {
+        connectorOptions: { rejectRequest: true },
+      },
+    );
     await act(async () => {
       result.current.connect.connect({
         connector: defaultConnector,

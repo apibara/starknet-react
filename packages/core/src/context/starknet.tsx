@@ -16,8 +16,8 @@ import {
 } from "react";
 import {
   constants,
-  PaymasterRpc,
   type AccountInterface,
+  type PaymasterRpc,
   type ProviderInterface,
 } from "starknet";
 
@@ -27,9 +27,9 @@ import { ConnectorNotFoundError } from "../errors";
 import type { ExplorerFactory } from "../explorers/";
 import type { ChainProviderFactory } from "../providers";
 
-import { AccountProvider } from "./account";
-import { ChainPaymasterFactory } from "../providers/paymaster/factory";
 import { avnuPaymasterProvider } from "../providers/paymaster";
+import type { ChainPaymasterFactory } from "../providers/paymaster/factory";
+import { AccountProvider } from "./account";
 
 const defaultQueryClient = new QueryClient();
 
@@ -145,10 +145,8 @@ function useStarknetManager({
     provider,
   );
 
-  const { paymasterProvider: defaultPaymasterProvider } = paymasterProviderForChain(
-    defaultChain,
-    paymasterProvider,
-  );
+  const { paymasterProvider: defaultPaymasterProvider } =
+    paymasterProviderForChain(defaultChain, paymasterProvider);
 
   // The currently connected connector needs to be accessible from the
   // event handler.
@@ -169,10 +167,8 @@ function useStarknetManager({
             chain,
             provider,
           );
-          const { paymasterProvider: newPaymasterProvider } = paymasterProviderForChain(
-            chain,
-            paymasterProvider,
-          );
+          const { paymasterProvider: newPaymasterProvider } =
+            paymasterProviderForChain(chain, paymasterProvider);
           setState((state) => ({
             ...state,
             currentChain: newChain,
@@ -183,7 +179,7 @@ function useStarknetManager({
         }
       }
     },
-    [chains, provider],
+    [chains, provider, paymasterProvider],
   );
 
   const handleConnectorChange = useCallback(
@@ -209,10 +205,13 @@ function useStarknetManager({
         ...state,
         currentChain: defaultChain,
         currentProvider: providerForChain(defaultChain, provider).provider,
-        currentPaymasterProvider: paymasterProviderForChain(defaultChain, paymasterProvider).paymasterProvider,
+        currentPaymasterProvider: paymasterProviderForChain(
+          defaultChain,
+          paymasterProvider,
+        ).paymasterProvider,
       }));
     }
-  }, [defaultChain, provider]);
+  }, [defaultChain, provider, paymasterProvider]);
   const connect = useCallback(
     async ({ connector }: { connector?: Connector }) => {
       if (!connector) {
@@ -287,7 +286,13 @@ function useStarknetManager({
       await connectorRef.current.disconnect();
     } catch {}
     connectorRef.current = undefined;
-  }, [autoConnect, handleConnectorChange, defaultProvider, defaultChain]);
+  }, [
+    autoConnect,
+    handleConnectorChange,
+    defaultProvider,
+    defaultPaymasterProvider,
+    defaultChain,
+  ]);
 
   // Dependencies intentionally omitted since we only want
   // this executed once.

@@ -1,6 +1,6 @@
-import { PaymasterRpc } from "starknet";
+import type { PaymasterRpc } from "starknet";
+import type { ChainPaymasterFactory } from "./factory";
 import { paymasterRpcProvider } from "./paymasterrpc";
-import { ChainPaymasterFactory } from "./factory";
 
 /** Arguments for `avnuPaymasterProvider`. */
 export type AvnuPaymasterProviderArgs = {
@@ -9,7 +9,9 @@ export type AvnuPaymasterProviderArgs = {
 };
 
 /** Configure the Avnu paymaster provider using the provided API key. */
-export function avnuPaymasterProvider({ apiKey }: AvnuPaymasterProviderArgs): ChainPaymasterFactory<PaymasterRpc> {
+export function avnuPaymasterProvider({
+  apiKey,
+}: AvnuPaymasterProviderArgs): ChainPaymasterFactory<PaymasterRpc> {
   return paymasterRpcProvider({
     rpc: (chain) => {
       const baseHttpUrl = chain.paymasterRpcUrls.avnu.http[0];

@@ -99,7 +99,7 @@ export function useAccount(): UseAccountResult {
         isReconnecting: false,
       });
     }
-  }, [provider, connector, chain.id, connectedAddress]);
+  }, [provider, paymasterProvider, connector, chain.id, connectedAddress]);
 
   useEffect(() => {
     refreshState();
