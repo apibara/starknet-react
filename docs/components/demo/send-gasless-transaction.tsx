@@ -49,7 +49,11 @@ function SendGaslessTransactionInner() {
     [contract, address],
   );
 
-  const { data } = usePaymasterEstimateFees({
+  const {
+    data: estimateData,
+    isPending: isPendingEstimate,
+    error: errorEstimate,
+  } = usePaymasterEstimateFees({
     calls,
     options: {
       feeMode,
@@ -58,14 +62,15 @@ function SendGaslessTransactionInner() {
 
   const {
     sendAsync: sendGasless,
-    isPending,
-    error,
+    data: sendData,
+    isPending: isPendingSend,
+    error: errorSend,
   } = usePaymasterSendTransaction({
     calls,
     options: {
       feeMode,
     },
-    maxFeeInGasToken: data?.suggested_max_fee_in_gas_token,
+    maxFeeInGasToken: estimateData?.suggested_max_fee_in_gas_token,
   });
 
   return (
@@ -74,9 +79,10 @@ function SendGaslessTransactionInner() {
       <pre>
         {stringify(
           {
-            data,
-            isPending,
-            error: error?.message,
+            estimateData,
+            sendData,
+            isPending: isPendingEstimate || isPendingSend,
+            error: errorEstimate || errorSend,
           },
           null,
           2,
