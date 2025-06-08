@@ -34,7 +34,7 @@ export function usePaymasterGasTokens({
 }: UsePaymasterGasTokensProps = {}): UsePaymasterGasTokensResult {
   const { paymasterProvider } = useProvider();
 
-  const queryKey_ = useMemo(() => queryKey({}), []);
+  const queryKey_ = useMemo(() => queryKey(), []);
 
   const enabled = useMemo(() => Boolean(enabled_), [enabled_]);
 
@@ -56,7 +56,7 @@ export function usePaymasterGasTokens({
 function queryKey() {
   return [
     {
-      entity: "fetchPaymasterGasTokens",
+      entity: "paymaster_gasTokens",
     },
   ] as const;
 }
