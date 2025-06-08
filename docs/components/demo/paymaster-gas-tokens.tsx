@@ -1,11 +1,9 @@
-import {
-  usePaymasterGasTokens,
-} from "@starknet-react/core";
+import { usePaymasterGasTokens } from "@starknet-react/core";
 import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 
 export function PaymasterGasTokens() {
-  return (  
+  return (
     <DemoContainer>
       <PaymasterGasTokensInner />
     </DemoContainer>
@@ -13,7 +11,8 @@ export function PaymasterGasTokens() {
 }
 
 function PaymasterGasTokensInner() {
-  const { data, isLoading, isError, error, isPending } = usePaymasterGasTokens();
+  const { data, isLoading, isError, error, isPending } =
+    usePaymasterGasTokens();
 
   return (
     <div className="flex flex-col gap-4">
