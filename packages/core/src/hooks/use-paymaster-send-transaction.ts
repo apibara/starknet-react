@@ -1,6 +1,7 @@
-import type { BigNumberish, Call, InvokeFunctionResponse, PaymasterDetails } from "starknet";
+import type { AccountInterface, BigNumberish, Call, InvokeFunctionResponse, PaymasterDetails } from "starknet";
 import { useAccount } from "./use-account";
-import { useState } from "react";
+import { useMutation, UseMutationResult } from "../query";
+import { useCallback } from "react";
 
 export type UsePaymasterSendTransactionArgs = {
   /** List of smart contract calls to execute. */
@@ -11,48 +12,59 @@ export type UsePaymasterSendTransactionArgs = {
   maxFeeInGasToken?: BigNumberish;
 };
 
-export type UsePaymasterSendTransactionResult = {
+/** Value returned from `usePaymasterSendTransaction`. */
+export type UsePaymasterSendTransactionResult = Omit<
+  UseMutationResult<InvokeFunctionResponse, Error | unknown, Call[]>,
+  "mutate" | "mutateAsync"
+> & {
+  send: (args?: Call[]) => void;
   sendAsync: (args?: Call[]) => Promise<InvokeFunctionResponse>;
-  data: InvokeFunctionResponse | null;
-  isPending: boolean;
-  isSuccess: boolean;
-  error: Error | null;
 };
 
 /** Hook to send one or several transaction(s) to the network through a paymaster. */
 export function usePaymasterSendTransaction(
   props: UsePaymasterSendTransactionArgs,
 ): UsePaymasterSendTransactionResult {
-  const { calls, options, maxFeeInGasToken } = props;
+  const { calls, options, maxFeeInGasToken, ...rest } = props;
   const { account } = useAccount();
-  const [data, setData] = useState<InvokeFunctionResponse | null>(null);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
 
-  const sendAsync = (args?: Call[]) => {
-    const _calls = args || calls;
-    if (!account) throw new Error("account is required");
-    if (!_calls || _calls.length === 0) throw new Error("calls are required");
-    setIsPending(true);
-    return account?.executePaymasterTransaction(_calls, options, maxFeeInGasToken).then((data) => {
-      setData(data);
-      setIsSuccess(true);
-      return data;
-    }).catch((error) => {
-      setError(error);
-      setIsSuccess(false);
-      throw error;
-    }).finally(() => {
-      setIsPending(false);
-    });
-  };
+  const { mutate, mutateAsync, ...result } = useMutation({
+    mutationKey: mutationKey(calls || []),
+    mutationFn: mutationFn({ account, options, maxFeeInGasToken }),
+    ...rest,
+  });
+
+  const send = useCallback((args?: Call[]) => {
+    mutate(args || calls || []);
+  }, [mutate, calls]);
+
+  const sendAsync = useCallback((args?: Call[]) => {
+    return mutateAsync(args || calls || []);
+  }, [mutateAsync, calls]);
 
   return {
+    send,
     sendAsync,
-    data,
-    isPending,
-    isSuccess,
-    error,
+    ...result,
+  };
+}
+
+function mutationKey(args: Call[]) {
+  return [{ entity: "paymaster_sendTransaction", calls: args }] as const;
+}
+
+function mutationFn({
+  account,
+  options,
+  maxFeeInGasToken,
+}: {
+  account?: AccountInterface;
+  options: PaymasterDetails;
+  maxFeeInGasToken?: BigNumberish;
+}) {
+  return async (calls: Call[]) => {
+    if (!account) throw new Error("account is required");
+    if (!calls || calls.length === 0) throw new Error("calls are required");
+    return account.executePaymasterTransaction(calls, options, maxFeeInGasToken);
   };
 }

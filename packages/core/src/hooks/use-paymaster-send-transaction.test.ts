@@ -8,7 +8,6 @@ import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";
 import { useDisconnect } from "./use-disconnect";
 import { useNetwork } from "./use-network";
-import { useSendTransaction } from "./use-send-transaction";
 import { usePaymasterSendTransaction } from "./use-paymaster-send-transaction";
 
 function usePaymasterSendTransactionWithConnect() {
@@ -75,7 +74,7 @@ describe.skip("useSendTransaction", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.sendTransaction.error).toBeDefined();
+      expect(result.current.sendTransaction.isError).toBeTruthy();
     });
   });
 });
