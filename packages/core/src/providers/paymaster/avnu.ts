@@ -4,7 +4,7 @@ import { ChainPaymasterFactory } from "./factory";
 
 /** Arguments for `avnuPaymasterProvider`. */
 export type AvnuPaymasterProviderArgs = {
-  /** Infura API key. */
+  /** Avnu API key. */
   apiKey?: string;
 };
 
