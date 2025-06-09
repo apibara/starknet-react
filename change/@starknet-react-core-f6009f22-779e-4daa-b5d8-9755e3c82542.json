@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Implement paymaster hooks",
+  "packageName": "@starknet-react/core",
+  "email": "lenny@419labs.io",
+  "dependentChangeType": "patch"
+}

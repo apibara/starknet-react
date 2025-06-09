@@ -20,4 +20,9 @@ export const devnet = {
       http: ["http://localhost:5050/rpc"],
     },
   },
+  paymasterRpcUrls: {
+    avnu: {
+      http: ["http://localhost:5050"],
+    },
+  },
 } as const satisfies Chain;

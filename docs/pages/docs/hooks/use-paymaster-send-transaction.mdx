@@ -1,0 +1,120 @@
+# usePaymasterSendTransaction
+
+Hook to send one or several transaction(s) to the network in a **Gasless**/**Gasfree** way using the Paymaster.
+
+Use this hook together with [`usePaymasterGasTokens`](/docs/hooks/use-paymaster-gas-tokens) to fetch supported gas tokens & [`usePaymasterEstimateFees`](/docs/hooks/use-paymaster-estimate-fees) to estimate 
+fees in gas token.
+
+## Usage
+
+The following example shows how to transfer `$STRK` tokens to an address using `$USDC` as gas token.
+
+```ts twoslash
+import { usePaymasterSendTransaction } from "@starknet-react/core";
+import { Call, FeeMode } from "starknet";
+
+const calls: Call[] = [
+  {
+    contractAddress: "STRK_SEPOLIA_ADDRESS",
+    entrypoint: "transfer",
+    calldata: [
+      "recipient_address",
+      "0x1",
+      "0x0"
+    ],
+  },
+]; 
+
+const feeMode: FeeMode = {
+  mode: "default",// default or sponsored(need api-key)
+  gasToken: "USDC_SEPOLIA_ADDRESS",// mandatory if 'default'
+}
+
+const { data, error } = usePaymasterSendTransaction({
+  calls,
+  options: {
+    feeMode,
+  },
+});
+```
+
+## Arguments
+
+### calls
+
+- Type: `Call[]`
+
+List of smart contract calls to execute. Type is from `starknet`
+
+## Returns
+
+### send
+
+- Type: `(args?: Call[]) => void`
+
+Function to send the request to the user, optionally overriding the arguments to the hook.
+
+### sendAsync
+
+- Type: `(args?: Call[]) => Promise<InvokeFunctionResponse>`
+
+Send the request to the user and block until it receives a response, optionally overriding the arguments to the hook.
+
+### data
+
+- Type: `InvokeFunctionResponse | undefined`
+
+The resolved data. This type is defined in the Starknet Types package.
+
+### error
+
+- Type: `Error | null`
+
+Any error thrown by the mutation.
+
+### reset
+
+- Type: `() => void`
+
+Reset the mutation status.
+
+### variables
+
+- Type: `Call[] | undefined`
+
+The variables passed to `send` or `sendAsync`.
+
+### status
+
+- Type: `"error" | "idle" | "pending" | "success"`
+
+The mutation status.
+
+- `idle`: the mutation has not been triggered yet.
+- `pending`: the mutation is being executed, e.g. waiting for the user to confirm in their wallet.
+- `success`: the mutation executed without an error.
+- `error`: the mutation threw an error.
+
+### isError
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isIdle
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isPending
+
+- Type: `boolean`
+
+Derived from `status`.
+
+### isSuccess
+
+- Type: `boolean`
+
+Derived from `status`.

@@ -49,6 +49,11 @@ export const mainnet = {
       ],
     },
   },
+  paymasterRpcUrls: {
+    avnu: {
+      http: ["https://starknet.paymaster.avnu.fi/"],
+    },
+  },
   explorers: {
     starkCompass: ["https://www.starkcompass.com"],
     cartridge: ["https://explorer.cartridge.gg"],
@@ -88,6 +93,11 @@ export const sepolia = {
     },
     public: {
       http: ["https://starknet-sepolia.public.blastapi.io"],
+    },
+  },
+  paymasterRpcUrls: {
+    avnu: {
+      http: ["https://sepolia.paymaster.avnu.fi/"],
     },
   },
   explorers: {

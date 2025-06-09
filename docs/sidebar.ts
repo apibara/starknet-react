@@ -26,6 +26,10 @@ export const sidebar = {
           link: "/docs/providers",
         },
         {
+          text: "Paymaster Providers",
+          link: "/docs/paymaster-providers",
+        },
+        {
           text: "Explorers",
           link: "/docs/explorers",
         },
@@ -94,6 +98,23 @@ export const sidebar = {
         {
           text: "useDeployAccount",
           link: "/docs/hooks/use-deploy-account",
+        },
+      ],
+    },
+    {
+      text: "Paymaster",
+      items: [
+        {
+          text: "usePaymasterGasTokens",
+          link: "/docs/hooks/use-paymaster-gas-tokens",
+        },
+        {
+          text: "usePaymasterEstimateFees",
+          link: "/docs/hooks/use-paymaster-estimate-fees",
+        },
+        {
+          text: "usePaymasterSendTransaction",
+          link: "/docs/hooks/use-paymaster-send-transaction",
         },
       ],
     },

@@ -28,10 +28,10 @@ importers:
     dependencies:
       '@cartridge/connector':
         specifier: ^0.7.12
-        version: 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(open@10.1.1)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))
+        version: 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(open@10.1.1)(starknet@7.5.0)(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10))
       '@cartridge/controller':
         specifier: ^0.7.12
-        version: 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))
+        version: 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.5.0)(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10))
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -66,11 +66,11 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0
       starknet:
-        specifier: ^7.1.0
-        version: 7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^7.5.0
+        version: 7.5.0
       starknetkit:
         specifier: ^2.10.4
-        version: 2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
+        version: 2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -79,7 +79,7 @@ importers:
         version: 1.0.7(tailwindcss@3.4.10)
       vocs:
         specifier: 1.0.0-alpha.55
-        version: 1.0.0-alpha.55(@types/node@22.14.1)(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.2)(typescript@5.7.2)
+        version: 1.0.0-alpha.55(@types/node@22.15.30)(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.2)(typescript@5.7.2)
     devDependencies:
       '@starknet-react/typescript-config':
         specifier: workspace:*
@@ -144,7 +144,7 @@ importers:
         version: 15.0.7(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.1(vite@5.4.2(@types/node@22.14.1))
+        version: 4.3.1(vite@5.4.2(@types/node@22.15.30))
       jsdom:
         specifier: ^24.0.0
         version: 24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -158,17 +158,17 @@ importers:
         specifier: ^4.1.2
         version: 4.4.1
       starknet:
-        specifier: ^7.1.0
-        version: 7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^7.5.0
+        version: 7.5.0
       tsup:
         specifier: ^8.0.2
         version: 8.2.4(jiti@1.21.6)(postcss@8.4.44)(typescript@5.7.2)(yaml@2.5.0)
       vite-tsconfig-paths:
         specifier: ^4.3.2
-        version: 4.3.2(typescript@5.7.2)(vite@5.4.2(@types/node@22.14.1))
+        version: 4.3.2(typescript@5.7.2)(vite@5.4.2(@types/node@22.15.30))
       vitest:
         specifier: ^1.5.2
-        version: 1.6.0(@types/node@22.14.1)(jsdom@24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 1.6.0(@types/node@22.15.30)(jsdom@24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))
 
   packages/create-starknet:
     dependencies:
@@ -327,8 +327,8 @@ packages:
     resolution: {integrity: sha512-VBj9MYyDb9tuLq7yzqjgzt6Q+IBQLrGZfdjOekyEirZPHxXWoTSGUTMrpsfi58Up73d13NfYLv8HT9vmznjzhQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/runtime@7.27.0':
-    resolution: {integrity: sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==}
+  '@babel/runtime@7.27.6':
+    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.25.0':
@@ -1026,8 +1026,8 @@ packages:
   '@module-federation/sdk@0.1.21':
     resolution: {integrity: sha512-r7xPiAm+O4e+8Zvw+8b4ToeD0D0VJD004nHmt+Y8r/l98J2eA6di72Vn1FeyjtQbCrFtiMw3ts/dlqtcmIBipw==}
 
-  '@noble/ciphers@1.2.1':
-    resolution: {integrity: sha512-rONPWMC7PeExE077uLE4oqWrZ1IvAfz3oH9LibVAcVCopJiA9R62uavnbEzdkVmJYI6M6Zgkbeb07+tWjlq2XA==}
+  '@noble/ciphers@1.3.0':
+    resolution: {integrity: sha512-2I0gnIVPtfnMw9ee9h1dJG7tp81+8Ob3OJb3Mv37rx5L40/b0i7djjCVvGOVqc9AEIQyvyu1i6ypKdFw8R8gQw==}
     engines: {node: ^14.21.3 || >=16}
 
   '@noble/curves@1.4.0':
@@ -1040,8 +1040,8 @@ packages:
     resolution: {integrity: sha512-UTMhXK9SeDhFJVrHeUJ5uZlI6ajXg10O6Ddocf9S6GjbSBVZsJo88HzKwXznNfGpMTRDyJkqMjNDPYgf0qFWnw==}
     engines: {node: ^14.21.3 || >=16}
 
-  '@noble/curves@1.9.0':
-    resolution: {integrity: sha512-7YDlXiNMdO1YZeH6t/kvopHHbIZzlxrCV9WLqCY6QhcXOoXiNCMDqJIglZ9Yjx5+w7Dz30TITFrlTjnRg7sKEg==}
+  '@noble/curves@1.9.2':
+    resolution: {integrity: sha512-HxngEd2XUcg9xi20JkwlLCtYwfoFw4JGkuZpT+WlsPD4gB/cxkvTD8fSsoAnphGZhFdZYKeQIPCuFlWPm1uE0g==}
     engines: {node: ^14.21.3 || >=16}
 
   '@noble/hashes@1.4.0':
@@ -1642,8 +1642,8 @@ packages:
   '@scure/base@1.2.1':
     resolution: {integrity: sha512-DGmGtC8Tt63J5GfHgfl5CuAXh96VF/LD8K9Hr/Gv0J2lAoRGlPOMpqMpMbCTOoOJMZCk2Xt+DskdDyn6dEFdzQ==}
 
-  '@scure/base@1.2.4':
-    resolution: {integrity: sha512-5Yy9czTO47mqz+/J8GM6GIId4umdCk1wc1q8rKERQulIoc8VP9pzDcghv10Tl2E7R96ZUx/PhND3ESYUQX8NuQ==}
+  '@scure/base@1.2.6':
+    resolution: {integrity: sha512-g/nm5FgUa//MCj1gV09zTJTaM6KBAHqLN907YVQqf7zC49+DcO4B1so4ZX07Ef10Twr6nuqYEH9GEggFXA4Fmg==}
 
   '@scure/bip32@1.4.0':
     resolution: {integrity: sha512-sVUpc0Vq3tXCkDGYVWGIZTRfnvu8LoTDaev7vbwh0omSvVORONr960MQWdKqJDCReIEmTj3PAr73O3aoxz7OPg==}
@@ -1679,24 +1679,24 @@ packages:
     resolution: {integrity: sha512-E1ImOIAD1tBZFRdjeM4/pzTiTApC0AOBGwyAMS4fwIodCWArzJ3DWdoh8cKxeFM2fElkxBh2Aqts1BPC373rHA==}
     engines: {node: '>=5.10'}
 
-  '@solana/codecs-core@2.1.0':
-    resolution: {integrity: sha512-SR7pKtmJBg2mhmkel2NeHA1pz06QeQXdMv8WJoIR9m8F/hw80K/612uaYbwTt2nkK0jg/Qn/rNSd7EcJ4SBGjw==}
+  '@solana/codecs-core@2.1.1':
+    resolution: {integrity: sha512-iPQW3UZ2Vi7QFBo2r9tw0NubtH8EdrhhmZulx6lC8V5a+qjaxovtM/q/UW2BTNpqqHLfO0tIcLyBLrNH4HTWPg==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
-      typescript: '>=5'
+      typescript: '>=5.3.3'
 
-  '@solana/codecs-numbers@2.1.0':
-    resolution: {integrity: sha512-XMu4yw5iCgQnMKsxSWPPOrGgtaohmupN3eyAtYv3K3C/MJEc5V90h74k5B1GUCiHvcrdUDO9RclNjD9lgbjFag==}
+  '@solana/codecs-numbers@2.1.1':
+    resolution: {integrity: sha512-m20IUPJhPUmPkHSlZ2iMAjJ7PaYUvlMtFhCQYzm9BEBSI6OCvXTG3GAPpAnSGRBfg5y+QNqqmKn4QHU3B6zzCQ==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
-      typescript: '>=5'
+      typescript: '>=5.3.3'
 
-  '@solana/errors@2.1.0':
-    resolution: {integrity: sha512-l+GxAv0Ar4d3c3PlZdA9G++wFYZREEbbRyAFP8+n8HSg0vudCuzogh/13io6hYuUhG/9Ve8ARZNamhV7UScKNw==}
+  '@solana/errors@2.1.1':
+    resolution: {integrity: sha512-sj6DaWNbSJFvLzT8UZoabMefQUfSW/8tXK7NTiagsDmh+Q87eyQDDC9L3z+mNmx9b6dEf6z660MOIplDD2nfEw==}
     engines: {node: '>=20.18.0'}
     hasBin: true
     peerDependencies:
-      typescript: '>=5'
+      typescript: '>=5.3.3'
 
   '@solana/web3.js@1.98.1':
     resolution: {integrity: sha512-gRAq1YPbfSDAbmho4kY7P/8iLIjMWXAzBJdP9iENFR+dFQSBSueHzjK/ou8fxhqHP9j+J4Msl4p/oDemFcIjlg==}
@@ -1767,8 +1767,8 @@ packages:
   '@starknet-io/types-js@0.7.7':
     resolution: {integrity: sha512-WLrpK7LIaIb8Ymxu6KF/6JkGW1sso988DweWu7p5QY/3y7waBIiPvzh27D9bX5KIJNRDyOoOVoHVEKYUYWZ/RQ==}
 
-  '@starknet-io/types-js@0.8.1':
-    resolution: {integrity: sha512-c6P/qVa5YRhUMahsyyfIVW6rY2ptRylH3UXVWiB5ZHvmxzZP2lh58B9fdkPuZ3d5X3uiETEbzzrRsEGSGZI29Q==}
+  '@starknet-io/types-js@0.8.4':
+    resolution: {integrity: sha512-0RZ3TZHcLsUTQaq1JhDSCM8chnzO4/XNsSCozwDET64JK5bjFDIf2ZUkta+tl5Nlbf4usoU7uZiDI/Q57kt2SQ==}
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
@@ -1886,8 +1886,8 @@ packages:
   '@types/node@18.19.48':
     resolution: {integrity: sha512-7WevbG4ekUcRQSZzOwxWgi5dZmTak7FaxXDoW7xVxPBmKx1rTzfmRLkeCgJzcbBnOV2dkhAPc8cCeT6agocpjg==}
 
-  '@types/node@22.14.1':
-    resolution: {integrity: sha512-u0HuPQwe/dHrItgHHpmw3N2fYCR6x4ivMNbPHRkBVP4CvN+kiRrKHWk3i8tXiO/joPwXLMYvF9TTF0eqgHIuOw==}
+  '@types/node@22.15.30':
+    resolution: {integrity: sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA==}
 
   '@types/prompts@2.0.1':
     resolution: {integrity: sha512-AhtMcmETelF8wFDV1ucbChKhLgsc+ytXZXkNz/nnTAMSDeqsjALknEFxi7ZtLgS/G8bV2rp90LhDW5SGACimIQ==}
@@ -2185,8 +2185,8 @@ packages:
   bn.js@4.12.0:
     resolution: {integrity: sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==}
 
-  bn.js@5.2.1:
-    resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
+  bn.js@5.2.2:
+    resolution: {integrity: sha512-v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==}
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -2510,8 +2510,8 @@ packages:
       supports-color:
         optional: true
 
-  debug@4.4.0:
-    resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
+  debug@4.4.1:
+    resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
     engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
@@ -2646,8 +2646,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  eciesjs@0.4.14:
-    resolution: {integrity: sha512-eJAgf9pdv214Hn98FlUzclRMYWF7WfoLlkS9nWMTm1qcCwn6Ad4EGD9lr9HXMBfSrZhYQujRE+p0adPRkctC6A==}
+  eciesjs@0.4.15:
+    resolution: {integrity: sha512-r6kEJXDKecVOCj2nLMuXK/FCPeurW33+3JRpfXVbjLja3XUYFfD9I/JBreH6sUyzcm3G/YQboBjMla6poKeSdA==}
     engines: {bun: '>=1', deno: '>=2', node: '>=16'}
 
   ee-first@1.1.1:
@@ -3236,11 +3236,6 @@ packages:
     peerDependencies:
       ws: '*'
 
-  isows@1.0.6:
-    resolution: {integrity: sha512-lPHCayd40oW98/I0uvgaHKWCSvkzY27LjWLbtzOm64yQ+G3Q5npjjbdppU65iZXkK1Zt+kH9pfegli0AYfwYYw==}
-    peerDependencies:
-      ws: '*'
-
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
@@ -3359,8 +3354,8 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
-  lossless-json@4.0.1:
-    resolution: {integrity: sha512-l0L+ppmgPDnb+JGxNLndPtJZGNf6+ZmVaQzoxQm3u6TXmhdnsA+YtdVR8DjzZd/em58686CQhOFDPewfJ4l7MA==}
+  lossless-json@4.1.0:
+    resolution: {integrity: sha512-DgoRs42jH/yNubp8iinRqvG0xn5awHKXVY+7lGYjBaByoHGZt/Dz5Jkaf5znP2XHbTnAA+bbkhK3lMIaf3+92A==}
 
   loupe@2.3.7:
     resolution: {integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==}
@@ -4256,8 +4251,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.7.1:
-    resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
+  semver@7.7.2:
+    resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -4345,8 +4340,9 @@ packages:
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
 
-  starknet@7.1.0:
-    resolution: {integrity: sha512-7e5UCmRAng4hwYntNBYmsRo2ox+1ORh8GLO06uJnuW+SKPH6oBf+MSH+g/UntVb4tVUeQVeMrGLkLZ8h1Ghu2Q==}
+  starknet@7.5.0:
+    resolution: {integrity: sha512-yrGc97Y8Ao9n1Vv6ynq0fMB5Q/isyCRZS83Db9NWzwp/n9ZA9qSjqS3GMhSp9RZ5AB1hUhAC3+sT2hMXC/vs6w==}
+    engines: {node: '>=22'}
 
   starknetkit@2.10.4:
     resolution: {integrity: sha512-POdv8GdGzBmwgMxn+FQhGXxcc4kFY6tnCHoB/c3j5vigZO2fLVxi5tJX9nYsITRX7QzoV3yal7W5e2agJ4SFSA==}
@@ -5006,8 +5002,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.18.1:
-    resolution: {integrity: sha512-RKW2aJZMXeMxVpnZ6bck+RswznaxmzdULiBr6KY7XkTnW8uvt0iT9H5DkHUChXrc+uurzwa0rVI16n/Xzjdz1w==}
+  ws@8.18.2:
+    resolution: {integrity: sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -5193,9 +5189,7 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@babel/runtime@7.27.0':
-    dependencies:
-      regenerator-runtime: 0.14.1
+  '@babel/runtime@7.27.6': {}
 
   '@babel/template@7.25.0':
     dependencies:
@@ -5258,9 +5252,9 @@ snapshots:
 
   '@cartridge/account-wasm@0.7.12': {}
 
-  '@cartridge/connector@0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(open@10.1.1)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))':
+  '@cartridge/connector@0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(open@10.1.1)(starknet@7.5.0)(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10))':
     dependencies:
-      '@cartridge/controller': 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))
+      '@cartridge/controller': 0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.5.0)(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10))
       '@starknet-react/core': link:packages/core
     transitivePeerDependencies:
       - '@metamask/sdk'
@@ -5269,7 +5263,7 @@ snapshots:
       - starknet
       - starknetkit
 
-  '@cartridge/controller@0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))':
+  '@cartridge/controller@0.7.12(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(open@10.1.1)(starknet@7.5.0)(starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10))':
     dependencies:
       '@cartridge/account-wasm': 0.7.12
       '@cartridge/penpal': 6.2.4
@@ -5280,8 +5274,8 @@ snapshots:
       cbor-x: 1.6.0
       fast-deep-equal: 3.1.3
       open: 10.1.1
-      starknet: 7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      starknetkit: 2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
+      starknet: 7.5.0
+      starknetkit: 2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10)
 
   '@cartridge/penpal@6.2.4': {}
 
@@ -5314,9 +5308,9 @@ snapshots:
       picocolors: 1.1.0
       sisteransi: 1.0.5
 
-  '@ecies/ciphers@0.2.3(@noble/ciphers@1.2.1)':
+  '@ecies/ciphers@0.2.3(@noble/ciphers@1.3.0)':
     dependencies:
-      '@noble/ciphers': 1.2.1
+      '@noble/ciphers': 1.3.0
 
   '@emotion/hash@0.9.2': {}
 
@@ -5705,13 +5699,13 @@ snapshots:
 
   '@metamask/safe-event-emitter@3.1.2': {}
 
-  '@metamask/sdk-communication-layer@0.32.0(cross-fetch@4.1.0)(eciesjs@0.4.14)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@metamask/sdk-communication-layer@0.32.0(cross-fetch@4.1.0)(eciesjs@0.4.15)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       bufferutil: 4.0.9
       cross-fetch: 4.1.0
       date-fns: 2.30.0
-      debug: 4.4.0
-      eciesjs: 0.4.14
+      debug: 4.4.1
+      eciesjs: 0.4.15
       eventemitter2: 6.4.9
       readable-stream: 3.6.2
       socket.io-client: 4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -5726,16 +5720,16 @@ snapshots:
 
   '@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
-      '@babel/runtime': 7.27.0
+      '@babel/runtime': 7.27.6
       '@metamask/onboarding': 1.0.1
       '@metamask/providers': 16.1.0
-      '@metamask/sdk-communication-layer': 0.32.0(cross-fetch@4.1.0)(eciesjs@0.4.14)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@metamask/sdk-communication-layer': 0.32.0(cross-fetch@4.1.0)(eciesjs@0.4.15)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@metamask/sdk-install-modal-web': 0.32.1
       '@paulmillr/qr': 0.2.1
       bowser: 2.11.0
       cross-fetch: 4.1.0
-      debug: 4.4.0
-      eciesjs: 0.4.14
+      debug: 4.4.1
+      eciesjs: 0.4.15
       eth-rpc-errors: 4.0.3
       eventemitter2: 6.4.9
       obj-multiplex: 1.0.0
@@ -5758,11 +5752,11 @@ snapshots:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.2.1
       '@noble/hashes': 1.8.0
-      '@scure/base': 1.2.4
+      '@scure/base': 1.2.6
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.1
       pony-cause: 2.1.11
-      semver: 7.7.1
+      semver: 7.7.2
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5772,11 +5766,11 @@ snapshots:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.2.1
       '@noble/hashes': 1.8.0
-      '@scure/base': 1.2.4
+      '@scure/base': 1.2.6
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.1
       pony-cause: 2.1.11
-      semver: 7.7.1
+      semver: 7.7.2
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5787,7 +5781,7 @@ snapshots:
 
   '@module-federation/sdk@0.1.21': {}
 
-  '@noble/ciphers@1.2.1': {}
+  '@noble/ciphers@1.3.0': {}
 
   '@noble/curves@1.4.0':
     dependencies:
@@ -5801,7 +5795,7 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.6.0
 
-  '@noble/curves@1.9.0':
+  '@noble/curves@1.9.2':
     dependencies:
       '@noble/hashes': 1.8.0
 
@@ -6337,7 +6331,7 @@ snapshots:
 
   '@scure/base@1.2.1': {}
 
-  '@scure/base@1.2.4': {}
+  '@scure/base@1.2.6': {}
 
   '@scure/bip32@1.4.0':
     dependencies:
@@ -6391,18 +6385,18 @@ snapshots:
     dependencies:
       buffer: 6.0.3
 
-  '@solana/codecs-core@2.1.0(typescript@5.7.2)':
+  '@solana/codecs-core@2.1.1(typescript@5.7.2)':
     dependencies:
-      '@solana/errors': 2.1.0(typescript@5.7.2)
+      '@solana/errors': 2.1.1(typescript@5.7.2)
       typescript: 5.7.2
 
-  '@solana/codecs-numbers@2.1.0(typescript@5.7.2)':
+  '@solana/codecs-numbers@2.1.1(typescript@5.7.2)':
     dependencies:
-      '@solana/codecs-core': 2.1.0(typescript@5.7.2)
-      '@solana/errors': 2.1.0(typescript@5.7.2)
+      '@solana/codecs-core': 2.1.1(typescript@5.7.2)
+      '@solana/errors': 2.1.1(typescript@5.7.2)
       typescript: 5.7.2
 
-  '@solana/errors@2.1.0(typescript@5.7.2)':
+  '@solana/errors@2.1.1(typescript@5.7.2)':
     dependencies:
       chalk: 5.4.1
       commander: 13.1.0
@@ -6410,13 +6404,13 @@ snapshots:
 
   '@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10)':
     dependencies:
-      '@babel/runtime': 7.27.0
-      '@noble/curves': 1.9.0
+      '@babel/runtime': 7.27.6
+      '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@solana/buffer-layout': 4.0.1
-      '@solana/codecs-numbers': 2.1.0(typescript@5.7.2)
+      '@solana/codecs-numbers': 2.1.1(typescript@5.7.2)
       agentkeepalive: 4.6.0
-      bn.js: 5.2.1
+      bn.js: 5.2.2
       borsh: 0.7.0
       bs58: 4.0.1
       buffer: 6.0.3
@@ -6526,7 +6520,7 @@ snapshots:
 
   '@starknet-io/types-js@0.7.7': {}
 
-  '@starknet-io/types-js@0.8.1': {}
+  '@starknet-io/types-js@0.8.4': {}
 
   '@swc/helpers@0.5.17':
     dependencies:
@@ -6679,7 +6673,7 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.14.1':
+  '@types/node@22.15.30':
     dependencies:
       undici-types: 6.21.0
 
@@ -6710,7 +6704,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.15.30
 
   '@typescript/vfs@1.6.0(typescript@5.7.2)':
     dependencies:
@@ -6748,7 +6742,7 @@ snapshots:
     dependencies:
       '@vanilla-extract/private': 1.0.6
 
-  '@vanilla-extract/integration@6.5.0(@types/node@22.14.1)':
+  '@vanilla-extract/integration@6.5.0(@types/node@22.15.30)':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-syntax-typescript': 7.25.4(@babel/core@7.25.2)
@@ -6761,8 +6755,8 @@ snapshots:
       lodash: 4.17.21
       mlly: 1.7.1
       outdent: 0.8.0
-      vite: 5.4.2(@types/node@22.14.1)
-      vite-node: 1.6.0(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
+      vite-node: 1.6.0(@types/node@22.15.30)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -6777,13 +6771,13 @@ snapshots:
 
   '@vanilla-extract/private@1.0.6': {}
 
-  '@vanilla-extract/vite-plugin@3.9.5(@types/node@22.14.1)(vite@5.4.2(@types/node@22.14.1))':
+  '@vanilla-extract/vite-plugin@3.9.5(@types/node@22.15.30)(vite@5.4.2(@types/node@22.15.30))':
     dependencies:
-      '@vanilla-extract/integration': 6.5.0(@types/node@22.14.1)
+      '@vanilla-extract/integration': 6.5.0(@types/node@22.15.30)
       outdent: 0.8.0
       postcss: 8.4.44
       postcss-load-config: 4.0.2(postcss@8.4.44)
-      vite: 5.4.2(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -6797,14 +6791,14 @@ snapshots:
       - terser
       - ts-node
 
-  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@22.14.1))':
+  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@22.15.30))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.2)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.2(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
     transitivePeerDependencies:
       - supports-color
 
@@ -7200,13 +7194,13 @@ snapshots:
 
   bn.js@4.12.0: {}
 
-  bn.js@5.2.1: {}
+  bn.js@5.2.2: {}
 
   boolbase@1.0.0: {}
 
   borsh@0.7.0:
     dependencies:
-      bn.js: 5.2.1
+      bn.js: 5.2.2
       bs58: 4.0.1
       text-encoding-utf-8: 1.0.2
 
@@ -7502,7 +7496,7 @@ snapshots:
 
   date-fns@2.30.0:
     dependencies:
-      '@babel/runtime': 7.27.0
+      '@babel/runtime': 7.27.6
 
   debug@2.6.9:
     dependencies:
@@ -7516,7 +7510,7 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  debug@4.4.0:
+  debug@4.4.1:
     dependencies:
       ms: 2.1.3
 
@@ -7615,11 +7609,11 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  eciesjs@0.4.14:
+  eciesjs@0.4.15:
     dependencies:
-      '@ecies/ciphers': 0.2.3(@noble/ciphers@1.2.1)
-      '@noble/ciphers': 1.2.1
-      '@noble/curves': 1.9.0
+      '@ecies/ciphers': 0.2.3(@noble/ciphers@1.3.0)
+      '@noble/ciphers': 1.3.0
+      '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
 
   ee-first@1.1.1: {}
@@ -8347,10 +8341,6 @@ snapshots:
     dependencies:
       ws: 8.17.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
-  isows@1.0.6(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
-    dependencies:
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-
   jackspeak@3.4.3:
     dependencies:
       '@isaacs/cliui': 8.0.2
@@ -8496,7 +8486,7 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lossless-json@4.0.1: {}
+  lossless-json@4.1.0: {}
 
   loupe@2.3.7:
     dependencies:
@@ -9668,7 +9658,7 @@ snapshots:
       buffer: 6.0.3
       eventemitter3: 5.0.1
       uuid: 8.3.2
-      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.9
       utf-8-validate: 5.0.10
@@ -9709,7 +9699,7 @@ snapshots:
 
   semver@7.6.3: {}
 
-  semver@7.7.1: {}
+  semver@7.7.2: {}
 
   send@0.18.0:
     dependencies:
@@ -9811,25 +9801,20 @@ snapshots:
 
   stackback@0.0.2: {}
 
-  starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  starknet@7.5.0:
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.0
       '@scure/base': 1.2.1
       '@scure/starknet': 1.1.0
+      '@starknet-io/starknet-types-07': '@starknet-io/types-js@0.7.10'
+      '@starknet-io/starknet-types-08': '@starknet-io/types-js@0.8.4'
       abi-wan-kanabi: 2.2.4
-      isows: 1.0.6(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      lossless-json: 4.0.1
+      lossless-json: 4.1.0
       pako: 2.1.0
-      starknet-types-07: '@starknet-io/types-js@0.7.10'
-      starknet-types-08: '@starknet-io/types-js@0.8.1'
       ts-mixer: 6.0.4
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
 
-  starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10):
+  starknetkit@2.10.4(bufferutil@4.0.9)(starknet@7.5.0)(utf-8-validate@5.0.10):
     dependencies:
       '@starknet-io/get-starknet': 4.0.7
       '@starknet-io/get-starknet-core': 4.0.7
@@ -9842,7 +9827,7 @@ snapshots:
       eventemitter3: 5.0.1
       events: 3.3.0
       lodash-es: 4.17.21
-      starknet: 7.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      starknet: 7.5.0
       svelte-forms: 2.3.1
       trpc-browser: 1.4.2(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
     transitivePeerDependencies:
@@ -10366,13 +10351,13 @@ snapshots:
       - utf-8-validate
       - zod
 
-  vite-node@1.6.0(@types/node@22.14.1):
+  vite-node@1.6.0(@types/node@22.15.30):
     dependencies:
       cac: 6.7.14
       debug: 4.3.6
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.4.2(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -10384,27 +10369,27 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@4.3.2(typescript@5.7.2)(vite@5.4.2(@types/node@22.14.1)):
+  vite-tsconfig-paths@4.3.2(typescript@5.7.2)(vite@5.4.2(@types/node@22.15.30)):
     dependencies:
       debug: 4.3.6
       globrex: 0.1.2
       tsconfck: 3.1.3(typescript@5.7.2)
     optionalDependencies:
-      vite: 5.4.2(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@5.4.2(@types/node@22.14.1):
+  vite@5.4.2(@types/node@22.15.30):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.44
       rollup: 4.21.2
     optionalDependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.15.30
       fsevents: 2.3.3
 
-  vitest@1.6.0(@types/node@22.14.1)(jsdom@24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
+  vitest@1.6.0(@types/node@22.15.30)(jsdom@24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -10423,11 +10408,11 @@ snapshots:
       strip-literal: 2.1.0
       tinybench: 2.9.0
       tinypool: 0.8.4
-      vite: 5.4.2(@types/node@22.14.1)
-      vite-node: 1.6.0(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
+      vite-node: 1.6.0(@types/node@22.15.30)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.15.30
       jsdom: 24.1.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - less
@@ -10439,7 +10424,7 @@ snapshots:
       - supports-color
       - terser
 
-  vocs@1.0.0-alpha.55(@types/node@22.14.1)(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.2)(typescript@5.7.2):
+  vocs@1.0.0-alpha.55(@types/node@22.15.30)(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.2)(typescript@5.7.2):
     dependencies:
       '@floating-ui/react': 0.26.23(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@hono/node-server': 1.12.2(hono@3.12.12)
@@ -10459,8 +10444,8 @@ snapshots:
       '@shikijs/twoslash': 1.16.1(typescript@5.7.2)
       '@vanilla-extract/css': 1.15.5
       '@vanilla-extract/dynamic': 2.1.2
-      '@vanilla-extract/vite-plugin': 3.9.5(@types/node@22.14.1)(vite@5.4.2(@types/node@22.14.1))
-      '@vitejs/plugin-react': 4.3.1(vite@5.4.2(@types/node@22.14.1))
+      '@vanilla-extract/vite-plugin': 3.9.5(@types/node@22.15.30)(vite@5.4.2(@types/node@22.15.30))
+      '@vitejs/plugin-react': 4.3.1(vite@5.4.2(@types/node@22.15.30))
       autoprefixer: 10.4.20(postcss@8.4.44)
       cac: 6.7.14
       chroma-js: 2.6.0
@@ -10503,7 +10488,7 @@ snapshots:
       ua-parser-js: 1.0.38
       unified: 11.0.5
       unist-util-visit: 5.0.0
-      vite: 5.4.2(@types/node@22.14.1)
+      vite: 5.4.2(@types/node@22.15.30)
     transitivePeerDependencies:
       - '@types/node'
       - '@types/react'
@@ -10618,7 +10603,7 @@ snapshots:
       bufferutil: 4.0.9
       utf-8-validate: 5.0.10
 
-  ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     optionalDependencies:
       bufferutil: 4.0.9
       utf-8-validate: 5.0.10

@@ -1,4 +1,4 @@
-import type { ProviderInterface } from "starknet";
+import type { PaymasterInterface, ProviderInterface } from "starknet";
 
 import { useStarknet } from "../context/starknet";
 
@@ -6,6 +6,8 @@ import { useStarknet } from "../context/starknet";
 export interface UseProviderResult {
   /** The current provider. */
   provider: ProviderInterface;
+  /** The current paymaster provider. */
+  paymasterProvider?: PaymasterInterface;
 }
 
 /**
@@ -17,6 +19,6 @@ export interface UseProviderResult {
  * implementing starknet.js `ProviderInterface`.
  */
 export function useProvider(): UseProviderResult {
-  const { provider } = useStarknet();
-  return { provider };
+  const { provider, paymasterProvider } = useStarknet();
+  return { provider, paymasterProvider };
 }

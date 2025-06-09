@@ -87,10 +87,11 @@ describe("useAccount", () => {
               "batchClient": undefined,
               "blockIdentifier": "pending",
               "chainId": undefined,
+              "channelSpecVersion": "0.8.1",
               "headers": {
                 "Content-Type": "application/json",
               },
-              "id": "RPC08",
+              "id": "RPC081",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,
@@ -100,6 +101,14 @@ describe("useAccount", () => {
             },
             "deploySelf": [Function],
             "getStateUpdate": [Function],
+            "paymaster": _PaymasterRpc {
+              "baseFetch": [Function],
+              "headers": {
+                "Content-Type": "application/json",
+              },
+              "nodeUrl": "https://sepolia.paymaster.avnu.fi",
+              "requestId": 0,
+            },
             "responseParser": RPCResponseParser {
               "margin": undefined,
             },
