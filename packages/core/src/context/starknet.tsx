@@ -198,6 +198,9 @@ function useStarknetManager({
     [updateChainAndProvider],
   );
 
+  // Dependencies intentionally omitted since we only want
+  // this executed when defaultChain is updated.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: want to execute only when defaultChain is updated
   useEffect(() => {
     if (!connectorRef.current) {
       // Only update currentChain if no wallet is connected
@@ -211,7 +214,7 @@ function useStarknetManager({
         ).paymasterProvider,
       }));
     }
-  }, [defaultChain, provider, paymasterProvider]);
+  }, [defaultChain]);
   const connect = useCallback(
     async ({ connector }: { connector?: Connector }) => {
       if (!connector) {
