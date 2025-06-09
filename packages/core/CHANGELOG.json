@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Mon, 09 Jun 2025 12:34:01 GMT",
+      "version": "4.0.1-beta.3",
+      "tag": "@starknet-react/core_v4.0.1-beta.3",
+      "comments": {
+        "minor": [
+          {
+            "author": "lenny@419labs.io",
+            "package": "@starknet-react/core",
+            "commit": "1aa23c2c782419d277f74a979c29edb8e860d618",
+            "comment": "Implement paymaster hooks"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 May 2025 10:03:17 GMT",
       "version": "4.0.1-beta.1",
       "tag": "@starknet-react/core_v4.0.1-beta.1",

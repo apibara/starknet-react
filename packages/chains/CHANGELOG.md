@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Thu, 08 May 2025 10:03:17 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 09 Jun 2025 12:34:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.1-beta.2
+
+Mon, 09 Jun 2025 12:34:01 GMT
+
+### Minor changes
+
+- Add paymaster providers url for chains (lenny@419labs.io)
 
 ## 4.0.1-beta.1
 

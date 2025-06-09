@@ -2,6 +2,21 @@
   "name": "@starknet-react/chains",
   "entries": [
     {
+      "date": "Mon, 09 Jun 2025 12:34:01 GMT",
+      "version": "4.0.1-beta.2",
+      "tag": "@starknet-react/chains_v4.0.1-beta.2",
+      "comments": {
+        "minor": [
+          {
+            "author": "lenny@419labs.io",
+            "package": "@starknet-react/chains",
+            "commit": "1aa23c2c782419d277f74a979c29edb8e860d618",
+            "comment": "Add paymaster providers url for chains"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 May 2025 10:03:17 GMT",
       "version": "4.0.1-beta.1",
       "tag": "@starknet-react/chains_v4.0.1-beta.1",
