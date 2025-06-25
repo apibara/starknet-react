@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Wed, 25 Jun 2025 09:50:16 GMT",
+      "version": "4.0.1-beta.4",
+      "tag": "@starknet-react/core_v4.0.1-beta.4",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "093a7a3c48dc7e30769010b94ca08ae54ab2cc42",
+            "comment": "core: rename Argent to Ready"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jun 2025 12:34:01 GMT",
       "version": "4.0.1-beta.3",
       "tag": "@starknet-react/core_v4.0.1-beta.3",

@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "core: rename Argent to Ready",
-  "packageName": "create-starknet",
-  "email": "francesco@ceccon.me",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,21 @@
   "name": "create-starknet",
   "entries": [
     {
+      "date": "Wed, 25 Jun 2025 09:50:16 GMT",
+      "version": "4.0.1-beta.3",
+      "tag": "create-starknet_v4.0.1-beta.3",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "create-starknet",
+            "commit": "093a7a3c48dc7e30769010b94ca08ae54ab2cc42",
+            "comment": "core: rename Argent to Ready"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 May 2025 07:09:23 GMT",
       "version": "4.0.1-beta.0",
       "tag": "create-starknet_v4.0.1-beta.0",

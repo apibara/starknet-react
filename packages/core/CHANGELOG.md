@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 09 Jun 2025 12:34:01 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 25 Jun 2025 09:50:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.1-beta.4
+
+Wed, 25 Jun 2025 09:50:16 GMT
+
+### Changes
+
+- core: rename Argent to Ready (francesco@ceccon.me)
 
 ## 4.0.1-beta.3
 
