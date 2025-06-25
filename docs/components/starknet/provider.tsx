@@ -2,7 +2,7 @@ import { mainnet, sepolia } from "@starknet-react/chains";
 import {
   type ExplorerFactory,
   StarknetConfig,
-  argent,
+  ready,
   braavos,
   publicProvider,
   useInjectedConnectors,
@@ -22,7 +22,7 @@ export function StarknetProvider({
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [argent(), braavos()],
+    recommended: [ready(), braavos()],
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "always",
     // Randomize the order of the connectors.

@@ -1,14 +1,16 @@
 import { InjectedConnector } from "./injected";
 import { LegacyInjectedConnector } from "./legacy";
 
-export function argent(): InjectedConnector {
+export function ready(): InjectedConnector {
   return new InjectedConnector({
     options: {
       id: "argentX",
-      name: "Argent X",
+      name: "Ready Wallet (formerly Argent)",
     },
   });
 }
+
+export const argent = ready;
 
 export function braavos(): InjectedConnector {
   return new InjectedConnector({
@@ -29,7 +31,9 @@ export function injected({ id }: { id: string }): InjectedConnector {
 
 export function legacyInjected({
   id,
-}: { id: string }): LegacyInjectedConnector {
+}: {
+  id: string;
+}): LegacyInjectedConnector {
   return new LegacyInjectedConnector({
     options: {
       id,

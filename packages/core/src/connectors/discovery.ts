@@ -61,20 +61,22 @@ function mergeConnectors(
     order,
   }: Required<Pick<UseInjectedConnectorsProps, "includeRecommended" | "order">>,
 ): Connector[] {
-  const injectedIds = new Set(injected.map((connector) => connector.id));
-  const allConnectors = [...injected];
+  const recommendedIds = new Set(recommended.map((connector) => connector.id));
   const shouldAddRecommended =
     includeRecommended === "always" ||
     (includeRecommended === "onlyIfNoConnectors" && injected.length === 0);
+  const allConnectors = [];
   if (shouldAddRecommended) {
-    allConnectors.push(
-      ...recommended.filter((connector) => !injectedIds.has(connector.id)),
-    );
+    allConnectors.push(...recommended);
   }
+  allConnectors.push(
+    ...injected.filter((connector) => !recommendedIds.has(connector.id)),
+  );
 
   if (order === "random") {
     return shuffle(allConnectors);
   }
+
   return allConnectors.sort((a, b) => a.id.localeCompare(b.id));
 }
 

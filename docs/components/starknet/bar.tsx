@@ -46,7 +46,6 @@ function ConnectWallet() {
             onClick={async () => {
               await connectAsync({ connector });
             }}
-            // className="bg-red-500 rounded px-2 py-1 text-white disabled:bg-gray-500"
             disabled={status === "pending"}
           >
             {connector.name}

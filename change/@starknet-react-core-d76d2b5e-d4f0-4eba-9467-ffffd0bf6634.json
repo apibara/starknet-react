@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "core: rename Argent to Ready",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}

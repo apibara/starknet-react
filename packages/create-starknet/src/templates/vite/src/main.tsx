@@ -1,9 +1,9 @@
 import { mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
-  argent,
   braavos,
   publicProvider,
+  ready,
   useInjectedConnectors,
 } from "@starknet-react/core";
 import React from "react";
@@ -16,7 +16,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
   const provider = publicProvider();
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [argent(), braavos()],
+    recommended: [ready(), braavos()],
     // Randomize the order of the connectors.
     order: "random",
   });
