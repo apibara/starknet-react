@@ -14,4 +14,4 @@ export {
   type MockConnectorAccounts,
   type MockConnectorOptions,
 } from "./mock";
-export { argent, braavos, injected, legacyInjected } from "./helpers";
+export { argent, braavos, injected, legacyInjected, ready } from "./helpers";

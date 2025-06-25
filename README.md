@@ -40,14 +40,14 @@ import { sepolia } from "@starknet-react/chains";
 import {
   StarknetConfig,
   publicProvider,
-  argent,
+  ready,
   braavos,
 } from "@starknet-react/core";
 
 function App() {
   const chains = [sepolia];
   const provider = publicProvider();
-  const connectors = [braavos(), argent()];
+  const connectors = [braavos(), ready()];
 
   return (
     <StarknetConfig chains={chains} provider={provider} connectors={connectors}>
