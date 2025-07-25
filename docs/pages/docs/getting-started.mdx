@@ -1,22 +1,15 @@
-import { Callout } from 'vocs/components'
+import { Callout } from "vocs/components";
 import { constants } from "starknet";
-
 
 # Getting Started
 
 ## Overview
-
-<Callout type="warning">
-Starknet React V3 is currently in preview. If you experience any issue, feel
-free to open an issue on GitHub.
-</Callout>
 
 Starknet React is a collection of React hooks for Starknet. It combines the following packages:
 
 - [Tanstack Query](https://tanstack.com/query/latest) for data fetching.
 - [Starknet.js](https://www.starknetjs.com/) for interacting with Starknet.
 - [abi-wan-kanabi](https://github.com/keep-starknet-strange/abi-wan-kanabi) for type-safe contract calls.
-
 
 ## Setup
 
@@ -43,9 +36,9 @@ pnpm add @starknet-react/chains @starknet-react/core
 The next step is to configure the Starknet provider. You need to configure the
 following:
 
-* `chains`: a list of chains supported by your dapp.
-* `provider`: the JSON-RPC provider you want to use.
-* `connectors`: the wallet connectors supported by your dapp. See the wallets page for more information.
+- `chains`: a list of chains supported by your dapp.
+- `provider`: the JSON-RPC provider you want to use.
+- `connectors`: the wallet connectors supported by your dapp. See the wallets page for more information.
 
 Starknet React provides the `useInjectedConnectors` hook to merge a static list
 of recommended connectors with a dynamic list of injected connectors.
@@ -61,20 +54,17 @@ import {
   ready,
   braavos,
   useInjectedConnectors,
-  voyager
+  voyager,
 } from "@starknet-react/core";
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const { connectors } = useInjectedConnectors({
     // Show these connectors if the user has no connector installed.
-    recommended: [
-      ready(),
-      braavos(),
-    ],
+    recommended: [ready(), braavos()],
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "onlyIfNoConnectors",
     // Randomize the order of the connectors.
-    order: "random"
+    order: "random",
   });
 
   return (
@@ -112,19 +102,20 @@ in the root layout file.
 ```tsx [app/layout.tsx]
 import { StarknetProvider } from "@/components/starknet-provider";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <StarknetProvider>
-          {children}
-        </StarknetProvider>
+        <StarknetProvider>{children}</StarknetProvider>
       </body>
     </html>
   );
 }
 ```
-
 
 ### Using hooks
 
@@ -162,7 +153,7 @@ import {
   voyager,
   Connector,
   jsonRpcProvider,
-  cartridgeProvider
+  cartridgeProvider,
 } from "@starknet-react/core";
 
 import { ControllerConnector } from "@cartridge/connector";
