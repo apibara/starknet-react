@@ -31,10 +31,9 @@
   },
   "packageManager": "pnpm@9.10.0",
   "beachball": {
-    "prereleasePrefix": "beta",
     "groups": [
       {
-        "name": "v4-prerelease",
+        "name": "starknet-react-packages",
         "include": [
           "packages/chains",
           "packages/core",
