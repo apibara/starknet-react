@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Sun, 27 Jul 2025 12:54:18 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 27 Jul 2025 13:11:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.2
+
+Sun, 27 Jul 2025 13:11:19 GMT
+
+### Patches
+
+- fix release (francesco@ceccon.me)
 
 ## 5.0.0
 

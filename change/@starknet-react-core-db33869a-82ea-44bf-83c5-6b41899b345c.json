@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix release",
-  "packageName": "@starknet-react/core",
-  "email": "francesco@ceccon.me",
-  "dependentChangeType": "patch"
-}
