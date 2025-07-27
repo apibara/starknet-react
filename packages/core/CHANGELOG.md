@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Wed, 25 Jun 2025 09:50:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 27 Jul 2025 12:54:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.0
+
+Sun, 27 Jul 2025 12:54:18 GMT
+
+### Major changes
+
+- chore: bump `starknet.js` to v7.6.4 (jadejajaipal5@gmail.com)
 
 ## 4.0.1-beta.4
 

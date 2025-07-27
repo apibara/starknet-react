@@ -2,6 +2,21 @@
   "name": "@starknet-react/chains",
   "entries": [
     {
+      "date": "Sun, 27 Jul 2025 12:54:18 GMT",
+      "version": "5.0.0",
+      "tag": "@starknet-react/chains_v5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/chains",
+            "commit": "4c79583b8f7edd668a90ba101f9455aa409ddc7d",
+            "comment": "chore: bump `starknet.js` to v7.6.4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Jun 2025 12:34:01 GMT",
       "version": "4.0.1-beta.2",
       "tag": "@starknet-react/chains_v4.0.1-beta.2",
