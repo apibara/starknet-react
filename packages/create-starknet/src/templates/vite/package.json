@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@starknet-react/chains": "^4.0.2",
-    "@starknet-react/core": "^4.0.2",
+    "@starknet-react/chains": "^4.0.3",
+    "@starknet-react/core": "^4.0.3",
     "@tailwindcss/vite": "^4.1.11",
     "get-starknet-core": "4.0.0",
     "react": "^19.1.0",
