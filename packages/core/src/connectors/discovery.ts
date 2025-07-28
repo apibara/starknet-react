@@ -129,6 +129,6 @@ function isWalletObject(wallet: any): wallet is StarknetWindowObject {
         "icon",
       ].every((key) => key in wallet)
     );
-  } catch (err) {}
+  } catch (_err) {}
   return false;
 }

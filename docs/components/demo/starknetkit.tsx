@@ -1,11 +1,10 @@
 import { mainnet, sepolia } from "@starknet-react/chains";
 import {
   type Connector,
-  StarknetConfig,
   publicProvider,
+  StarknetConfig,
   useAccount,
   useConnect,
-  useNetwork,
 } from "@starknet-react/core";
 import { useState } from "react";
 import {
@@ -30,7 +29,7 @@ function StarknetKitInner() {
     connectors: availableConnectors as StarknetkitConnector[],
   });
 
-  const { address, chainId, account } = useAccount();
+  const { address } = useAccount();
 
   // function to connect to a wallet via starknetkit modal
   async function connectWalletWithModal() {
@@ -60,7 +59,7 @@ function StarknetKitInner() {
         <Button onClick={connectWalletWithModal}>Starknetkit Modal</Button>
 
         <p>Staknetkit Connectors</p>
-        {connectors.map((connector, index) => (
+        {connectors.map((connector) => (
           <Button
             onClick={() => connectWalletWithConnector(connector)}
             key={connector.id}
@@ -80,15 +79,13 @@ function StarknetKitInner() {
 }
 
 /** @experimental ignore: this function is for internal testing purpose only (not part of demo) */
-function WalletButton({ connector }: { connector: Connector }) {
+function _WalletButton({ connector }: { connector: Connector }) {
   const [res, setRes] = useState<string>("-- No res --");
   const [res2, setRes2] = useState<string>("-- No res --");
   const [res3, setRes3] = useState<string>("-- No res --");
 
   const [time1, setTime1] = useState<number | undefined>(undefined);
   const [time2, setTime2] = useState<number | undefined>(undefined);
-
-  const { chain } = useNetwork();
 
   async function connectWallet() {
     const _res = await connector.connect({});

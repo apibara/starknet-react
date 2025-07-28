@@ -102,7 +102,9 @@ const encodeDomain = (domain: string): string[] => {
   if (!domain) return ["0"];
 
   const encoded = [];
-  for (const subdomain of domain.replace(".stark", "").split("."))
+  for (const subdomain of domain.replace(".stark", "").split(".")) {
+    // biome-ignore lint/correctness/useHookAtTopLevel: <>
     encoded.push(starknetId.useEncoded(subdomain).toString(10));
+  }
   return encoded;
 };

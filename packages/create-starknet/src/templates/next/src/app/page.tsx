@@ -1,52 +1,32 @@
-"use client";
-import WalletBar from "@/components/wallet-bar.tsx";
+import WalletBar from "@/components/layout/wallet-bar";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen gap-12">
-      <WalletBar />
-      <p className="mb-2 text-lg">
-        Get started by editing&nbsp;
-        <code className="p-2 bg-gray-600 rounded">pages/index.tsx</code>
-      </p>
-      <div className="flex flex-row gap-12">
-        <a
-          className="p-4 rounded-md w-48 bg-black border flex flex-col items-center justify-center gap-6 group"
-          href="https://starknet.io/docs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src="https://pbs.twimg.com/profile_images/1656626805816565763/WyFDMG6u_400x400.png"
-            className="object-contain w-24 h-24"
-            alt="starknet-icon"
-          />
-          <p className="mb-2 text-lg text-center">
-            Starknet Documentation
-            <span className=" group-hover:font-bold transition-all ml-2 group-hover:ml-4">
-              {">"}
-            </span>
-          </p>
-        </a>
-        <a
-          className="p-4 rounded-md w-48 bg-black border flex flex-col items-center justify-center gap-6 group"
-          href="https://starknet-react.com/docs/getting-started"
-          target="_blank"
-          rel="norefferer"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1150px-React-icon.svg.png"
-            className="object-contain w-24 h-24"
-            alt="react-icon"
-          />
-          <p className="mb-2 text-lg text-center">
-            Starknet React Documentation
-            <span className="group-hover:font-bold transition-all ml-2 group-hover:ml-4">
-              {">"}
-            </span>
-          </p>
-        </a>
-      </div>
-    </main>
+    <div className="grid grid-rows-[auto_20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-8 row-start-3 items-center sm:items-start">
+        <div className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+          <WalletBar />
+        </div>
+
+        <div className="flex gap-4 items-center flex-col sm:flex-row">
+          <a
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            href="https://starknet-react.com/docs/getting-started"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Starknet React Docs
+          </a>
+          <a
+            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+            href="https://starknet.io/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Starknet.js Docs
+          </a>
+        </div>
+      </main>
+    </div>
   );
 }

@@ -7,10 +7,10 @@ import {
 } from "@starknet-io/types-js";
 import {
   type AccountInterface,
+  num,
   type PaymasterInterface,
   type ProviderInterface,
   WalletAccount,
-  num,
 } from "starknet";
 import {
   ConnectorNotConnectedError,

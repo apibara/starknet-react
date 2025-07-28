@@ -15,8 +15,8 @@ import {
   useState,
 } from "react";
 import {
-  constants,
   type AccountInterface,
+  constants,
   type PaymasterRpc,
   type ProviderInterface,
 } from "starknet";
@@ -215,6 +215,36 @@ function useStarknetManager({
       }));
     }
   }, [defaultChain]);
+
+  const disconnect = useCallback(async () => {
+    setState((state) => ({
+      ...state,
+      currentAddress: undefined,
+      currentProvider: defaultProvider,
+      currentPaymasterProvider: defaultPaymasterProvider,
+      currentChain: defaultChain,
+    }));
+
+    if (autoConnect) {
+      localStorage.removeItem("lastUsedConnector");
+    }
+
+    if (!connectorRef.current) return;
+    connectorRef.current.off("change", handleConnectorChange);
+    connectorRef.current.off("disconnect", disconnect);
+
+    try {
+      await connectorRef.current.disconnect();
+    } catch {}
+    connectorRef.current = undefined;
+  }, [
+    autoConnect,
+    handleConnectorChange,
+    defaultProvider,
+    defaultPaymasterProvider,
+    defaultChain,
+  ]);
+
   const connect = useCallback(
     async ({ connector }: { connector?: Connector }) => {
       if (!connector) {
@@ -265,37 +295,9 @@ function useStarknetManager({
       defaultChain.id,
       handleConnectorChange,
       updateChainAndProvider,
+      disconnect,
     ],
   );
-
-  const disconnect = useCallback(async () => {
-    setState((state) => ({
-      ...state,
-      currentAddress: undefined,
-      currentProvider: defaultProvider,
-      currentPaymasterProvider: defaultPaymasterProvider,
-      currentChain: defaultChain,
-    }));
-
-    if (autoConnect) {
-      localStorage.removeItem("lastUsedConnector");
-    }
-
-    if (!connectorRef.current) return;
-    connectorRef.current.off("change", handleConnectorChange);
-    connectorRef.current.off("disconnect", disconnect);
-
-    try {
-      await connectorRef.current.disconnect();
-    } catch {}
-    connectorRef.current = undefined;
-  }, [
-    autoConnect,
-    handleConnectorChange,
-    defaultProvider,
-    defaultPaymasterProvider,
-    defaultChain,
-  ]);
 
   // Dependencies intentionally omitted since we only want
   // this executed once.

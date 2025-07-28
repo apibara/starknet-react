@@ -1,8 +1,7 @@
-import { describe, expect, it } from "vitest";
-import { act, renderHook, waitFor } from "../../test/react";
-
 import { shortString } from "starknet";
+import { describe, expect, it } from "vitest";
 import { defaultConnector } from "../../test/devnet";
+import { act, renderHook, waitFor } from "../../test/react";
 import { useConnect } from "./use-connect";
 import { useDisconnect } from "./use-disconnect";
 import { type UseSignTypedDataArgs, useSignTypedData } from "./use-sign";

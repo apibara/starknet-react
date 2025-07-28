@@ -4,3 +4,4 @@ packages:
   - "packages/create-starknet"
   - "packages/typescript-config"
   - "docs"
+  - "!packages/create-starknet/src/**"

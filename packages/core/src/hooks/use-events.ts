@@ -3,9 +3,9 @@ import type { Address } from "@starknet-react/chains";
 import {
   type BlockIdentifier as BlockIdentifier_,
   BlockTag,
-  type RpcProvider,
   hash,
   num,
+  type RpcProvider,
 } from "starknet";
 import {
   type UseInfiniteQueryProps,
@@ -105,7 +105,7 @@ export function useEvents({
     }),
     queryFn: fetchEvents,
     initialPageParam: "0",
-    getNextPageParam: (lastPage, pages) => lastPage.continuation_token,
+    getNextPageParam: (lastPage, _pages) => lastPage.continuation_token,
   });
 }
 

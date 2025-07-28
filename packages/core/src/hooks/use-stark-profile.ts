@@ -12,7 +12,6 @@ import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { type StarknetTypedContract, useContract } from "./use-contract";
 import { useNetwork } from "./use-network";
-import { useProvider } from "./use-provider";
 
 /** Arguments for `useStarkProfile` hook. */
 export type StarkProfileArgs = UseQueryProps<
@@ -71,7 +70,6 @@ export function useStarkProfile({
 
   ...props
 }: StarkProfileArgs): UseStarkProfileResult {
-  const { provider } = useProvider();
   const { chain } = useNetwork();
   if (!StarknetIdcontracts[chain.network])
     throw new Error("Network not supported");
@@ -250,7 +248,8 @@ function queryFn({
     if (Array.isArray(data)) {
       const name =
         data[0][0] !== BigInt(0)
-          ? starknetId.useDecoded(data[0].slice(1).map((val) => BigInt(val)))
+          ? // biome-ignore lint/correctness/useHookAtTopLevel: <>
+            starknetId.useDecoded(data[0].slice(1).map((val) => BigInt(val)))
           : undefined;
       const twitter =
         data[2][0] !== BigInt(0) ? data[2][0].toString() : undefined;
