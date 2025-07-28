@@ -46,7 +46,10 @@ export function useNonceForAddress({
 function queryKey({
   address,
   blockIdentifier,
-}: { address: Address; blockIdentifier: BlockNumber }) {
+}: {
+  address: Address;
+  blockIdentifier: BlockNumber;
+}) {
   return [{ entity: "nonce", blockIdentifier, address }] as const;
 }
 

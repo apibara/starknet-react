@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { act, renderHook, waitFor } from "../../test/react";
-
 import { defaultConnector } from "../../test/devnet";
+import { act, renderHook, waitFor } from "../../test/react";
 import { useConnect } from "./use-connect";
 import { useDisconnect } from "./use-disconnect";
 import { useWalletRequest } from "./use-wallet-request";

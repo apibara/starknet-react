@@ -63,7 +63,9 @@ function queryKey() {
 
 function queryFn({
   paymasterProvider,
-}: { paymasterProvider?: PaymasterInterface }) {
+}: {
+  paymasterProvider?: PaymasterInterface;
+}) {
   return async () => {
     if (!paymasterProvider) throw new Error("PaymasterProvider is required");
     return await paymasterProvider.getSupportedTokens();

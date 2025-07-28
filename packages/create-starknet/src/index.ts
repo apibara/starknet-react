@@ -7,13 +7,13 @@ import prompts from "prompts";
 
 import createStarknetPackageJson from "../package.json";
 import {
-  type Template,
   installDependencies,
   installTemplate,
+  type Template,
 } from "./helpers/installation";
 import {
-  type PackageManager,
   getPackageManager,
+  type PackageManager,
 } from "./helpers/packageManager";
 import { getPackageNameValidation } from "./helpers/validate";
 

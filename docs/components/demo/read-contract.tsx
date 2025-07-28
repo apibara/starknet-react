@@ -1,9 +1,7 @@
-import { useState } from "react";
-
 import { useNetwork, useReadContract } from "@starknet-react/core";
-import { BlockTag } from "starknet";
-
+import { useState } from "react";
 import stringify from "safe-stable-stringify";
+import { BlockTag } from "starknet";
 import { DemoContainer } from "../starknet";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
@@ -20,7 +18,7 @@ export function ReadContractInner() {
   const [enable, setEnable] = useState(false);
   const { chain } = useNetwork();
 
-  const { data, refetch, fetchStatus, status, error } = useReadContract({
+  const { data, refetch, fetchStatus, status } = useReadContract({
     abi: [
       {
         name: "symbol",

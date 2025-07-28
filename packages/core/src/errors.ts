@@ -19,7 +19,7 @@ export class UserRejectedRequestError extends Error {
 }
 
 export class WalletRequestError extends Error {
-  constructor(error?: string | Error | unknown, cause?: Error | unknown) {
+  constructor(error?: string | Error | unknown, _cause?: Error | unknown) {
     super(
       error instanceof Error
         ? error.message

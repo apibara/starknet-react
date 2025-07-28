@@ -224,8 +224,8 @@ export class MockConnector extends Connector {
   }
 
   async account(
-    provider: ProviderOptions | ProviderInterface,
-    paymasterProvider?: PaymasterInterface,
+    _provider: ProviderOptions | ProviderInterface,
+    _paymasterProvider?: PaymasterInterface,
   ): Promise<AccountInterface> {
     if (!this.available()) {
       throw new ConnectorNotFoundError();

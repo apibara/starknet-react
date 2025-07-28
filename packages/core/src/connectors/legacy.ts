@@ -333,6 +333,6 @@ function isWalletObject(wallet: any): boolean {
         "icon",
       ].every((key) => key in wallet)
     );
-  } catch (err) {}
+  } catch (_err) {}
   return false;
 }

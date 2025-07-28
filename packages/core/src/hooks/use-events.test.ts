@@ -1,8 +1,7 @@
+import type { Abi } from "abi-wan-kanabi";
 import { describe, expect, it } from "vitest";
 import { accounts, defaultConnector } from "../../test/devnet";
 import { act, renderHook, waitFor } from "../../test/react";
-
-import type { Abi } from "abi-wan-kanabi";
 import { useAccount } from "./use-account";
 import { useConnect } from "./use-connect";
 import { useContract } from "./use-contract";

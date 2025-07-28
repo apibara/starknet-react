@@ -1,7 +1,7 @@
 import { StarknetProvider, type StarknetProviderProps } from "./starknet";
 
-export { starknetChainId } from "./starknet";
 export { AccountProvider as OverrideAccount } from "./account";
+export { starknetChainId } from "./starknet";
 
 export type StarknetConfigProps = StarknetProviderProps;
 
