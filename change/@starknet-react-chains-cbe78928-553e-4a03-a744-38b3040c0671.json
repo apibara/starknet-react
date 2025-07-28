@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "chore: format and linting with updated biome",
-  "packageName": "@starknet-react/chains",
-  "email": "jadejajaipal5@gmail.com",
-  "dependentChangeType": "patch"
-}

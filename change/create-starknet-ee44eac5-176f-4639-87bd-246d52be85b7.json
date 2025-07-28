@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "create-starknet: update templates",
-  "packageName": "create-starknet",
-  "email": "jadejajaipal5@gmail.com",
-  "dependentChangeType": "patch"
-}

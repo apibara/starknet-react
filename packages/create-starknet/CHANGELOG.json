@@ -2,6 +2,21 @@
   "name": "create-starknet",
   "entries": [
     {
+      "date": "Mon, 28 Jul 2025 18:23:13 GMT",
+      "version": "4.0.3",
+      "tag": "create-starknet_v4.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "create-starknet",
+            "commit": "17f7ef0af13ae4b7814e35e87c8cf35b7564a9d2",
+            "comment": "create-starknet: update templates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 27 Jul 2025 13:11:19 GMT",
       "version": "4.0.2",
       "tag": "create-starknet_v4.0.2",

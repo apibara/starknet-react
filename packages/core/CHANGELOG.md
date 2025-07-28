@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Sun, 27 Jul 2025 13:11:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 28 Jul 2025 18:23:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.3
+
+Mon, 28 Jul 2025 18:23:13 GMT
+
+### Patches
+
+- chore: format and linting with updated biome (jadejajaipal5@gmail.com)
 
 ## 4.0.2
 
