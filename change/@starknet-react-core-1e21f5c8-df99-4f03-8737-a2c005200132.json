@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "fix: paymaster api key header",
+  "packageName": "@starknet-react/core",
+  "email": "lenny@419labs.io",
+  "dependentChangeType": "patch"
+}
