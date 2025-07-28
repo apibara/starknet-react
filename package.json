@@ -15,7 +15,7 @@
     "clean": "turbo run clean --parallel"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.1.2",
     "@types/react": "^18.3.16",
     "beachball": "^2.51.0",
     "turbo": "^2.3.3",

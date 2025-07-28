@@ -12,9 +12,11 @@
       },
       "a11y": {
         "useAltText": "off",
-        "noBlankTarget": "off",
         "useButtonType": "off",
         "useKeyWithClickEvents": "off"
+      },
+      "security": {
+        "noBlankTarget": "off"
       }
     }
   },
@@ -31,8 +33,12 @@
       "semicolons": "always"
     }
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "json": {
     "formatter": {
@@ -40,17 +46,19 @@
     }
   },
   "files": {
-    "ignore": [
-      "**/node_modules",
-      "**/dist",
-      "CHANGELOG.md",
-      "pnpm-lock.yaml",
-      "contracts/*.json",
-      "abi/*.json",
-      ".contentlayer",
-      ".next",
-      "out",
-      "generated"
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/CHANGELOG.md",
+      "!**/pnpm-lock.yaml",
+      "!**/contracts/**/*.json",
+      "!**/abi/**/*.json",
+      "!**/.contentlayer",
+      "!**/.next",
+      "!**/out",
+      "!**/generated",
+      "!**/packages/create-starknet/src/templates/**"
     ]
   }
 }
