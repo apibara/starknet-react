@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 28 Jul 2025 18:23:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 11 Aug 2025 12:21:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.4
+
+Mon, 11 Aug 2025 12:21:21 GMT
+
+### Patches
+
+- fix: paymaster api key header (lenny@419labs.io)
 
 ## 4.0.3
 
