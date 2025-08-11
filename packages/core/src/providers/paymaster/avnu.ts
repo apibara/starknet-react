@@ -16,7 +16,10 @@ export function avnuPaymasterProvider({
     rpc: (chain) => {
       const baseHttpUrl = chain.paymasterRpcUrls.avnu.http[0];
       if (!baseHttpUrl) return null;
-      return { nodeUrl: baseHttpUrl, headers: { "x-paymaster-api-key": apiKey ?? "" } };
+      return {
+        nodeUrl: baseHttpUrl,
+        headers: { "x-paymaster-api-key": apiKey ?? "" },
+      };
     },
   });
 }
