@@ -25,7 +25,7 @@
     "lucide-react": "^0.438.0",
     "react": "^18.2.0",
     "safe-stable-stringify": "^2.5.0",
-    "starknet": "^7.6.4",
+    "starknet": "^8.1.2",
     "starknetkit": "^2.12.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",

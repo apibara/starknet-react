@@ -38,7 +38,7 @@ export function ReadContractInner() {
     watch: true,
     enabled: enable,
     blockIdentifier:
-      blockIdentifier === "latest" ? BlockTag.LATEST : BlockTag.PENDING,
+      blockIdentifier === "latest" ? BlockTag.LATEST : BlockTag.PRE_CONFIRMED,
   });
 
   return (
@@ -52,7 +52,7 @@ export function ReadContractInner() {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={BlockTag.LATEST}>Latest</SelectItem>
-          <SelectItem value={BlockTag.PENDING}>Pending</SelectItem>
+          <SelectItem value={BlockTag.PRE_CONFIRMED}>Pre-Confirmed</SelectItem>
         </SelectContent>
       </Select>
 

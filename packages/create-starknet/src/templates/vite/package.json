@@ -16,7 +16,7 @@
     "get-starknet-core": "4.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "starknet": "^7.6.4",
+    "starknet": "^8.1.2",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
