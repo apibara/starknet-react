@@ -31,3 +31,9 @@ import { avnuPaymasterProvider } from "@starknet-react/core";
 const apiKey = "your-api-key";
 const provider = avnuPaymasterProvider({ apiKey });
 ```
+
+### Cartridge Paymaster
+
+Cartridge Paymaster is natively supported in the [Controller](https://docs.cartridge.gg/controller/overview) and requires no additional configuration.
+Transactions that match a Paymaster policy (indicating a contract address and entrypoint) will automatically be subsidized.
+Paymaster policies and budgets can be [managed through the Slot CLI](https://docs.cartridge.gg/slot/paymaster).
