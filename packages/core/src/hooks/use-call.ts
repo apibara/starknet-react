@@ -5,8 +5,8 @@ import {
   type ArgsOrCalldata,
   type BlockNumber,
   BlockTag,
+  type CallResult,
   type Contract,
-  type Result,
 } from "starknet";
 
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
@@ -33,7 +33,7 @@ export type CallQueryKey = typeof queryKey;
 
 /** Options for `useCall`. */
 export type UseCallProps = CallArgs &
-  UseQueryProps<Result, Error, Result, ReturnType<CallQueryKey>> & {
+  UseQueryProps<CallResult, Error, CallResult, ReturnType<CallQueryKey>> & {
     /** The target contract's ABI. */
     abi?: Abi;
     /** The target contract's address. */
@@ -43,7 +43,7 @@ export type UseCallProps = CallArgs &
   };
 
 /** Value returned from `useCall`. */
-export type UseCallResult = UseQueryResult<Result, Error>;
+export type UseCallResult = UseQueryResult<CallResult, Error>;
 
 /**
  * Hook to perform a read-only contract call.
@@ -89,7 +89,7 @@ export function useCall({
 
   const refetchInterval =
     refetchInterval_ ??
-    (blockIdentifier === BlockTag.PENDING && watch
+    (blockIdentifier === BlockTag.PRE_CONFIRMED && watch
       ? DEFAULT_FETCH_INTERVAL
       : undefined);
 

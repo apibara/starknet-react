@@ -41,7 +41,7 @@ function makeAccount({
   address: string;
   privateKey: string;
 }): AccountInterface {
-  return new Account(provider, address, privateKey);
+  return new Account({ provider, address, signer: privateKey });
 }
 
 export const accounts = {

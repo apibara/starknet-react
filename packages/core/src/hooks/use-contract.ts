@@ -112,9 +112,11 @@ export function useContract<TAbi extends Abi>({
   const contract = useMemo(() => {
     const provider = providedProvider ? providedProvider : currentProvider;
     if (abi && address && provider) {
-      return new Contract(abi, address, provider).typedv2(
+      return new Contract({
         abi,
-      ) as StarknetTypedContract<TAbi>;
+        address,
+        providerOrAccount: provider,
+      }).typedv2(abi) as StarknetTypedContract<TAbi>;
     }
     return undefined;
   }, [abi, address, providedProvider, currentProvider]);

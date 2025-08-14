@@ -28,10 +28,10 @@ importers:
     dependencies:
       '@cartridge/connector':
         specifier: ^0.9.2
-        version: 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@7.6.4)(starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
+        version: 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@8.1.2)(starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       '@cartridge/controller':
         specifier: ^0.9.2
-        version: 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@7.6.4)(starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
+        version: 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@8.1.2)(starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -66,11 +66,11 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0
       starknet:
-        specifier: ^7.6.4
-        version: 7.6.4
+        specifier: ^8.1.2
+        version: 8.1.2
       starknetkit:
         specifier: ^2.12.1
-        version: 2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja)
+        version: 2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -158,8 +158,8 @@ importers:
         specifier: ^4.1.2
         version: 4.4.1
       starknet:
-        specifier: ^7.6.4
-        version: 7.6.4
+        specifier: ^8.1.2
+        version: 8.1.2
       tsup:
         specifier: ^8.0.2
         version: 8.2.4(jiti@1.21.6)(postcss@8.4.44)(typescript@5.7.2)(yaml@2.5.0)
@@ -2267,6 +2267,9 @@ packages:
 
   '@starknet-io/types-js@0.8.4':
     resolution: {integrity: sha512-0RZ3TZHcLsUTQaq1JhDSCM8chnzO4/XNsSCozwDET64JK5bjFDIf2ZUkta+tl5Nlbf4usoU7uZiDI/Q57kt2SQ==}
+
+  '@starknet-io/types-js@0.9.0-beta.5':
+    resolution: {integrity: sha512-VbtqLeM/AMErgZqIwzOc/frMOUDj7Z5d0/oR1wcruGa4QQjKjAE98ii1lKEFjMMsXnQdmsqs+FinRlyinvkTIw==}
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
@@ -4475,9 +4478,6 @@ packages:
   lossless-json@2.0.11:
     resolution: {integrity: sha512-BP0vn+NGYvzDielvBZaFain/wgeJ1hTvURCqtKvhr1SCPePdaaTanmmcplrHfEJSJOUql7hk4FHwToNJjWRY3g==}
 
-  lossless-json@4.1.0:
-    resolution: {integrity: sha512-DgoRs42jH/yNubp8iinRqvG0xn5awHKXVY+7lGYjBaByoHGZt/Dz5Jkaf5znP2XHbTnAA+bbkhK3lMIaf3+92A==}
-
   lossless-json@4.1.1:
     resolution: {integrity: sha512-HusN80C0ohtT9kOHQH7EuUaqzRQsnekpa+2ot8OzvW0iC08dq/YtM/7uKwwajldQsCrHyC8q9fz3t3L+TmDltA==}
 
@@ -5840,8 +5840,8 @@ packages:
   starknet@6.11.0:
     resolution: {integrity: sha512-u50KrGDi9fbu1Ogu7ynwF/tSeFlp3mzOg1/Y5x50tYFICImo3OfY4lOz9OtYDk404HK4eUujKkhov9tG7GAKlg==}
 
-  starknet@7.6.4:
-    resolution: {integrity: sha512-FB20IaLCDbh/XomkB+19f5jmNxG+RzNdRO7QUhm7nfH81UPIt2C/MyWAlHCYkbv2wznSEb73wpxbp9tytokTgQ==}
+  starknet@8.1.2:
+    resolution: {integrity: sha512-f366RjyG7vdL7VXYOrp8rGjKn0xmS+CAl61Ic6bOuMmDPKnXCnpskwuRVf7BuNcIeq6rZdp5BowC9DJOC+JZJQ==}
     engines: {node: '>=22'}
 
   starknetkit@2.12.1:
@@ -6875,7 +6875,7 @@ snapshots:
       - encoding
       - typescript
 
-  '@argent/x-ui@1.87.0(b46s52hu5rx6soidp3ah5ycgzy)':
+  '@argent/x-ui@1.87.0(a7qmgysky6pogyo2qzxcruu6ze)':
     dependencies:
       '@argent/x-shared': 1.53.2(@scure/base@1.2.6)(@scure/bip39@1.6.0)(async-retry@1.3.3)(lodash-es@4.17.21)(typescript@5.7.2)(ua-parser-js@1.0.38)(url-join@4.0.1)(zod@3.23.8)
       '@chakra-ui/react': 2.10.9(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(framer-motion@11.18.2(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6903,7 +6903,7 @@ snapshots:
       react-router-dom: 6.26.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-spring-bottom-sheet: 3.5.0-alpha.0(@react-three/fiber@9.2.0(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react-native@0.80.2(@babel/core@7.25.2)(@types/react@18.3.16)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(three@0.178.0))(@types/react@18.3.16)(konva@9.3.22)(react-dom@18.3.1(react@18.3.1))(react-konva@18.2.12(@types/react@18.3.16)(konva@9.3.22)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-native@0.80.2(@babel/core@7.25.2)(@types/react@18.3.16)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react-zdog@1.2.2)(react@18.3.1)(three@0.178.0)(zdog@1.1.3)
       react-virtuoso: 4.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      starknet: 7.6.4
+      starknet: 8.1.2
       swr: 1.3.0(react@18.3.1)
       zod: 3.23.8
 
@@ -7262,9 +7262,9 @@ snapshots:
   '@biomejs/cli-win32-x64@2.1.2':
     optional: true
 
-  '@cartridge/connector@0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@7.6.4)(starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)':
+  '@cartridge/connector@0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@starknet-react/core@packages+core)(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@8.1.2)(starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)':
     dependencies:
-      '@cartridge/controller': 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@7.6.4)(starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
+      '@cartridge/controller': 0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@8.1.2)(starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       '@starknet-react/core': link:packages/core
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -7300,7 +7300,7 @@ snapshots:
 
   '@cartridge/controller-wasm@0.2.4': {}
 
-  '@cartridge/controller@0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@7.6.4)(starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)':
+  '@cartridge/controller@0.9.2(@metamask/sdk@0.32.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@solana/web3.js@1.98.1(bufferutil@4.0.9)(typescript@5.7.2)(utf-8-validate@5.0.10))(@types/react@18.3.16)(bufferutil@4.0.9)(open@10.1.1)(react@18.3.1)(starknet@8.1.2)(starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq))(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)':
     dependencies:
       '@cartridge/controller-wasm': 0.2.4
       '@cartridge/penpal': 6.2.4
@@ -7314,8 +7314,8 @@ snapshots:
       ethers: 6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       mipd: 0.0.7(typescript@5.7.2)
       open: 10.1.1
-      starknet: 7.6.4
-      starknetkit: 2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja)
+      starknet: 8.1.2
+      starknetkit: 2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7839,14 +7839,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -7880,7 +7880,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -9228,6 +9228,8 @@ snapshots:
 
   '@starknet-io/types-js@0.8.4': {}
 
+  '@starknet-io/types-js@0.9.0-beta.5': {}
+
   '@swc/helpers@0.5.17':
     dependencies:
       tslib: 2.8.1
@@ -9401,7 +9403,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.19.48
 
   '@types/cross-spawn@6.0.6':
     dependencies:
@@ -9424,7 +9426,7 @@ snapshots:
 
   '@types/graceful-fs@4.1.9':
     dependencies:
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
 
   '@types/hast@3.0.4':
     dependencies:
@@ -9471,6 +9473,7 @@ snapshots:
   '@types/node@24.1.0':
     dependencies:
       undici-types: 7.8.0
+    optional: true
 
   '@types/parse-json@4.0.2': {}
 
@@ -9509,11 +9512,11 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.19.48
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -10668,7 +10671,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -10677,7 +10680,7 @@ snapshots:
 
   chromium-edge-launcher@0.2.0:
     dependencies:
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -11989,7 +11992,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -11999,7 +12002,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -12026,7 +12029,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       jest-util: 29.7.0
 
   jest-regex-util@29.6.3: {}
@@ -12034,7 +12037,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -12051,7 +12054,7 @@ snapshots:
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 24.1.0
+      '@types/node': 18.19.48
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -12205,8 +12208,6 @@ snapshots:
       js-tokens: 4.0.0
 
   lossless-json@2.0.11: {}
-
-  lossless-json@4.1.0: {}
 
   lossless-json@4.1.1: {}
 
@@ -14159,22 +14160,22 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  starknet@7.6.4:
+  starknet@8.1.2:
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.0
       '@scure/base': 1.2.1
       '@scure/starknet': 1.1.0
-      '@starknet-io/starknet-types-07': '@starknet-io/types-js@0.7.10'
       '@starknet-io/starknet-types-08': '@starknet-io/types-js@0.8.4'
+      '@starknet-io/starknet-types-09': '@starknet-io/types-js@0.9.0-beta.5'
       abi-wan-kanabi: 2.2.4
-      lossless-json: 4.1.0
+      lossless-json: 4.1.1
       pako: 2.1.0
       ts-mixer: 6.0.4
 
-  starknetkit@2.12.1(cqnpb42qhlo4mw5m2xbsfjhmja):
+  starknetkit@2.12.1(pmx5a6r2fvp2xwjwyvc3cpy7gq):
     dependencies:
-      '@argent/x-ui': 1.87.0(b46s52hu5rx6soidp3ah5ycgzy)
+      '@argent/x-ui': 1.87.0(a7qmgysky6pogyo2qzxcruu6ze)
       '@starknet-io/get-starknet': 4.0.7
       '@starknet-io/get-starknet-core': 4.0.7
       '@starknet-io/types-js': 0.7.10
@@ -14188,7 +14189,7 @@ snapshots:
       lodash-es: 4.17.21
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      starknet: 7.6.4
+      starknet: 8.1.2
       svelte-forms: 2.3.1
       trpc-browser: 1.4.4(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
     transitivePeerDependencies:
@@ -14631,7 +14632,8 @@ snapshots:
 
   undici-types@6.19.8: {}
 
-  undici-types@7.8.0: {}
+  undici-types@7.8.0:
+    optional: true
 
   unified@10.1.2:
     dependencies:

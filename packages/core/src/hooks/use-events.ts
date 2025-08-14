@@ -137,7 +137,7 @@ function queryKey({
 // Function to transform a BlockIdentifier into a BLOCK_ID
 function blockIdentifierToBlockId(blockIdentifier: BlockIdentifier) {
   if (blockIdentifier === null) {
-    return BlockTag.PENDING; // null maps to 'pending' as per the BlockIdentifier doc
+    return BlockTag.PRE_CONFIRMED; // null maps to 'pre_confirmed' in v8
   }
 
   if (typeof blockIdentifier === "number") {
