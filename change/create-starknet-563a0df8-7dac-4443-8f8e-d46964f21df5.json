@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "BREAKING: upgrade starknet.js from 7.6.4 to 8.1.2\n\nThis upgrade includes breaking changes from starknet.js v8:\n- Internal RPC channel updated from 0.8.1 to 0.9.0\n- Contract class now uses _Contract instead of Contract\n- Response parser uses resourceBoundsOverhead instead of margin\n- Added new deployer and defaultTipType properties to Account\n- Block identifier defaults changed from 'pending' to 'latest'",
+  "packageName": "create-starknet",
+  "email": "valentin@pupucecorp.com",
+  "dependentChangeType": "patch"
+}
