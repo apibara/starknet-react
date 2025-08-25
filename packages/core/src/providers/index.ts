@@ -6,5 +6,4 @@ export * from "./infura";
 export * from "./jsonrpc";
 export * from "./lava";
 export * from "./public";
-export * from "./reddio";
 export * from "./slot";
