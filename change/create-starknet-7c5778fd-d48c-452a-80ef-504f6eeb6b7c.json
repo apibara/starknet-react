@@ -1,5 +1,5 @@
 {
-  "type": "major",
+  "type": "patch",
   "comment": "BREAKING: bump to v5 for consistency with core package using starknet.js v8\n\nTemplates have been updated to use starknet.js v8.1.2 and will use @starknet-react packages v5.0.0.",
   "packageName": "create-starknet",
   "email": "valentin@pupucecorp.com",

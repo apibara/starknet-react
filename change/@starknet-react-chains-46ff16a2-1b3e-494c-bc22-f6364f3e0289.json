@@ -1,5 +1,5 @@
 {
-  "type": "major",
+  "type": "patch",
   "comment": "BREAKING: bump to v5 for consistency with core package using starknet.js v8\n\nAlthough this package doesn't directly depend on starknet.js, it's part of the starknet-react monorepo and should maintain version parity with @starknet-react/core for consistency and to avoid confusion when users upgrade.",
   "packageName": "@starknet-react/chains",
   "email": "valentin@pupucecorp.com",
