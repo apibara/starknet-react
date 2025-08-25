@@ -1,8 +1,19 @@
 # Change Log - @starknet-react/chains
 
-<!-- This log was last generated on Mon, 28 Jul 2025 18:23:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 25 Aug 2025 20:12:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.1
+
+Mon, 25 Aug 2025 20:12:46 GMT
+
+### Patches
+
+- BREAKING: bump to v5 for consistency with core package using starknet.js v8
+
+Although this package doesn't directly depend on starknet.js, it's part of the starknet-react monorepo and should maintain version parity with @starknet-react/core for consistency and to avoid confusion when users upgrade. (valentin@pupucecorp.com)
+- core: remove non-working RPC (francesco@ceccon.me)
 
 ## 4.0.3
 

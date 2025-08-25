@@ -2,6 +2,21 @@
   "name": "create-starknet",
   "entries": [
     {
+      "date": "Mon, 25 Aug 2025 20:12:46 GMT",
+      "version": "5.0.1",
+      "tag": "create-starknet_v5.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "valentin@pupucecorp.com",
+            "package": "create-starknet",
+            "commit": "27718da7d96eeeba6e8bae949403036977ce04ef",
+            "comment": "BREAKING: bump to v5 for consistency with core package using starknet.js v8\n\nTemplates have been updated to use starknet.js v8.1.2 and will use @starknet-react packages v5.0.0."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Jul 2025 18:23:13 GMT",
       "version": "4.0.3",
       "tag": "create-starknet_v4.0.3",

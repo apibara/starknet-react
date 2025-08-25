@@ -1,8 +1,18 @@
 # Change Log - create-starknet
 
-<!-- This log was last generated on Mon, 28 Jul 2025 18:23:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 25 Aug 2025 20:12:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.1
+
+Mon, 25 Aug 2025 20:12:46 GMT
+
+### Patches
+
+- BREAKING: bump to v5 for consistency with core package using starknet.js v8
+
+Templates have been updated to use starknet.js v8.1.2 and will use @starknet-react packages v5.0.0. (valentin@pupucecorp.com)
 
 ## 4.0.3
 

@@ -2,6 +2,27 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Mon, 25 Aug 2025 20:12:46 GMT",
+      "version": "5.0.1",
+      "tag": "@starknet-react/core_v5.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/core",
+            "commit": "27718da7d96eeeba6e8bae949403036977ce04ef",
+            "comment": "core: remove non-working RPC"
+          },
+          {
+            "author": "valentin@pupucecorp.com",
+            "package": "@starknet-react/core",
+            "commit": "27718da7d96eeeba6e8bae949403036977ce04ef",
+            "comment": "BREAKING: upgrade starknet.js from 7.6.4 to 8.1.2\n\nThis upgrade includes breaking changes from starknet.js v8:\n- Internal RPC channel updated from 0.8.1 to 0.9.0\n- Contract class now uses _Contract instead of Contract\n- Response parser uses resourceBoundsOverhead instead of margin\n- Added new deployer and defaultTipType properties to Account\n- Block identifier defaults changed from 'pending' to 'latest'"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Aug 2025 12:21:21 GMT",
       "version": "4.0.4",
       "tag": "@starknet-react/core_v4.0.4",

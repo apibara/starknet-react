@@ -2,6 +2,27 @@
   "name": "@starknet-react/chains",
   "entries": [
     {
+      "date": "Mon, 25 Aug 2025 20:12:46 GMT",
+      "version": "5.0.1",
+      "tag": "@starknet-react/chains_v5.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "valentin@pupucecorp.com",
+            "package": "@starknet-react/chains",
+            "commit": "27718da7d96eeeba6e8bae949403036977ce04ef",
+            "comment": "BREAKING: bump to v5 for consistency with core package using starknet.js v8\n\nAlthough this package doesn't directly depend on starknet.js, it's part of the starknet-react monorepo and should maintain version parity with @starknet-react/core for consistency and to avoid confusion when users upgrade."
+          },
+          {
+            "author": "francesco@ceccon.me",
+            "package": "@starknet-react/chains",
+            "commit": "27718da7d96eeeba6e8bae949403036977ce04ef",
+            "comment": "core: remove non-working RPC"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Jul 2025 18:23:13 GMT",
       "version": "4.0.3",
       "tag": "@starknet-react/chains_v4.0.3",

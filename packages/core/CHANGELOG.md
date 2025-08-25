@@ -1,8 +1,24 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 11 Aug 2025 12:21:21 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 25 Aug 2025 20:12:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.1
+
+Mon, 25 Aug 2025 20:12:46 GMT
+
+### Patches
+
+- core: remove non-working RPC (francesco@ceccon.me)
+- BREAKING: upgrade starknet.js from 7.6.4 to 8.1.2
+
+This upgrade includes breaking changes from starknet.js v8:
+- Internal RPC channel updated from 0.8.1 to 0.9.0
+- Contract class now uses _Contract instead of Contract
+- Response parser uses resourceBoundsOverhead instead of margin
+- Added new deployer and defaultTipType properties to Account
+- Block identifier defaults changed from 'pending' to 'latest' (valentin@pupucecorp.com)
 
 ## 4.0.4
 
