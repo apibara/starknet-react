@@ -12,7 +12,7 @@ describe("useContract", () => {
 
     expect(result.current).toMatchInlineSnapshot(`
       {
-        "contract": Contract {
+        "contract": _Contract {
           "abi": [
             {
               "members": [
@@ -173,8 +173,7 @@ describe("useContract", () => {
           "callStatic": {
             "name": [Function],
           },
-          "contractOptions": undefined,
-          "deployTransactionHash": undefined,
+          "classHash": undefined,
           "estimateFee": {
             "name": [Function],
           },
@@ -190,13 +189,13 @@ describe("useContract", () => {
             "channel": RpcChannel2 {
               "baseFetch": [Function],
               "batchClient": undefined,
-              "blockIdentifier": "pending",
+              "blockIdentifier": "latest",
               "chainId": "0x534e5f5345504f4c4941",
-              "channelSpecVersion": "0.8.1",
+              "channelSpecVersion": "0.9.0",
               "headers": {
                 "Content-Type": "application/json",
               },
-              "id": "RPC081",
+              "id": "RPC090",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,
@@ -206,7 +205,7 @@ describe("useContract", () => {
             },
             "getStateUpdate": [Function],
             "responseParser": RPCResponseParser {
-              "margin": undefined,
+              "resourceBoundsOverhead": undefined,
             },
           },
           "structs": {
@@ -225,6 +224,7 @@ describe("useContract", () => {
               "type": "struct",
             },
           },
+          "withOptionsProps": undefined,
         },
       }
     `);
