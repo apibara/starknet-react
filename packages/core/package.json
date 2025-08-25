@@ -41,7 +41,7 @@
   "peerDependencies": {
     "get-starknet-core": "^4.0.0",
     "react": "^18.0",
-    "starknet": "^7.6.4"
+    "starknet": "^8.1.2"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*",
@@ -52,7 +52,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^4.1.2",
-    "starknet": "^7.6.4",
+    "starknet": "^8.1.2",
     "tsup": "^8.0.2",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.2"

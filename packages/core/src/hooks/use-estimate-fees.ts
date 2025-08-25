@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import type {
   AccountInterface,
   Call,
-  EstimateFeeDetails,
-  EstimateFeeResponse,
+  EstimateFeeResponseOverhead,
+  UniversalDetails,
 } from "starknet";
 
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
@@ -15,15 +15,15 @@ export type EstimateFeesArgs = {
   /** List of smart contract calls to estimate. */
   calls?: Call[];
   /** Estimate Fee options. */
-  options?: EstimateFeeDetails;
+  options?: UniversalDetails;
 };
 
 /** Options for `useEstimateFees`. */
 export type UseEstimateFeesProps = EstimateFeesArgs &
   UseQueryProps<
-    EstimateFeeResponse,
+    EstimateFeeResponseOverhead,
     Error,
-    EstimateFeeResponse,
+    EstimateFeeResponseOverhead,
     ReturnType<typeof queryKey>
   > & {
     /** Refresh data at every block. */
@@ -31,7 +31,10 @@ export type UseEstimateFeesProps = EstimateFeesArgs &
   };
 
 /** Value returned from `useEstimateFees`. */
-export type UseEstimateFeesResult = UseQueryResult<EstimateFeeResponse, Error>;
+export type UseEstimateFeesResult = UseQueryResult<
+  EstimateFeeResponseOverhead,
+  Error
+>;
 
 /**
  * Hook to estimate fees for smart contract calls.

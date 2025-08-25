@@ -85,13 +85,13 @@ describe("useAccount", () => {
             "channel": RpcChannel2 {
               "baseFetch": [Function],
               "batchClient": undefined,
-              "blockIdentifier": "pending",
+              "blockIdentifier": "latest",
               "chainId": undefined,
-              "channelSpecVersion": "0.8.1",
+              "channelSpecVersion": "0.9.0",
               "headers": {
                 "Content-Type": "application/json",
               },
-              "id": "RPC081",
+              "id": "RPC090",
               "nodeUrl": "http://localhost:5050/rpc",
               "requestId": 0,
               "retries": 200,
@@ -99,7 +99,12 @@ describe("useAccount", () => {
               "transactionRetryIntervalFallback": undefined,
               "waitMode": false,
             },
+            "defaultTipType": "recommendedTip",
             "deploySelf": [Function],
+            "deployer": Deployer {
+              "address": "0x02ceed65a4bd731034c01113685c831b01c15d7d432f71afb1cf1634b53a2125",
+              "entryPoint": "deploy_contract",
+            },
             "getStateUpdate": [Function],
             "paymaster": _PaymasterRpc {
               "baseFetch": [Function],
@@ -110,7 +115,7 @@ describe("useAccount", () => {
               "requestId": 0,
             },
             "responseParser": RPCResponseParser {
-              "margin": undefined,
+              "resourceBoundsOverhead": undefined,
             },
             "signer": Signer {
               "pk": "0xe1406455b7d66b1690803be066cbe5e",
