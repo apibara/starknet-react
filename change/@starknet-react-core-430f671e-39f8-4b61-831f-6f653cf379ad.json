@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "core: remove non-working RPC",
+  "packageName": "@starknet-react/core",
+  "email": "francesco@ceccon.me",
+  "dependentChangeType": "patch"
+}
