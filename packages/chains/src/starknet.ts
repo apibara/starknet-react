@@ -33,9 +33,6 @@ export const mainnet = {
     lava: {
       http: ["https://g.w.lavanet.xyz:443/gateway/strk/rpc-http"],
     },
-    reddio: {
-      http: ["https://starknet-mainnet.reddio.com"],
-    },
     cartridge: {
       http: ["https://api.cartridge.gg/x/starknet/mainnet"],
     },
@@ -81,9 +78,6 @@ export const sepolia = {
     },
     infura: {
       http: ["https://starknet-sepolia.infura.io/v3"],
-    },
-    reddio: {
-      http: ["https://starknet-sepolia.reddio.com"],
     },
     cartridge: {
       http: ["https://api.cartridge.gg/x/starknet/sepolia"],
