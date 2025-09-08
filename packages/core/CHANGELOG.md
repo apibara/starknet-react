@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 25 Aug 2025 20:12:46 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Sep 2025 15:33:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.2
+
+Mon, 08 Sep 2025 15:33:35 GMT
+
+### Patches
+
+- core: fix connector `connect()` bug when network is different in wallet (jadejajaipal5@gmail.com)
 
 ## 5.0.1
 

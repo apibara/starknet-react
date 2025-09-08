@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Mon, 08 Sep 2025 15:33:35 GMT",
+      "version": "5.0.2",
+      "tag": "@starknet-react/core_v5.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "7025f0e7c891ac849a488e57aa9d826f2b8686ed",
+            "comment": "core: fix connector `connect()` bug when network is different in wallet"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 25 Aug 2025 20:12:46 GMT",
       "version": "5.0.1",
       "tag": "@starknet-react/core_v5.0.1",

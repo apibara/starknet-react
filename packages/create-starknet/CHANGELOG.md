@@ -1,8 +1,16 @@
 # Change Log - create-starknet
 
-<!-- This log was last generated on Mon, 25 Aug 2025 20:12:46 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 08 Sep 2025 15:33:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.2
+
+Mon, 08 Sep 2025 15:33:35 GMT
+
+### Patches
+
+- create-starknet: bump packages (jadejajaipal5@gmail.com)
 
 ## 5.0.1
 
