@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@starknet-react/chains": "^5.0.0",
-    "@starknet-react/core": "^5.0.0",
+    "@starknet-react/chains": "^5.0.2",
+    "@starknet-react/core": "^5.0.2",
     "get-starknet-core": "^4.0.0",
     "next": "15.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "starknet": "^8.1.2"
+    "starknet": "^8.5.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
