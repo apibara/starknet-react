@@ -27,7 +27,9 @@ function SwitchChainInner() {
   return (
     <div className="flex flex-col gap-4">
       <p>Current Chain:</p>
-      <pre>{chain.name}</pre>
+      <pre>
+        {chain.name} | {chain.id.toString()}
+      </pre>
 
       <p>Response</p>
       <pre>
