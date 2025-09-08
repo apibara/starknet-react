@@ -46,7 +46,7 @@ function EstimateFeesInner() {
             isError,
             error: error?.message,
             suggestedMaxFee: `${formatAmount(
-              data?.suggestedMaxFee,
+              data?.overall_fee,
               chain.nativeCurrency.decimals,
             )} ${chain.nativeCurrency.symbol}`,
           },

@@ -137,14 +137,6 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
-    const accounts = await this.request({
-      type: "wallet_requestAccounts",
-    });
-
-    if (!accounts) {
-      throw new UserRejectedRequestError();
-    }
-
     // if chainIdHint is provided, we need to make sure the chain is correct when we connect
     if (_args.chainIdHint) {
       const chainId = await this.requestChainId();
@@ -152,6 +144,14 @@ export class InjectedConnector extends Connector {
       if (chainId !== _args.chainIdHint) {
         await this.switchChain(_args.chainIdHint);
       }
+    }
+
+    const accounts = await this.request({
+      type: "wallet_requestAccounts",
+    });
+
+    if (!accounts) {
+      throw new UserRejectedRequestError();
     }
 
     this._wallet.on("accountsChanged", async (accounts) => {

@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "core: fix connector `connect()` bug when network is different in wallet",
+  "packageName": "@starknet-react/core",
+  "email": "jadejajaipal5@gmail.com",
+  "dependentChangeType": "patch"
+}

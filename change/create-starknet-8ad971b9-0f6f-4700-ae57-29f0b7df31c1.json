@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "create-starknet: bump packages",
+  "packageName": "create-starknet",
+  "email": "jadejajaipal5@gmail.com",
+  "dependentChangeType": "patch"
+}
