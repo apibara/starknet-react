@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "core: fix wallet.connect and wrong acc on network switch while connect",
-  "packageName": "@starknet-react/core",
-  "email": "jadejajaipal5@gmail.com",
-  "dependentChangeType": "patch"
-}

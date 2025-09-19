@@ -1,8 +1,16 @@
 # Change Log - @starknet-react/core
 
-<!-- This log was last generated on Mon, 08 Sep 2025 15:33:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 19 Sep 2025 09:41:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.3
+
+Fri, 19 Sep 2025 09:41:34 GMT
+
+### Patches
+
+- core: fix wallet.connect and wrong acc on network switch while connect (jadejajaipal5@gmail.com)
 
 ## 5.0.2
 

@@ -2,6 +2,21 @@
   "name": "@starknet-react/core",
   "entries": [
     {
+      "date": "Fri, 19 Sep 2025 09:41:34 GMT",
+      "version": "5.0.3",
+      "tag": "@starknet-react/core_v5.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "jadejajaipal5@gmail.com",
+            "package": "@starknet-react/core",
+            "commit": "cb65e0519b23905f91babf81e05f96c3eb79b960",
+            "comment": "core: fix wallet.connect and wrong acc on network switch while connect"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Sep 2025 15:33:35 GMT",
       "version": "5.0.2",
       "tag": "@starknet-react/core_v5.0.2",
