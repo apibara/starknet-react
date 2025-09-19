@@ -137,14 +137,13 @@ export class InjectedConnector extends Connector {
       throw new ConnectorNotFoundError();
     }
 
-    // if chainIdHint is provided, we need to make sure the chain is correct when we connect
-    if (_args.chainIdHint) {
-      const chainId = await this.requestChainId();
-      // if the chainId is not the same as the hint, we need to switch the chain
-      if (chainId !== _args.chainIdHint) {
-        await this.switchChain(_args.chainIdHint);
-      }
-    }
+    this._wallet.on("accountsChanged", async (accounts) => {
+      await this.onAccountsChanged(accounts);
+    });
+
+    this._wallet.on("networkChanged", (chainId, accounts) => {
+      this.onNetworkChanged(chainId, accounts);
+    });
 
     const accounts = await this.request({
       type: "wallet_requestAccounts",
@@ -154,15 +153,14 @@ export class InjectedConnector extends Connector {
       throw new UserRejectedRequestError();
     }
 
-    this._wallet.on("accountsChanged", async (accounts) => {
-      await this.onAccountsChanged(accounts);
-    });
-
-    this._wallet.on("networkChanged", (chainId, accounts) => {
-      this.onNetworkChanged(chainId, accounts);
-    });
-
-    await this.onAccountsChanged(accounts);
+    // if chainIdHint is provided, we need to make sure the chain is correct when we connect
+    if (_args.chainIdHint) {
+      const chainId = await this.requestChainId();
+      // if the chainId is not the same as the hint, we need to switch the chain
+      if (chainId !== _args.chainIdHint) {
+        await this.switchChain(_args.chainIdHint);
+      }
+    }
 
     const [account] = accounts;
 
