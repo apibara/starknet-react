@@ -3,5 +3,6 @@ packages:
   - "packages/core"
   - "packages/create-starknet"
   - "packages/typescript-config"
+  - "packages/vue"
   - "docs"
   - "!packages/create-starknet/src/**"

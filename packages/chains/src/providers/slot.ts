@@ -1,4 +1,4 @@
-import { getSlotChain } from "@starknet-react/chains";
+import { getSlotChain } from "../slot";
 import { jsonRpcProvider } from "./jsonrpc";
 
 /** Arguments for `slotProvider`. */

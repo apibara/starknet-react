@@ -1,13 +1,13 @@
-import type { Chain } from "@starknet-react/chains";
+import type { Chain } from "../types";
 import type { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the StarkscanExplorer class that extends Explorer
-export class CartridgeExplorer implements Explorer {
-  public name = "Cartridge Explorer";
+export class StarkscanExplorer implements Explorer {
+  public name = "Starkscan";
   private link: string;
 
   constructor(chain: Chain) {
-    this.link = chain.explorers?.["cartridge"]?.toString() ?? "";
+    this.link = chain.explorers?.["starkscan"]?.toString() ?? "";
   }
 
   block(hashOrNumber: { hash?: string; number?: number }): string {
@@ -28,6 +28,6 @@ export class CartridgeExplorer implements Explorer {
 }
 
 // Define the starkscan factory function
-export const cartridge: ExplorerFactory<CartridgeExplorer> = (chain: Chain) => {
-  return new CartridgeExplorer(chain);
+export const starkscan: ExplorerFactory<StarkscanExplorer> = (chain: Chain) => {
+  return new StarkscanExplorer(chain);
 };

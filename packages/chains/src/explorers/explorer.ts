@@ -1,4 +1,4 @@
-import type { Chain } from "@starknet-react/chains";
+import type { Chain } from "../types";
 
 export interface Explorer {
   // link to a block

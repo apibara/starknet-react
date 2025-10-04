@@ -1,4 +1,4 @@
-import type { Chain } from "@starknet-react/chains";
+import type { Chain } from "../types";
 import type { Explorer, ExplorerFactory } from "./explorer";
 
 // Define the ViewblockExplorer class that extends Explorer

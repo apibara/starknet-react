@@ -1,5 +1,6 @@
+import type { Explorer } from "@starknet-react/chains/explorers";
+
 import { useStarknet } from "../context/starknet";
-import type { Explorer } from "../explorers";
 
 /** Access the current explorer, should be inside a StarknetConfig. */
 export function useExplorer(): Explorer {

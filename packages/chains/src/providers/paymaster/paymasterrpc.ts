@@ -1,4 +1,4 @@
-import type { Chain } from "@starknet-react/chains";
+import type { Chain } from "../../types";
 import { PaymasterRpc, type RpcProviderOptions } from "starknet";
 
 import type { ChainPaymasterFactory } from "./factory";

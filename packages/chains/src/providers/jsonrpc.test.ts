@@ -1,4 +1,5 @@
-import { type Chain, mainnet } from "@starknet-react/chains";
+import type { Chain } from "../types";
+import { mainnet } from "../starknet";
 
 import { describe, expect, it } from "vitest";
 import { jsonRpcProvider } from "./jsonrpc";

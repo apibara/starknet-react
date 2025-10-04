@@ -4,7 +4,7 @@ import { accounts, defaultConnector } from "../../test/devnet";
 import { act, renderHook } from "../../test/react";
 import type { MockConnector } from "../connectors";
 
-import { jsonRpcProvider } from "../providers";
+import { jsonRpcProvider } from "@starknet-react/chains/providers";
 import { StarknetProvider, useStarknet } from "./starknet";
 
 describe("StarknetProvider", () => {

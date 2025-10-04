@@ -1,4 +1,4 @@
-import { devnet } from "@starknet-react/chains";
+import { devnet } from "../devnet";
 
 import { describe, expect, it } from "vitest";
 import { publicProvider } from "./public";
