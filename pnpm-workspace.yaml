@@ -4,5 +4,6 @@ packages:
   - "packages/create-starknet"
   - "packages/typescript-config"
   - "packages/vue"
+  - "examples/*"
   - "docs"
   - "!packages/create-starknet/src/**"

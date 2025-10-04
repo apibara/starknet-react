@@ -94,6 +94,34 @@ importers:
         specifier: ^3.4.10
         version: 3.4.10
 
+  examples/starknet-vue-demo:
+    dependencies:
+      '@starknet-react/chains':
+        specifier: workspace:^
+        version: link:../../packages/chains
+      '@tanstack/vue-query':
+        specifier: ^5.25.0
+        version: 5.90.2(vue@3.5.22(typescript@5.7.2))
+      starknet:
+        specifier: ^8.1.2
+        version: 8.1.2
+      starknet-vue:
+        specifier: workspace:^
+        version: link:../../packages/vue
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.22(typescript@5.7.2)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.0.0
+        version: 5.2.4(vite@5.4.2(@types/node@24.1.0)(terser@5.43.1))(vue@3.5.22(typescript@5.7.2))
+      typescript:
+        specifier: ^5.7.2
+        version: 5.7.2
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.2(@types/node@24.1.0)(terser@5.43.1)
+
   packages/chains:
     dependencies:
       starknet:
@@ -2611,6 +2639,13 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
+
+  '@vitejs/plugin-vue@5.2.4':
+    resolution: {integrity: sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0
+      vue: ^3.2.25
 
   '@vitest/expect@1.6.0':
     resolution: {integrity: sha512-ixEvFVQjycy/oNgHjqsL6AZCDduC+tflRluaHIzKIsdbzkLn2U/iBnVeJwB6HsIjQBdfMR8Z0tRxKUsvFJEeWQ==}
@@ -9783,6 +9818,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@vitejs/plugin-vue@5.2.4(vite@5.4.2(@types/node@24.1.0)(terser@5.43.1))(vue@3.5.22(typescript@5.7.2))':
+    dependencies:
+      vite: 5.4.2(@types/node@24.1.0)(terser@5.43.1)
+      vue: 3.5.22(typescript@5.7.2)
+
   '@vitest/expect@1.6.0':
     dependencies:
       '@vitest/spy': 1.6.0
@@ -15177,7 +15217,7 @@ snapshots:
   vite@5.4.2(@types/node@24.1.0)(terser@5.43.1):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.4.44
+      postcss: 8.5.6
       rollup: 4.21.2
     optionalDependencies:
       '@types/node': 24.1.0
