@@ -24,11 +24,13 @@ import {
 import type { Connector } from "../connectors";
 import type { ConnectorData } from "../connectors/base";
 import { ConnectorNotFoundError } from "../errors";
-import type { ExplorerFactory } from "../explorers/";
-import type { ChainProviderFactory } from "../providers";
+import type { ExplorerFactory } from "@starknet-react/chains/explorers";
+import type { ChainProviderFactory } from "@starknet-react/chains/providers";
 
-import { avnuPaymasterProvider } from "../providers/paymaster";
-import type { ChainPaymasterFactory } from "../providers/paymaster/factory";
+import {
+  avnuPaymasterProvider,
+  type ChainPaymasterFactory,
+} from "@starknet-react/chains/providers/paymaster";
 import { AccountProvider } from "./account";
 
 const defaultQueryClient = new QueryClient();

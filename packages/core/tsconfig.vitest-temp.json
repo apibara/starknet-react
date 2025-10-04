@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "emitDeclarationOnly": false,
+    "incremental": true,
+    "tsBuildInfoFile": "/Users/0xevolve/Documents/GitHub/starknet-react/node_modules/.pnpm/vitest@1.6.0_@types+node@24.1.0_jsdom@24.1.3_bufferutil@4.0.9_utf-8-validate@5.0.10__terser@5.43.1/node_modules/vitest/dist/vendor/tsconfig.tmp.tsbuildinfo"
+  },
+  "exclude": [
+    "dist"
+  ]
+}

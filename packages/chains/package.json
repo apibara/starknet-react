@@ -11,7 +11,13 @@
   ],
   "type": "module",
   "main": "./src/index.ts",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./providers": "./src/providers/index.ts",
+    "./providers/paymaster": "./src/providers/paymaster/index.ts",
+    "./explorers": "./src/explorers/index.ts",
+    "./utils": "./src/utils.ts"
+  },
   "publishConfig": {
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -20,6 +26,26 @@
         "types": "./dist/index.d.ts",
         "import": "./dist/index.js",
         "default": "./dist/index.js"
+      },
+      "./providers": {
+        "types": "./dist/providers/index.d.ts",
+        "import": "./dist/providers/index.js",
+        "default": "./dist/providers/index.js"
+      },
+      "./providers/paymaster": {
+        "types": "./dist/providers/paymaster/index.d.ts",
+        "import": "./dist/providers/paymaster/index.js",
+        "default": "./dist/providers/paymaster/index.js"
+      },
+      "./explorers": {
+        "types": "./dist/explorers/index.d.ts",
+        "import": "./dist/explorers/index.js",
+        "default": "./dist/explorers/index.js"
+      },
+      "./utils": {
+        "types": "./dist/utils.d.ts",
+        "import": "./dist/utils.js",
+        "default": "./dist/utils.js"
       }
     },
     "files": [
@@ -35,6 +61,9 @@
     "lint:fix": "pnpm lint --write",
     "format:check": "biome format .",
     "format": "biome format . --write"
+  },
+  "dependencies": {
+    "starknet": "^8.1.2"
   },
   "devDependencies": {
     "@starknet-react/typescript-config": "workspace:*",
