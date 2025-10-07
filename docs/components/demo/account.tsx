@@ -1,4 +1,4 @@
-import { useAccount } from "@starknet-react/core";
+import { useAccount } from "@starknet-start/react";
 import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 

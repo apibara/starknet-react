@@ -1,6 +1,6 @@
 {
-  "name": "@starknet-react/typescript-config",
-  "version": "0.0.2",
+  "name": "@starknet-start/typescript-config",
+  "version": "0.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

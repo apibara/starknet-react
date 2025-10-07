@@ -2,8 +2,8 @@
 
 #### **Did you find a bug?**
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/apibara/starknet-react/issues).
-* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/apibara/starknet-react/issues/new). Be sure to include a**title and clear description**, as much relevant information as possible, and a**code sample** or an**executable test case** demonstrating the expected behavior that is not occurring.
+* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/starknet-start/starknet-start/issues).
+* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/starknet-start/starknet-start/issues/new). Be sure to include a**title and clear description**, as much relevant information as possible, and a**code sample** or an**executable test case** demonstrating the expected behavior that is not occurring.
 
 #### **Did you write a patch that fixes a bug?**
 
@@ -31,12 +31,12 @@ Changes that are cosmetic in nature and do not add anything substantial to the s
 
 NOTICE: there's an issue with vocs on Windows. Please use the Windows Linux Subsystem (WSL) for now.
 
-The project is a standard [turbo](https://turbo.build/repo/docs) repo, you will find all `starknet-react` packages in the `packages` directory.
+The project is a standard [turbo](https://turbo.build/repo/docs) repo, you will find all `starknet-start` packages in the `packages` directory.
 
 Clone this repository
 
 ```
-git clone git@github.com:apibara/starknet-react.git
+git clone git@github.com:starknet-start/starknet-start.git
 ```
 
 Install the dependencies

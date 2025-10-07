@@ -1,4 +1,4 @@
-import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import { useAccount, useConnect, useDisconnect } from "@starknet-start/react";
 import { Button } from "../ui/button";
 
 export function WalletBar() {

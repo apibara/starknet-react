@@ -27,7 +27,7 @@ jobs:
         run: |
           git config user.name "Capy Bot"
           git config user.email "capy-bot@apibara.com"
-          git remote set-url origin "https://${GIT_TOKEN}@github.com/apibara/starknet-react"
+          git remote set-url origin "https://${GIT_TOKEN}@github.com/starknet-start/starknet-start"
         env:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
       - name: Install dependencies

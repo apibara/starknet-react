@@ -1,9 +1,10 @@
 {
-  "name": "@starknet-react/docs",
+  "name": "@starknet-start/docs",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
+    "typecheck": "tsc --noEmit",
     "build": "vocs build",
     "preview": "vocs preview",
     "lint": "biome lint components",
@@ -18,8 +19,10 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
-    "@starknet-react/chains": "workspace:*",
-    "@starknet-react/core": "workspace:*",
+    "@starknet-start/chains": "workspace:*",
+    "@starknet-start/explorers": "workspace:*",
+    "@starknet-start/providers": "workspace:*",
+    "@starknet-start/react": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.438.0",
@@ -32,7 +35,7 @@
     "vocs": "1.0.0-alpha.55"
   },
   "devDependencies": {
-    "@starknet-react/typescript-config": "workspace:*",
+    "@starknet-start/typescript-config": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "tailwindcss": "^3.4.10"

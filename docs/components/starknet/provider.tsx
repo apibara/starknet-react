@@ -1,12 +1,12 @@
-import { mainnet, sepolia } from "@starknet-react/chains";
+import { mainnet, sepolia } from "@starknet-start/chains";
+import type { ExplorerFactory } from "@starknet-start/explorers";
+import { publicProvider } from "@starknet-start/providers";
 import {
-  type ExplorerFactory,
   StarknetConfig,
   ready,
   braavos,
-  publicProvider,
   useInjectedConnectors,
-} from "@starknet-react/core";
+} from "@starknet-start/react";
 
 export function StarknetProvider({
   defaultChainId,

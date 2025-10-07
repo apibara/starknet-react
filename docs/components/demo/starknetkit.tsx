@@ -1,11 +1,11 @@
-import { mainnet, sepolia } from "@starknet-react/chains";
+import { mainnet, sepolia } from "@starknet-start/chains";
+import { publicProvider } from "@starknet-start/providers";
 import {
   type Connector,
-  publicProvider,
   StarknetConfig,
   useAccount,
   useConnect,
-} from "@starknet-react/core";
+} from "@starknet-start/react";
 import { useState } from "react";
 import {
   type StarknetkitConnector,

@@ -2,7 +2,7 @@ import {
   type Address,
   useAccount,
   useNonceForAddress,
-} from "@starknet-react/core";
+} from "@starknet-start/react";
 import stringify from "safe-stable-stringify";
 import { DemoContainer } from "../starknet";
 
