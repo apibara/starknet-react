@@ -1,41 +1,25 @@
 import type { Chain } from "@starknet-start/chains";
 import { type BlockNumber, type CallOptions, num, shortString } from "starknet";
 import { formatUnits } from "viem";
+import { StarknetTypedContract } from "./contract";
 
-export type BalanceQueryKeyParams = {
-  chain: Chain;
-  token?: string;
-  address?: string;
-  blockIdentifier?: BlockNumber;
-};
-
-export type BalanceContract = {
-  withOptions(options: CallOptions): BalanceContract;
-  symbol(): Promise<unknown>;
-  decimals(): Promise<unknown>;
-  balanceOf(address: string): Promise<unknown>;
-};
-
-export type BalanceQueryFnParams = BalanceQueryKeyParams & {
-  contract?: BalanceContract;
-};
-
-export type BalanceResult = {
-  value: bigint;
-  decimals: number;
-  symbol: string;
-  formatted: string;
-};
+type TAbi = typeof balanceABIFragment;
+type Contract = StarknetTypedContract<TAbi>;
 
 export function balanceQueryKey({
   chain,
   token,
   address,
   blockIdentifier,
-}: BalanceQueryKeyParams) {
+}: {
+  chain: Chain;
+  token?: string;
+  address?: string;
+  blockIdentifier?: BlockNumber;
+}) {
   return [
     {
-      entity: "balance" as const,
+      entity: "balance",
       chainId: chain?.name,
       token,
       address,
@@ -50,8 +34,14 @@ export function balanceQueryFn({
   address,
   contract,
   blockIdentifier,
-}: BalanceQueryFnParams) {
-  return async (): Promise<BalanceResult> => {
+}: {
+  chain: Chain;
+  token?: string;
+  address?: string;
+  contract?: Contract;
+  blockIdentifier?: BlockNumber;
+}) {
+  return async () => {
     if (!address) throw new Error("address is required");
     if (!contract) throw new Error("contract is required");
 
@@ -59,29 +49,86 @@ export function balanceQueryFn({
       blockIdentifier,
     };
 
-    const contractWithOptions = contract.withOptions(options);
     const isNativeCurrency = token === chain.nativeCurrency.address;
 
     let symbol = chain.nativeCurrency.symbol;
     if (!isNativeCurrency) {
-      const symbol_ = await contractWithOptions.symbol();
+      const symbol_ = await contract.withOptions(options).symbol();
       symbol = shortString.decodeShortString(num.toHex(symbol_));
     }
 
     let decimals = chain.nativeCurrency.decimals;
     if (!isNativeCurrency) {
-      const decimals_ = await contractWithOptions.decimals();
+      const decimals_ = await contract.withOptions(options).decimals();
       decimals = Number(decimals_);
     }
 
-    const balanceOf = (await contractWithOptions.balanceOf(address)) as bigint;
+    const balanceOf = (await contract
+      .withOptions(options)
+      .balanceOf(address)) as bigint;
+
     const formatted = formatUnits(balanceOf, decimals);
 
     return {
       value: balanceOf,
-      decimals,
-      symbol,
-      formatted,
+      decimals: decimals,
+      symbol: symbol,
+      formatted: formatted,
     };
   };
 }
+
+const balanceABIFragment = [
+  {
+    name: "core::integer::u256",
+    type: "struct",
+    members: [
+      {
+        name: "low",
+        type: "core::integer::u128",
+      },
+      {
+        name: "high",
+        type: "core::integer::u128",
+      },
+    ],
+  },
+  {
+    name: "balanceOf",
+    type: "function",
+    inputs: [
+      {
+        name: "account",
+        type: "core::starknet::contract_address::ContractAddress",
+      },
+    ],
+    outputs: [
+      {
+        type: "core::integer::u256",
+      },
+    ],
+    state_mutability: "view",
+  },
+  {
+    name: "symbol",
+    type: "function",
+    inputs: [],
+    outputs: [
+      {
+        type: "core::felt252",
+      },
+    ],
+    state_mutability: "view",
+  },
+  {
+    name: "decimals",
+    type: "function",
+    inputs: [],
+    outputs: [
+      {
+        type: "core::integer::u8",
+      },
+    ],
+    state_mutability: "view",
+  },
+] as const;

@@ -2,6 +2,7 @@ export * from "./balance";
 export * from "./block";
 export * from "./block-number";
 export * from "./call";
+export * from "./contract";
 export * from "./estimate-fees";
 export * from "./events";
 export * from "./nonce-for-address";

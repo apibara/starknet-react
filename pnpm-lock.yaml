@@ -158,6 +158,9 @@ importers:
       '@starknet-start/chains':
         specifier: workspace:^
         version: link:../chains
+      abi-wan-kanabi:
+        specifier: ^2.2.4
+        version: 2.2.4
       starknet:
         specifier: ^8.1.2
         version: 8.5.5
