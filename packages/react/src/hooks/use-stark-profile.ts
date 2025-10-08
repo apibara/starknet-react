@@ -1,17 +1,15 @@
 import type { Address } from "@starknet-start/chains";
-import { useMemo } from "react";
-
-import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-
-import { useContract } from "./use-contract";
-import { useNetwork } from "./use-network";
 import {
   STARKNET_ID_CONTRACTS,
-  starkProfileQueryFn,
-  starkProfileQueryKey,
   type StarkProfileQueryFnParams,
   type StarkProfileResponse,
+  starkProfileQueryFn,
+  starkProfileQueryKey,
 } from "@starknet-start/query";
+import { useMemo } from "react";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
+import { useContract } from "./use-contract";
+import { useNetwork } from "./use-network";
 
 /** Arguments for `useStarkProfile` hook. */
 export type StarkProfileArgs = UseQueryProps<

@@ -1,16 +1,15 @@
 import type { Address } from "@starknet-start/chains";
+import {
+  type CallQueryArgs,
+  callQueryFn,
+  callQueryKey,
+} from "@starknet-start/query";
 import { useMemo } from "react";
 import { type Abi, BlockTag, type CallResult, type Contract } from "starknet";
-
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 import { useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import { useNetwork } from "./use-network";
-import {
-  callQueryFn,
-  callQueryKey,
-  type CallQueryArgs,
-} from "@starknet-start/query";
 
 const DEFAULT_FETCH_INTERVAL = 5_000;
 

@@ -1,15 +1,13 @@
-import { useMemo } from "react";
-import type { PaymasterFeeEstimate } from "starknet";
-
-import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-
-import { useAccount } from "./use-account";
-import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import {
+  type PaymasterEstimateFeesArgs,
   paymasterEstimateFeesQueryFn,
   paymasterEstimateFeesQueryKey,
-  type PaymasterEstimateFeesArgs,
 } from "@starknet-start/query";
+import { useMemo } from "react";
+import type { PaymasterFeeEstimate } from "starknet";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
+import { useAccount } from "./use-account";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 
 /** Options for `useEstimateFees`. */
 export type UsePaymasterEstimateFeesProps = PaymasterEstimateFeesArgs &

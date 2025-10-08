@@ -1,7 +1,7 @@
-import {
-  type BlockNumber,
-  type GetBlockResponse,
-  type ProviderInterface,
+import type {
+  BlockNumber,
+  GetBlockResponse,
+  ProviderInterface,
 } from "starknet";
 
 export type BlockNumberQueryKeyParams = {

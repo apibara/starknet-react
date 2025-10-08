@@ -1,14 +1,12 @@
-import { useMemo } from "react";
-import type { GetTransactionReceiptResponse } from "starknet";
-
-import { useStarknet } from "../context/starknet";
-import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-
-import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 import {
   transactionReceiptQueryFn,
   transactionReceiptQueryKey,
 } from "@starknet-start/query";
+import { useMemo } from "react";
+import type { GetTransactionReceiptResponse } from "starknet";
+import { useStarknet } from "../context/starknet";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
 
 /** Arguments for the `useTransactionReceipt` hook. */
 export type UseTransactionReceiptProps = UseQueryProps<

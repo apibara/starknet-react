@@ -1,17 +1,16 @@
 import type { Events } from "@starknet-io/types-js";
-import { type RpcProvider } from "starknet";
+import {
+  type EventsQueryKeyParams,
+  eventsQueryFn,
+  eventsQueryKey,
+} from "@starknet-start/query";
+import type { RpcProvider } from "starknet";
 import {
   type UseInfiniteQueryProps,
   type UseInfiniteQueryResult,
   useInfiniteQuery,
 } from "../query";
 import { useProvider } from "./use-provider";
-
-import {
-  eventsQueryFn,
-  eventsQueryKey,
-  type EventsQueryKeyParams,
-} from "@starknet-start/query";
 
 /** Arguments for `useEvents`. */
 export type UseEventsProps = UseInfiniteQueryProps<

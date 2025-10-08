@@ -1,12 +1,12 @@
 import type { Address } from "@starknet-start/chains";
+import {
+  type BalanceContract,
+  balanceQueryFn,
+  balanceQueryKey,
+} from "@starknet-start/query";
 import { useMemo } from "react";
 import { type BlockNumber, BlockTag } from "starknet";
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-import {
-  balanceQueryFn,
-  balanceQueryKey,
-  type BalanceContract,
-} from "@starknet-start/query";
 
 import { useContract } from "./use-contract";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";

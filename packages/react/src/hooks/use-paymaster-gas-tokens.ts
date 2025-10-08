@@ -1,14 +1,12 @@
-import { useMemo } from "react";
-import type { TokenData } from "starknet";
-
-import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-
-import { useInvalidateOnBlock } from "./use-invalidate-on-block";
-import { useProvider } from "./use-provider";
 import {
   paymasterGasTokensQueryFn,
   paymasterGasTokensQueryKey,
 } from "@starknet-start/query";
+import { useMemo } from "react";
+import type { TokenData } from "starknet";
+import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
+import { useInvalidateOnBlock } from "./use-invalidate-on-block";
+import { useProvider } from "./use-provider";
 
 /** Options for `usePaymasterGasTokens`. */
 export type UsePaymasterGasTokensProps = UseQueryProps<
