@@ -1,9 +1,6 @@
 import type { Address } from "@starknet-start/chains";
 import { useMemo } from "react";
-import {
-  type BlockNumber,
-  BlockTag,
-} from "starknet";
+import { type BlockNumber, BlockTag } from "starknet";
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 import {
   balanceQueryFn,

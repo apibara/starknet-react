@@ -5,10 +5,7 @@ import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
 
 import { useNetwork } from "./use-network";
 import { useProvider } from "./use-provider";
-import {
-  starkNameQueryFn,
-  starkNameQueryKey,
-} from "@starknet-start/query";
+import { starkNameQueryFn, starkNameQueryKey } from "@starknet-start/query";
 
 /** Arguments for `useStarkName` hook. */
 export type StarkNameArgs = UseQueryProps<

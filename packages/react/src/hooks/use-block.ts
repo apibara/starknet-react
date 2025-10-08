@@ -1,9 +1,5 @@
 import { blockQueryFn, blockQueryKey } from "@starknet-start/query";
-import {
-  type BlockNumber,
-  BlockTag,
-  type GetBlockResponse,
-} from "starknet";
+import { type BlockNumber, BlockTag, type GetBlockResponse } from "starknet";
 
 import { useStarknet } from "../context/starknet";
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";

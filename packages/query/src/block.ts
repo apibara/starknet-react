@@ -1,4 +1,8 @@
-import { type BlockNumber, type GetBlockResponse, type ProviderInterface } from "starknet";
+import {
+  type BlockNumber,
+  type GetBlockResponse,
+  type ProviderInterface,
+} from "starknet";
 
 export type BlockQueryKeyParams = {
   blockIdentifier: BlockNumber;

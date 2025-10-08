@@ -1,5 +1,10 @@
 import type { Address } from "@starknet-start/chains";
-import { CallData, Provider, type ProviderInterface, starknetId } from "starknet";
+import {
+  CallData,
+  Provider,
+  type ProviderInterface,
+  starknetId,
+} from "starknet";
 
 export type StarkAddressQueryKeyParams = {
   name?: string;
@@ -13,8 +18,7 @@ export type StarkAddressQueryFnParams = StarkAddressQueryKeyParams & {
 
 const StarknetIdNamingContract: Record<string, string> = {
   sepolia: "0x154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
-  mainnet:
-    "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
+  mainnet: "0x6ac597f8116f886fa1c97a23fa4e08299975ecaf6b598873ca6792b9bbfb678",
 };
 
 export function starkAddressQueryKey({

@@ -1,9 +1,4 @@
-import {
-  CairoCustomEnum,
-  cairo,
-  hash,
-  shortString,
-} from "starknet";
+import { CairoCustomEnum, cairo, hash, shortString } from "starknet";
 
 export type StarkProfileQueryKeyParams = {
   address?: string;
@@ -58,8 +53,7 @@ export const STARKNET_ID_CONTRACTS: Record<string, StarknetIdContracts> = {
   sepolia: {
     identity:
       "0x0493c4f52d301373d4cc45f764d98819fcbe2f9eca0bdc2886970ea308f025a7",
-    naming:
-      "0x0154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
+    naming: "0x0154bc2e1af9260b9e66af0e9c46fc757ff893b3ff6a85718a810baf1474",
     verifier:
       "0x06b6307c6f2160e9e507c8478a2de23c9118db9daf66d05be92af8efcf7f50be",
     verifier_pop:
@@ -216,8 +210,17 @@ export function starkProfileQueryFn({
       ],
     ]);
 
-    const [, domainToId, twitter, github, discord, proofOfPersonhood, nftContract, nftTokenId, nftMetadata] =
-      data.responses;
+    const [
+      ,
+      domainToId,
+      twitter,
+      github,
+      discord,
+      proofOfPersonhood,
+      nftContract,
+      nftTokenId,
+      nftMetadata,
+    ] = data.responses;
 
     const decodedProofOfPersonhood = decodeProofOfPersonhood(proofOfPersonhood);
     const domain = decodeDomain(domainToId);

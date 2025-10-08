@@ -24,7 +24,9 @@ export function blockNumberQueryFn({
   blockIdentifier,
 }: BlockNumberQueryFnParams) {
   return async (): Promise<number | undefined> => {
-    const block = (await provider.getBlock(blockIdentifier)) as GetBlockResponse;
+    const block = (await provider.getBlock(
+      blockIdentifier,
+    )) as GetBlockResponse;
     if (block.status !== "PENDING") {
       return block.block_number;
     }
