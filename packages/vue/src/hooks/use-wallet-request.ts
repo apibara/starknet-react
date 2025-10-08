@@ -1,29 +1,36 @@
 import type { RpcMessage, RpcTypeToMessageMap } from "@starknet-io/types-js";
-import { useCallback } from "react";
 
-import type { Connector } from "../connectors/base";
 import { useStarknet } from "../context/starknet";
 import {
   type UseMutationProps,
   type UseMutationResult,
   useMutation,
 } from "../query";
+import {
+  walletRequestMutationKey,
+  walletRequestMutationFn,
+} from "@starknet-start/query";
 
-import type { RequestMessageTypes, RequestArgs, RequestResult } from "@starknet-start/query";
+export type RequestMessageTypes = RpcMessage["type"];
 
+export type RequestResult<T extends RequestMessageTypes> =
+  RpcTypeToMessageMap[T]["result"];
 
+export type RequestArgs<T extends RequestMessageTypes> = Partial<{
+  type: T;
+  params: RpcTypeToMessageMap[T]["params"];
+}>;
 
 type MutationResult<T extends RequestMessageTypes> = UseMutationResult<
   RpcTypeToMessageMap[T]["result"],
   Error,
-  RequestArgs<T>
+  RequestArgs<T>,
+  unknown
 >;
 
-/** Arguments for `useWalletRequest` hook. */
 export type UseWalletRequestProps<T extends RequestMessageTypes> =
   RequestArgs<T> & UseMutationProps<RequestResult<T>, Error, RequestArgs<T>>;
 
-/** Value returned from `useWalletRequest`. */
 export type UseWalletRequestResult<T extends RequestMessageTypes> = Omit<
   MutationResult<T>,
   "mutate" | "mutateAsync"
@@ -32,29 +39,32 @@ export type UseWalletRequestResult<T extends RequestMessageTypes> = Omit<
   requestAsync: (args?: RequestArgs<T>) => Promise<RequestResult<T>>;
 };
 
-/** Hook to perform request calls to connected wallet */
 export function useWalletRequest<T extends RequestMessageTypes>(
   props: UseWalletRequestProps<T>,
 ): UseWalletRequestResult<T> {
-  const { connector } = useStarknet();
+  const starknet = useStarknet();
 
   const { type, params, ...rest } = props;
 
-  const { mutate, mutateAsync, ...result } = useMutation({
+  const { mutate, mutateAsync, ...result } = useMutation<
+    RpcTypeToMessageMap[T]["result"],
+    Error,
+    RequestArgs<T>,
+    unknown
+  >({
     mutationKey: walletRequestMutationKey({ type, params }),
-    mutationFn: walletRequestMutationFn({ connector }),
-    ...rest,
+    mutationFn: walletRequestMutationFn({ connector: starknet.connector }),
+    ...((rest ?? {}) as UseMutationProps<
+      RequestResult<T>,
+      Error,
+      RequestArgs<T>,
+      unknown
+    >),
   });
 
-  const request = useCallback(
-    (args?: RequestArgs<T>) => mutate(args ?? { type, params }),
-    [mutate, type, params],
-  );
-
-  const requestAsync = useCallback(
-    (args?: RequestArgs<T>) => mutateAsync(args ?? { type, params }),
-    [mutateAsync, type, params],
-  );
+  const request = (args?: RequestArgs<T>) => mutate(args ?? { type, params });
+  const requestAsync = (args?: RequestArgs<T>) =>
+    mutateAsync(args ?? { type, params });
 
   return {
     request,

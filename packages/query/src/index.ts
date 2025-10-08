@@ -12,3 +12,4 @@ export * from "./stark-address";
 export * from "./stark-name";
 export * from "./stark-profile";
 export * from "./transaction-receipt";
+export * from "./wallet-request";

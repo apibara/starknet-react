@@ -5,6 +5,7 @@ packages:
   - "packages/providers"
   - "packages/query"
   # - "packages/react"
+  - "packages/vue"
   # - "packages/create-starknet"
   # - "docs"
   # - "!packages/create-starknet/src/**"
