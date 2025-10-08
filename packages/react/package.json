@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@starknet-io/types-js": "^0.7.10",
+    "@starknet-start/query": "workspace:^",
     "@starknet-start/chains": "workspace:^",
     "@starknet-start/explorers": "workspace:^",
     "@starknet-start/providers": "workspace:^",

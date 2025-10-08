@@ -36,6 +36,10 @@
     "format": "biome format . --write"
   },
   "dependencies": {
+    "@starknet-io/types-js": "^0.7.10",
+    "@starknet-start/chains": "workspace:^",
+    "starknet": "^8.1.2",
+    "viem": "^2.21.1"
   },
   "devDependencies": {
     "@starknet-start/typescript-config": "workspace:*",

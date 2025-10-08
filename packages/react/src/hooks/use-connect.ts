@@ -44,8 +44,8 @@ export function useConnect(props: UseConnectProps = {}): UseConnectResult {
   const { connector, connectors, connect: connect_, chain } = useStarknet();
 
   const { mutate, mutateAsync, variables, ...result } = useMutation({
-    mutationKey: [{ entity: "connect", chainId: chain.name }],
-    mutationFn: connect_,
+    mutationKey: connectMutationKey({ chainId: chain.name }),
+    mutationFn: connectMutationFn({ connect: connect_ }),
     ...props,
   });
 
@@ -67,5 +67,19 @@ export function useConnect(props: UseConnectProps = {}): UseConnectResult {
     connectAsync,
     variables,
     ...result,
+  };
+}
+
+export function connectMutationKey({ chainId }: { chainId: string }) {
+  return [{ entity: "connect", chainId }] as const;
+}
+
+export function connectMutationFn({
+  connect,
+}: {
+  connect: (args?: ConnectVariables) => Promise<void> | void;
+}) {
+  return async (variables?: ConnectVariables) => {
+    return await connect(variables);
   };
 }

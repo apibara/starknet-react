@@ -50,8 +50,8 @@ export function useWalletRequest<T extends RequestMessageTypes>(
   const { type, params, ...rest } = props;
 
   const { mutate, mutateAsync, ...result } = useMutation({
-    mutationKey: mutationKey({ type, params }),
-    mutationFn: mutationFn({ connector }),
+    mutationKey: walletRequestMutationKey({ type, params }),
+    mutationFn: walletRequestMutationFn({ connector }),
     ...rest,
   });
 
@@ -72,14 +72,14 @@ export function useWalletRequest<T extends RequestMessageTypes>(
   };
 }
 
-function mutationKey<T extends RequestMessageTypes>({
+export function walletRequestMutationKey<T extends RequestMessageTypes>({
   type,
   params,
 }: RequestArgs<T>) {
   return [{ entity: "walletRequest", type, params }] as const;
 }
 
-function mutationFn<T extends RequestMessageTypes>({
+export function walletRequestMutationFn<T extends RequestMessageTypes>({
   connector,
 }: {
   connector?: Connector;

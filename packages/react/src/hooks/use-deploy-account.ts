@@ -64,7 +64,7 @@ export function useDeployAccount({
 }: UseDeployAccountProps): UseDeployAccountResult {
   const { account } = useAccount();
   const { mutate, mutateAsync, ...result } = useMutation({
-    mutationKey: mutationKey({
+    mutationKey: deployAccountMutationKey({
       account,
       classHash,
       constructorCalldata,
@@ -72,7 +72,7 @@ export function useDeployAccount({
       contractAddress,
       options,
     }),
-    mutationFn: mutationFn({
+    mutationFn: deployAccountMutationFn({
       account,
       classHash,
       constructorCalldata,
@@ -90,13 +90,13 @@ export function useDeployAccount({
   };
 }
 
-function mutationKey(
+export function deployAccountMutationKey(
   props: { account?: AccountInterface } & Partial<DeployAccountVariables>,
 ) {
   return [{ entity: "deployAccount", ...props }] as const;
 }
 
-function mutationFn({
+export function deployAccountMutationFn({
   account,
   classHash,
   constructorCalldata,
