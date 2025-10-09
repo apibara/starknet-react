@@ -1,7 +1,7 @@
 import type { Chain } from "@starknet-start/chains";
 import { type BlockNumber, type CallOptions, num, shortString } from "starknet";
 import { formatUnits } from "viem";
-import { StarknetTypedContract } from "./contract";
+import type { StarknetTypedContract } from "./contract";
 
 type TAbi = typeof balanceABIFragment;
 type Contract = StarknetTypedContract<TAbi>;

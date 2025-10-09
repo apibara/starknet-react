@@ -1,5 +1,8 @@
+import {
+  StarknetWalletApi,
+  type WalletWithStarknetFeatures,
+} from "@starknet-io/get-starknet-wallet-standard/features";
 import type { RpcMessage, RpcTypeToMessageMap } from "@starknet-io/types-js";
-import { StarknetWalletApi, type WalletWithStarknetFeatures } from "@starknet-io/get-starknet-wallet-standard/features";
 
 /** Message types for connector request call. */
 export type RequestMessageTypes = RpcMessage["type"];
@@ -26,9 +29,15 @@ export function walletRequestMutationFn<T extends RequestMessageTypes>({
 }: {
   connector?: WalletWithStarknetFeatures;
 }): (args: RequestArgs<T>) => Promise<RequestResult<T>> {
-  return async ({ type, params }: RequestArgs<T>): Promise<RequestResult<T>> => {
+  return async ({
+    type,
+    params,
+  }: RequestArgs<T>): Promise<RequestResult<T>> => {
     if (!connector) throw new Error("No connector connected");
     if (!type) throw new Error("Type is required");
-    return await connector.features[StarknetWalletApi].request({ type, params });
+    return await connector.features[StarknetWalletApi].request({
+      type,
+      params,
+    });
   };
 }

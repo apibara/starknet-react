@@ -1,6 +1,6 @@
 import type { Address } from "@starknet-start/chains";
-import { reactive, shallowRef, watch } from "vue";
 import type { AccountInterface } from "starknet";
+import { reactive, shallowRef, watch } from "vue";
 
 import type { Connector } from "../connectors";
 import { useStarknet } from "../context/starknet";

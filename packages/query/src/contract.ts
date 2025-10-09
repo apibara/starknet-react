@@ -8,12 +8,7 @@ import type {
   ExtractArgs,
   FunctionRet,
 } from "abi-wan-kanabi/kanabi";
-import {
-  type Call,
-  type CallOptions,
-  Contract,
-  type ProviderInterface,
-} from "starknet";
+import type { Call, CallOptions, Contract, ProviderInterface } from "starknet";
 
 // did this because "Omit" wont work directly over an abstract class
 type Contract_ = {

@@ -4,29 +4,25 @@ import {
   mainnet,
   sepolia,
 } from "@starknet-start/chains";
+import type { ExplorerFactory } from "@starknet-start/explorers";
+import type { ChainProviderFactory } from "@starknet-start/providers";
+import {
+  avnuPaymasterProvider,
+  type ChainPaymasterFactory,
+} from "@starknet-start/providers/paymaster";
 import {
   QueryClient,
   VueQueryPlugin,
   type VueQueryPluginOptions,
 } from "@tanstack/vue-query";
-import type { App, InjectionKey } from "vue";
-import { inject, ref, shallowRef } from "vue";
 import {
-  type AccountInterface,
   constants,
   type PaymasterRpc,
   type ProviderInterface,
 } from "starknet";
-
-import type { Connector } from "../connectors";
-import type { ConnectorData } from "../connectors/base";
-import { ConnectorNotFoundError } from "../errors";
-import type { ExplorerFactory } from "@starknet-start/chains/explorers";
-import {
-  avnuPaymasterProvider,
-  type ChainPaymasterFactory,
-} from "@starknet-start/chains/providers/paymaster";
-import type { ChainProviderFactory } from "@starknet-start/chains/providers";
+import type { App, InjectionKey } from "vue";
+import { inject, ref, shallowRef } from "vue";
+import type { WalletWithStarknetFeatures } from "@starknet-io/get-starknet-wallet-standard/features";
 
 const StarknetContextKey: InjectionKey<StarknetState> =
   Symbol("StarknetContext");
@@ -34,10 +30,10 @@ const StarknetContextKey: InjectionKey<StarknetState> =
 const defaultQueryClient = new QueryClient();
 
 export interface StarknetState {
-  connector?: Connector;
-  connect: ({ connector }: { connector?: Connector }) => Promise<void>;
+  connector?: WalletWithStarknetFeatures;
+  connect: ({ connector }: { connector?: WalletWithStarknetFeatures }) => Promise<void>;
   disconnect: () => Promise<void>;
-  connectors: Connector[];
+  connectors: WalletWithStarknetFeatures[];
   explorer?: ExplorerFactory;
   chains: Chain[];
   chain: Chain;
@@ -51,7 +47,7 @@ export interface StarknetManagerOptions {
   chains: Chain[];
   provider: ChainProviderFactory;
   paymasterProvider?: ChainPaymasterFactory;
-  connectors?: Connector[];
+  connectors?: WalletWithStarknetFeatures[];
   explorer?: ExplorerFactory;
   autoConnect?: boolean;
   defaultChainId?: bigint;
@@ -122,7 +118,7 @@ function createStarknetManager({
   const { paymasterProvider: defaultPaymasterProvider } =
     paymasterProviderForChain(defaultChain, paymasterFactory);
 
-  const connectorRef = shallowRef<Connector | undefined>();
+  const connectorRef = shallowRef<WalletWithStarknetFeatures | undefined>();
   const currentChain = ref(defaultChain);
   const currentProvider = shallowRef<ProviderInterface>(defaultProvider);
   const currentPaymasterProvider = shallowRef<PaymasterRpc | undefined>(
@@ -146,10 +142,10 @@ function createStarknetManager({
     currentPaymasterProvider.value = newPaymasterProvider;
   };
 
-  const handleConnectorChange = async ({
+  const handleWalletWithStarknetFeaturesChange = async ({
     chainId,
     account: address,
-  }: ConnectorData) => {
+  }: WalletWithStarknetFeaturesData) => {
     if (chainId) {
       updateChainAndProvider({ chainId });
     }
@@ -165,11 +161,11 @@ function createStarknetManager({
     currentChain.value = defaultChain;
 
     if (autoConnect) {
-      getStorage()?.removeItem("lastUsedConnector");
+      getStorage()?.removeItem("lastUsedWalletWithStarknetFeatures");
     }
 
     if (!connectorRef.value) return;
-    connectorRef.value.off("change", handleConnectorChange);
+    connectorRef.value.off("change", handleWalletWithStarknetFeaturesChange);
     connectorRef.value.off("disconnect", disconnect);
 
     try {
@@ -179,14 +175,14 @@ function createStarknetManager({
     connectorRef.value = undefined;
   };
 
-  const connect = async ({ connector }: { connector?: Connector }) => {
+  const connect = async ({ connector }: { connector?: WalletWithStarknetFeatures }) => {
     if (!connector) {
       throw new Error("Must provide a connector.");
     }
 
     const needsListenerSetup = connectorRef.value?.id !== connector.id;
     if (needsListenerSetup) {
-      connectorRef.value?.off("change", handleConnectorChange);
+      connectorRef.value?.off("change", handleWalletWithStarknetFeaturesChange);
       connectorRef.value?.off("disconnect", disconnect);
     }
 
@@ -201,34 +197,34 @@ function createStarknetManager({
       }
 
       if (autoConnect) {
-        getStorage()?.setItem("lastUsedConnector", connector.id);
+        getStorage()?.setItem("lastUsedWalletWithStarknetFeatures", connector.id);
       }
 
       if (needsListenerSetup) {
-        connector.on("change", handleConnectorChange);
+        connector.on("change", handleWalletWithStarknetFeaturesChange);
         connector.on("disconnect", disconnect);
       }
 
       updateChainAndProvider({ chainId });
     } catch (err) {
-      error.value = new ConnectorNotFoundError();
+      error.value = new WalletWithStarknetFeaturesNotFoundError();
       throw err;
     }
   };
 
   if (autoConnect && !connectorRef.value) {
     const storage = getStorage();
-    const lastConnectedConnectorId = storage?.getItem("lastUsedConnector");
-    if (lastConnectedConnectorId) {
-      const lastConnectedConnector = connectors.find(
-        (connector) => connector.id === lastConnectedConnectorId,
+    const lastConnectedWalletWithStarknetFeaturesId = storage?.getItem("lastUsedWalletWithStarknetFeatures");
+    if (lastConnectedWalletWithStarknetFeaturesId) {
+      const lastConnectedWalletWithStarknetFeatures = connectors.find(
+        (connector) => connector.id === lastConnectedWalletWithStarknetFeaturesId,
       );
-      if (lastConnectedConnector) {
-        lastConnectedConnector
+      if (lastConnectedWalletWithStarknetFeatures) {
+        lastConnectedWalletWithStarknetFeatures
           .ready()
           .then((ready) => {
             if (!ready) return;
-            connect({ connector: lastConnectedConnector }).catch(() => {
+            connect({ connector: lastConnectedWalletWithStarknetFeatures }).catch(() => {
               /* ignore */
             });
           })

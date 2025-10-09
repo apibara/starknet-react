@@ -118,6 +118,9 @@ importers:
       '@starknet-io/get-starknet-core':
         specifier: ^4.0.6
         version: 4.0.6
+      '@starknet-io/get-starknet-wallet-standard':
+        specifier: 5.0.0-beta.0
+        version: 5.0.0-beta.0(typescript@5.9.3)(zod@3.25.76)
       '@starknet-io/types-js':
         specifier: ^0.7.10
         version: 0.7.10
