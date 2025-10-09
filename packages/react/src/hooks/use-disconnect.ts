@@ -30,8 +30,8 @@ export function useDisconnect(
   const { disconnect, chain } = useStarknet();
 
   const { mutate, mutateAsync, ...result } = useMutation({
-    mutationKey: [{ entity: "disconnect", chainId: chain.name }],
-    mutationFn: disconnect,
+    mutationKey: disconnectMutationKey({ chainId: chain.name }),
+    mutationFn: disconnectMutationFn({ disconnect }),
     ...props,
   });
 
@@ -39,5 +39,19 @@ export function useDisconnect(
     disconnect: mutate,
     disconnectAsync: mutateAsync,
     ...result,
+  };
+}
+
+export function disconnectMutationKey({ chainId }: { chainId: string }) {
+  return [{ entity: "disconnect", chainId }] as const;
+}
+
+export function disconnectMutationFn({
+  disconnect,
+}: {
+  disconnect: () => Promise<void> | void;
+}) {
+  return async () => {
+    return await disconnect();
   };
 }

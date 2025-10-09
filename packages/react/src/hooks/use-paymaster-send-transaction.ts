@@ -39,8 +39,12 @@ export function usePaymasterSendTransaction(
     Error,
     Call[]
   >({
-    mutationKey: mutationKey(calls || []),
-    mutationFn: mutationFn({ account, options, maxFeeInGasToken }),
+    mutationKey: paymasterSendTransactionMutationKey(calls || []),
+    mutationFn: paymasterSendTransactionMutationFn({
+      account,
+      options,
+      maxFeeInGasToken,
+    }),
     ...rest,
   });
 
@@ -65,11 +69,11 @@ export function usePaymasterSendTransaction(
   };
 }
 
-function mutationKey(args: Call[]) {
+export function paymasterSendTransactionMutationKey(args: Call[]) {
   return [{ entity: "paymaster_sendTransaction", calls: args }] as const;
 }
 
-function mutationFn({
+export function paymasterSendTransactionMutationFn({
   account,
   options,
   maxFeeInGasToken,

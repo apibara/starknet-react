@@ -9,18 +9,9 @@ import {
   useMutation,
 } from "../query";
 
-/** Message types for connector request call. */
-export type RequestMessageTypes = RpcMessage["type"];
+import type { RequestMessageTypes, RequestArgs, RequestResult } from "@starknet-start/query";
 
-/** Result type of request call. */
-export type RequestResult<T extends RequestMessageTypes> =
-  RpcTypeToMessageMap[T]["result"];
 
-/** Args type of request call. */
-export type RequestArgs<T extends RequestMessageTypes> = Partial<{
-  type: T;
-  params: RpcTypeToMessageMap[T]["params"];
-}>;
 
 type MutationResult<T extends RequestMessageTypes> = UseMutationResult<
   RpcTypeToMessageMap[T]["result"],
@@ -50,8 +41,8 @@ export function useWalletRequest<T extends RequestMessageTypes>(
   const { type, params, ...rest } = props;
 
   const { mutate, mutateAsync, ...result } = useMutation({
-    mutationKey: mutationKey({ type, params }),
-    mutationFn: mutationFn({ connector }),
+    mutationKey: walletRequestMutationKey({ type, params }),
+    mutationFn: walletRequestMutationFn({ connector }),
     ...rest,
   });
 
@@ -69,24 +60,5 @@ export function useWalletRequest<T extends RequestMessageTypes>(
     request,
     requestAsync,
     ...result,
-  };
-}
-
-function mutationKey<T extends RequestMessageTypes>({
-  type,
-  params,
-}: RequestArgs<T>) {
-  return [{ entity: "walletRequest", type, params }] as const;
-}
-
-function mutationFn<T extends RequestMessageTypes>({
-  connector,
-}: {
-  connector?: Connector;
-}) {
-  return async ({ type, params }: RequestArgs<T>) => {
-    if (!connector) throw new Error("No connector connected");
-    if (!type) throw new Error("Type is required");
-    return await connector.request({ type, params });
   };
 }

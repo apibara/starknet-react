@@ -35,7 +35,16 @@
     "format:check": "biome format .",
     "format": "biome format . --write"
   },
+  "peerDependencies": {
+    "starknet": "^8.1.2"
+  },
   "dependencies": {
+    "@starknet-io/get-starknet-core": "^4.0.6",
+    "@starknet-io/get-starknet-wallet-standard": "5.0.0-beta.0",
+    "@starknet-io/types-js": "^0.7.10",
+    "@starknet-start/chains": "workspace:^",
+    "abi-wan-kanabi": "^2.2.4",
+    "viem": "^2.21.1"
   },
   "devDependencies": {
     "@starknet-start/typescript-config": "workspace:*",

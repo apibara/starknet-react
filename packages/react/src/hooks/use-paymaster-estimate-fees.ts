@@ -1,22 +1,13 @@
+import {
+  type PaymasterEstimateFeesArgs,
+  paymasterEstimateFeesQueryFn,
+  paymasterEstimateFeesQueryKey,
+} from "@starknet-start/query";
 import { useMemo } from "react";
-import type {
-  AccountInterface,
-  Call,
-  PaymasterDetails,
-  PaymasterFeeEstimate,
-} from "starknet";
-
+import type { PaymasterFeeEstimate } from "starknet";
 import { type UseQueryProps, type UseQueryResult, useQuery } from "../query";
-
 import { useAccount } from "./use-account";
 import { useInvalidateOnBlock } from "./use-invalidate-on-block";
-
-export type PaymasterEstimateFeesArgs = {
-  /** List of smart contract calls to estimate. */
-  calls?: Call[];
-  /** Estimate Fee options. */
-  options: PaymasterDetails;
-};
 
 /** Options for `useEstimateFees`. */
 export type UsePaymasterEstimateFeesProps = PaymasterEstimateFeesArgs &
@@ -24,7 +15,7 @@ export type UsePaymasterEstimateFeesProps = PaymasterEstimateFeesArgs &
     PaymasterFeeEstimate,
     Error,
     PaymasterFeeEstimate,
-    ReturnType<typeof queryKey>
+    ReturnType<typeof paymasterEstimateFeesQueryKey>
   > & {
     /** Refresh data at every block. */
     watch?: boolean;
@@ -53,7 +44,7 @@ export function usePaymasterEstimateFees({
   const { account } = useAccount();
 
   const queryKey_ = useMemo(
-    () => queryKey({ calls, options }),
+    () => paymasterEstimateFeesQueryKey({ calls, options }),
     [calls, options],
   );
 
@@ -66,7 +57,7 @@ export function usePaymasterEstimateFees({
 
   return useQuery({
     queryKey: queryKey_,
-    queryFn: queryFn({
+    queryFn: paymasterEstimateFeesQueryFn({
       account,
       calls,
       options,
@@ -74,26 +65,4 @@ export function usePaymasterEstimateFees({
     enabled,
     ...props,
   });
-}
-
-function queryKey({ calls, options }: PaymasterEstimateFeesArgs) {
-  return [
-    {
-      entity: "estimatePaymasterTransactionFee",
-      calls,
-      options,
-    },
-  ] as const;
-}
-
-function queryFn({
-  account,
-  calls,
-  options,
-}: { account?: AccountInterface } & PaymasterEstimateFeesArgs) {
-  return async () => {
-    if (!account) throw new Error("account is required");
-    if (!calls || calls.length === 0) throw new Error("calls are required");
-    return await account.estimatePaymasterTransactionFee(calls, options);
-  };
 }
